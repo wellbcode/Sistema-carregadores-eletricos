@@ -1,6 +1,10 @@
 /* ===========================
    LAYOUT
 =========================== */
+* {
+  box-sizing: border-box;
+}
+
 :root{
     --primary-blue:#4F8EF7;
     --primary: #ff6b00;
