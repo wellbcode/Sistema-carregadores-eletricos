@@ -5,6 +5,17 @@
   box-sizing: border-box;
 }
 
+img, input, button, div, section {
+  max-width: 100%;
+}
+
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  /* overscroll-behavior-y: none; */
+}
+
 :root{
     --primary-blue:#4F8EF7;
     --primary: #ff6b00;
@@ -1261,12 +1272,14 @@ RESPONSIVO
     .main{
         width:100%;
         margin-left:0;
+        padding: 15px;
     }
-     input,
+    input,
     select,
     textarea,
     button {
         font-size: 16px;
+        padding: 16px;
     }
      .top {
         position: static;
@@ -1278,6 +1291,8 @@ RESPONSIVO
 
     .dashboard{
         grid-template-columns:1fr;
+        width: 100%;
+        margin: 0;
     }
 
     .search-box{
@@ -1290,14 +1305,19 @@ RESPONSIVO
     }
 
     .kpis{
-        margin:20px;
+        width: 100%;
+        margin: 0;
     }
 
     .stations{
-        margin:20px;
-        padding:20px;
+        width: 100%;
+        margin: 0;;
     }
-
+     .card,
+    .kpi-card,
+    .stations {
+        width: 100%;
+    }
 }
 
 @media (max-width:992px){
