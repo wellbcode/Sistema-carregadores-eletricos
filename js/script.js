@@ -288,16 +288,16 @@ console.table(novaRecarga);
   const selectEstacao = document.getElementById("estacao");
   [...selectEstacao.options].forEach(opcao => {
     if (opcao.text.includes(estacaoSelecionada)) {
-      opcao.disabled = true;
-      opcao.text = `${estacaoSelecionada} ⚡`;
+        opcao.disabled = true;
+        opcao.text = `${estacaoSelecionada} ⚡`;
     }
   });
 
   const selectPrisma = document.getElementById("prisma");
   [...selectPrisma.options].forEach(opcao => {
     if (opcao.text.includes(prismaSelecionado)) {
-      opcao.disabled = true;
-      opcao.text = `${prismaSelecionado} ⚡`;
+        opcao.disabled = true;
+        opcao.text = `${prismaSelecionado} ⚡`;
     }
   });
 

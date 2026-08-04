@@ -1,24 +1,21 @@
 // ================ PRISMA =====================
-const prisma = document.getElementById("prisma");
-if (prisma) {
-    prisma.innerHTML = `
-        <option value="">Selecione</option>
-    `;
+// const prisma = document.getElementById("prisma");
 
-    for (let i = 0; i <= 31; i++) {
-        prisma.innerHTML += `
-            <option value="${i}">
-                Prisma ${i}
-            </option>
-        `;
-    }
+// if (prisma) {
+//     prisma.innerHTML = '<option value="">Selecione</option>';
 
-    prisma.innerHTML += `
-        <option value="rapida">
-            ⚡ Carga Rápida
-        </option>
-    `;
-}
+//     for (let i = 0; i <= 31; i++) {
+//         prisma.insertAdjacentHTML(
+//             "beforeend",
+//             `<option value="${i}">Prisma ${i}</option>`
+//         );
+//     }
+
+//     prisma.insertAdjacentHTML(
+//         "beforeend",
+//         `<option value="rapida">⚡ Carga Rápida</option>`
+//     );
+// }
 
 // ============== BUSCA DE PLACA ======================
 const inputPlaca = document.getElementById("placa");
