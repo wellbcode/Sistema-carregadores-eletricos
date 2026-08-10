@@ -27,7 +27,7 @@ html, body {
     --github: #b918ce;
     --dark: #0f172a;
     --fundo-sidebar: #0f172a;
-    --bar: #685a5a2a;
+    --bar: #3833332a;
     --background-section: #f9fbfcef;
     /* --shadow: 0 12px 30px rgba(10, 15, 20, 0.18); */
     --shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
@@ -160,7 +160,6 @@ body::before{
     flex:1;
 }
 
-
 .menu i{
     filter:
     drop-shadow(0 0 5px var(--cor-js))
@@ -261,6 +260,7 @@ body::before{
 .btn-logout:hover{
     background:var(--primary);
 }
+
 /* ================= Fim ============================ */
 
 /* ======= Cabeçalho da Topbar =================== */
@@ -476,15 +476,18 @@ body::before{
     padding:0;
 }
 
+
 .veiculo-nome,
 .veiculo-detalhes,
-.veiculo-carro{
+.veiculo-carro,
+.veiculo-mensagem{
     margin-bottom:6px;
 }
 
 .veiculo-nome,
 .veiculo-detalhes,
-.veiculo-carro{
+.veiculo-carro,
+.veiculo-mensagem{
     display:flex;
     align-items:center;
     gap:10px;
@@ -492,21 +495,31 @@ body::before{
     word-break:break-word;
 }
 
-.veiculo-nome{
+.veiculo-nome,
+.veiculo-detalhes,
+.veiculo-carro,
+.veiculo-mensagem{
     font-size:1.4rem;
     font-weight:700;
+}
+
+.veiculo-nome{
     color:#2d3436;
 }
 
 .veiculo-detalhes{
-    font-size:1.4rem;
     color:#6c757d;
 }
 
 .veiculo-carro{
-    font-size:1.4rem;
-    font-weight:600;
     color:#003B5C;
+}
+
+.veiculo-carro{
+    color:#003B5C;
+
+}.veiculo-mensagem{
+    color:#d87d45;
 }
 
 .veiculo-foto{
@@ -524,7 +537,6 @@ body::before{
     border-radius:50%;
     object-fit:cover;
     object-position: center 30%;
-
     border:2px solid#EC7000;
     box-shadow:0 4px 12px rgba(0,0,0,.15);
 }  
@@ -718,6 +730,7 @@ body::before{
     align-items:flex-end;
     margin-top:24px;
 } */
+
 .sessao-footer{
     grid-column: 1 / -1;
     display:flex;
@@ -769,7 +782,7 @@ body::before{
     box-shadow:0 22px 40px rgba(0,0,0,.10);
 }
 
-/* barra lateral 
+/* barra lateral
 .kpi-card::before{
     content:"";
     position:absolute;
@@ -779,8 +792,8 @@ body::before{
     height:100%;
 }
 */
- 
-/* cores 
+
+/* cores
 .total::before{
     background:var(--primary);
 }
@@ -793,11 +806,14 @@ body::before{
     background:#4aa316;
 }
 */
+.hoje{
+    border-left: 5px solid #0077B6;
+}
 
 .total{
     border-left: 5px solid var(--primary);
 }
-
+ 
 .azul{
     border-left: 5px solid #2563eb;
 }
@@ -821,6 +837,10 @@ body::before{
     width:10px;
     height:10px;
     border-radius:50%;  
+}
+
+.hoje .kpi-decoration span{
+    background:#98c6df;
 }
 
 .total .kpi-decoration span{
@@ -848,14 +868,16 @@ body::before{
     margin-bottom:28px;
 }
 
-
 /* cores dos círculos */
+.hoje .kpi-icon{
+    background:#edf4ff;
+    color:#0077B6;
+}
+
 .total .kpi-icon{
     background:#fff3e8;
     color:var(--primary);
 }
-
- 
 
 .azul .kpi-icon{
     background:#edf4ff;
@@ -879,6 +901,11 @@ body::before{
     margin-bottom:10px;
     font-weight:700;
 }
+
+.hoje h2{
+    color:#0077B6;
+}
+
 
 .total h2{
     color:var(--primary);
@@ -922,7 +949,6 @@ body::before{
     );
 }
 
-
 /* Livres */
 .azul .kpi-footer{
     background:linear-gradient(
@@ -941,6 +967,11 @@ body::before{
     );
 }
 
+.hoje .kpi-footer i{
+    color:#0077B6;
+}
+
+
 .total .kpi-footer i{
     color:var(--primary);
 }
@@ -958,6 +989,7 @@ body::before{
     color:#64748b;
     font-weight:500;
 }
+
 /*================= Fim =========================*/
 
 /*============ Estações de carregamento ===============*/
@@ -979,7 +1011,6 @@ body::before{
 
 .carregamento{
     padding-left: 10px;
-
 }
 
 .stations-header h2{
@@ -1010,45 +1041,6 @@ body::before{
     font-size: 50px;
     text-shadow:0 0 10px rgba(255,255,255,.35);
 }
-
-/* Inativo por enquanto pois não está sendo usado,
- mas pode ser útil futuramente
-.btn-new{
-
-    border:none;
-
-    background: var(--texto);
-
-    color:#fff;
-
-    padding:14px 22px;
-
-    border-radius:50px;
-
-    cursor:pointer;
-
-    display:flex;
-
-    align-items:center;
-
-    gap:10px;
-
-    font-size:15px;
-
-    font-weight:600;
-
-    transition:.25s;
-
-}
-
-.btn-new:hover{
-
-    background:var(--primary);
-
-    transform:translateY(-2px);
-
-} */
-
 
 /* Barra de ações*/
 .stations-toolbar{
@@ -1111,7 +1103,6 @@ body::before{
 }
 
 /* Quando ativos */
-
 /* Ativo todos (laranja) */
 .btn-outline-danger.active {
   background-color: var(--primary) !important;
@@ -1125,7 +1116,6 @@ body::before{
   border-color: #0d6efd !important;
   color: #fff !important;
 }
-
 
 /* Ativo Em uso (Verde)*/
 .btn-outline-success.active {
@@ -1184,7 +1174,7 @@ body::before{
 }
 
 .station-card:hover{
-    transform:translateY(-6px);
+    /* transform:translateY(-6px); desabilitado por conta do modal*/
     box-shadow:0 18px 35px rgba(0,0,0,.08);
 }
 
@@ -1274,6 +1264,7 @@ body::before{
     margin-bottom:24px;
 }
 
+
 .station-card li{
     display:flex;
     align-items:center;
@@ -1304,6 +1295,24 @@ body::before{
     font-weight:800;
     cursor:pointer;
     transition:.25s;
+}
+
+/* Animação do modal do botão detalhes */
+.modal-detalhes {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+.modal-conteudo {
+    width: 90%;
+    max-width: 350px;
+    margin: 60px auto;
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
 }
 
 /* ===================== Seção Rodapé - Footer ===================== */
@@ -1354,18 +1363,31 @@ body::before{
     background:#ff7f22;
 }
 
-/*=========================
-RESPONSIVO
-=========================*/
-/* ===========================
-   MENU MOBILE
-=========================== */
+/*============================= Responsivo  ==========================*/
+@media (max-width: 1200px){
+    .station-grid{
+        grid-template-columns: repeat(2, minmax(320px, 1fr));
+    }
+}
+
+@media (max-width:992px){
+    .menu-btn{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+}
+
+@media (max-width: 768px){
+    .station-grid{
+        grid-template-columns: 1fr;
+    }
+}
 
 @media (max-width:768px){
     .app{
         display:block;
     }
-
     .sidebar{
         background:var(--fundo-sidebar);
         position:fixed;
@@ -1376,11 +1398,9 @@ RESPONSIVO
         z-index:1000;
         transition:left .3s ease;
     }
-
     .sidebar.active{
         left:0;
     }
-
     .main{
         width:100%;
         margin-left:0;
@@ -1400,55 +1420,29 @@ RESPONSIVO
 }
 
 @media (max-width:768px){
-
     .dashboard{
         grid-template-columns:1fr;
         width: 100%;
         margin: 0;
     }
-
     .search-box{
         flex-direction:column;
         align-items:center;
     }
-
     .search-box button{
         width:100%;
     }
-
     .kpis{
         width: 100%;
         margin: 0;
     }
-
     .stations{
         width: 100%;
         margin: 0;;
     }
-     .card,
+    .card,
     .kpi-card,
     .stations {
         width: 100%;
-    }
-}
-
-@media (max-width:992px){
-    .menu-btn{
-        display:flex;
-        justify-content:center;
-        align-items:center;
-    }
-
-}
-
-@media (max-width: 1200px){
-    .station-grid{
-        grid-template-columns: repeat(2, minmax(320px, 1fr));
-    }
-}
-
-@media (max-width: 768px){
-    .station-grid{
-        grid-template-columns: 1fr;
     }
 }

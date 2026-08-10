@@ -1,107 +1,332 @@
-// ================ PRISMA =====================
-// const prisma = document.getElementById("prisma");
+//Botões de filltrosCarregadores
+const carregadores = [
+    {
+        id: 1,
+        nome: "Estação 01",
+        status: "livre",
+        potencia: "22 kW"
+    },
 
-// if (prisma) {
-//     prisma.innerHTML = '<option value="">Selecione</option>';
+    {
+        id: 2,
+        nome: "Estação 02",
+        status: "em uso",
+        potencia: "50 kW"
+    },
 
-//     for (let i = 0; i <= 31; i++) {
-//         prisma.insertAdjacentHTML(
-//             "beforeend",
-//             `<option value="${i}">Prisma ${i}</option>`
-//         );
-//     }
+    {
+        id: 3,
+        nome: "Estação 03",
+        status: "livre",
+        potencia: "150 kW"
+    }
+];
 
-//     prisma.insertAdjacentHTML(
-//         "beforeend",
-//         `<option value="rapida">⚡ Carga Rápida</option>`
-//     );
-// }
+//carregadores
+function filtrarCarregadores(filtro, botaoClicado) {
+    // Atualiza os botões
+    document.querySelectorAll(".filtro-btn").forEach(btn =>
+        btn.classList.remove("active")
+    );
 
-// ============== BUSCA DE PLACA ======================
-const inputPlaca = document.getElementById("placa");
-if (inputPlaca) {
-    const inputPlaca = document.getElementById("placa");
+    botaoClicado.classList.add("active");
 
-    const btnConsultar = document.getElementById("btnConsultar");
+    // Filtra os cards
+    document.querySelectorAll(".station-card").forEach(card => {
+        const status = card.dataset.status;
 
-    inputPlaca.addEventListener("keypress", function(e){
-        if(e.key === "Enter"){
-            buscarVeiculo();
+        if (filtro === "todos" || status === filtro) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
         }
     });
 
-    btnConsultar.addEventListener("click", buscarVeiculo);
+    atualizarContadores();
 }
 
-function buscarVeiculo() {
-    const placa = inputPlaca.value.trim().toUpperCase();
+//Renderização
+function renderizarCarregadores(filtro) {
+    const carregadoresFiltrados = carregadores.filter(c => {
+        if (filtro === "livres")
+            return c.status === "livre";
+        if (filtro === "em uso")
+            return c.status === "em uso";
+        return true; // todos
+    });
 
-    if (placa === "") {
-        limparCard();
-        return;
+    //============ Renderizando os cards... ==============
+    atualizarContadores();
+}
+
+//Contadores
+function atualizarContadores() {
+    const cards = document.querySelectorAll(".station-card");
+
+    const total = 24; // Total fixo de carregadores
+
+    let emUso = 0;
+
+    cards.forEach(card => {
+        if (card.dataset.status === "em uso") {
+            emUso++;
+        }
+    });
+
+    const livres = total - emUso;
+
+    //============= Contadores do do botões Livres, Em uso e Total ================
+    document.getElementById("contadorLivres").textContent =
+        `Livres: ${livres}`;
+
+    document.getElementById("contadorEmuso").textContent =
+        `Em uso: ${emUso}`;
+
+    document.getElementById("contadorTodos").textContent =
+        `Todas: ${total}`;
+
+    //==================== KPI's ==========================
+    document.getElementById("kpiLivres").textContent = livres;
+    document.getElementById("kpiEmUso").textContent = emUso;
+}
+
+function atualizarDataHoje() {
+    const hoje = new Date();
+
+    // Dia do mês
+    document.getElementById("kpiHoje").textContent =
+        String(hoje.getDate()).padStart(2, "0");
+
+    // Dia da semana
+    const dias = [
+        "Domingo",
+        "Segunda-feira",
+        "Terça-feira",
+        "Quarta-feira",
+        "Quinta-feira",
+        "Sexta-feira",
+        "Sábado"
+    ];
+
+    document.getElementById("kpiDiaSemana").textContent =
+        dias[hoje.getDay()];
+}
+
+// Atualiza agora
+atualizarDataHoje();
+
+// Atualiza automaticamente a cada minuto
+setInterval(atualizarDataHoje, 60000);
+
+
+// =========  Atualizando os KPI's =====================
+function atualizarKPIs() {
+    // ================ Data de hoje ====================
+    const hoje = new Date();
+    document.getElementById("kpiHoje").textContent = hoje.getDate();
+
+    //============== Contagem das estações ==============
+    const cards = document.querySelectorAll(".station-card");
+    let livres = 0;
+    let emUso = 0;
+
+    cards.forEach(card => {
+        const status = card.querySelector(".status").textContent.trim().toLowerCase();
+        if (status === "livre") livres++;
+        if (status === "em uso") emUso++;
+    });
+
+    document.getElementById("kpiEmUso").textContent = emUso;
+    document.getElementById("kpiLivres").textContent = livres;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const btnTodos = document.querySelector(".filtro-btn");
+    filtrarCarregadores("todos", btnTodos);
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    console.log(menuBtn);
+    console.log(sidebar);
+    console.log(overlay);
+
+    if(menuBtn){
+        menuBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("active");
+            overlay.classList.toggle("active");
+        });
     }
 
-    const encontrado = base.find(
-        item => item[0].toUpperCase() === placa
+    if(overlay){
+        overlay.addEventListener("click", () => {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+        });
+    }
+});
+
+//============= dia da semana ================
+window.addEventListener("DOMContentLoaded", () => {
+    const dataEntrada = document.getElementById("dataEntrada");
+    const diaSemana = document.getElementById("diaSemana");
+
+    dataEntrada.addEventListener("change", () => {
+        const valor = dataEntrada.value;
+        if (!valor) return;
+        const [ano, mes, dia] = valor.split("-");
+        const data = new Date(ano, mes - 1, dia);
+
+        const dias = [
+            "Domingo",
+            "Segunda-feira",
+            "Terça-feira",
+            "Quarta-feira",
+            "Quinta-feira",
+            "Sexta-feira",
+            "Sábado"
+        ];
+
+        diaSemana.value = dias[data.getDay()];
+    });
+});
+
+// ================ Botão registar =========================
+function registrarRecarga() {
+  const estacaoSelecionada = document.getElementById("estacao").value;
+  const prismaSelecionado = document.getElementById("prisma").value;
+  const placa = document.getElementById("placa").value;
+
+  const proprietario =
+    document.getElementById("nomeVeiculo").textContent.trim();
+
+  const registroExistente = recargas.find(
+    r =>
+        r.placa.toUpperCase() === placa.toUpperCase() &&
+        r.status !== "Concluído"
     );
 
-    if (!encontrado) {
-        document.getElementById("nomeVeiculo").innerHTML = `
-            <i class="fa-solid fa-user"></i>
-            Veículo não encontrado
-        `;
-
-        document.getElementById("cargoVeiculo").innerHTML = `
-            <i class="fa-solid fa-id-badge"></i>
-        `;
-
-        document.getElementById("carroVeiculo").innerHTML = `
-            <i class="fa-solid fa-car"></i>
-        `;
-
-        document.getElementById("fotoVeiculo").src =
-            "img/sem-foto.jpg";
-        return;
+if (registroExistente) {
+    if (registroExistente.status === "Aberto") {
+        atualizarEtapa2(registroExistente);
+    } else if (registroExistente.status === "Carregando") {
+        atualizarEtapa3(registroExistente);
     }
 
-    const partes = encontrado[1].split(" - Func: ");
-    const nome = partes[0];
-    const funcional = partes[1] || "";
-    const cargo = encontrado[2]
-
-    .replace(" - Itaú Unibanco", "");
-
-    document.getElementById("nomeVeiculo").innerHTML = `
-        <i class="fa-solid fa-user"></i>
-        ${nome}
-    `;
-
-    document.getElementById("cargoVeiculo").innerHTML = `
-        <i class="fa-solid fa-id-badge"></i>
-        ${cargo} • Funcional ${funcional}
-    `;
-
-    document.getElementById("carroVeiculo").innerHTML = `
-        <i class="fa-solid fa-car"></i>
-        ${encontrado[3]}
-    `;
-
-    document.getElementById("fotoVeiculo").src = 
-
-    encontrado[4];
+    console.table(registroExistente);
 }
 
-// ===============LIMPA CARD======================
-function limparCard() {
-    document.getElementById("nomeVeiculo").innerHTML = `
-        <i class="fa-solid fa-user"></i>
-    `;
+  const novaRecarga = criarRecarga({
+        placa: placa,
+        proprietario: proprietario,
+        manobristaEntrada:
 
-    document.getElementById("cargoVeiculo").innerHTML = `
-        <i class="fa-solid fa-id-badge"></i>
-    `;
+        document.getElementById("manobristaEntrada").value,
+        prisma: prismaSelecionado,
+        estacao: estacaoSelecionada,
+        dataEntrada:
 
-    document.getElementById("carroVeiculo").innerHTML = `
-        <i class="fa-solid fa-car"></i>
-    `;
+        document.getElementById("dataEntrada").value,
+        diaSemana:
+
+        document.getElementById("diaSemana").value,
+        horaChegada:
+
+        document.getElementById("horaChegada").value
+  });
+  
+console.table(novaRecarga);
+  if (!estacaoSelecionada || !prismaSelecionado) {
+    alert("Selecione estação e prisma");
+    return;
+  }
+
+  const card = [...document.querySelectorAll(".station-card")]
+    .find(c => c.querySelector("h3").textContent.trim() === estacaoSelecionada);
+
+  if (!card) return;
+
+  //========== Atualiza status do card ===============
+  card.dataset.status = "em uso";
+  card.classList.add("em-uso");
+
+  //=========== Ícone principal verde ===============
+  const icone = card.querySelector(".station-icon");
+  icone.className = "station-icon verde";
+  icone.innerHTML = '<i class="fa-solid fa-charging-station"></i><i class="bi bi-ev-front-fill"></i>';
+
+  //=========== Badge verde “Em uso ⚡” ================
+  const status = card.querySelector(".status");
+  status.className = "status uso";
+  status.innerHTML = 'Em uso <i class="bi bi-lightning-charge"></i>';
+
+  //=============== Título verde ===========================
+  const titulo = card.querySelector("h3");
+  titulo.style.color = "#0b5e29";
+
+  //========== Ícones da lista azul claro (corrigido) =========
+  const listaItens = card.querySelectorAll("ul li i");
+  listaItens.forEach(i => {
+    i.classList.remove("status", "livre", "uso");
+    i.style.backgroundColor = "#dcfce7";
+    i.style.color = "#0b5e29";          
+    i.style.borderRadius = "50%";
+    i.style.padding = "10px";
+    i.style.width = "36px";
+    i.style.height = "36px";
+    i.style.display = "flex";
+    i.style.justifyContent = "center";
+    i.style.alignItems = "center";
+  });
+
+  //========== Botão verde claro =============
+  const botao = card.querySelector("button");
+  botao.className = "status uso";
+  botao.style.backgroundColor = "#dcfce7";
+  botao.style.color = "#0b5e29";
+  botao.textContent = "Ver detalhes";
+
+  //========= Desativa estação e prisma no select ============
+  const selectEstacao = document.getElementById("estacao");
+  [...selectEstacao.options].forEach(opcao => {
+    if (opcao.text.includes(estacaoSelecionada)) {
+        opcao.disabled = true;
+        opcao.text = `${estacaoSelecionada} ⚡`;
+    }
+  });
+
+  const selectPrisma = document.getElementById("prisma");
+  [...selectPrisma.options].forEach(opcao => {
+    if (opcao.text.includes(prismaSelecionado)) {
+        opcao.disabled = true;
+        opcao.text = `${prismaSelecionado} ⚡`;
+    }
+  });
+
+    //========= Limpa os campos da operação após registrar ===========
+    document.getElementById("placa").value = "";
+    document.getElementById("fotoVeiculo").src = "img/charge1.jpg"
+    document.getElementById("manobristaEntrada").value = "";
+    document.getElementById("dataEntrada").value = "";
+    document.getElementById("diaSemana").value = "";
+    document.getElementById("horaChegada").value = "";
+    document.getElementById("horaCargaInicial").value = "";
+    document.getElementById("cargaInicial").value = "";
+    document.getElementById("manobristaSaida").value = "";
+    document.getElementById("cargaFinal").value = "";
+    document.getElementById("horaFinal").value = "";
+    document.getElementById("dataEntrada").value = "";
+    document.getElementById("diaSemana").value = "";
+    document.getElementById("estacao").selectedIndex = 0;
+    document.getElementById("prisma").selectedIndex = 0;
+
+    limparCard();
+
+    liberarFormulario();
+
+    // Atualiza os contadores e KPIs
+    atualizarContadores();
 }

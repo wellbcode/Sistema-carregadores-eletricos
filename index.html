@@ -10,11 +10,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="img/charge5.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="img/charge4.png" type="image/x-icon">
 </head>
 <body>
     <!-- ======== Slides das imgs de fundo ================ -->
-    <div class="background-slider"> 
+    <div class="background-slider">
         <div class="bg-slide active">
             <img src="img/charge1.jpg" alt="">
         </div>
@@ -27,17 +27,21 @@
             <img src="img/charge3.jpg" alt="">
         </div>
 
-        <!-- <div class="bg-slide">
+       <div class="bg-slide">
             <img src="img/charge4.png" alt="">
-        </div> -->
+        </div>
 
-        <div class="bg-slide">
+          <div class="bg-slide">
             <img src="img/charge5.jpg" alt="">
         </div>
 
-        <!-- <div class="bg-slide">
-            <img src="img/charge8.jpg" alt="">
-        </div> -->
+        <div class="bg-slide">
+            <img src="img/charge6.jpg" alt="">
+        </div>
+        
+        <div class="bg-slide">
+            <img src="img/charge7.jpg" alt="">
+        </div>
     </div>
 
     <div class="app" id="inicio">
@@ -48,7 +52,7 @@
                 <div class="logo-icon">
                     <i class="bi bi-lightning-charge-fill"></i>
                 </div>
-
+                
                 <h2>Smart <span>Charger</span></h2>
             </div>
 
@@ -78,7 +82,7 @@
                     <i class="bi bi-bar-chart"></i>
                     <span>Relatórios</span>
                 </a>
-
+ 
                 <a href="#">
                     <i class="bi bi-bell"></i>
                     <span>Alertas</span>
@@ -177,13 +181,10 @@
 
                                 <div class="veiculo-carro" id="carroVeiculo">
                                     <i class="fa-solid fa-car"></i>
-                                </div>
-
-                                <!-- Aqui futuramente será implementado um botão de contato com o proprietário do veículo, caso seja necessário.
-                                 <div class="veiculo-contato" id="carroContato">
-                                    <i class="fa-solid fa-message"></i>
-                                </div>
-                                 -->
+                                </div>                          
+                                <div class="veiculo-mensagem" id="carroMensagem">
+                                    <i class="bi bi-chat-quote"></i>
+                                </div>                          
                             </div>    
 
                             <div class="veiculo-foto">
@@ -202,51 +203,52 @@
                                 <label>Manobrista entrada</label>
                                 <select name="manobrista" id="manobristaEntrada">
                                     <option value="">Selecione</option>
-                                    <option value="">Antonio</option>
-                                    <option value="">Basílio</option>
-                                    <option value="">Carlos</option>
-                                    <option value="">Diego</option>
-                                    <option value="">Everaldo</option>
-                                    <option value="">Fabiano</option>
+                                    <option value="Antonio">Antonio</option>
+                                    <option value="Basílio">Basílio</option>
+                                    <option value="Carlos">Carlos</option>
+                                    <option value="Diego">Diego</option>
+                                    <option value="Everaldo">Everaldo</option>
+                                    <option value="Fabiano">Fabiano</option>
                                 </select>
                             </div>
 
                             <div class="campo">
                                 <label>Prisma</label>
-                                <select id="prisma">
+                                <select id="prisma" name="prisma">
                                     <option value="">Selecione</option>
-                                    <option>01</option>
-                                    <option>02</option>
-                                    <option>03</option>
-                                    <option>04</option>
-                                    <option>05</option>
-                                    <option>06</option>
-                                    <option>07</option>
-                                    <option>08</option>
-                                    <option>09</option>
-                                    <option>10</option>
-                                    <option>11</option>
-                                    <option>12</option>
-                                    <option>13</option>
-                                    <option>14</option>
-                                    <option>15</option>
-                                    <option>16</option>
-                                    <option>17</option>
-                                    <option>18</option>
-                                    <option>19</option>
-                                    <option>20</option>
-                                    <option>21</option>
-                                    <option>22</option>
-                                    <option>23</option>
-                                    <option>24</option>
-                                    <option>25</option>
-                                    <option>26</option>
-                                    <option>27</option>
-                                    <option>28</option>
-                                    <option>29</option>
-                                    <option>30</option>
-                                    <option>31</option>
-                                    <option>Carga rápida</option>
+                                    <option value="0">0</option>
+                                    <option value="01">01</option>
+                                    <option value="02">02</option>
+                                    <option value="03">03</option>
+                                    <option value="04">04</option>
+                                    <option value="05">05</option>
+                                    <option value="0">06</option>
+                                    <option value="07">07</option>
+                                    <option value="08">08</option>
+                                    <option value="09">09</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="13">13</option>
+                                    <option value="14">14</option>
+                                    <option value="15">15</option>
+                                    <option value="16">16</option>
+                                    <option value="17">17</option>
+                                    <option value="18">18</option>
+                                    <option value="19">19</option>
+                                    <option value="20">20</option>
+                                    <option value="21">21</option>
+                                    <option value="22">22</option>
+                                    <option value="23">23</option>
+                                    <option value="24">24</option>
+                                    <option value="25">25</option>
+                                    <option value="26">26</option>
+                                    <option value="27">27</option>
+                                    <option value="28">28</option>
+                                    <option value="29">29</option>
+                                    <option value="30">30</option>
+                                    <option value="31">31</option>
+                                    <option value="Carga rápida">Carga rápida</option>
                                 </select>
                             </div>
 
@@ -255,42 +257,42 @@
                                 <select id="estacao">
                                     <option value="">Selecione</option>
                                     <optgroup label="ALFREDO PG">
-                                        <option>Estação #001</option>
-                                        <option>Estação #002</option>
-                                        <option>Estação #003</option>
-                                        <option>Estação #004</option>
+                                        <option value="Estação #001" data-torre="ALFREDO PG">Estação #001</option>
+                                        <option value="Estação #002" data-torre="ALFREDO PG">Estação #002</option>
+                                        <option value="Estação #003" data-torre="ALFREDO PG">Estação #003</option>
+                                        <option value="Estação #004" data-torre="ALFREDO PG">Estação #004</option>
                                     </optgroup>
 
-                                    <optgroup label="jABAQUARA 1º SS">
-                                        <option>Estação #005</option>
-                                        <option>Estação #006</option>
+                                    <optgroup label="JABAQUARA 1º SS">
+                                        <option value="Estação #005" data-torre="JABAQUARA 1º SS">Estação #005</option>
+                                        <option value="Estação #006" data-torre="JABAQUARA 1º SS">Estação #006</option>
                                     </optgroup>
 
                                     <optgroup label="JABAQUARA AZUL">
-                                        <option>Estação #007</option>
-                                        <option>Estação #008</option>
-                                        <option>Estação #009</option>
-                                        <option>Estação #010</option>
-                                        <option>Estação #011</option>
-                                        <option>Estação #012</option>
-                                        <option>Estação #013</option>
-                                        <option>Estação #014</option>
+                                        <option value="Estação #007" data-torre="JABAQUARA AZUL">Estação #007</option>
+                                        <option value="Estação #008" data-torre="JABAQUARA AZUL">Estação #008</option>
+                                        <option value="Estação #009" data-torre="JABAQUARA AZUL">Estação #009</option>
+                                        <option value="Estação #010" data-torre="JABAQUARA AZUL">Estação #010</option>
+                                        <option value="Estação #011" data-torre="JABAQUARA AZUL">Estação #011</option>
+                                        <option value="Estação #012" data-torre="JABAQUARA AZUL">Estação #012</option>
+                                        <option value="Estação #013" data-torre="JABAQUARA AZUL">Estação #013</option>
+                                        <option value="Estação #014" data-torre="JABAQUARA AZUL">Estação #014</option>
                                     </optgroup>
 
                                     <optgroup label="JABAQUARA 1º ANDAR">
-                                        <option>Estação #015</option>
-                                        <option>Estação #016</option>
-                                        <option>Estação #017</option>
-                                        <option>Estação #018</option>
+                                        <option value="Estação #015" data-torre="JABAQUARA 1º ANDAR">Estação #015</option>
+                                        <option value="Estação #016" data-torre="JABAQUARA 1º ANDAR">Estação #016</option>
+                                        <option value="Estação #017" data-torre="JABAQUARA 1º ANDAR">Estação #017</option>
+                                        <option value="Estação #018" data-torre="JABAQUARA 1º ANDAR">Estação #018</option>
                                     </optgroup>
 
                                     <optgroup label="OLAVO PG">
-                                        <option>Estação #019</option>
-                                        <option>Estação #020</option>
-                                        <option>Estação #021</option>
-                                        <option>Estação #022</option>
-                                        <option>Estação #023</option>
-                                        <option>Estação #024</option>
+                                        <option value="Estação #019" data-torre="OLAVO PG">Estação #019</option>
+                                        <option value="Estação #020" data-torre="OLAVO PG">Estação #020</option>
+                                        <option value="Estação #021" data-torre="OLAVO PG">Estação #021</option>
+                                        <option value="Estação #022" data-torre="OLAVO PG">Estação #022</option>
+                                        <option value="Estação #023" data-torre="OLAVO PG">Estação #023</option>
+                                        <option value="Estação #024" data-torre="OLAVO PG">Estação #024</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -317,25 +319,27 @@
 
                             <div class="campo">
                                 <label>Carga Inicial %</label>
-                                <input type="text" id="cargaInicial" placeholder="Digite o valor %">
+                                <input type="text" id="cargaInicial" placeholder="Digite o valor de 0 a 100%"
+                                    maxlength="3">
                             </div>
 
                             <div class="campo">
                                 <label>Manobrista Saída</label>
                                 <select id="manobristaSaida">
                                     <option value="">Selecione</option>
-                                    <option>Antonio</option>
-                                    <option>Basílio</option>
-                                    <option>Carlos</option>
-                                    <option>Diego</option>
-                                    <option>Everaldo</option>
-                                    <option>Fabiano</option>
+                                    <option value="Antonio">Antonio</option>
+                                    <option value="Basílio">Basílio</option>
+                                    <option value="Carlos">Carlos</option>
+                                    <option value="Diego">Diego</option>
+                                    <option value="Everaldo">Everaldo</option>
+                                    <option value="Fabiano">Fabiano</option>
                                 </select>
                             </div>
 
                             <div class="campo">
                                 <label>Carga Final %</label>
-                                <input type="text" id="cargaFinal" placeholder="Digite o valor %">
+                                 <input type="text" id="cargaFinal" placeholder="Digite o valor de 0 a 100%"
+                                    maxlength="3">
                             </div>
 
                             <div class="campo">
@@ -355,6 +359,31 @@
 
             <!-- =============== KPIs ========================= -->
             <section class="kpis">
+                <!-- KPI Hoje -->
+                <article class="kpi-card hoje">
+                    <div class="kpi-decoration">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+
+                    <div class="kpi-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                    <h2 id="kpiHoje"></h2>
+
+                    <h4 id="kpiDiaSemana"></h4>
+
+                    <div class="kpi-footer">
+                        <strong></strong>
+                        <i class="bi bi-graph-up-arrow"></i>
+                        <span>
+                            +12% em relação a ontem
+                        </span>
+                    </div>
+                </article>
+
                 <!-- KPI Total -->
                 <article class="kpi-card total">
                     <div class="kpi-decoration">
@@ -369,16 +398,12 @@
                     </div>
 
                     <h2>24</h2>
+
                     <h4>Total</h4>
 
                     <div class="kpi-footer">
-
-                        <!-- <i class="bi bi-graph-up-arrow"></i>
-                        <span>
-                            +12% em relação a ontem
-                        </span>-->
-
-                        <i class="bi bi-graph-up-arrow"></i>
+                        <i class="bi bi-stack"></i>
+                        <!-- <i class="bi bi-ev-station-fill"></i> -->
                         <span>
                             Quantidade de carregadores
                         </span>
@@ -399,11 +424,11 @@
                     </div>
 
                     <h2 id="kpiLivres">0</h2>
+
                     <h4>Livres</h4>
 
                     <div class="kpi-footer">
                         <i class="bi bi-check-circle-fill"></i>
-
                         <span>
                             Disponíveis para uso
                         </span>
@@ -423,6 +448,7 @@
                     </div>
 
                     <h2 id="kpiEmUso">0</h2>
+
                     <h4>Em uso</h4>
 
                     <div class="kpi-footer">
@@ -441,14 +467,6 @@
                         <h2>Estações de Carregamento</h2>
                         <p>Gerencie todas as estações em tempo real</p>
                     </div>
-
-                    <!-- <button class="btn-new">
-
-                        <i class="bi bi-plus-lg"></i>
-
-                        Nova Estação
-
-                    </button> -->
 
                     <div class="title">
                         <span>⚡</span>
@@ -501,7 +519,9 @@
                         </div>
 
                         <h3>Estação #001</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Alfredo Egydio</p>
+
                         <ul>
                             <li>
                                 <i class="bi bi-p-square-fill status livre"></i>
@@ -510,26 +530,39 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                22 kW ████████ 98%
+                                <span class="info-carga">
+                                    22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
                                 <i class="bi bi-clock status livre"></i>
-                                Disponível
+                                <span class="info-tempo">
+                                    Disponível
+                                </span>
                             </li>
-
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
 
                     <!-- Estação 002 Alfredo PG - Em uso carregando -->
                     <article class="station-card" data-status="livre">
                         <div class="station-top">
                             <div class="station-icon livre">
-                                <!-- <i class="bi bi-ev-front-fill"></i> carro-->
                                 <i class="fa-solid fa-charging-station"></i>
                             </div>
 
@@ -539,6 +572,7 @@
                         </div>
 
                         <h3>Estação #002</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Alfredo Egydio</p>
 
                         <ul>
@@ -549,25 +583,39 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                22 kW ████████ 98%
+                                <span class="info-carga">
+                                    22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
-                                <i class="bi bi-clock status livre"></i>
-                                Disponível
+                                <i class="bi bi-clock status livre"></i>                        
+                                <span class="info-tempo">
+                                    Disponível
+                                </span>
                             </li>
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
 
                     <!-- Estação 003 Alfredo PG - Em uso carregando -->
                     <article class="station-card" data-status="livre">
                         <div class="station-top">
                             <div class="station-icon livre">
-                                <!-- <i class="bi bi-ev-front-fill"></i> carro-->
                                 <i class="fa-solid fa-charging-station"></i>
                             </div>
 
@@ -577,6 +625,7 @@
                         </div>
 
                         <h3>Estação #003</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Alfredo Egydio</p>
 
                         <ul>
@@ -587,25 +636,39 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                22 kW ████████ 98%
+                                <span class="info-carga">
+                                    22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
                                 <i class="bi bi-clock status livre"></i>
-                                Disponível
+                                <span class="info-tempo">
+                                    Disponível
+                                </span>
                             </li>
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
 
                     <!-- Estação 004 Alfredo PG - Em uso carregando -->
                     <article class="station-card" data-status="livre">
                         <div class="station-top">
                             <div class="station-icon livre">
-                                <!-- <i class="bi bi-ev-front-fill"></i> carro-->
                                 <i class="fa-solid fa-charging-station"></i>
                             </div>
 
@@ -615,6 +678,7 @@
                         </div>
 
                         <h3>Estação #004</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Alfredo Egydio</p>
 
                         <ul>
@@ -625,18 +689,33 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                22 kW ████████ 98%
+                                <span class="info-carga">
+                                    22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
                                 <i class="bi bi-clock status livre"></i>
-                                Disponível
+                                <span class="info-tempo">
+                                    Disponível
+                                </span>
                             </li>
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
 
                     <div class="overlay" id="overlay"></div>
@@ -655,6 +734,7 @@
                         </div>
 
                         <h3>Estação #005</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
                         <ul>
@@ -665,25 +745,39 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+                                <span class="info-carga">
+                                    22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
                                 <i class="bi bi-clock status livre"></i>
-                                Disponível
+                                <span class="info-tempo">
+                                    Disponível
+                                </span>
                             </li>
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
 
                     <!-- Estação 006 TJ 1º SS - Em uso carregando-->
                     <article class="station-card" data-status="livre">
                         <div class="station-top">
                             <div class="station-icon livre">
-                                <!-- <i class="bi bi-battery-charging"></i> -->
                                 <i class="fa-solid fa-charging-station"></i>
                             </div>
 
@@ -693,6 +787,7 @@
                         </div>
 
                         <h3>Estação #006</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
                         <ul>
@@ -703,670 +798,1911 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+                                <span class="info-carga">
+                                    22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
                                 <i class="bi bi-clock status livre"></i>
-                                Disponível
+                                <span class="info-tempo">
+                                    Disponível
+                                </span>
                             </li>
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
+
+ 
 
                     <!-- Estação 007 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #007</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 008 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #008</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 009 TJ Piso Azul - Em uso carregando-->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <!-- <i class="bi bi-battery-charging"></i> -->
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #009</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 010 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #010</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 011 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #011</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 012 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #012</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 013 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #013</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 014 TJ Piso Azul - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #014</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Azul
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 015 TJ 1º Andar - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #015</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: 1º Andar
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 016 TJ 1º Andar - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #016</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: 1º Andar
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação 017 TJ 1º Andar - Livre para carregar -->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #017</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: 1º Andar
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
-                        </button>
-                    </article>
+ 
 
-                    <!-- Estação 018 TJ 1º Andar - Livre para carregar -->
-                    <article class="station-card" data-status="livre">
-                        <div class="station-top">
-                            <div class="station-icon livre">
-                                <i class="fa-solid fa-charging-station"></i>
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
+                        </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
                             </div>
 
-                            <span class="status livre">
-                                Livre <i class="bi bi-plug-fill"></i>
-                            </span>
                         </div>
 
+                    </article>
+
+ 
+
+                    <!-- Estação 018 TJ 1º Andar - Livre para carregar -->
+
+                    <article class="station-card" data-status="livre">
+
+                        <div class="station-top">
+
+                            <div class="station-icon livre">
+
+                                <i class="fa-solid fa-charging-station"></i>
+
+                            </div>
+
+ 
+
+                            <span class="status livre">
+
+                                Livre <i class="bi bi-plug-fill"></i>
+
+                            </span>
+
+                        </div>
+
+ 
+
                         <h3>Estação #018</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Jabaquara</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: 1º Andar
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <div class="overlay" id="overlay"></div>
 
+ 
+
                     <!-- =========== Olavo PG 6 estações ========== -->
+
                     <!-- Estação 019 Olavo PG- Livre para carregar-->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #019</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Olavo Setúbal</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: Guajuviras
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                50 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
-                                32 min restantes
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
+                                Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação - 020 Olavo PG Em uso carregando-->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                                 <i class="bi bi-ev-front-fill"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #020</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Olavo Setúbal</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: PG - Guajuviras
+
                             </li>
 
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação - 021 Olavo PG Em uso carregando-->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                                 <i class="bi bi-ev-front-fill"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #021</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Olavo Setúbal</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: PG - Guajuviras
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+ 
+
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
                         </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
+                            </div>
+
+                        </div>
+
                     </article>
+
+ 
 
                     <!-- Estação - 022 Olavo PG Em uso carregando-->
+
                     <article class="station-card" data-status="livre">
+
                         <div class="station-top">
+
                             <div class="station-icon livre">
+
                                 <i class="fa-solid fa-charging-station"></i>
+
                                 <i class="bi bi-ev-front-fill"></i>
+
                             </div>
 
+ 
+
                             <span class="status livre">
+
                                 Livre <i class="bi bi-plug-fill"></i>
+
                             </span>
+
                         </div>
+
+ 
 
                         <h3>Estação #022</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Olavo Setúbal</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: PG - Guajuviras
+
                             </li>
 
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
-                        </button>
-                    </article>
+ 
 
-                    <!-- Estação - 023 Olavo PG Em uso carregando-->
-                    <article class="station-card" data-status="livre">
-                        <div class="station-top">
-                            <div class="station-icon livre">
-                                <i class="fa-solid fa-charging-station"></i>
-                                <i class="bi bi-ev-front-fill"></i>
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
+                        </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
                             </div>
 
-                            <span class="status livre">
-                                Livre <i class="bi bi-plug-fill"></i>
-                            </span>
                         </div>
+
+                    </article>
+
+ 
+
+                    <!-- Estação - 023 Olavo PG Em uso carregando-->
+
+                    <article class="station-card" data-status="livre">
+
+                        <div class="station-top">
+
+                            <div class="station-icon livre">
+
+                                <i class="fa-solid fa-charging-station"></i>
+
+                                <i class="bi bi-ev-front-fill"></i>
+
+                            </div>
+
+ 
+
+                            <span class="status livre">
+
+                                Livre <i class="bi bi-plug-fill"></i>
+
+                            </span>
+
+                        </div>
+
+ 
 
                         <h3>Estação #023</h3>
 
+ 
+
                         <p><i class="bi bi-geo-alt"></i> Torre Olavo Setúbal</p>
 
+ 
+
                         <ul>
+
                             <li>
+
                                 <i class="bi bi-p-square-fill status livre"></i>
+
                                 Piso: PG - Guajuviras
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+
+                                <!-- 22 kW ████████ 98% -->
+
+                                <span class="info-carga">
+
+                                22 kW ████████ 0%
+
+                                </span>
+
                             </li>
 
+ 
+
                             <li>
+
                                 <i class="bi bi-clock status livre"></i>
+
+                                <!-- Disponível -->
+
+                                <span class="info-tempo">
+
                                 Disponível
+
+                                </span>
+
                             </li>
+
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
-                        </button>
-                    </article>
+ 
 
-                    <!-- Estação - 024 Olavo PG Em uso carregando-->
-                    <article class="station-card" data-status="livre">
-                        <div class="station-top">
-                            <div class="station-icon livre">
-                                <i class="fa-solid fa-charging-station"></i>
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+
+                            ⚡ Ver detalhes
+
+                        </button>
+
+ 
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+
+                            <div class="modal-conteudo">
+
+                                <button
+
+                                    class="status livre"
+
+                                    onclick="fecharDetalhes()">
+
+                                    ⚡ Fechar detalhes
+
+                                </button>
+
+                                <div id="dadosDetalhes"></div>
+
                             </div>
 
-                            <span class="status livre">
-                                Livre <i class="bi bi-plug-fill"></i>
-                            </span>
                         </div>
 
+                    </article>
+
+ 
+
+                    <!-- Estação - 024 Olavo PG Em uso carregando-->
+
+                    <article class="station-card" data-status="livre">
+
+                        <div class="station-top">
+
+                            <div class="station-icon livre">
+
+                                <i class="fa-solid fa-charging-station"></i>
+
+                            </div>
+
+ 
+
+                            <span class="status livre">
+
+                                Livre <i class="bi bi-plug-fill"></i>
+
+                            </span>
+
+                        </div>
+
+ 
+
                         <h3>Estação #024</h3>
+
                         <p><i class="bi bi-geo-alt"></i> Torre Olavo Setúbal</p>
 
                         <ul>
@@ -1377,18 +2713,35 @@
 
                             <li>
                                 <i class="bi bi-lightning-charge-fill status livre"></i>
-                                150 kW
+                                <!-- 22 kW ████████ 98% -->
+                                <span class="info-carga">
+                                22 kW ████████ 0%
+                                </span>
                             </li>
 
                             <li>
                                 <i class="bi bi-clock status livre"></i>
+                                <!-- Disponível -->
+                                <span class="info-tempo">
                                 Disponível
+                                </span>
                             </li>
                         </ul>
 
-                        <button class="status livre">
-                            Ver detalhes
+                        <button class="status livre" onclick="abrirDetalhes(this)">
+                            ⚡ Ver detalhes
                         </button>
+
+                        <div id="modalDetalhes" class="modal-detalhes">
+                            <div class="modal-conteudo">
+                                <button
+                                    class="status livre"
+                                    onclick="fecharDetalhes()">
+                                    ⚡ Fechar detalhes
+                                </button>
+                                <div id="dadosDetalhes"></div>
+                            </div>
+                        </div>
                     </article>
                 </div>
             </section>
@@ -1408,11 +2761,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
     <script src="js/script.js"></script>
     <script src="js/veiculos.js"></script>
     <script src="js/graficos.js"></script>
     <script src="js/dados.js"></script>
     <script src="js/recargas.js"></script>
     <script src="js/carregadores.js"></script>
+    <script src="js/interacao.js"></script>
 </body>
-</html>
+</html

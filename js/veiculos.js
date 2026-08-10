@@ -1,10 +1,12 @@
 // ================ BASE =====================
+
 const base = [
-    ["ABC1234", "Wellington Bertoso Santos - Func: 0079311986", "Gerente - Itaú Unibanco", "Cadillac Escalade - Preto", "pictures/ft-teste.jpg"],
 
-    ["DOS3345", "Marcia Maria De Lima Zanelato - Func: 000712125", "Secretaria Pres Conselho - Itaú Unibanco", "Honda Civic - Preto"],
+    ["ABC1234", "Wellington Bertoso Santos - Func: 0079311986", "Gerente - Itaú Unibanco", "Cadillac Escalade - Preto", "WellingtonBertosoSantos@correio.itau.com.br", "pictures/ft-teste.jpg"],
 
-    ["EUQ7377", "Marcia Maria De Lima Zanelato - Func: 000712125", "Secretaria Pres Conselho - Itaú Unibanco", "Mitsubishi Pajero - Branco"],
+    ["DOS3345", "Ingrid Souza Ferreira - Func: 0079311987", "Sec. Pres Conselho - Itaú Unibanco", "Honda Civic - Preto", "Ingrid@correio.itau.com.br",  "pictures/ingrid-ft.png"],
+
+    ["EUQ7377", "Simone de Segura Marchini - Func: 000712125", "Anl Portfólio TI - Itaú Unibanco", "Mitsubishi Pajero - Branco", "pictures/simone-ft.png"],
 
     ["GGK0715", "Nelson Luis De Oliveira Rodrigues Costa - Func: 001548882", "Cons Financas - Itaú Unibanco", "Volkswagen Polo - Prata"],
 
@@ -21,4 +23,3 @@ const base = [
     ["ESP8A11", "ANDRE LUIS TEIXEIRA RODRIGUES - Func: 3890654", "Diretor - Itaú Unibanco", "Porsche Cayenne - Preta"]
 
 ];
-
