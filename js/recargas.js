@@ -232,8 +232,16 @@ function atualizarEtapa3(registro) {
         document.getElementById("cargaFinal").value;
 
     registro.status = "Concluído";
+
+        atualizarEstacaoConcluida(registro);
+
         console.log("ESTAÇÃO REGISTRO:", registro.estacao);
         console.log("PRISMA REGISTRO:", registro.prisma);
+
+        // Salva a recarga concluída no histórico
+        historicoRecargas.push({ ...registro });
+
+        console.table("HISTÓRICO:", historicoRecargas);
 
     // ================= Input da Estação =================
     const selectEstacao =
@@ -418,6 +426,44 @@ function preencherRecarga(registro) {
     bloquearPrimeiraEtapa();
 
     controlarEtapa(registro);
+}
+
+function atualizarBarraEstacao(registro) {
+
+    const card = [...document.querySelectorAll(".station-card")]
+        .find(c =>
+            c.querySelector("h3").textContent.trim() ===
+            registro.estacao
+        );
+
+    if (!card) {
+        console.log("CARD NÃO ENCONTRADO:", registro.estacao);
+        return;
+    }
+
+    const infoCarga = card.querySelector(".info-carga");
+
+    if (!infoCarga) {
+        console.log("INFO-CARGA NÃO ENCONTRADO");
+        return;
+    }
+
+    // Se já existe carga final, usa ela.
+    // Caso contrário, usa a carga inicial.
+    const carga =
+        registro.cargaFinal !== "" &&
+        registro.cargaFinal != null
+            ? registro.cargaFinal
+            : registro.cargaInicial;
+
+    infoCarga.innerHTML = gerarBarra(carga);
+
+    console.log(
+        "BARRA ATUALIZADA:",
+        registro.estacao,
+        "Carga:",
+        carga
+    );
 }
 
 // ==============Limpando os cards ======================

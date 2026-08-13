@@ -22,27 +22,88 @@ const carregadores = [
     }
 ];
 
+let filtroStatus = "todos";
+let filtroTorreAtual = "todas";
+
 //carregadores
+// function filtrarCarregadores(filtro, botaoClicado) {
+//     // Atualiza os botões
+//     document.querySelectorAll(".filtro-btn").forEach(btn =>
+//         btn.classList.remove("active")
+//     );
+
+//     botaoClicado.classList.add("active");
+
+//     // Filtra os cards
+//     document.querySelectorAll(".station-card").forEach(card => {
+//         const status = card.dataset.status;
+
+//         if (filtro === "todos" || status === filtro) {
+//             card.style.display = "";
+//         } else {
+//             card.style.display = "none";
+//         }
+//     });
+
+//     atualizarContadores();
+// }
 function filtrarCarregadores(filtro, botaoClicado) {
-    // Atualiza os botões
-    document.querySelectorAll(".filtro-btn").forEach(btn =>
-        btn.classList.remove("active")
-    );
+
+    filtroStatus = filtro;
+
+    // Ativa somente o botão de status
+    document.querySelectorAll(".filtro-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
 
     botaoClicado.classList.add("active");
 
-    // Filtra os cards
-    document.querySelectorAll(".station-card").forEach(card => {
-        const status = card.dataset.status;
+    // Se clicar em TODOS, remove também o filtro de torre
+    if (filtro === "todos") {
+        filtroTorreAtual = "todas";
 
-        if (filtro === "todos" || status === filtro) {
+        document.querySelectorAll(".torre-btn").forEach(btn => {
+            btn.classList.remove("active");
+        });
+    }
+
+    aplicarFiltros();
+}
+function filtrarTorre(torre, botaoClicado) {
+
+    filtroTorreAtual = torre;
+
+    // Ativa somente o botão da torre
+    document.querySelectorAll(".torre-btn").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    botaoClicado.classList.add("active");
+
+    aplicarFiltros();
+}
+
+function aplicarFiltros() {
+
+    document.querySelectorAll(".station-card").forEach(card => {
+
+        const status = card.dataset.status;
+        const torre = card.dataset.torre;
+
+        const correspondeStatus =
+            filtroStatus === "todos" ||
+            status === filtroStatus;
+
+        const correspondeTorre =
+            filtroTorreAtual === "todas" ||
+            torre === filtroTorreAtual;
+
+        if (correspondeStatus && correspondeTorre) {
             card.style.display = "";
         } else {
             card.style.display = "none";
         }
     });
-
-    atualizarContadores();
 }
 
 //Renderização
@@ -55,37 +116,109 @@ function renderizarCarregadores(filtro) {
         return true; // todos
     });
 
-    //============ Renderizando os cards... ==============
+    //<======================= Renderizando os cards... ==========================>
     atualizarContadores();
 }
 
-//Contadores
+//<================= Atualizado os números dos botões Contadores =================>
+// function atualizarContadores() {
+//     const cards = document.querySelectorAll(".station-card");
+
+//     const total = 24; // Total fixo de carregadores
+
+//     let emUso = 0;
+
+//     cards.forEach(card => {
+//         if (card.dataset.status === "em uso") {
+//             emUso++;
+//         }
+//     });
+
+//     const livres = total - emUso;
+
+//     //============= Contadores do do botões Livres, Em uso e Total ================
+//     document.getElementById("contadorLivres").textContent =
+//         `Livres: ${livres}`;
+
+//     document.getElementById("contadorEmuso").textContent =
+//         `Em uso: ${emUso}`;
+
+//     document.getElementById("contadorTodos").textContent =
+//         `Todas: ${total}`;
+
+//     //==================== KPI's ==========================
+//     document.getElementById("kpiLivres").textContent = livres;
+//     document.getElementById("kpiEmUso").textContent = emUso;
+// }
 function atualizarContadores() {
+
     const cards = document.querySelectorAll(".station-card");
 
-    const total = 24; // Total fixo de carregadores
-
+    let total = cards.length;
     let emUso = 0;
+    let livres = 0;
+
+    let alfredo = 0;
+    let jabaquara = 0;
+    let olavo = 0;
 
     cards.forEach(card => {
-        if (card.dataset.status === "em uso") {
+
+        const status = card.dataset.status;
+        const torre = card.dataset.torre;
+
+        // ================= STATUS GERAL =================
+
+        if (status === "em uso") {
             emUso++;
+        }
+
+        if (status === "livre") {
+            livres++;
+
+            // ================= TORRES =================
+            // Só conta a estação enquanto ela estiver livre
+
+            if (torre === "alfredo") {
+                alfredo++;
+            }
+
+            if (torre === "jabaquara") {
+                jabaquara++;
+            }
+
+            if (torre === "olavo") {
+                olavo++;
+            }
         }
     });
 
-    const livres = total - emUso;
+    // ================= CONTADORES GERAIS =================
 
-    //============= Contadores do do botões Livres, Em uso e Total ================
+    document.getElementById("contadorTodos").textContent =
+        `Todas: ${total}`;
+
     document.getElementById("contadorLivres").textContent =
         `Livres: ${livres}`;
 
     document.getElementById("contadorEmuso").textContent =
         `Em uso: ${emUso}`;
 
-    document.getElementById("contadorTodos").textContent =
-        `Todas: ${total}`;
 
-    //==================== KPI's ==========================
+    // ================= CONTADORES DAS TORRES =================
+
+    document.getElementById("contadorAlfredo").textContent =
+        `Alfredo: ${alfredo}`;
+
+    document.getElementById("contadorJabaquara").textContent =
+        `Jabaquara: ${jabaquara}`;
+
+    document.getElementById("contadorOlavo").textContent =
+        `Olavo: ${olavo}`;
+
+
+    // ================= KPIs =================
+
     document.getElementById("kpiLivres").textContent = livres;
     document.getElementById("kpiEmUso").textContent = emUso;
 }
@@ -118,7 +251,6 @@ atualizarDataHoje();
 // Atualiza automaticamente a cada minuto
 setInterval(atualizarDataHoje, 60000);
 
-
 // =========  Atualizando os KPI's =====================
 function atualizarKPIs() {
     // ================ Data de hoje ====================
@@ -141,10 +273,15 @@ function atualizarKPIs() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const btnTodos = document.querySelector(".filtro-btn");
-    filtrarCarregadores("todos", btnTodos);
-});
 
+    atualizarContadores();
+
+    const btnTodos = document.querySelector(".filtro-btn");
+
+    if (btnTodos) {
+        filtrarCarregadores("todos", btnTodos);
+    }
+});
 window.addEventListener("DOMContentLoaded", () => {
     const menuBtn = document.getElementById("menuBtn");
     const sidebar = document.getElementById("sidebar");
@@ -209,17 +346,54 @@ function registrarRecarga() {
         r.status !== "Concluído"
     );
 
-if (registroExistente) {
-    if (registroExistente.status === "Aberto") {
-        atualizarEtapa2(registroExistente);
-    } else if (registroExistente.status === "Carregando") {
-        atualizarEtapa3(registroExistente);
+    // if (registroExistente) {
+    //     if (registroExistente.status === "Aberto") {
+    //         atualizarEtapa2(registroExistente);
+    //     } else if (registroExistente.status === "Carregando") {
+    //         atualizarEtapa3(registroExistente);
+    //     }
+
+    //     console.table(registroExistente);
+    // }
+
+    if (registroExistente) {
+
+        if (registroExistente.status === "Aberto") {
+
+            atualizarEtapa2(registroExistente);
+
+        } else if (registroExistente.status === "Carregando") {
+
+            atualizarEtapa3(registroExistente);
+
+        }
+
+    } else {
+
+        // Só cria uma nova recarga se NÃO existir uma aberta
+        const novaRecarga = criarRecarga({
+            placa: placa,
+            proprietario: proprietario,
+
+            manobristaEntrada:
+                document.getElementById("manobristaEntrada").value,
+
+            prisma: prismaSelecionado,
+            estacao: estacaoSelecionada,
+
+            dataEntrada:
+                document.getElementById("dataEntrada").value,
+
+            diaSemana:
+                document.getElementById("diaSemana").value,
+
+            horaChegada:
+                document.getElementById("horaChegada").value
+        });
+
+        console.table(novaRecarga);
     }
-
-    console.table(registroExistente);
-}
-
-  const novaRecarga = criarRecarga({
+    const novaRecarga = criarRecarga({
         placa: placa,
         proprietario: proprietario,
         manobristaEntrada:

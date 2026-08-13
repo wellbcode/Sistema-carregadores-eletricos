@@ -2,24 +2,18 @@
 
 const base = [
 
-    ["ABC1234", "Wellington Bertoso Santos - Func: 0079311986", "Gerente - Itaú Unibanco", "Cadillac Escalade - Preto", "WellingtonBertosoSantos@correio.itau.com.br", "pictures/ft-teste.jpg"],
+    ["ABC1234", "Wellington Bertoso Santos - Func: 0079311986", "Dev Front-End Jr - Algum Lugar SA", "Cadillac Escalade - Preto", "WellingtonBertosoSantos@correio.itau.com.br", "pictures/ft-teste.jpg"],
 
-    ["DOS3345", "Ingrid Souza Ferreira - Func: 0079311987", "Sec. Pres Conselho - Itaú Unibanco", "Honda Civic - Preto", "Ingrid@correio.itau.com.br",  "pictures/ingrid-ft.png"],
+    ["SOS3345", "Ingrid Souza Ferreira - Func: 0079311987", "Dir. Pres Conselho - Delícias da Ingrid Corp", "Honda Civic - Preto", "Ingrid@correio.itau.com.br", "pictures/ingrid-ft.png"],
 
-    ["EUQ7377", "Simone de Segura Marchini - Func: 000712125", "Anl Portfólio TI - Itaú Unibanco", "Mitsubishi Pajero - Branco", "pictures/simone-ft.png"],
+    ["QUE7377", "Mayra da Silva Gal - Func: 0079311988", "Dir. Pedagógica - Harvard University", "Mitsubishi Pajero - Branco", "Mayra@correio.itau.com.br", "pictures/mayra-ft.jpg"],
 
-    ["GGK0715", "Nelson Luis De Oliveira Rodrigues Costa - Func: 001548882", "Cons Financas - Itaú Unibanco", "Volkswagen Polo - Prata"],
+    ["GKG0715", "Breno Malveira - Func: 0079311989", "Cons Financas - Breno Design LTDA", "Volkswagen Polo - Prata", "breno@correio.itau.com.br", "pictures/breno-ft.png"],
 
-    ["GBQ2E77", "Nelson Luis De Oliveira Rodrigues Costa - Func: 001548882", "Cons Financas - Itaú Unibanco", "Chevrolet Onix - Preto"],
+    ["KGB2E77", "Danilo Pereira da Silva - Func: 0079311990", "Cons Financas - JP Morgan", "Chevrolet Onix - Preto", "Danilo@correio.itau.com.br", "pictures/danilo-ft.jpg"],
 
-    ["GET4G71", "Jose Renato Tunes - Func: 001709419", "Gte Financas - Itaú Unibanco", "Kia Niro sx - Cinza"],
+    ["GOT4G71", "Dacio Costa Nascimento - Func: 0079311991", "Gte Financas - Google", "Kia Niro sx - Cinza", "Dacio@correio.itau.com.br", "pictures/dacio-ft.jpg"],
 
-    ["FGL8204", "Sandra Regina Clemente Peretti - Func: 001786276", "Cons Remuneracao - Itaú Unibanco", "Hyundai Ix35 - Prata"],
-
-    ["FVE6790", "Ronaldo Natale - Func: 001808393", "Coord Gestao E Plan Ops - Itaú Unibanco", "Fiat Palio - Vermelho"],
-
-    ["EUW0022", "Ronaldo Natale - Func: 001808393", "Coord Gestao E Plan Ops - Itaú Unibanco", "Chevrolet Zafira - Cinza"],
-
-    ["ESP8A11", "ANDRE LUIS TEIXEIRA RODRIGUES - Func: 3890654", "Diretor - Itaú Unibanco", "Porsche Cayenne - Preta"]
+    ["BET8204", "Nathan Freire da Silva - Func: 0079311992", "Ger. Contas a Pagar - Banco Central do Brasil", "Hyundai Ix35 - Prata", "Nathan@correio.itau.com.br", "pictures/nathan-ft.jpg"],
 
 ];

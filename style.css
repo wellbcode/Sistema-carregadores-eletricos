@@ -1051,11 +1051,20 @@ body::before{
     margin-bottom:30px;
 }
 
+/* Container principal dos filtros */
+.filtros-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
 /* Botões de filtros */
 .botoes-filtros {
     display: flex;
-    gap: 12px;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
 }
 
 .filtro-btn {
@@ -1066,7 +1075,7 @@ body::before{
     padding: 10px 22px;
     border-radius: 12px;
     font-size: 0.95rem;
-    font-weight: 600;
+    font-weight: bold;
     transition: all .25s ease;
 }
 
@@ -1076,7 +1085,8 @@ body::before{
 }
 
 /* Hover*/
-.filtro-btn:hover {
+.filtro-btn:hover,
+.torre-btn:hover  {
     transform: translateY(-2px);
     cursor: pointer;
 }
@@ -1125,18 +1135,20 @@ body::before{
 }
 
 /* Botões contadores */
+/* Botões contadores */
 .contadores {
     margin-top: 10px;
-    display: flex;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
 .contadores .badge {
-    padding: 5px 26px;
+    padding: 10px 26px;
     font-size: .85rem;
     border-radius: 50px;
+    text-align: center;
 }
-
 .bg-danger{
     background-color: #0d6efd !important;
     border-color: #0d6efd !important;
@@ -1154,6 +1166,95 @@ body::before{
     border-color: #198754 !important;
     color: #fff !important;
 }
+
+/* Barra de ações*/ 
+/* Barra de ações */
+.stations-toolbar {
+    display: flex;
+    flex-wrap: wrap;          /* permite quebrar linha se faltar espaço */
+    justify-content: flex-start; /* mantém alinhado à esquerda */
+    align-items: center;
+    gap: 12px;                /* espaçamento entre os botões */
+    margin-bottom: 20px;
+    padding: 8px 0;           /* respiro interno */
+}
+
+/* Botões de filtros */ 
+/* =============== Botões das torres ============== */ 
+.torre-btn { 
+    border-radius: 50px !important; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 10px 22px; 
+    font-size: 0.95rem; 
+    font-weight: 600; 
+    transition: all .25s ease; 
+} 
+
+/* Alfredo */ 
+.btn-outline-secondary { 
+    background-color: transparent; 
+    color: #6f42c1 !important; 
+    border-color: #6f42c1 !important; 
+} 
+
+.btn-outline-secondary.active { 
+    background-color: #6f42c1 !important; 
+    border-color: #6f42c1 !important; 
+    color: #fff !important; } 
+    
+    /* Jabaquara */ 
+    .btn-outline-info { 
+        background-color: transparent; 
+        color: #0dcaf0 !important; 
+        border-color: #0dcaf0 !important; 
+    } 
+    
+    .btn-outline-info.active { 
+        background-color: #0dcaf0 !important; 
+        border-color: #0dcaf0 !important; 
+        color: #fff !important; 
+    } 
+        
+    /* Olavo */ 
+    .btn-outline-warning {                       
+        background-color: transparent; 
+        color: #fd7e14 !important; 
+        border-color: #fd7e14 !important; 
+    } 
+    
+    .btn-outline-warning.active { 
+        background-color: #fd7e14 !important;
+        border-color: #fd7e14 !important;
+        color: #fff !important; } 
+        
+    /*======= contadores das Torres ==========*/ 
+    .bg-secondary { 
+        background-color: #6f42c1 !important; 
+        border-color: #6f42c1 !important; 
+        color: #fff !important; 
+    } 
+    
+    .bg-info { 
+        background-color: #0dcaf0 !important; 
+        border-color: #0dcaf0 !important; 
+        color: #fff !important; 
+    } 
+    
+    .bg-warning { 
+        background-color: #fd7e14 !important; 
+        border-color: #fd7e14 !important; 
+        color: #fff !important; 
+    } 
+    /*======= Container dos cards das estações das torres=========*/ 
+    /* .station-grid{ 
+        display: grid; 
+        grid-template-columns: 
+        repeat(3, minmax(320px, 1fr)); 
+        gap: 24px; 
+        justify-content: center; 
+    } */
 
 /*======= Container dos cards =========*/
 .station-grid{
@@ -1296,7 +1397,6 @@ body::before{
     cursor:pointer;
     transition:.25s;
 }
-
 /* Animação do modal do botão detalhes */
 .modal-detalhes {
     display: none;
@@ -1308,11 +1408,58 @@ body::before{
 
 .modal-conteudo {
     width: 90%;
-    max-width: 350px;
+    max-width: 385px;
     margin: 60px auto;
     background: #fff;
     border-radius: 12px;
     padding: 20px;
+}
+
+#dadosDetalhes {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#botaoFecharDetalhes {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s;
+}
+
+#dadosDetalhes hr {
+    border: 0;
+    border-top: 3px solid #cbd5e1;
+    margin: 10px 0;
+}
+
+.botoes-detalhes {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.botoes-detalhes button {
+    flex: 1;
+}
+
+.botao-editar {
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    background: #fff7ed;
+    color: #c2410c;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.botao-editar:hover {
+    background: #ffedd5;
 }
 
 /* ===================== Seção Rodapé - Footer ===================== */
