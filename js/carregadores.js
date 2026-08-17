@@ -50,6 +50,8 @@ let filtroStatus = "todos";
 
 let filtroTorreAtual = "todas";
 
+let filtroMovimentacao = "todos";
+
  
 
 function filtrarCarregadores(filtro, botaoClicado) {
@@ -95,6 +97,8 @@ function filtrarCarregadores(filtro, botaoClicado) {
     aplicarFiltros();
 
 }
+
+ 
 
 function filtrarTorre(torre, botaoClicado) {
 
@@ -192,7 +196,21 @@ function renderizarCarregadores(filtro) {
 
     //<======================= Renderizando os cards... ==========================>
 
-    atualizarContadores();
+      console.log("1");
+
+        atualizarContadores();
+
+ 
+
+    console.log("2");
+
+    //     atualizarComparativoOntem();
+
+ 
+
+    console.log("3");
+
+        renderizarMovimentacoes();
 
 }
 
@@ -212,7 +230,7 @@ function atualizarContadores() {
 
     let livres = 0;
 
-    let fila = 0;
+    //let fila = 0;
 
  
 
@@ -290,6 +308,12 @@ function atualizarContadores() {
 
     });
 
+        // ================= FILA =================
+
+    const fila = recargas.filter(
+        r => r.status === "Fila"
+    ).length;
+
  
 
     // ================= CONTADORES GERAIS =================
@@ -313,7 +337,7 @@ function atualizarContadores() {
         `Em uso: ${emUso}`;
 
  
-
+    // ================= CONTADOR DA FILA =================
     document.getElementById("kpiFila").textContent =
 
         `Fila: ${fila}`;
@@ -418,7 +442,10 @@ function atualizarDataHoje() {
 
 atualizarDataHoje();
 
+ 
+
 atualizarComparativoOntem();
+
  
 
 // Atualiza automaticamente a cada minuto
@@ -426,43 +453,82 @@ atualizarComparativoOntem();
 setInterval(atualizarDataHoje, 60000);
 
  
+
 // =========  Atualizando os KPI'  <span id="comparativoOntem"  =====================
+
 function atualizarComparativoOntem() {
 
+ 
+
     const hoje = new Date();
+
     hoje.setHours(0, 0, 0, 0);
 
+ 
+
     const ontem = new Date(hoje);
+
     ontem.setDate(ontem.getDate() - 1);
 
+ 
+
     const formatarData = data =>
+
         data.toISOString().split("T")[0];
 
+ 
+
     const dataHoje = formatarData(hoje);
+
     const dataOntem = formatarData(ontem);
 
+ 
+
     const totalHoje = recargas.filter(
+
         r => r.dataEntrada === dataHoje
+
     ).length;
 
+ 
+
     const totalOntem = recargas.filter(
+
         r => r.dataEntrada === dataOntem
+
     ).length;
+
+ 
 
     let percentual = 0;
 
+ 
+
     if (totalOntem > 0) {
+
         percentual =
+
             ((totalHoje - totalOntem) / totalOntem) * 100;
+
     }
+
+ 
 
     percentual = Math.round(percentual);
 
+ 
+
     const sinal = percentual > 0 ? "+" : "";
 
+ 
+
     document.getElementById("comparativoOntem").textContent =
+
         `${sinal}${percentual}% quanto a ontem`;
+
 }
+
+ 
 
 // =========  Atualizando os KPI's =====================
 
@@ -510,7 +576,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
 
-    atualizarContadores();
+    console.log("1");
+
+        atualizarContadores();
+
+ 
+
+    console.log("2")    
+
+    //     atualizarComparativoOntem();
+
+ 
+
+    console.log("3")
+
+        renderizarMovimentacoes();
 
  
 
@@ -574,7 +654,432 @@ window.addEventListener("DOMContentLoaded", () => {
 
 });
 
+ 
+
+// ===== KPI Hora e Data =====
+
+function atualizarKpiHoraData() {
+
+    const agora = new Date();
+
+ 
+
+    // Hora
+
+    const hora = String(agora.getHours()).padStart(2, "0");
+
+    const minutos = String(agora.getMinutes()).padStart(2, "0");
+
+    const segundos = String(agora.getSeconds()).padStart(2, "0");
+
+ 
+
+    const kpiHoraMinutos = document.getElementById("kpiHoraMinutos");
+
+    const kpiHoraSegundos = document.getElementById("kpiHoraSegundos");
+
+ 
+
+    if (kpiHoraMinutos) {
+
+        kpiHoraMinutos.textContent = `${hora}:${minutos}`;
+
+    }
+
+ 
+
+    if (kpiHoraSegundos) {
+
+        kpiHoraSegundos.textContent = `:${segundos}`;
+
+    }
+
+ 
+
+    // Data
+
+    const diasSemana = [
+
+        "Dom", "Seg", "Ter", "Qua",
+
+        "Qui", "Sex", "Sáb"
+
+    ];
+
+ 
+
+    const diaSemana = diasSemana[agora.getDay()];
+
+    const dia = String(agora.getDate()).padStart(2, "0");
+
+    const mes = String(agora.getMonth() + 1).padStart(2, "0");
+
+    const ano = String(agora.getFullYear()).slice(-2);
+
+ 
+
+    const kpiData = document.getElementById("kpiData");
+
+ 
+
+    if (kpiData) {
+
+        kpiData.textContent = `${diaSemana} ${dia}/${mes}/${ano}`;
+
+    }
+
+}
+
+ 
+
+// Atualiza imediatamente
+
+atualizarKpiHoraData();
+
+ 
+
+// Atualiza a cada segundo
+
+setInterval(atualizarKpiHoraData, 1000);
+
+ 
+
+// ===== KPI Previsão do Tempo =====
+
+// Localização padrão: São Paulo
+
+const LATITUDE_PADRAO = -23.5505;
+
+const LONGITUDE_PADRAO = -46.6333;
+
+ 
+
+async function atualizarPrevisao(latitude, longitude) {
+
+    const kpiPrevisao = document.getElementById("kpiPrevisao");
+
+    const kpiIcone = document.querySelector(".kpi-footer i");
+
+ 
+
+    if (!kpiPrevisao) return;
+
+ 
+
+    try {
+
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+
+        // const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+
+//         const url =
+
+// `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
+
+        const resposta = await fetch(url);
+
+ 
+
+        if (!resposta.ok) {
+
+            throw new Error("Erro ao consultar previsão do tempo");
+
+        }
+
+ 
+
+        const dados = await resposta.json();
+
+ 
+
+        const temperatura = Math.round(dados.current.temperature_2m);
+
+        const maxima = Math.round(dados.daily.temperature_2m_max[0]);
+
+        const minima = Math.round(dados.daily.temperature_2m_min[0]);
+
+        const codigoTempo = dados.current.weather_code;
+
+        const isDia = dados.current.is_day;
+
+ 
+
+        console.log("Código do tempo:", codigoTempo);
+
+        console.log("É dia?", isDia);
+
+        console.log("Temperatura:", temperatura);
+
+        console.log("Máxima:", maxima);
+
+        console.log("Mínima:", minima);
+
+ 
+
+        // Atualiza temperaturas
+
+        kpiPrevisao.innerHTML = `
+
+            ${temperatura}º |
+
+            <span class="temp-max"> Máx: ${maxima}º</span> |
+
+            <span class="temp-min"> Mín: ${minima}º</span>
+
+        `;
+
+ 
+
+        // Atualiza ícone
+
+        if (kpiIcone) {
+
+            kpiIcone.className =
+
+                `bi ${obterIconeTempo(codigoTempo, isDia)}`;
+
+        }
+
+ 
+
+    } catch (erro) {
+
+        console.error("Erro na previsão do tempo:", erro);
+
+ 
+
+        kpiPrevisao.textContent = "Previsão indisponível";
+
+    }
+
+}
+
+ 
+
+// ===== Ícone do clima =====
+
+function obterIconeTempo(codigo, isDia) {
+
+ 
+
+    // Céu limpo
+
+    if (codigo === 0) {
+
+        return isDia
+
+            ? "bi-sun-fill"
+
+            : "bi-moon-stars-fill";
+
+    }
+
+ 
+
+    // Poucas nuvens
+
+    if (codigo === 1 || codigo === 2) {
+
+        return isDia
+
+            ? "bi-cloud-sun-fill"
+
+            : "bi-cloud-moon-fill";
+
+    }
+
+ 
+
+    // Nublado
+
+    if (codigo === 3) {
+
+        return "bi-cloud-fill";
+
+    }
+
+ 
+
+    // Neblina
+
+    if (codigo === 45 || codigo === 48) {
+
+        return "bi-cloud-haze-fill";
+
+    }
+
+ 
+
+    // Garoa
+
+    if ([51, 53, 55, 56, 57].includes(codigo)) {
+
+        return "bi-cloud-drizzle-fill";
+
+    }
+
+ 
+
+    // Chuva
+
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
+
+        return "bi-cloud-rain-fill";
+
+    }
+
+ 
+
+    // Neve
+
+    if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
+
+        return "bi-snow";
+
+    }
+
+ 
+
+    // Trovoada
+
+    if ([95, 96, 99].includes(codigo)) {
+
+        return "bi-cloud-lightning-rain-fill";
+
+    }
+
+ 
+
+    // Caso não reconheça
+
+    return isDia
+
+        ? "bi-cloud-sun-fill"
+
+        : "bi-cloud-moon-fill";
+
+}
+
+ 
+
+// ===== Localização atual =====
+
+function obterLocalizacao() {
+
+ 
+
+    if (!navigator.geolocation) {
+
+        console.warn("Geolocalização não disponível.");
+
+       
+
+        atualizarPrevisao(
+
+            LATITUDE_PADRAO,
+
+            LONGITUDE_PADRAO
+
+        );
+
+ 
+
+        return;
+
+    }
+
+ 
+
+    navigator.geolocation.getCurrentPosition(
+
+ 
+
+        // Localização encontrada
+
+        function (posicao) {
+
+ 
+
+            const latitude = posicao.coords.latitude;
+
+            const longitude = posicao.coords.longitude;
+
+ 
+
+            console.log("Latitude:", latitude);
+
+            console.log("Longitude:", longitude);
+
+ 
+
+            atualizarPrevisao(latitude, longitude);
+
+        },
+
+ 
+
+        // Localização recusada ou indisponível
+
+        function (erro) {
+
+ 
+
+            console.warn(
+
+                "Não foi possível obter a localização:",
+
+                erro.message
+
+            );
+
+ 
+
+            console.log("Usando São Paulo como localização padrão.");
+
+ 
+
+            atualizarPrevisao(
+
+                LATITUDE_PADRAO,
+
+                LONGITUDE_PADRAO
+
+            );
+
+        },
+
+ 
+
+        {
+
+            enableHighAccuracy: true,
+
+            timeout: 10000,
+
+            maximumAge: 300000
+
+        }
+
+    );
+
+}
+
+ 
+
+// ===== Inicialização =====
+
+obterLocalizacao();
+
+ 
+
+// Atualiza a previsão a cada 30 minutos
+
+setInterval(obterLocalizacao, 30 * 60 * 1000);
+
+ 
+
 //============= dia da semana ================
+
 window.addEventListener("DOMContentLoaded", () => {
 
     const dataEntrada = document.getElementById("dataEntrada");
@@ -621,219 +1126,273 @@ window.addEventListener("DOMContentLoaded", () => {
 
 });
 
-// ===== KPI Hora e Data =====
-function atualizarKpiHoraData() {
-    const agora = new Date();
+ 
 
-    // Hora
-    const hora = String(agora.getHours()).padStart(2, "0");
-    const minutos = String(agora.getMinutes()).padStart(2, "0");
-    const segundos = String(agora.getSeconds()).padStart(2, "0");
+//============= Movimentação do dia dia da semana ================
 
-    const kpiHoraMinutos = document.getElementById("kpiHoraMinutos");
-    const kpiHoraSegundos = document.getElementById("kpiHoraSegundos");
-
-    if (kpiHoraMinutos) {
-        kpiHoraMinutos.textContent = `${hora}:${minutos}`;
-    }
-
-    if (kpiHoraSegundos) {
-        kpiHoraSegundos.textContent = `:${segundos}`;
-    }
-
-    // Data
-    const diasSemana = [
-        "Dom", "Seg", "Ter", "Qua",
-        "Qui", "Sex", "Sáb"
-    ];
-
-    const diaSemana = diasSemana[agora.getDay()];
-    const dia = String(agora.getDate()).padStart(2, "0");
-    const mes = String(agora.getMonth() + 1).padStart(2, "0");
-    const ano = String(agora.getFullYear()).slice(-2);
-
-    const kpiData = document.getElementById("kpiData");
-
-    if (kpiData) {
-        kpiData.textContent = `${diaSemana} ${dia}/${mes}/${ano}`;
-    }
-}
-
-// Atualiza imediatamente
-atualizarKpiHoraData();
-
-// Atualiza a cada segundo
-setInterval(atualizarKpiHoraData, 1000);
-
-// ===== KPI Previsão do Tempo =====
-// Localização padrão: São Paulo
-const LATITUDE_PADRAO = -23.5505;
-const LONGITUDE_PADRAO = -46.6333;
-
-async function atualizarPrevisao(latitude, longitude) {
-    const kpiPrevisao = document.getElementById("kpiPrevisao");
-    const kpiIcone = document.querySelector(".kpi-footer i");
-
-    if (!kpiPrevisao) return;
-
-    try {
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
-
-        const resposta = await fetch(url);
-
-        if (!resposta.ok) {
-            throw new Error("Erro ao consultar previsão do tempo");
-        }
-
-        const dados = await resposta.json();
-
-        const temperatura = Math.round(dados.current.temperature_2m);
-        const maxima = Math.round(dados.daily.temperature_2m_max[0]);
-        const minima = Math.round(dados.daily.temperature_2m_min[0]);
-        const codigoTempo = dados.current.weather_code;
-        const isDia = dados.current.is_day;
-
-        console.log("Código do tempo:", codigoTempo);
-        console.log("É dia?", isDia);
-        console.log("Temperatura:", temperatura);
-        console.log("Máxima:", maxima);
-        console.log("Mínima:", minima);
-
-        // Atualiza temperaturas
-        kpiPrevisao.innerHTML = `
-            ${temperatura}º |
-            <span class="temp-max"> Máx: ${maxima}º</span> |
-            <span class="temp-min"> Mín: ${minima}º</span>
-        `;
-
-        // Atualiza ícone
-        if (kpiIcone) {
-            kpiIcone.className =
-                `bi ${obterIconeTempo(codigoTempo, isDia)}`;
-        }
-
-    } catch (erro) {
-        console.error("Erro na previsão do tempo:", erro);
-
-        kpiPrevisao.textContent = "Previsão indisponível";
-    }
-}
-
-
-// ===== Ícone do clima =====
-function obterIconeTempo(codigo, isDia) {
-
-    // Céu limpo
-    if (codigo === 0) {
-        return isDia
-            ? "bi-sun-fill"
-            : "bi-moon-stars-fill";
-    }
-
-    // Poucas nuvens
-    if (codigo === 1 || codigo === 2) {
-        return isDia
-            ? "bi-cloud-sun-fill"
-            : "bi-cloud-moon-fill";
-    }
-
-    // Nublado
-    if (codigo === 3) {
-        return "bi-cloud-fill";
-    }
-
-    // Neblina
-    if (codigo === 45 || codigo === 48) {
-        return "bi-cloud-haze-fill";
-    }
-
-    // Garoa
-    if ([51, 53, 55, 56, 57].includes(codigo)) {
-        return "bi-cloud-drizzle-fill";
-    }
-
-    // Chuva
-    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
-        return "bi-cloud-rain-fill";
-    }
-
-    // Neve
-    if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
-        return "bi-snow";
-    }
-
-    // Trovoada
-    if ([95, 96, 99].includes(codigo)) {
-        return "bi-cloud-lightning-rain-fill";
-    }
-
-    // Caso não reconheça
-    return isDia
-        ? "bi-cloud-sun-fill"
-        : "bi-cloud-moon-fill";
-}
-
-
-// ===== Localização atual =====
-function obterLocalizacao() {
-
-    if (!navigator.geolocation) {
-        console.warn("Geolocalização não disponível.");
-        
-        atualizarPrevisao(
-            LATITUDE_PADRAO,
-            LONGITUDE_PADRAO
-        );
-
-        return;
-    }
-
-    navigator.geolocation.getCurrentPosition(
-
-        // Localização encontrada
-        function (posicao) {
-
-            const latitude = posicao.coords.latitude;
-            const longitude = posicao.coords.longitude;
-
-            console.log("Latitude:", latitude);
-            console.log("Longitude:", longitude);
-
-            atualizarPrevisao(latitude, longitude);
-        },
-
-        // Localização recusada ou indisponível
-        function (erro) {
-
-            console.warn(
-                "Não foi possível obter a localização:",
-                erro.message
-            );
-
-            console.log("Usando São Paulo como localização padrão.");
-
-            atualizarPrevisao(
-                LATITUDE_PADRAO,
-                LONGITUDE_PADRAO
-            );
-        },
-
-        {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 300000
-        }
-    );
-}
-
-// ===== Inicialização =====
-obterLocalizacao();
-
-// Atualiza a previsão a cada 30 minutos
-setInterval(obterLocalizacao, 30 * 60 * 1000);
+function renderizarMovimentacoes() {
 
  
+
+    const lista =
+
+        document.getElementById("listaMovimentacoes");
+
+ 
+
+    if (!lista) return;
+
+ 
+
+    let registros = [...recargas];
+
+ 
+
+    if (filtroMovimentacao !== "todos") {
+
+ 
+
+        registros = registros.filter(
+
+            r => r.status === filtroMovimentacao
+
+        );
+
+ 
+
+    }
+
+ 
+
+    lista.innerHTML = registros
+
+        .slice()
+
+        .reverse()
+
+        .map(registro => `
+
+            <div class="mov-item">
+
+ 
+
+                <h4>
+
+                    <i class="bi bi-car-front-fill"></i>
+
+                    ${registro.placa}
+
+                </h4>
+
+ 
+
+                <p>
+
+                    <i class="bi bi-person-vcard"></i>
+
+                    ${registro.proprietario}
+
+                </p>
+
+ 
+
+                <p>
+
+                    <i class="bi bi-building"></i>
+
+                    ${registro.torre}
+
+                </p>
+
+                <p>
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    ${registro.piso}
+
+                </p>
+
+ 
+
+                <p>
+
+                    <i class="bi bi-plugin"></i>
+
+                    ${registro.estacao}
+
+                </p>
+
+ 
+
+                <p>
+
+                    <i class="bi bi-reception-4"></i>
+
+                    ${registro.status}
+
+                </p>
+
+ 
+
+                <div class="mov-acoes">
+
+ 
+
+                    <button class="btn-mov-concluir">
+
+                        <i class="bi bi-check-circle"></i>
+
+                    </button>
+
+ 
+
+                    <button class="btn-mov-agendar">
+
+                        <i class="bi bi-send"></i>
+
+                    </button>
+
+ 
+
+                    <button class="btn-mov-notificar">
+
+                        <i class="bi bi-bell-fill"></i>
+
+                    </button>
+
+ 
+
+                    <button class="btn-mov-excluir">
+
+                        <i class="bi bi-trash"></i>
+
+                    </button>
+
+ 
+
+                </div>
+
+ 
+
+            </div>
+
+        `)
+
+        .join("");
+
+}
+
+ 
+
+function filtrarMovimentacoes(status) {
+
+ 
+
+    filtroMovimentacao = status;
+
+ 
+
+    menuFiltroMov.classList.remove("ativo");
+
+ 
+
+    renderizarMovimentacoes();
+
+ 
+
+}
+
+ 
+
+const btnFiltroMov =
+
+    document.getElementById("btnFiltroMov");
+
+ 
+
+const menuFiltroMov =
+
+    document.getElementById("menuFiltroMov");
+
+ 
+
+btnFiltroMov.addEventListener("click", () => {
+
+ 
+
+    menuFiltroMov.classList.toggle("ativo");
+
+ 
+
+});
+
+ 
+
+//============= Botão expandir e guardar ================
+
+btnFiltroMov.addEventListener("click", () => {
+
+ 
+
+    const somenteFila =
+
+        recargas.filter(r => r.status === "Fila");
+
+ 
+
+    // renderiza apenas fila
+
+ 
+
+});
+
+ 
+
+//============= Botão expandir e guardar ================
+
+const btnToggle =
+
+    document.getElementById("btnToggleMov");
+
+ 
+
+const historicoBox =
+
+    document.getElementById("listaMovimentacoes");
+
+ 
+
+//============= Botão expandir e guardar ================
+
+btnToggle.addEventListener("click", () => {
+
+ 
+
+    historicoBox.style.display =
+
+        historicoBox.style.display === "none"
+
+            ? "grid"
+
+            : "none";
+
+ 
+
+    btnToggle.innerHTML =
+
+        historicoBox.style.display === "none"
+
+            ? "🔼"
+
+            : "🔽";
+
+ 
+
+});
+
+
 // ================ Botão registar =========================
+
 function registrarRecarga() {
 
   const estacaoSelecionada = document.getElementById("estacao").value;
@@ -859,18 +1418,6 @@ function registrarRecarga() {
         r.status !== "Concluído"
 
     );
-
- 
-
-    // const existeCarregando = recargas.find(
-
-    // r =>
-
-    //     r.estacao === estacaoSelecionada &&
-
-    //     r.status === "Carregando"
-
-    // );
 
  
 
@@ -910,6 +1457,35 @@ function registrarRecarga() {
 
     } else {
 
+        const card = [...document.querySelectorAll(".station-card")]
+
+    .find(c =>
+
+        c.querySelector("h3").textContent.trim() === estacaoSelecionada
+
+    );
+
+ 
+
+    const nomesTorres = {
+
+        alfredo: "Torre Alfredo Egydio",
+
+        jabaquara: "Torre Jabaquara",
+
+        olavo: "Torre Olavo Setubal"
+
+    };
+
+ 
+
+    const torre = nomesTorres[card.dataset.torre];
+
+    const opcaoEstacao = document.getElementById("estacao").selectedOptions[0];
+const piso = opcaoEstacao.dataset.piso;
+
+ 
+
         // Só cria uma nova recarga se NÃO existir uma aberta
 
         const novaRecarga = criarRecarga({
@@ -920,7 +1496,9 @@ function registrarRecarga() {
 
             proprietario: proprietario,
 
- 
+            torre: torre,
+
+            piso: piso,
 
             manobristaEntrada:
 
@@ -960,50 +1538,6 @@ function registrarRecarga() {
 
  
 
-//     const novaRecarga = criarRecarga({
-
- 
-
-//         placa: placa,
-
-//         proprietario: proprietario,
-
-//         manobristaEntrada:
-
- 
-
-//         document.getElementById("manobristaEntrada").value,
-
-//         prisma: prismaSelecionado,
-
-//         estacao: estacaoSelecionada,
-
-//         dataEntrada:
-
- 
-
-//         document.getElementById("dataEntrada").value,
-
-//         diaSemana:
-
- 
-
-//         document.getElementById("diaSemana").value,
-
-//         horaChegada:
-
- 
-
-//         document.getElementById("horaChegada").value
-
-//   });
-
- 
-
-//console.table(novaRecarga);
-
- 
-
   if (!estacaoSelecionada || !prismaSelecionado) {
 
     alert("Selecione estação e prisma");
@@ -1014,13 +1548,23 @@ function registrarRecarga() {
 
  
 
-  const card = [...document.querySelectorAll(".station-card")]
+    const card = [...document.querySelectorAll(".station-card")]
 
-    .find(c => c.querySelector("h3").textContent.trim() === estacaoSelecionada);
+        .find(c =>
+
+            c.querySelector("h3").textContent.trim() === estacaoSelecionada
+
+        );
 
  
 
-  if (!card) return;
+    if (!card) {
+
+        console.error("Estação não encontrada:", estacaoSelecionada);
+
+        return;
+
+    }
 
  
 
@@ -1180,8 +1724,22 @@ function registrarRecarga() {
 
  
 
-    // Atualiza os contadores e KPIs
+    console.log("1");
 
     atualizarContadores();
 
+ 
+
+     console.log("2")    
+
+    //     atualizarComparativoOntem();
+
+ 
+
+    console.log("3")
+
+        renderizarMovimentacoes();
+
 }
+
+
