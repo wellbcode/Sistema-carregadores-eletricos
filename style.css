@@ -1767,9 +1767,6 @@ body::before{
  
 
 .busca-card h3{
-
- 
-
     background: linear-gradient(
 
  
@@ -1806,11 +1803,11 @@ body::before{
 
  
 
-    padding:15px 50px;
+    padding:16px;
 
  
 
-    font-size:1rem;
+    font-size:1.8rem;
 
  
 
@@ -2640,76 +2637,17 @@ body::before{
 
 }
 
- 
-
- 
-
- 
-
 .subtitulo-recarga{
-
- 
-
-    background: linear-gradient(
-
- 
-
-        135deg,
-
- 
-
-        #003B5C 20%,
-
- 
-
-        #FF9F1C 100%
-
- 
-
-        );
-
- 
-
+    background: linear-gradient(135deg, #003B5C 20%, #FF9F1C 100%);
     color:white;
-
- 
-
     text-shadow:0 0 10px rgba(255,255,255,.35);
-
- 
-
     border:none;
-
- 
-
     border-radius:12px;
-
- 
-
-    padding:15px 50px;
-
- 
-
+    padding:16px;
     font-weight:700;
-
- 
-
-    cursor:pointer;
-
- 
-
     margin:0 0 15px;
-
- 
-
     font-size:1.8rem;
-
- 
-
     text-align: center;
-
- 
-
 }
 
 .low {
@@ -4138,68 +4076,29 @@ body::before{
 
 }
 
-/*================= Fim =========================*/
+/*========================= Fim ===========================*/
 
- 
-
- 
-
-/*================= movimentações do dia =========================*/
-
-/* ================= MOVIMENTAÇÕES ================= */
-
- 
-
+/* ================= Seção Movimentações ================= */ 
 .painel-movimentacoes {
-
-    background: #ffffff;
-
-    border-radius: 10px;
-
+    background: #fff;
+    border-radius: 12px;
     width: auto;
     margin: 20px;
-
- 
-
     padding:10px;
-
-
-
-
 }
 
  
 
 .painel-header {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
-    margin:0 0 15px;
-
-    /* background:linear-gradient(135deg, rgba(0,35,55,.90), rgba(0,70,110,.82), rgba(0,25,40,.90) ); */
-
+    margin:10px 0px 10px;
     backdrop-filter: blur(1px);
-
     background: linear-gradient(135deg, #003B5C 20%, #FF9F1C 100%);
-
-    border:none;
-
- 
-
+    border: none;
     border-radius:12px;
-
- 
-
-    padding: 18px 24px;
-
- 
-
-    margin-bottom: 12px;
-
+    padding: 3px;
 }
 
 
@@ -4207,28 +4106,21 @@ body::before{
     margin: 0;
     color: #fff;
     text-shadow: 0 0 10px rgba(255,255,255,.35);
-    border: none;
-    border-radius: 12px;
-    padding: 15px 20px;
+    padding:10px;
+    font-weight:700;
     font-size: 1.8rem;
     text-align: center;
     width: 100%;
 } 
 
-
-
 .acoes {
-
+    margin-right: 10px;
     display: flex;
-
     gap: 8px;
-
-   
-
 }
 
  
-
+/* ================= Botões dos filtros ================= */
 .acoes button {
 
     border: none;
@@ -4246,47 +4138,26 @@ body::before{
     cursor: pointer;
 
     transition: .2s ease;
-
-   
-
 }
-
- 
 
 .acoes button:hover {
-
-    background: #e2e8f0;
-
+   transform: translateY(-2px); 
 }
 
-/* ================= MOVIMENTAÇÕES ================= */
 
- 
-/* 
-.mov-item {
-    width: 600px;
-    background: #f8fafc;
-
-    border-left: 5px solid var(--primary);
-
-    border-radius: 12px;
-
-    padding: 10px 20px;
-
-    box-shadow: 0 3px 10px rgba(0,0,0,.08);
-
-    transition: .2s ease;
-
+.acoes button i {
+    font-size: 16px;
+    color: #334155;
 }
 
-  */
-
+/* lista ddos cards */
 .mov-item {
     width: 100%;
+    max-width: 400px;;
     background: #f8fafc;
 
     border-left: 5px solid var(--primary);
-    border-radius: 12px;
+    border-radius: 10px;
 
     padding: 10px;
 
@@ -4295,32 +4166,32 @@ body::before{
     transition: .2s ease;
 }  
 
-/* Estado recolhido */
+/* lista das movimentações sendo exibidas */
 #listaMovimentacoes {
-        display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
- padding: 2px;
-        width: 100%;
-
- 
-
-        margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 2px;
+    width: 100%;
+    margin: 0;
     gap: 15px;
     justify-content: center;
-
-    max-height: 2000px;
+    max-height: 800px;
     overflow: hidden;
-
     opacity: 1;
-
-    transition:
-        max-height 0.45s ease,
-        opacity 0.3s ease,
-        padding 0.45s ease;
-   
+    transition:         
+        max-height 2s ease-in-out,
+        opacity 0.6s ease-in-out,
+        padding 0.8s ease-in-out,
+        margin 0.8s ease-in-out;
 }
 
+#listaMovimentacoes.fechado {
+    max-height: 0;
+    opacity: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 0;
+}
 
 .mov-item:hover {
 
@@ -4435,15 +4306,12 @@ body::before{
  
 
 /* ✅ Concluir */
-
 .btn-mov-concluir {
   background-color: #198754 !important;
   border-color: #198754 !important;
   color: #fff !important;
 
 }
-
- 
 
 .btn-mov-concluir:hover,
 .btn-mov-agendar:hover,
@@ -4455,41 +4323,28 @@ body::before{
 
 }
 
- /* 📨 Teams */
-
+/* 📨 Teams */
 .btn-mov-agendar {
-   background-color: #1454a8 !important;
+  background-color: #1454a8 !important;
   border-color: #1454a8 !important;
   color: #fff !important;
 }
 
 
 /* 🔔 Notificar */
-
 .btn-mov-notificar {
  background-color: #ffee00e3 !important; 
   border-color: #ffee00e3 !important;
   color: #333 !important;
-
-
 }
 
 
 /* 🗑️ Excluir */
-
 .btn-mov-excluir {
   background-color: #dc3545 !important;
   border-color: #dc3545 !important;
   color: #fff !important;
 
-}
-
-#listaMovimentacoes.fechado {
-    max-height: 0;
-    opacity: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
 }
 
 /* Scroll */
@@ -4540,9 +4395,7 @@ body::before{
 
 }
 
- 
-
-.menu-filtro-mov{
+ .menu-filtro-mov{
 
     display:none;
 
@@ -4574,7 +4427,12 @@ body::before{
 
 }
 
- 
+.menu-filtro-mov hr {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 4px 0;
+}
 
 .menu-filtro-mov.ativo{
 
@@ -4586,13 +4444,11 @@ body::before{
 
 }
 
- 
-
 .menu-filtro-mov button{
 
     border:none;
 
-    background:#f8fafc;
+    background:#fff;
 
     color:#334155;
 
@@ -4614,20 +4470,15 @@ body::before{
 
 }
 
- 
-
-.menu-filtro-mov button:hover{
+ .menu-filtro-mov button:hover{
 
     background:#e2e8f0;
 
 }
 
- 
+/*========================= Fim ===========================*/ 
 
 /*============ Estações de carregamento ===============*/
-
- 
-
 .stations{
 
  

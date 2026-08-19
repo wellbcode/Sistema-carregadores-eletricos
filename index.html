@@ -22,7 +22,7 @@
 
     <link rel="shortcut icon" href="img/Charge2.png" type="image/x-icon">
 
-    <title>Gestão Carregadores Elétricos</title>
+    <title>Carregadores Elétricos cópia</title>
 
 </head>
 
@@ -1290,7 +1290,6 @@
  
 
             <!-- =============== KPIs ========================= -->
-
             <section class="kpis">
 
                 <!-- KPI Hora -->
@@ -1778,55 +1777,23 @@
             <!-- =============== Movimentação do dia ========================= -->
 
             <section class="painel-movimentacoes">
-
                 <div class="painel-header">
-
- 
-
                     <h3>Movimentações Recentes 📋</h3>
 
- 
-
                     <div class="acoes">
-
- 
-
-                        <button id="btnFiltroMov">
-
+                        <button id="btnFiltroMov" aria-label="filtros">
                             <i class="bi bi-funnel-fill"></i>
-
                         </button>
 
- 
 
-                        <!-- <button id="btnNotificacoes" class="notification">
-
-                         <i class="bi bi-bell"></i>
-
-                        </button>-->
-
- 
-
-                        <button id="btnNotificacoes">
-
-                        <i class="bi bi-bell-fill" ></i>
-
+                        <button id="btnNotificacoes" aria-label="lembretes">
+                            <i class="bi bi-bell-fill lembretes" ></i>
                         </button>
 
- 
-
-                        <button id="btnToggleMov">
-
-                            <i class="bi bi-chevron-down"></i>
-
+                        <button id="btnToggleMov" aria-label="expandir">
+                            🔽
                         </button>
-
- 
-
                     </div>
-
- 
-
                 </div>
 
  
@@ -1843,6 +1810,28 @@
 
                         <button onclick="filtrarMovimentacoes('Concluído')">Concluído</button>
 
+                       <!-- PISOS -->
+
+                        <button onclick="filtrarMovimentacoes('Torre Alfredo Egydio')">
+                            Alfredo PG
+                        </button>
+
+                        <button onclick="filtrarMovimentacoes('Torre Olavo Setubal')">
+                            Olavo PG
+                        </button>
+
+                        <button onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS')">
+                            Jabaquara 1º SS
+                        </button>
+
+                        <button onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul')">
+                            Jabaquara Azul
+                        </button>
+
+                        <button onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar')">
+                            Jabaquara 1º Andar
+                        </button>
+                        
                 </div>
 
  

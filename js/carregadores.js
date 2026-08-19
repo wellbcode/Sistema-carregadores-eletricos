@@ -52,7 +52,6 @@ let filtroTorreAtual = "todas";
 
 let filtroMovimentacao = "todos";
 
- 
 
 function filtrarCarregadores(filtro, botaoClicado) {
 
@@ -1079,7 +1078,6 @@ setInterval(obterLocalizacao, 30 * 60 * 1000);
  
 
 //============= dia da semana ================
-
 window.addEventListener("DOMContentLoaded", () => {
 
     const dataEntrada = document.getElementById("dataEntrada");
@@ -1129,7 +1127,6 @@ window.addEventListener("DOMContentLoaded", () => {
  
 
 //============= Movimentação do dia dia da semana ================
-
 function renderizarMovimentacoes() {
 
  
@@ -1148,21 +1145,62 @@ function renderizarMovimentacoes() {
 
  
 
+    // if (filtroMovimentacao !== "todos") {
+    //     registros = registros.filter(
+
+    //         r => r.status === filtroMovimentacao
+
+    //     ); 
+    // }
+
+// if (filtroMovimentacao !== "todos") {
+
+// const torres = [
+//     "Torre Alfredo Egydio",
+//     "Torre Olavo Setubal",
+//     "Torre Jabaquara"
+// ];
+//     registros = registros.filter(r => {
+
+//         if (torres.includes(filtroMovimentacao)) {
+//             return r.torre === filtroMovimentacao;
+//         }
+
+//         return r.status === filtroMovimentacao;
+
+//     });
+
+// }
+
     if (filtroMovimentacao !== "todos") {
 
- 
+    const torres = [
+        "Torre Alfredo Egydio",
+        "Torre Olavo Setubal"
+    ];
 
-        registros = registros.filter(
+    registros = registros.filter(r => {
 
-            r => r.status === filtroMovimentacao
+        // FILTRO POR TORRE
+        if (torres.includes(filtroMovimentacao)) {
+            return r.torre === filtroMovimentacao;
+        }
 
-        );
+        // FILTRO POR TORRE + PISO
+        if (filtroMovimentacao.includes("|")) {
 
- 
+            const [torre, piso] = filtroMovimentacao.split("|");
 
-    }
+            return r.torre === torre &&
+                   r.piso === piso;
+        }
 
- 
+        // FILTRO POR STATUS
+        return r.status === filtroMovimentacao;
+
+    });
+
+}
 
     lista.innerHTML = registros
 
@@ -1282,8 +1320,6 @@ function renderizarMovimentacoes() {
 
 }
 
- 
-
 function filtrarMovimentacoes(status) {
 
  
@@ -1302,33 +1338,16 @@ function filtrarMovimentacoes(status) {
 
 }
 
- 
-
 const btnFiltroMov =
-
     document.getElementById("btnFiltroMov");
 
- 
+    const menuFiltroMov =
+        document.getElementById("menuFiltroMov");
 
-const menuFiltroMov =
-
-    document.getElementById("menuFiltroMov");
-
- 
-
-btnFiltroMov.addEventListener("click", () => {
-
- 
+    btnFiltroMov.addEventListener("click", () => {
 
     menuFiltroMov.classList.toggle("ativo");
-
- 
-
 });
-
- 
-
-//============= Botão expandir e guardar ================
 
 btnFiltroMov.addEventListener("click", () => {
 
@@ -1349,44 +1368,19 @@ btnFiltroMov.addEventListener("click", () => {
  
 
 //============= Botão expandir e guardar ================
-
 const btnToggle =
-
     document.getElementById("btnToggleMov");
-
- 
-
 const historicoBox =
-
     document.getElementById("listaMovimentacoes");
 
- 
-
 //============= Botão expandir e guardar ================
-
 btnToggle.addEventListener("click", () => {
 
- 
+    const fechado = historicoBox.classList.toggle("fechado");
 
-    historicoBox.style.display =
-
-        historicoBox.style.display === "none"
-
-            ? "grid"
-
-            : "none";
-
- 
-
-    btnToggle.innerHTML =
-
-        historicoBox.style.display === "none"
-
-            ? "🔼"
-
-            : "🔽";
-
- 
+    btnToggle.innerHTML = fechado
+        ? "🔼"
+        : "🔽";
 
 });
 
