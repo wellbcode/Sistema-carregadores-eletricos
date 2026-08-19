@@ -28,7 +28,6 @@
 ❌ Cancelada
 ⚠️ Atenção
 🔔 Lembrete
-
 🌞 DIA
 
 🌅 Amanhecer
