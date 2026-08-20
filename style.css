@@ -3324,32 +3324,7 @@ body::before{
 
 }
 
- 
-
-/* .kpi-card.fila {
-
-    background: linear-gradient(
-
-        135deg,
-
-        #fff7ed,
-
-        #ffedd5
-
-    );
-
- 
-
-    border-left: 4px solid #f97316;
-
- 
-
-} */
-
-/* círculo */
-
- 
-
+ /* círculo */
 .kpi-icon{
 
  
@@ -4127,7 +4102,7 @@ body::before{
 
     background: #fff;
 
-    color: #334155;
+    color: #4b5533;
 
     width: 38px;
 
@@ -4142,8 +4117,9 @@ body::before{
 
 .acoes button:hover {
    transform: translateY(-2px); 
+   border: 2px solid var(--primary);
+    font-size: 20px;
 }
-
 
 .acoes button i {
     font-size: 16px;
@@ -4346,6 +4322,90 @@ body::before{
   color: #fff !important;
 
 }
+
+/* ================= ALERTA DE NOTIFICAÇÃO ================= */
+
+.alerta-notificacao {
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.alerta-titulo {
+    color: #334155;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.alerta-conteudo {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.alerta-conteudo strong {
+    color: #334155;
+}
+
+
+/* ================= BOTÕES ================= */
+
+.btn-alerta-confirmar,
+.btn-alerta-cancelar {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 11px 20px;
+
+    margin: 5px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: .2s ease;
+
+}
+
+
+/* ENVIAR */
+
+.btn-alerta-confirmar {
+
+    background: var(--primary);
+
+    color: white;
+
+}
+
+.btn-alerta-confirmar:hover {
+
+    transform: translateY(-2px);
+
+    opacity: .9;
+
+}
+
+
+/* CANCELAR */
+
+.btn-alerta-cancelar {
+
+    background: #e2e8f0;
+
+    color: #475569;
+
+}
+
+.btn-alerta-cancelar:hover {
+
+    background: #cbd5e1;
+
+}
+
 
 /* Scroll */
 

@@ -52,6 +52,8 @@ let filtroTorreAtual = "todas";
 
 let filtroMovimentacao = "todos";
 
+let lembretes = [];
+
 
 function filtrarCarregadores(filtro, botaoClicado) {
 
@@ -1075,8 +1077,6 @@ obterLocalizacao();
 
 setInterval(obterLocalizacao, 30 * 60 * 1000);
 
- 
-
 //============= dia da semana ================
 window.addEventListener("DOMContentLoaded", () => {
 
@@ -1124,8 +1124,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 });
 
- 
-
 //============= Movimentação do dia dia da semana ================
 function renderizarMovimentacoes() {
 
@@ -1142,35 +1140,6 @@ function renderizarMovimentacoes() {
  
 
     let registros = [...recargas];
-
- 
-
-    // if (filtroMovimentacao !== "todos") {
-    //     registros = registros.filter(
-
-    //         r => r.status === filtroMovimentacao
-
-    //     ); 
-    // }
-
-// if (filtroMovimentacao !== "todos") {
-
-// const torres = [
-//     "Torre Alfredo Egydio",
-//     "Torre Olavo Setubal",
-//     "Torre Jabaquara"
-// ];
-//     registros = registros.filter(r => {
-
-//         if (torres.includes(filtroMovimentacao)) {
-//             return r.torre === filtroMovimentacao;
-//         }
-
-//         return r.status === filtroMovimentacao;
-
-//     });
-
-// }
 
     if (filtroMovimentacao !== "todos") {
 
@@ -1276,7 +1245,10 @@ function renderizarMovimentacoes() {
 
  
 
-                    <button class="btn-mov-concluir">
+                    <button
+                        class="btn-mov-concluir"
+                        onclick="confirmarConclusao(${registro.id})"
+                        title="Concluir movimentação">
 
                         <i class="bi bi-check-circle"></i>
 
@@ -1284,15 +1256,15 @@ function renderizarMovimentacoes() {
 
  
 
-                    <button class="btn-mov-agendar">
-
+                    <button class="btn-mov-agendar" onclick="confirmarNotificacao(${registro.id})">
                         <i class="bi bi-send"></i>
-
                     </button>
 
  
-
-                    <button class="btn-mov-notificar">
+                    <button 
+                        class="btn-mov-notificar" 
+                        onclick="confirmarLembrete(${registro.id})" 
+                        title="Criar lembrete">
 
                         <i class="bi bi-bell-fill"></i>
 
@@ -1300,7 +1272,10 @@ function renderizarMovimentacoes() {
 
  
 
-                    <button class="btn-mov-excluir">
+                    <button
+                        class="btn-mov-excluir"
+                        onclick="confirmarExclusao(${registro.id})"
+                        title="Excluir movimentação">
 
                         <i class="bi bi-trash"></i>
 
@@ -1338,6 +1313,533 @@ function filtrarMovimentacoes(status) {
 
 }
 
+function confirmarNotificacao(id) {
+
+    const registro = recargas.find(r => r.id === id);
+
+    if (!registro) {
+        console.log("Recarga não encontrada:", id);
+        return;
+    }
+
+    const usuario = base.find(
+        pessoa => pessoa[0] === registro.placa
+    );
+
+    if (!usuario) {
+        console.log("Usuário não encontrado:", registro.placa);
+        return;
+    }
+
+    const email = usuario[4];
+    const nome = usuario[1].split(" - Func:")[0];
+
+    console.log("BOTÃO CLICADO:", id);
+
+    Swal.fire({
+
+        title: "Notificar usuário?",
+
+        html: `
+            <div class="alerta-conteudo">
+
+                <p>
+                    O veículo de <strong>${nome}</strong>
+                    já foi carregado.
+                </p>
+
+                <p>
+                    Deseja enviar uma mensagem pelo
+                    <strong>Microsoft Teams</strong>?
+                </p>
+
+            </div>
+        `,
+
+        icon: "question",
+
+        showCancelButton: true,
+
+        confirmButtonText:
+            '<i class="fa-solid fa-paper-plane"></i> Sim, notificar',
+
+        cancelButtonText:
+            "Cancelar",
+
+        reverseButtons: true,
+
+        focusCancel: true,
+
+        buttonsStyling: false,
+
+        customClass: {
+
+            popup: "alerta-notificacao",
+
+            title: "alerta-titulo",
+
+            confirmButton: "btn-alerta-confirmar",
+
+            cancelButton: "btn-alerta-cancelar"
+
+        }
+
+    }).then((resultado) => {
+
+        if (!resultado.isConfirmed) {
+            return;
+        }
+
+        const mensagem =
+            "Olá, seu veículo já foi carregado, pode vir buscá-lo assim que puder. :)";
+
+        const urlTeams =
+            `https://teams.microsoft.com/l/chat/0/0?users=${encodeURIComponent(email)}&text=${encodeURIComponent(mensagem)}`;
+
+        window.open(urlTeams, "_blank");
+
+    });
+
+}
+
+function confirmarConclusao(id) {
+
+    const registro = recargas.find(r => r.id === id);
+
+    if (!registro) {
+        console.log("Recarga não encontrada:", id);
+        return;
+    }
+
+    Swal.fire({
+        title: "Concluir movimentação?",
+        text: `Deseja concluir o atendimento da placa ${registro.placa}?`,
+        icon: "question",
+
+        showCancelButton: true,
+
+        confirmButtonText: "Sim, concluir",
+        cancelButtonText: "Cancelar",
+
+        confirmButtonColor: "#16a34a",
+        cancelButtonColor: "#64748b",
+
+        reverseButtons: true
+
+    }).then((resultado) => {
+
+        if (!resultado.isConfirmed) return;
+
+        registro.status = "Concluído";
+
+        Swal.fire({
+            title: "Movimentação concluída!",
+            text: `O atendimento da placa ${registro.placa} foi encerrado.`,
+            icon: "success",
+
+            confirmButtonText: "OK",
+            confirmButtonColor: "#16a34a",
+
+            timer: 2500,
+            timerProgressBar: true
+        });
+
+        atualizarContadores();
+        renderizarMovimentacoes();
+
+    });
+
+}
+
+function agendarLembrete(registro, dataLembrete, mensagem) {
+
+    const agora = new Date();
+
+    const tempoRestante =
+        dataLembrete.getTime() - agora.getTime();
+
+    if (tempoRestante <= 0) {
+
+        Swal.fire({
+            title: "Data inválida",
+            text: "A data escolhida já passou.",
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+
+        return;
+    }
+
+    // Evita dois lembretes para a mesma movimentação
+    const jaExiste = lembretes.some(
+        lembrete => lembrete.id === registro.id
+    );
+
+    if (jaExiste) {
+
+        Swal.fire({
+            title: "Lembrete já existe",
+            text: `Já existe um lembrete para ${registro.placa}.`,
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+
+        return;
+    }
+
+    lembretes.push({
+        id: registro.id,
+        placa: registro.placa,
+        proprietario: registro.proprietario,
+        estacao: registro.estacao,
+        torre: registro.torre,
+        data: dataLembrete,
+        mensagem: mensagem
+    });
+
+    atualizarLembretes();
+
+    Swal.fire({
+        title: "Lembrete definido!",
+        text: `Você será lembrado em ${dataLembrete.toLocaleString("pt-BR")}.`,
+        icon: "success",
+        confirmButtonText: "OK"
+    });
+
+    setTimeout(() => {
+
+        mostrarNotificacaoLembrete(
+            registro,
+            mensagem
+        );
+
+}, tempoRestante);
+}
+
+function mostrarNotificacaoLembrete(registro, mensagem) {
+
+    const som = new Audio("audios/success-1-6297.mp3");
+
+    som.play().catch(erro => {
+        console.log("Não foi possível reproduzir o som:", erro);
+    });
+
+    if (Notification.permission === "granted") {
+
+        new Notification("🔔 Lembrete Smart Charger", {
+            body:
+                mensagem ||
+                `Veículo ${registro.placa} — ${registro.estacao}`
+        });
+
+    } else {
+
+        Swal.fire({
+            title: "🔔 Lembrete",
+            text:
+                mensagem ||
+                `Veículo ${registro.placa} está relacionado à ${registro.estacao}.`,
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+
+    }
+}
+
+function confirmarLembrete(id) {
+
+    const registro = recargas.find(r => r.id === id);
+
+    if (!registro) {
+        console.log("Recarga não encontrada:", id);
+        return;
+    }
+
+    Swal.fire({
+        title: "🔔 Criar lembrete",
+
+        html: `
+            <div style="text-align: left;">
+                <p>
+                    <strong>🚗 ${registro.placa}</strong>
+                </p>
+
+                <p>👤 ${registro.proprietario}</p>
+
+                <p>⚡ ${registro.estacao}</p>
+
+                <p>📍 ${registro.torre}</p>
+
+                <input
+                    type="datetime-local"
+                    id="lembreteData"
+                    class="swal2-input"
+                >
+                <textarea
+                    id="lembreteMensagem"
+                    class="swal2-textarea"
+                    placeholder="Digite uma mensagem para a notificação..."
+                ></textarea>
+            </div>
+        `,
+
+        showCancelButton: true,
+
+        confirmButtonText: "Salvar lembrete",
+
+        cancelButtonText: "Cancelar",
+
+        reverseButtons: true,
+
+        preConfirm: () => {
+
+            const data =
+                document.getElementById("lembreteData").value;
+
+            const mensagem =
+                document.getElementById("lembreteMensagem").value.trim();
+
+            if (!data) {
+
+                Swal.showValidationMessage(
+                    "Escolha uma data e hora."
+                );
+
+                return false;
+            }
+
+            return {
+                data,
+                mensagem
+            };
+        }
+        
+    }).then(resultado => {
+
+        if (!resultado.isConfirmed) return;
+
+        const [data, hora] = resultado.value.data.split("T");
+
+        const [ano, mes, dia] = data.split("-").map(Number);
+        const [horas, minutos] = hora.split(":").map(Number);
+
+        const dataLembrete = new Date(
+            ano,
+            mes - 1,
+            dia,
+            horas,
+            minutos
+        );
+
+        agendarLembrete(
+            registro,
+            dataLembrete,
+            resultado.value.mensagem
+        );
+
+    });
+}
+
+function mostrarLembretes() {
+
+    if (lembretes.length === 0) {
+
+        Swal.fire({
+            title: "🔔 Lembretes",
+            text: "Nenhum lembrete agendado.",
+            icon: "info",
+            confirmButtonText: "OK"
+        });
+
+        return;
+    }
+
+    const lista = lembretes.map(lembrete => `
+
+        <div style="
+            text-align: left;
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #f8fafc;
+            border-radius: 10px;
+        ">
+
+            <strong>🚗 ${lembrete.placa}</strong>
+
+            <p>👤 ${lembrete.proprietario}</p>
+
+            <p>⚡ ${lembrete.estacao}</p>
+
+            <p>📍 ${lembrete.torre}</p>
+
+            <p>
+                📝 ${lembrete.mensagem || "Sem mensagem"}
+            </p>
+
+            <small>
+                🕐 ${new Date(lembrete.data).toLocaleString("pt-BR")}
+            </small>
+
+        </div>
+
+    `).join("");
+
+    Swal.fire({
+
+        title: "🔔 Meus lembretes",
+
+        html: `
+            <div style="
+                max-height: 400px;
+                overflow-y: auto;
+            ">
+                ${lista}
+            </div>
+        `,
+
+        confirmButtonText: "Fechar"
+
+    });
+}
+
+window.confirmarLembrete = confirmarLembrete;
+function atualizarLembretes() {
+
+    const quantidade = lembretes.length;
+
+    const badgeTopbar =
+        document.getElementById("badgeNotificacoes");
+
+    const badgeSidebar =
+        document.getElementById("badgeAlertas");
+
+
+    // ================= TOPBAR =================
+
+    if (badgeTopbar) {
+
+        badgeTopbar.textContent = quantidade;
+
+        badgeTopbar.style.display =
+            quantidade > 0 ? "flex" : "none";
+    }
+
+
+    // ================= SIDEBAR =================
+
+    if (badgeSidebar) {
+
+        badgeSidebar.textContent = quantidade;
+
+        badgeSidebar.style.display =
+            quantidade > 0 ? "flex" : "none";
+    }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const btnNotificacoes =
+        document.getElementById("btnNotificacoes");
+
+    if (btnNotificacoes) {
+
+        btnNotificacoes.addEventListener("click", () => {
+
+            mostrarLembretes();
+
+        });
+
+    }
+
+    const linkAlertas =
+        document.getElementById("linkAlertas");
+
+    if (linkAlertas) {
+
+        linkAlertas.addEventListener("click", (event) => {
+
+            event.preventDefault();
+
+            mostrarLembretes();
+
+        });
+
+    }
+
+});
+
+function confirmarExclusao(id) {
+
+    const registro = recargas.find(r => r.id === id);
+
+    if (!registro) {
+        console.log("Recarga não encontrada:", id);
+        return;
+    }
+
+    Swal.fire({
+
+        title: "Excluir movimentação?",
+
+        html: `
+            <p>
+                Você está prestes a excluir a movimentação da placa
+                <strong>${registro.placa}</strong>.
+            </p>
+
+            <p style="
+                margin-top:10px;
+                color:#dc2626;
+                font-size:13px;
+            ">
+                Essa ação não poderá ser desfeita.
+            </p>
+        `,
+
+        icon: "warning",
+
+        showCancelButton: true,
+
+        confirmButtonText: "Sim, excluir",
+        cancelButtonText: "Cancelar",
+
+        confirmButtonColor: "#dc2626",
+        cancelButtonColor: "#64748b",
+
+        reverseButtons: true
+
+    }).then((resultado) => {
+
+        if (!resultado.isConfirmed) return;
+
+        const indice = recargas.findIndex(
+            r => r.id === id
+        );
+
+        if (indice === -1) return;
+
+        recargas.splice(indice, 1);
+
+        Swal.fire({
+
+            title: "Movimentação excluída!",
+            text: `A movimentação ${registro.placa} foi removida.`,
+            icon: "success",
+
+            confirmButtonText: "OK",
+            confirmButtonColor: "#dc2626",
+
+            timer: 2500,
+            timerProgressBar: true
+
+        });
+
+        atualizarContadores();
+        renderizarMovimentacoes();
+
+    });
+}
+
 const btnFiltroMov =
     document.getElementById("btnFiltroMov");
 
@@ -1365,7 +1867,6 @@ btnFiltroMov.addEventListener("click", () => {
 
 });
 
- 
 
 //============= Botão expandir e guardar ================
 const btnToggle =
@@ -1383,9 +1884,6 @@ btnToggle.addEventListener("click", () => {
         : "🔽";
 
 });
-
-
-// ================ Botão registar =========================
 
 function registrarRecarga() {
 
@@ -1736,4 +2234,21 @@ const piso = opcaoEstacao.dataset.piso;
 
 }
 
+//============= Botão de notificações ================
 
+window.addEventListener("load", function () {
+
+    const btnNotificacoes =
+        document.getElementById("btnNotificacoes");
+
+    console.log("🔔 BOTÃO ENCONTRADO:", btnNotificacoes);
+
+    if (!btnNotificacoes) return;
+
+    btnNotificacoes.addEventListener("click", function () {
+
+        console.log("🔔🔔🔔 CLIQUEI NO SINO 🔔🔔🔔");
+
+    });
+
+});

@@ -28,8 +28,8 @@
 ❌ Cancelada
 ⚠️ Atenção
 🔔 Lembrete
-🌞 DIA
 
+🌞 DIA
 🌅 Amanhecer
 ☀️ Bom dia
 🌤️ Céu limpo
