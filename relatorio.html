@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Ícones e fontes -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
+    <!-- CSS do projeto -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="relatorio.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/Charge2.png" type="image/x-icon">
+    <title>Histórico e Relatórios</title>
+</head>
+<body>
+    <!-- ==========Carrossel das imgs de fundo -->
+    <div class="background-slider">
+        <div class="bg-slide active">
+            <img src="img/charge1.jpg" alt="">
+        </div>
+        <div class="bg-slide">
+            <img src="img/charge2.png" alt="">
+        </div>
+        <div class="bg-slide">
+            <img src="img/charge3.jpg" alt="">
+        </div>
+        <div class="bg-slide">
+            <img src="img/charge4.png" alt="">
+        </div>
+        <div class="bg-slide">
+            <img src="img/charge5.jpg" alt="">
+        </div>
+        <div class="bg-slide">
+            <img src="img/charge6.jpg" alt="">
+        </div>
+        <div class="bg-slide">
+            <img src="img/charge7.jpg" alt="">
+        </div>
+    </div>
+    <!-- ============== Container principal pai =================== -->
+    <div class="app" id="inicio">
+        <main class="main">
+            <!-- ================== Cabeçalho ===================== -->
+            <header class="topbar">
+                <div class="topbar-left">
+                    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div class="welcome">
+                        <h1>Olá,<span> Wellington!</span> 👋</h1>
+                        <p>Veja o resumo geral do sistema</p>
+                    </div>
+                </div>
+
+                <div class="topbar-right">
+                    <button class="notification" id="btnNotificacoes">
+                        <i class="bi bi-bell"></i>
+                        <span class="notification-badge" id="badgeNotificacoes">0</span>
+                    </button>
+                    <div class="profile">
+                        <div class="profile-avatar">W</div>
+                        <i class="bi bi-chevron-down"></i>
+                    </div>
+                </div>
+            </header>
+
+             <!-- ========== Conteúdo dos relatórios ================ -->
+            <div class="historico-container">
+                <!-- ========= Título ============== -->
+                <header class="historico-titulo">
+                    <h2>📊 Relatórios e Indicadores</h2>
+                </header>
+
+                <!-- ======== Seção dos KPIs de Indicadores ========= -->
+                <section class="relatorio-kpis">
+                    <article class="card kpi-relatorio">
+                        <div class="card-body">
+                            <h6>Total de Recargas</h6>
+                            <h2 id="relTotal">0</h2>
+                        </div>
+                    </article>
+
+                    <article class="card kpi-relatorio">
+                        <div class="card-body">
+                            <h6>Concluídas</h6>
+                            <h2 id="relConcluidas">0</h2>
+                        </div>
+                    </article>
+
+                    <article class="card kpi-relatorio">
+                        <div class="card-body">
+                            <h6>Em Andamento</h6>
+                            <h2 id="relEmAndamento">0</h2>
+                        </div>
+                    </article>
+
+                    <article class="card kpi-relatorio">
+                        <div class="card-body">
+                            <h6>Fila</h6>
+                            <h2 id="relFila">0</h2>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- ============= Section Indicadroes=============== -->
+                <section class="relatorio-indicadores">
+                    <article class="indicador-card azul">
+                        <div class="indicador-icone azul">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Tempo médio de carregamento</span>
+                            <strong>3h 31min</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card laranja">
+                        <div class="indicador-icone laranja">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Tempo médio de espera</span>
+                            <strong>4h 42min</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card vermelho">
+                        <div class="indicador-icone vermelho">
+                            <i class="bi bi-battery-half"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Média de bateria na entrada</span>
+                            <strong>37,1%</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card verde">
+                        <div class="indicador-icone verde">
+                            <i class="bi bi-battery-full"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Média de bateria na saída</span>
+                            <strong>56,6%</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card amarelo">
+                        <div class="indicador-icone amarelo">
+                            <i class="bi bi-lightning-charge"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Energia total consumida</span>
+                            <strong>1.248 kWh</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card verde">
+                        <div class="indicador-icone verde">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Taxa de utilização</span>
+                            <strong>87,4%</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card laranja">
+                        <div class="indicador-icone laranja">
+                            <i class="bi bi-cash-stack"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>Economia Estimada</span>
+                            <strong>R$ 8.214</strong>
+                        </div>
+                    </article>
+
+                    <article class="indicador-card verde">
+                        <div class="indicador-icone verde">
+                            <i class="bi bi-tree-fill"></i>
+                        </div>
+
+                        <div class="indicador-info">
+                            <span>CO₂ Evitado</span>
+                            <strong>2.384 kg</strong>
+                        </div>
+                    </article>
+                </section>  
+
+                <!-- ================ Seção de comparativos =============== -->
+                <section class="comparativo-mensal">
+                    <article class="comparativo-card">
+                        <div class="comparativo-header">
+                            <h3>📈 Comparativo Mensal</h3>
+                            <span class="badge bg-success mb-3">Últimos 2 meses</span>
+                        </div>
+
+                        <div class="comparativo-body">
+                            <div class="comparativo-mes">
+                                <span>Julho/2026</span>
+                                <strong>1.247</strong>
+                                <small>Recargas</small>
+                            </div>
+
+                            <div class="comparativo-seta">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </div>
+
+                            <div class="comparativo-mes">
+                                <span>Agosto/2026</span>
+                                <strong>1.379</strong>
+                                <small>Recargas</small>
+                            </div>
+                        </div>
+
+                        <div class="comparativo-resultado positivo">
+                            ▲ +10,58%
+                        </div>
+
+                          <div class="comparativo-resultado negativo">
+                            ▼ -10,58%
+                        </div>
+                    </article>
+                </section>
+
+                <!-- ============ Seção dos gráficos e indicadores ============== -->
+                <section class="dashboard-graficos">
+                    <article class="grafico-card grafico-linha">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>Recargas por Dia</h3>
+                                <span>Evolução diária das recargas</span>
+                            </div>
+
+                            <button class="grafico-opcoes">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </header>
+
+                        <div class="linha-chart">
+                            <svg viewBox="0 0 800 250">
+                                <polyline
+                                    fill="none"
+                                    stroke="#4f8ef7"
+                                    stroke-width="5"
+                                    points="
+                                    20,200
+                                    80,180
+                                    140,160
+                                    200,170
+                                    260,130
+                                    320,120
+                                    380,110
+                                    440,100
+                                    500,95
+                                    560,80
+                                    620,75
+                                    680,60
+                                    760,40">
+                                </polyline>
+                                <circle cx="760" cy="40" r="6" fill="#ff6b00"/>
+                            </svg>
+                        </div>
+                    </article>
+
+                    <article class="grafico-card">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>🏆 Top Usuários</h3>
+                                <span>Mais utilizam os carregadores</span>
+                            </div>
+                        </header>
+
+                        <div class="ranking-lista">
+                            <div class="ranking-item">
+                                <span>🥇 João Silva</span>
+                                <strong>52</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span>🥈 Maria Souza</span>
+                                <strong>48</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span>🥉 Carlos Lima</span>
+                                <strong>41</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span>4º Ana Santos</span>
+                                <strong>39</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span>5º Pedro Costa</span>
+                                <strong>34</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="grafico-card">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>🚗 Top Veículos</h3>
+                                <span>Mais carregados</span>
+                            </div>
+                        </header>
+
+                        <div class="ranking-lista">
+                            <div class="ranking-item">
+                                <span> 🥇 ABC1234</span>
+                                <strong>74</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span> 🥈 DEF5678</span>
+                                <strong>63</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span> 🥉 GHI9012</span>
+                                <strong>58</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span>4º JKL3456</span>
+                                <strong>44</strong>
+                            </div>
+
+                            <div class="ranking-item">
+                                <span>5º MNO7890</span>
+                                <strong>37</strong>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ================ Carregamentos por dia ================= -->
+                    <article class="grafico-card grafico-carregamentos">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>Carregamentos por dia da semana</h3>
+                                <span>Quantidade de carregamentos</span>
+                            </div>
+
+                            <button class="grafico-opcoes" type="button">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </header>
+
+                        <div class="grafico-barras-verticais">
+                            <div class="barras-area">
+                                <div class="linha linha-100"></div>
+                                <div class="linha linha-75"></div>
+                                <div class="linha linha-50"></div>
+                                <div class="linha linha-25"></div>
+                                <div class="linha linha-0"></div>
+
+                                <div class="barra-colunas">
+                                    <div class="barra-item">
+                                        <span class="barra-valor">186</span>
+                                        <div class="barra barra-1"></div>
+                                        <span class="barra-label">Seg</span>
+                                    </div>
+
+                                    <div class="barra-item">
+                                        <span class="barra-valor">224</span>
+                                        <div class="barra barra-2"></div>
+                                        <span class="barra-label">Ter</span>
+                                    </div>
+
+                                    <div class="barra-item">
+                                        <span class="barra-valor">198</span>
+                                        <div class="barra barra-3"></div>
+                                        <span class="barra-label">Qua</span>
+                                    </div>
+
+                                    <div class="barra-item">
+                                        <span class="barra-valor">241</span>
+                                        <div class="barra barra-4"></div>
+                                        <span class="barra-label">Qui</span>
+                                    </div>
+
+                                    <div class="barra-item">
+                                        <span class="barra-valor">216</span>
+                                        <div class="barra barra-5"></div>
+                                        <span class="barra-label">Sex</span>
+                                    </div>
+
+                                    <div class="barra-item">
+                                        <span class="barra-valor">164</span>
+                                        <div class="barra barra-6"></div>
+                                        <span class="barra-label">Sáb</span>
+                                    </div>
+
+                                    <div class="barra-item">
+                                        <span class="barra-valor">150</span>
+                                        <div class="barra barra-7"></div>
+                                        <span class="barra-label">Dom</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ================ UTilização por Torre ================== -->
+                    <article class="grafico-card grafico-torre">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>Utilização por Torre</h3>
+                                <span>Distribuição dos carregamentos</span>
+                            </div>
+
+                            <button class="grafico-opcoes" type="button">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </header>
+
+                        <div class="barras-horizontais">
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>Olavo Setubal</span>
+                                    <strong>78%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento torre-1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>Jabaquara</span>
+                                    <strong>61%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento torre-2"></div>
+                                </div>
+                            </div>
+
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>Alfredo Egydio</span>
+                                    <strong>69%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento torre-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ============= Utilização por Piso ====================== -->
+                    <article class="grafico-card grafico-piso">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>Utilização por Piso</h3>
+                                <span>
+                                    Distribuição dos carregamentos
+                                </span>
+                            </div>
+ 
+                            <button class="grafico-opcoes" type="button">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </header>
+
+                        <div class="barras-horizontais">
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>1ºSS</span>
+                                    <strong>82%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento piso-1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>Azul</span>
+                                    <strong>68%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento piso-2">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>PG</span>
+                                    <strong>55%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento piso-3"></div>
+                                </div>
+                            </div>
+ 
+                            <div class="barra-horizontal-item">
+                                <div class="barra-horizontal-topo">
+                                    <span>1º AND.</span>
+                                    <strong>43%</strong>
+                                </div>
+
+                                <div class="barra-horizontal-fundo">
+                                    <div class="barra-horizontal-preenchimento piso-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ========= Cargos que mais usam os carregadores ========= -->
+                    <article class="grafico-card grafico-cargo">
+                        <header class="grafico-card-header">
+                            <div>
+                                <h3>Tipo de Cargo</h3>
+                                <span>
+                                    Perfil dos usuários
+                                </span>
+                            </div>
+ 
+
+                            <button class="grafico-opcoes" type="button">
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                        </header>
+ 
+                        <div class="cargo-conteudo">
+                            <div class="grafico-pizza">
+                                <div class="pizza-centro">
+                                    <strong>100%</strong>
+                                    <span>Usuários</span>
+                                </div>
+                            </div>
+ 
+                            <div class="pizza-legenda">
+                                <div class="pizza-legenda-item">
+                                    <span class="legenda-cor cor-1"></span>
+                                    <span>Analistas</span>
+                                    <strong>35%</strong>
+                                </div>
+
+                                <div class="pizza-legenda-item">
+                                    <span class="legenda-cor cor-2"></span>
+                                    <span>Coordenadores(as)</span>
+                                    <strong>28%</strong>
+                                </div>
+
+                                <div class="pizza-legenda-item">
+                                    <span class="legenda-cor cor-3"></span>
+                                    <span>Gerentes</span>
+                                    <strong>20%</strong>
+                                </div>
+
+                                <div class="pizza-legenda-item">
+                                    <span class="legenda-cor cor-4"></span>
+                                    <span>Superintedentes</span>
+                                    <strong>17%</strong>
+                                </div>
+
+                                <div class="pizza-legenda-item">
+                                    <span class="legenda-cor cor-4"></span>
+                                    <span>Diretores(as)</span>
+                                    <strong>17%</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- =========Seção dos filtros de data e meses ================ -->
+                <header class="secao-titulo">
+                    <h3>🔎 Filtros e Referências</h3>
+                </header>
+
+                <section class="filtros-referencia">                  
+                    <article class="filtro-data-card">
+                        <div class="filtro-data-header">
+                            <span>FILTROS</span>
+                            <i class="bi bi-funnel-fill"></i>
+                        </div>
+ 
+                        <div class="filtro-data-conteudo">
+                            <div class="filtro-titulo">
+                                DATA ENTRADA
+                            </div>
+ 
+                            <div class="filtro-periodo">
+                                <span>jun de 2026</span>
+                                <strong>MESES</strong>
+                            </div>
+
+                            <div class="filtro-anos">
+                                2026
+                            </div>
+
+                            <div class="filtro-meses">
+                                <span>JAN</span>
+                                <span>FEV</span>
+                                <span>MAR</span>
+                                <span>ABR</span>
+                                <span>MAI</span>
+                                <span>JUN</span>
+                                <span>JUL</span>
+                                <span>AGO</span>
+                                <span>SET</span>
+                                <span>OUT</span>
+                                <span>NOV</span>
+                                <span>DEZ</span>
+                            </div>
+
+                            <div class="filtro-calendario">
+                                <span>S</span>
+                                <span>T</span>
+                                <span>Q</span>
+                                <span>Q</span>
+                                <span>S</span>
+                                <span>S</span>
+                                <span>D</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ============= Tabelo de uso por dia ============== -->
+                    <article class="tabela-uso-card">
+                        <div class="tabela-uso-header">
+                            <span>Data</span>
+                            <span>
+                                <i class="bi bi-funnel"></i>
+                                uso por dia
+                            </span>
+                        </div>
+
+                        <div class="tabela-uso-corpo">
+                            <div>
+                                <span>01/08/2026</span>
+                                <strong>86</strong>
+                            </div>
+
+                            <div>
+                                <span>02/08/2026</span>
+                                <strong>94</strong>
+                            </div>
+
+                            <div>
+                                <span>03/08/2026</span>
+                                <strong>63</strong>
+                            </div>
+ 
+                            <div>
+                                <span>05/08/2026</span>
+                                <strong>57</strong>
+                            </div>
+
+                            <div>
+                                <span>08/08/2026</span>
+                                <strong>52</strong>
+                            </div>
+
+                            <div>
+                                <span>09/08/2026</span>
+                                <strong>97</strong>
+                            </div>
+
+                            <div>
+                                <span>10/08/2026</span>
+                                <strong>91</strong>
+                            </div>
+
+                            <div>
+                                <span>11/08/2026</span>
+                                <strong>84</strong>
+                            </div>
+
+                            <div>
+                                <span>12/08/2026</span>
+                                <strong>60</strong>
+                            </div>
+
+                            <div>
+                                <span>15/08/2026</span>
+                                <strong>66</strong>
+                            </div>
+
+                            <div>
+                                <span>16/08/2026</span>
+                                <strong>77</strong>
+                            </div>
+
+                            <div>
+                                <span>17/08/2026</span>
+                                <strong>81</strong>
+                            </div>
+
+                            <div>
+                                <span>18/08/2026</span>
+                                <strong>101</strong>
+                            </div>
+
+                            <div>
+                                <span>19/08/2026</span>
+                                <strong>28</strong>
+                            </div>
+
+                            <div>
+                                <span>22/08/2026</span>
+                                <strong>84</strong>
+                            </div>
+
+                            <div>
+                                <span>23/08/2026</span>
+                                <strong>3</strong>
+                            </div>
+
+                            <div>
+                                <span>24/08/2026</span>
+                                <strong>61</strong>
+                            </div>
+
+                            <div>
+                                <span>25/08/2026</span>
+                                <strong>73</strong>
+                            </div>
+
+                            <div>
+                                <span>26/08/2026</span>
+                                <strong>62</strong>
+                            </div>
+
+                            <div>
+                                <span>29/08/2026</span>
+                                <strong>57</strong>
+                            </div>
+
+                            <div>
+                                <span>30/08/2026</span>
+                                <strong>60</strong>
+                            </div>
+                        </div>
+
+                        <div class="tabela-uso-total">
+                            <span>Total Geral</span>
+                            <strong>1379</strong>
+                        </div>
+                    </article>
+                </section>
+
+                <!-- ================ Seção Histórico de Movimentações =============== -->
+                <section class="card historico-card">
+                    <div class="card-header historico-header">
+                        <h1>
+                            📋 Histórico de Movimentações
+                        </h1>
+
+                        <div class="historico-acoes">
+                            <!--===Botão para exportar o PDF===-->
+                            <button type="button" class="btn btn-secondary ms-2" onclick="exportarPDF()">
+                                <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                            </button>
+
+                            <!--===Botão para exportar o EXCEL===-->
+                            <button type="button" class="btn btn-success ms-2" onclick="exportarExcel()">
+                                <i class="bi bi-file-earmark-excel"></i> Exportar Excel
+                            </button>
+
+                            <!--=== Botão lupaL ===-->
+                            <button class="filter" id="btnFiltroMov" aria-label="filtros">
+                            <!-- <i class="bi bi-funnel-fill"></i> -->
+                            🔍
+                            </button>
+
+                            <!--=== Botão expandir ===-->   
+                            <button class="filter" id="btnToggleMov" aria-label="expandir">
+                                🔽
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="tabelaHistorico"></div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- ====================== Rodapé ============================== -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p class="copyright">
+                © 2026 By 🔶 WBS - Soluções - Wellington Bertoso.
+                Todos os direitos reservados
+            </p>
+            <a href="#inicio" class="top" title="Botão de voltar ao topo">
+                <i class="bi bi-arrow-up"></i>
+            </a>
+        </div>
+    </footer>
+    
+    <!-- ============================ Bibliotecas ======================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- ================= Script de rodar off-line =============== -->
+    
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('js/service-worker.js')
+                    .then(reg => console.log(
+                        '✅ Service Worker registrado:',
+                        reg.scope
+                    ))
+                    .catch(err => console.error(
+                        '❌ Erro ao registrar Service Worker:',
+                        err
+                    ));
+            });
+        }
+    </script>
+
+    <!-- ====================== Scripts ======================== -->
+    <script src="js/script.js"></script>
+    <script src="js/veiculos.js"></script>
+    <script src="js/graficos.js"></script>
+    <script src="js/dados.js"></script>
+    <script src="js/recargas.js"></script>
+    <script src="js/carregadores.js"></script>
+    <script src="js/interacao.js"></script>
+    <script src="js/conexao.js"></script>
+</body>
+</html>
