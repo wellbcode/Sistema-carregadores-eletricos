@@ -70,6 +70,11 @@ function buscarVeiculo() {
             <i class="fa-solid fa-id-badge"></i>
         `;
         document.getElementById(
+            "cifVeiculo"
+        ).innerHTML = `
+             <i class="bi bi-person-vcard"></i>
+        `;
+        document.getElementById(
             "carroVeiculo"
         ).innerHTML = `
             <i class="fa-solid fa-car"></i>
@@ -84,12 +89,12 @@ function buscarVeiculo() {
         ).src = "";
         return;
     }
-    const partes =
-    encontrado[1].split(" - Func: ");
-    const nome = partes[0];
-    const funcional = partes[1] || "";
+    const nome = encontrado[1];
+
+    const funcional = encontrado[2];
+
     const cargo =
-    encontrado[2]
+    encontrado[3]
     .replace(" - Itaú Unibanco", "");
     document.getElementById(
         "nomeVeiculo"
@@ -101,13 +106,19 @@ function buscarVeiculo() {
         "cargoVeiculo"
     ).innerHTML = `
         <i class="fa-solid fa-id-badge"></i>
-        ${cargo} • Func: ${funcional}
+        ${cargo}
+    `;
+        document.getElementById(
+        "cifVeiculo"
+    ).innerHTML = `
+        <i class="bi bi-person-vcard"></i>
+        ${funcional}
     `;
     document.getElementById(
         "carroVeiculo"
     ).innerHTML = `
         <i class="fa-solid fa-car"></i>
-        ${encontrado[3]}
+        ${encontrado[4]}
     `;
     document.getElementById(
         "carroMensagem"
@@ -117,7 +128,7 @@ function buscarVeiculo() {
     `;
     document.getElementById(
         "fotoVeiculo"
-    ).src = encontrado[5];
+    ).src = encontrado[6];
     // MAGICA ACONTECE AQUI
     verificarRecargaAberta(placa);
 }
@@ -405,6 +416,9 @@ function limparCard() {
         "cargoVeiculo"
     ).innerHTML = `
         <i class="fa-solid fa-id-badge"></i>
+    `;
+    document.getElementById("cifVeiculo").innerHTML = `
+        <i class="bi bi-person-vcard"></i>
     `;
     document.getElementById(
         "carroVeiculo"

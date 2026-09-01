@@ -323,7 +323,9 @@ body::before {
 .notification i {
     font-size: 28px;
     filter:
-        drop-shadow(0 0 5px var(--cor-js)) drop-shadow(0 0 10px var(--cor-js)) drop-shadow(0 0 20px var(--cor-js));
+        drop-shadow(0 0 5px var(--cor-js)) 
+        drop-shadow(0 0 10px var(--cor-js)) 
+        drop-shadow(0 0 20px var(--cor-js));
     transform: scale(1.2);
     color: var(--cor-js);
 }
@@ -427,7 +429,7 @@ body::before {
     color: white;
     text-shadow: 0 0 10px rgba(255, 255, 255, .35);
     border: none;
-    border-radius: 12px;
+    border-radius: 40px;
     padding: 16px;
     font-size: 1.8rem;
     margin: 0 0 15px;
@@ -469,20 +471,22 @@ body::before {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 15px;
+    /* font-size: 15px; */
     word-break: break-word;
+        /* white-space: nowrap; */
 }
 
-.veiculo-nome,
 .veiculo-detalhes,
 .veiculo-carro,
 .veiculo-mensagem {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 700;
 }
 
 .veiculo-nome {
+     font-size: 1.4rem;
     color: #2d3436;
+    font-weight: 800;
 }
 
 .veiculo-detalhes {
@@ -527,19 +531,53 @@ body::before {
 .placa1 {
     grid-column: 1;
     grid-row: 1;
-    width: 205px;
-    height: 80px;
+    width: 207px;
+    height: 70px;
     background: #fff;
     border: 2px solid #fff;
     border-radius: 10px;
     overflow: hidden;
     margin: 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, .3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+.placa::after {
+    content: "BR";
+    position: absolute;
+    left: 1px;
+    bottom: 3px;
+    padding: 2px 1px;
+    border: none;
+    /* border-radius: 2px; */
+    background: transparent;
+    color: #000;
+    font-size: 10px;
+    font-weight: 750;
+    line-height: 1;
+    transform: scaleY(1.50);
+    transform-origin: bottom left;
+}
+
+.placa::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    right: 6px;
+    width: 20px;
+    height: 13px;
+    background-image: url("https://flagcdn.io/flags/4x3/br.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    z-index: 3;
+    pointer-events: none;
 }
 
 .placa {
+    position: relative;
     width: 200px;
-    height: 75px;
+    height: 65px;
     background: #fff;
     border: 3px solid #333;
     border-radius: 10px;
@@ -566,11 +604,11 @@ body::before {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    /* font-size: 30px;
     font-weight: 900;
     color: #111;
-    letter-spacing: 4px;
-    font-family: "Arial Black", Arial, sans-serif;
+    letter-spacing: 1px;
+    font-family: "Arial Black", Arial, sans-serif; */
 }
 
 /* Input virando placa */
@@ -582,11 +620,13 @@ body::before {
     background: transparent;
     text-align: center;
     font-size: 28px;
-    font-weight: 900;
-    letter-spacing: 3px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
     color: #111;
     font-family: "Arial Black", Arial, sans-serif;
     text-transform: uppercase;
+        transform: scaleY(1.15);
+    transform-origin: bottom left;
 }
 
 /* Placeholder virando placa */
@@ -644,7 +684,7 @@ body::before {
     color: white;
     text-shadow: 0 0 10px rgba(255, 255, 255, .35);
     border: none;
-    border-radius: 12px;
+    border-radius: 40px;
     padding: 16px;
     font-weight: 700;
     margin: 0 0 15px;
@@ -695,7 +735,7 @@ body::before {
     height: 42px;
     padding: 0 12px;
     border: 2px solid #ced4da;
-    border-radius: 12px;
+    border-radius: 40px;
     background: #fff;
     font-size: .95rem;
     box-sizing: border-box;
@@ -705,12 +745,35 @@ body::before {
 .campo input:focus,
 .campo select:focus {
     outline: none;
-    border-color: #ff6200;
     background: #fff;
-    box-shadow:
-        0 0 0 4px rgba(255, 98, 0, .12),
-        0 4px 15px rgba(255, 98, 0, .20);
-    transform: translateY(-1px);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.10);
+    transform: none;
+}
+
+.campo {
+    position: relative;
+}
+
+.campo select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 100%;
+    padding-right: 38px;
+}
+
+.campo:has(select option)::after {
+    content: "🔽";
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-25%);
+
+    color: var(--text-muted);
+    font-size: 11px;
+    pointer-events: none;
 }
 
 /* .sessao-footer{
@@ -917,7 +980,7 @@ body::before {
     line-height: 1;
     margin-bottom: 10px;
     font-weight: 700;
-    text-shadow: 0 0 6px color-mix(in srgb, currentColor 35%, transparent);
+    /* text-shadow: 0 0 6px color-mix(in srgb, currentColor 35%, transparent); */
 }
 
 .tempo h2 {
@@ -1003,9 +1066,9 @@ body::before {
         #eef9f0 100%);
 }
 
-.tempo .kpi-footer i {
+/* .tempo .kpi-footer i {
     color: #6FCF97;
-}
+} */
 
 .hoje .kpi-footer i {
     color: #2563eb;
@@ -1045,9 +1108,38 @@ body::before {
     color: #2196f3 !important;
 }
 
-/*========================= Fim ===========================*/
+/*Cores do ícones conforme a previsão do tempo*/
+.tempo-sol {
+    color: #f5b800;
+}
 
-/* ================= Seção Movimentações ================= */
+.tempo-noite {
+    color: #6366f1;
+}
+
+.tempo-nublado {
+    color: #64748b;
+}
+
+.tempo-neblina {
+    color: #94a3b8;
+}
+
+.tempo-chuva {
+    color: #2196f3;
+}
+
+.tempo-neve {
+    color: #38bdf8;
+}
+
+.tempo-trovoada {
+    color: #8b5cf6;
+}
+
+/*============================= Fim ===============================*/
+
+/* ================= Seção Movimentações recentes ================= */
 .painel-movimentacoes {
     background: #fff;
     border-radius: 12px;
@@ -1064,7 +1156,7 @@ body::before {
     backdrop-filter: blur(1px);
     background: linear-gradient(135deg, #003B5C 20%, #FF9F1C 100%);
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     padding: 3px;
 }
 
@@ -1110,8 +1202,7 @@ body::before {
 /* lista ddos cards */
 .mov-item {
     width: 100%;
-    max-width: 400px;
-    ;
+    max-width: 350px;
     background: #f8fafc;
     border-left: 5px solid var(--primary);
     border-radius: 10px;
@@ -1129,8 +1220,8 @@ body::before {
     margin: 0;
     gap: 15px;
     justify-content: center;
-    max-height: 800px;
-    overflow: hidden;
+    max-height: 700px;
+    overflow: auto;
     opacity: 1;
     transition:
         max-height 2s ease-in-out,
@@ -1145,6 +1236,25 @@ body::before {
     padding-top: 0;
     padding-bottom: 0;
     margin-top: 0;
+}
+
+#listaMovimentacoes::-webkit-scrollbar {
+    width: 8px;
+}
+
+#listaMovimentacoes::-webkit-scrollbar-track {
+    background: #e5e7eb;
+    border-radius: 10px;
+}
+
+#listaMovimentacoes::-webkit-scrollbar-thumb {
+    background: #ff6b00;
+    border-radius: 10px;
+}
+
+#listaMovimentacoes::-webkit-scrollbar-thumb:hover {
+    background: #e55d00!important;
+    cursor: pointer;
 }
 
 .mov-item:hover {
@@ -1316,7 +1426,7 @@ body::before {
     background: #64748b;
 }
 
-/*============ filtro das movimenatações ===============*/
+/*============ filtro das movimentações ===============*/
 .painel-movimentacoes {
     position: relative;
 
@@ -1377,7 +1487,7 @@ body::before {
 /*============== Cabeçalho ================*/
 .stations-header {
     border-left: 5px solid var(--primary);
-    border-radius: 10px;
+    border-radius: 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1389,7 +1499,9 @@ body::before {
 }
 
 .stations-header h2 {
-    font-size: 1.8rem;
+    border-radius: 40px;
+    padding: 5px 10px;
+    font-size: 1.5rem;
     color: var(--h1-dark);
     font-weight: 700;
     margin-bottom: 6px;
@@ -1397,18 +1509,35 @@ body::before {
 }
 
 .stations-header p {
+    border-radius: 40px;
+    padding: 5px 10px;
     color: var(--h1-dark);
     font-size: 15px;
     text-shadow: 0 0 10px rgba(255, 255, 255, .35);
 }
 
+ @keyframes greenPulse {
+            from { -webkitbox-shadow: 0 0 1px #e3b10e }
+            50% { -webkit-box-shadow: 0 0 18px #bdb109 }
+            to { -webkit-box-shadow: 0 0 18px #e7d213 }
+        }
+
+
 .title {
     color: white;
-    border: 1px solid var(--cor-js);
+    border: 2px solid var(--cor-js);
     border-radius: 50%;
     padding: 20px;
     margin-bottom: 20px;
+    filter:
+        drop-shadow(0 0 5px var(--cor-js)) 
+        drop-shadow(0 0 10px var(--cor-js)) 
+        drop-shadow(0 0 20px var(--cor-js));
     box-shadow: 0 0 10px rgba(255, 255, 255, .35);
+                    animation-name: greenPulse;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+    
 }
 
 .title span {

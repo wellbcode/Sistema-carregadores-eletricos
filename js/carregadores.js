@@ -190,7 +190,8 @@ atualizarComparativoOntem();
 // Atualiza automaticamente a cada minuto
 setInterval(atualizarDataHoje, 60000);
 
-// =========  Atualizando os KPI'  <span id="comparativoOntem"  =====================
+// =================  Atualizando o KPI  <span id="comparativo Ontem" ==================
+//================== sem funcionar por enquanto, ainda não tem armazenamento ===========
 function atualizarComparativoOntem() {
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
@@ -343,9 +344,15 @@ async function atualizarPrevisao(latitude, longitude) {
             <span class="temp-min"> Mín: ${minima}º</span>
         `;
         // Atualiza ícone
-        if (kpiIcone) {
-            kpiIcone.className =
-                `bi ${obterIconeTempo(codigoTempo, isDia)}`;
+       if (kpiIcone) {
+
+        const tempo = obterIconeTempo(
+            codigoTempo,
+            isDia
+        );
+
+        kpiIcone.className =
+            `bi ${tempo.icone} ${tempo.classe}`;
         }
     } catch (erro) {
         console.error("Erro na previsão do tempo:", erro);
@@ -354,47 +361,185 @@ async function atualizarPrevisao(latitude, longitude) {
 }
 
 // ===== Ícone do clima =====
+// function obterIconeTempo(codigo, isDia) {
+//     // Céu limpo
+//     if (codigo === 0) {
+//         return isDia
+//             ? "bi-sun-fill"
+//             : "bi-moon-stars-fill";
+//     }
+//     // Poucas nuvens
+//     if (codigo === 1 || codigo === 2) {
+//         return isDia
+//             ? "bi-cloud-sun-fill"
+//             : "bi-cloud-moon-fill";
+//     }
+//     // Nublado
+//     if (codigo === 3) {
+//         return "bi-cloud-fill";
+//     }
+//     // Neblina
+//     if (codigo === 45 || codigo === 48) {
+//         return "bi-cloud-haze-fill";
+//     }
+//     // Garoa
+//     if ([51, 53, 55, 56, 57].includes(codigo)) {
+//         return "bi-cloud-drizzle-fill";
+//     }
+//     // Chuva
+//     if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
+//         return "bi-cloud-rain-fill";
+//     }
+//     // Neve
+//     if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
+//         return "bi-snow";
+//     }
+//     // Trovoada
+//     if ([95, 96, 99].includes(codigo)) {
+//         return "bi-cloud-lightning-rain-fill";
+//     }
+//     // Caso não reconheça
+//     return isDia
+//         ? "bi-cloud-sun-fill"
+//         : "bi-cloud-moon-fill";
+// }
+
+// ===== Ícone do clima =====
+
 function obterIconeTempo(codigo, isDia) {
+
     // Céu limpo
     if (codigo === 0) {
-        return isDia
-            ? "bi-sun-fill"
-            : "bi-moon-stars-fill";
+        return {
+            icone: isDia
+                ? "bi-sun-fill"
+                : "bi-moon-stars-fill",
+            classe: isDia
+                ? "tempo-sol"
+                : "tempo-noite"
+        };
     }
+
+    // Poucas nuvens
+    if (codigo === 1 || codigo === 2) {
+        return {
+            icone: isDia
+                ? "bi-cloud-sun-fill"
+                : "bi-cloud-moon-fill",
+            classe: isDia
+                ? "tempo-sol"
+                : "tempo-noite"
+        };
+    }
+
+    // Nublado
+    if (codigo === 3) {
+        return {
+            icone: "bi-cloud-fill",
+            classe: "tempo-nublado"
+        };
+    }
+
+    // Neblina
+    if (codigo === 45 || codigo === 48) {
+        return {
+            icone: "bi-cloud-haze-fill",
+            classe: "tempo-neblina"
+        };
+    }
+
+    // Garoa
+    if ([51, 53, 55, 56, 57].includes(codigo)) {
+        return {
+            icone: "bi-cloud-drizzle-fill",
+            classe: "tempo-chuva"
+        };
+    }
+
+    // Chuva
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
+        return {
+            icone: "bi-cloud-rain-fill",
+            classe: "tempo-chuva"
+        };
+    }
+
+    // Neve
+    if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
+        return {
+            icone: "bi-snow",
+            classe: "tempo-neve"
+        };
+    }
+
+    // Trovoada
+    if ([95, 96, 99].includes(codigo)) {
+        return {
+            icone: "bi-cloud-lightning-rain-fill",
+            classe: "tempo-trovoada"
+        };
+    }
+
+    // Caso não reconheça
+    return {
+        icone: isDia
+            ? "bi-cloud-sun-fill"
+            : "bi-cloud-moon-fill",
+        classe: isDia
+            ? "tempo-sol"
+            : "tempo-noite"
+    };
+}
+
+// ===== Cor do ícone do clima =====
+
+function obterCorTempo(codigo, isDia) {
+
+    // Sol
+    if (codigo === 0) {
+        return isDia
+            ? "tempo-sol"
+            : "tempo-noite";
+    }
+
     // Poucas nuvens
     if (codigo === 1 || codigo === 2) {
         return isDia
-            ? "bi-cloud-sun-fill"
-            : "bi-cloud-moon-fill";
+            ? "tempo-sol"
+            : "tempo-noite";
     }
+
     // Nublado
     if (codigo === 3) {
-        return "bi-cloud-fill";
+        return "tempo-nublado";
     }
+
     // Neblina
     if (codigo === 45 || codigo === 48) {
-        return "bi-cloud-haze-fill";
+        return "tempo-neblina";
     }
+
     // Garoa
     if ([51, 53, 55, 56, 57].includes(codigo)) {
-        return "bi-cloud-drizzle-fill";
+        return "tempo-chuva";
     }
+
     // Chuva
     if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
-        return "bi-cloud-rain-fill";
+        return "tempo-chuva";
     }
+
     // Neve
     if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
-        return "bi-snow";
+        return "tempo-neve";
     }
+
     // Trovoada
     if ([95, 96, 99].includes(codigo)) {
-        return "bi-cloud-lightning-rain-fill";
+        return "tempo-trovoada";
     }
-    // Caso não reconheça
-    return isDia
-        ? "bi-cloud-sun-fill"
-        : "bi-cloud-moon-fill";
+
+    return "tempo-nublado";
 }
 
 // ===== Localização atual =====
@@ -464,7 +609,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-//============= Movimentação do dia dia da semana ================
+//============= Movimentação do dia da semana ================
 function renderizarMovimentacoes() {
     const lista =
         document.getElementById("listaMovimentacoes");

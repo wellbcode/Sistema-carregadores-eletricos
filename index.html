@@ -144,7 +144,7 @@
                                 <div class="placa">
                                     <div class="placa-topo">BRASIL</div>
                                     <div class="placa-numero">
-                                        <input type="text" id="placa" placeholder="ABC1234" maxlength="7"
+                                        <input type="text" id="placa" placeholder="WEL2811" maxlength="7"
                                             autocomplete="on">
                                     </div>
                                 </div>
@@ -162,6 +162,9 @@
                                 </div>
                                 <div class="veiculo-detalhes" id="cargoVeiculo">
                                     <i class="fa-solid fa-id-badge"></i>
+                                </div>
+                                <div class="veiculo-detalhes" id="cifVeiculo">
+                                    <i class="bi bi-person-vcard"></i>
                                 </div>
                                 <div class="veiculo-carro" id="carroVeiculo">
                                     <i class="fa-solid fa-car"></i>
@@ -519,7 +522,8 @@
             <!-- =============== Movimentação do dia ========================= -->
             <section class="painel-movimentacoes">
                 <div class="painel-header">
-                    <h3>Movimentações Recentes 📋</h3>
+                    <!-- <h3>Movimentações Recentes 📋<i class="bi bi-clipboard-data"></i></h3> -->
+                    <h3>Movimentações Recentes <i class="bi bi-clipboard-data"></i></h3>
                     <div class="acoes">
                         <button id="btnFiltroMov" aria-label="filtros">
                             <!-- <i class="bi bi-funnel-fill"></i> -->
@@ -562,12 +566,13 @@
             <section class="stations" id="estacoes">
                 <div class="stations-header">
                     <div class="carregamento">
-                        <h2>Estações de Carregamento</h2>
-                        <p>Gerencie todas as estações em tempo real</p>
+                        <h2 class="badge bg-success mb-3">Estações de Carregamento</h2>
+                        <p class="badge bg-success mb-3">Gerencie todas as estações em tempo real</p>
                     </div>
 
                     <div class="title">
-                        <span>⚡</span>
+                        <span><i class="bi bi-lightning-charge-fill"></i></span>
+                        <!-- <span>⚡</i></span> -->
                     </div>
 
                     <div class="stations-toolbar">

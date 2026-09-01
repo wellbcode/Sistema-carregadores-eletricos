@@ -355,7 +355,7 @@ function mostrarDetalhes(registro) {
         </p>
         <p>
             <strong>📅 Data Entrada:</strong>
-            ${registro.dataEntrada || "-"}
+            ${formatarDataExibicao(registro.dataEntrada)}
         </p>
         <p>
             <strong>📆 Dia da Semana:</strong>
@@ -526,7 +526,7 @@ function abrirDetalhes(botao) {
         </p>
         <p>
             <strong>📅 Data Entrada:</strong>
-            ${registro.dataEntrada || "-"}
+            ${formatarDataExibicao(registro.dataEntrada)}
         </p>
         <p>
             <strong>📆 Dia da Semana:</strong>
@@ -622,4 +622,12 @@ function fecharDetalhes() {
     }
     registroModalAtual =
         null;
+}
+
+function formatarDataExibicao(data) {
+    if (!data) return "-";
+
+    const [ano, mes, dia] = data.split("-");
+
+    return `${dia}/${mes}/${ano}`;
 }
