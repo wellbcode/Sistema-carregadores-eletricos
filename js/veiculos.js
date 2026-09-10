@@ -89,7 +89,7 @@ const base = [
 
     ["SAR2124", "Sarah Cameron Routledg", "Func:123456133", "Herdeira - Família Cameron", "Porsche Cayenne - Branco", "Sarah@correio.itau.com.br", " pictures/sarah-ft.png"],
 
-     ["WHE1504", "Wheezie Cameron ", "Func:123456134", "Herdeira -Família Cameron", "Volvo XC90 - Branco", "Wheezie@correio.itau.com.br", " pictures/wheezie-ft.png"],
+     ["WHE1504", "Wheezie Cameron ", "Func:123456134", "Herdeira - Família Cameron", "Volvo XC90 - Branco", "Wheezie@correio.itau.com.br", " pictures/wheezie-ft.png"],
 
     ["JOH2125", "John B. Routledge", "Func:123456135", "Pogue - Caçador de Tesouros", "VW Kombi - Amarelo", "John@correio.itau.com.br", " pictures/john-ft.png"],
 ];
