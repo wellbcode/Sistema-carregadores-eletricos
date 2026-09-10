@@ -9,6 +9,7 @@ div,
 section {
     max-width: 100%;
 }
+
 html,
 body {
     width: 100%;
@@ -16,6 +17,7 @@ body {
     overflow-x: hidden;
     /* overscroll-behavior-y: none; */
 }
+
 :root {
     /* =========================
        CORES PRINCIPAIS
@@ -919,7 +921,6 @@ body::before {
 
 
 /* Faixa superior da identidade */
-
 .smart-alert::before {
     content: "";
     display: block;
@@ -1770,9 +1771,8 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
     font-size: 15px;
     text-shadow: 0 0 10px rgba(255, 255, 255, .35);
 }
-
- @keyframes greenPulse {
-            from { -webkitbox-shadow: 0 0 1px #e3b10e }
+@keyframes yellowPulse {
+            from { -webkit-box-shadow: 0 0 1px #e3b10e }
             50% { -webkit-box-shadow: 0 0 18px #bdb109 }
             to { -webkit-box-shadow: 0 0 18px #e7d213 }
         }
@@ -1789,9 +1789,9 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
         drop-shadow(0 0 10px var(--cor-js)) 
         drop-shadow(0 0 20px var(--cor-js));
     box-shadow: 0 0 10px rgba(255, 255, 255, .35);
-    animation-name: greenPulse;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
+            animation-name: yellowPulse;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
     
 }
 
@@ -1800,6 +1800,7 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
     font-size: 50px;
     text-shadow: 0 0 10px rgba(255, 255, 255, .35);
 }
+
 
 /* Barra de ações*/
 
