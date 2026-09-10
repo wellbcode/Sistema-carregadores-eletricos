@@ -556,6 +556,7 @@ body::before {
 
 .veiculo-detalhes {
     color: #0d495e;
+    margin-left: 2px;
 }
 
 .veiculo-cif {
