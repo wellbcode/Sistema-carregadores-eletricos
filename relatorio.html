@@ -12,6 +12,7 @@
     <!-- CSS do projeto -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="relatorio.css">
+    <link rel="stylesheet" href="responsivo.css">
     <!-- Favicon -->
     <link rel="shortcut icon" href="img/Charge2.png" type="image/x-icon">
     <title>Histórico e Relatórios</title>
@@ -374,10 +375,73 @@
                         </header>
 
                         <div class="linha-chart">
-                            <svg viewBox="0 0 800 250">
+                            <div class="linha-chart">
+                                <!-- Dias da semana -->
+                                <div class="linha-dias-semana">
+                                    <span>Seg</span>
+                                    <span>Ter</span>
+                                    <span>Qua</span>
+                                    <span>Qui</span>
+                                    <span>Sex</span>
+                                </div>
+                            </div>
+
+                            <svg viewBox="0 0 800 280">
+                                <defs>
+                                    <linearGradient
+                                        id="gradienteLinha"
+                                        x1="0"
+                                        y1="0"
+                                        x2="0"
+                                        y2="1"
+                                    >
+
+                                  <stop
+                                    offset="8%"
+                                    stop-color="#ff6b00"
+                                    stop-opacity="0.75"
+                                />
+
+                                <stop
+                                    offset="45%"
+                                    stop-color="#ff6b00"
+                                    stop-opacity="0.44"
+                                />
+
+                                
+                                <stop
+                                    offset="100%"
+                                    stop-color="#ff6b00"
+                                    stop-opacity="0.08"
+                                />
+                                    </linearGradient>
+                                </defs>
+
+                                <polygon
+                                    fill="url(#gradienteLinha)"
+                                    points="
+                                        20,200
+                                        80,180
+                                        140,160
+                                        200,170
+                                        260,130
+                                        320,120
+                                        380,110
+                                        440,100
+                                        500,95
+                                        560,80
+                                        620,75
+                                        680,60
+                                        760,40
+                                        760,240
+                                        20,240
+                                    "
+                                />
+
+                                <!-- Área do gradiente -->
                                 <polyline
                                     fill="none"
-                                    stroke="#4f8ef7"
+                                    stroke="#ff6b00"
                                     stroke-width="5"
                                     points="
                                     20,200
@@ -394,7 +458,48 @@
                                     680,60
                                     760,40">
                                 </polyline>
-                                <circle cx="760" cy="40" r="6" fill="#ff6b00"/>
+
+                                <!-- Pontos do gráfico -->
+                                <g fill="#0f172a" stroke="#ff6b00" stroke-width="2">
+                                    <circle cx="20"  cy="200" r="5"/>
+                                    <circle cx="80"  cy="180" r="5"/>
+                                    <circle cx="140" cy="160" r="5"/>
+                                    <circle cx="200" cy="170" r="5"/>
+                                    <circle cx="260" cy="130" r="5"/>
+                                    <circle cx="320" cy="120" r="5"/>
+                                    <circle cx="380" cy="110" r="5"/>
+                                    <circle cx="440" cy="100" r="5"/>
+                                    <circle cx="500" cy="95"  r="5"/>
+                                    <circle cx="560" cy="80"  r="5"/>
+                                    <circle cx="620" cy="75"  r="5"/>
+                                    <circle cx="680" cy="60"  r="5"/>
+                                </g>
+
+                                <!-- Último ponto em destaque -->
+                                <circle
+                                    cx="760"
+                                    cy="40"
+                                    r="6"
+                                    fill="#0f172a"
+                                    stroke="#ff6b00"
+                                    stroke-width="2"
+                                />
+
+                                <!-- Dias do mês -->
+                                <g
+                                    fill="#0f172a"
+                                    font-size="13"
+                                    font-weight="800"
+                                    text-anchor="middle"
+                                >
+                                    <text x="20"  y="265">01</text>
+                                    <text x="140" y="265">05</text>
+                                    <text x="260" y="265">10</text>
+                                    <text x="380" y="265">15</text>
+                                    <text x="500" y="265">20</text>
+                                    <text x="620" y="265">25</text>
+                                    <text x="760" y="265">30</text>
+                                </g>
                             </svg>
                         </div>
                     </article>

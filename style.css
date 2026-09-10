@@ -17,6 +17,9 @@ body {
     /* overscroll-behavior-y: none; */
 }
 :root {
+    /* =========================
+       CORES PRINCIPAIS
+    =========================== */
     --primary-blue: #4F8EF7;
     --primary: #ff6b00;
     --secondary: #38bdf8;
@@ -30,11 +33,67 @@ body {
     --github: #b918ce;
     --dark: #0f172a;
     --fundo-sidebar: #0f172a;
-    --bar: #3833332a;
+    --bar: #272626e5;
     --background-section: #f9fbfcef;
-    /* --shadow: 0 12px 30px rgba(10, 15, 20, 0.18); */
-    --shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+
+    /* =========================
+       CORES DO SISTEMA
+    ========================= */
+    --dark: #17202b;
+    --dark-soft: #3f4a59;
+
+    --text: #20242c;
+    --text-muted: #64748b;
+    --text-light: #9298a1;
+
+    /* =========================
+       CORES ESPECÍFICAS
+       ========================= */
+    --tema: #f25d27;
+    --cor-css: #1d78e7;
+    --cor-js: #f2b236;
+    --github: #b918ce;
+
+    /* =========================
+       BACKGROUNDS
+       ========================= */
+    --background: #f8fafc;
+    --background-section: #f9fbfc;
+    --background-card: #ffffff;
+    --background-muted: #f0f2f5;
+    --background-hover: #f3f5f8;
+
+    /* =========================
+       BORDAS
+       ========================= */
+    --border: #e7ebf0;
+    --border-soft: #edf0f3;
+
+    /* =========================
+       SOMBRAS
+       ========================= */
+
+    --shadow-xs: 0 2px 8px rgba(15, 23, 42, 0.04);
+    --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
+    --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.08);
+    --shadow-lg: 0 12px 30px rgba(10, 15, 20, 0.12);
+
+    /* =========================
+       RAIOS
+       ========================= */
+
+    --radius-sm: 7px;
+    --radius-md: 10px;
+    --radius-lg: 15px;
+
+    /* =========================
+       TRANSIÇÕES
+       ========================= */
+
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
 }
+
 * {
     margin: 0;
     padding: 0;
@@ -223,7 +282,7 @@ body::before {
     /*Aqui é o botão sair*/
     width: 100%;
     border: 1px solid var(--h1-dark);
-    background: var(--bar);
+    background: rgba(15, 23, 42, .75);
     color: #fff;
     border-radius: 12px;
     padding: 14px 20px;
@@ -459,6 +518,7 @@ body::before {
 
 .veiculo-nome,
 .veiculo-detalhes,
+.veiculo-cif,
 .veiculo-carro,
 .veiculo-mensagem {
     margin-bottom: 6px;
@@ -466,6 +526,7 @@ body::before {
 
 .veiculo-nome,
 .veiculo-detalhes,
+.veiculo-cif,
 .veiculo-carro,
 .veiculo-mensagem {
     display: flex;
@@ -474,27 +535,32 @@ body::before {
     /* font-size: 15px; */
     word-break: break-word;
         /* white-space: nowrap; */
+        
 }
 
 .veiculo-detalhes,
+.veiculo-cif,
 .veiculo-carro,
 .veiculo-mensagem {
     font-size: 1.2rem;
     font-weight: 700;
+    text-shadow: 2px 2px 2px #cbd2d4
+     
 }
 
 .veiculo-nome {
-     font-size: 1.4rem;
+    font-size: 1.4rem;
     color: #2d3436;
     font-weight: 800;
 }
 
 .veiculo-detalhes {
-    color: #6c757d;
+    color: #0d495e;
 }
 
-.veiculo-carro {
-    color: #003B5C;
+.veiculo-cif {
+    /* color: #000; */
+    color: #6c757d;
 }
 
 .veiculo-carro {
@@ -807,7 +873,195 @@ body::before {
     background: #e65800;
 }
 
-/*====================== Sesção dos KPIs (Cards com Dados de status dos carregadores) =======================*/
+/* ================= SweetAlert - Smart Charger 1 ================= */
+/* .swal-smart-charger {
+    border-radius: 18px !important;
+    padding: 28px !important;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.18) !important;
+}
+
+.swal-titulo {
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin-top: 5px !important;
+}
+
+.swal-botao {
+    border-radius: 10px !important;
+    padding: 11px 24px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 12px rgba(255, 107, 0, 0.25) !important;
+    transition: all 0.2s ease !important;
+}
+
+.swal-botao:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.35) !important;
+} */
+
+
+/* =========================================================
+   SweetAlert - Smart Charger 2
+========================================================= */
+.smart-alert {
+    width: 430px !important;
+    padding: 0 32px 30px !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow:
+        0 25px 60px rgba(15, 23, 42, 0.18),
+        0 5px 15px rgba(255, 107, 0, 0.08) !important;
+}
+
+
+/* Faixa superior da identidade */
+
+.smart-alert::before {
+    content: "";
+    display: block;
+    height: 6px;
+    width: calc(100% + 64px);
+    margin-left: -32px;
+    margin-bottom: 25px;
+    background: linear-gradient(
+        90deg,
+        #ff6b00 0%,
+        #ff8a00 50%,
+        #ffb000 100%
+    );
+}
+
+
+/* Ícone */
+.smart-alert-icon {
+    width: 76px !important;
+    height: 76px !important;
+    margin: 0 auto 18px !important;
+    border: none !important;
+    background: linear-gradient(
+        145deg,
+        #fff4e8,
+        #ffe3c2
+    ) !important;
+    color: #ff6b00 !important;
+    box-shadow:
+        0 8px 20px rgba(255, 107, 0, 0.15) !important;
+}
+
+/* Título */
+.smart-alert-title {
+    color: #0f172a !important;
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px !important;
+}
+
+
+/* Conteúdo */
+.smart-alert-content {
+    text-align: left;
+    margin-top: 5px;
+}
+
+
+/* Mensagem principal */
+
+.smart-alert-message {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #475569;
+    font-size: 15px;
+    line-height: 1.55;
+}
+
+.smart-alert-message strong {
+    color: #0f172a;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.smart-alert-message b {
+    color: #ff6b00;
+    font-weight: 700;
+}
+
+/* Caixa informativa */
+.smart-alert-tip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border-left: 3px solid #ff6b00;
+    color: #64748b;
+    font-size: 13px;
+}
+
+.smart-alert-tip i {
+    color: #ff6b00;
+    font-size: 15px;
+}
+
+/* Botão */
+.smart-alert-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 120px;
+    margin-top: 22px !important;
+    padding: 12px 22px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background: linear-gradient(
+        135deg,
+        #ff6b00,
+        #ff8500
+    ) !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(255, 107, 0, 0.28) !important;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease !important;
+}
+
+.smart-alert-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.05);
+    box-shadow:
+        0 9px 22px rgba(255, 107, 0, 0.36) !important;
+}
+
+.smart-alert-button:active {
+    transform: translateY(0);
+}
+
+/* Botão fechar */
+.smart-alert-close {
+    color: #94a3b8 !important;
+    font-size: 24px !important;
+    transition: all 0.2s ease;
+}
+
+.smart-alert-close:hover {
+    color: #ff6b00 !important;
+    transform: rotate(90deg);
+}
+
+/*========================================================= 
+Seção dos KPIs (Cards com Dados de status dos carregadores) 
+===========================================================*/
 .kpis {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1534,9 +1788,9 @@ body::before {
         drop-shadow(0 0 10px var(--cor-js)) 
         drop-shadow(0 0 20px var(--cor-js));
     box-shadow: 0 0 10px rgba(255, 255, 255, .35);
-                    animation-name: greenPulse;
-            animation-duration: 1s;
-            animation-iteration-count: infinite;
+    animation-name: greenPulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
     
 }
 
@@ -1951,6 +2205,33 @@ body::before {
     margin: 10px 0;
 }
 
+/* Info dos usuários em fila de espera*/
+#dadosDetalhes hr:last-of-type + h3 ~ p {
+    margin: 10px 0;
+    border-radius: 12px;
+    color: #334155;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 10px 12px;
+    background: linear-gradient(90deg,
+        #fbfffc 0%,
+        #f1f7f2 100%);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-xs);
+    transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        border-color var(--transition-fast),
+        background-color .25s ease;
+}
+
+#dadosDetalhes hr:last-of-type + h3 ~ p:hover {
+    transform: translateY(-3px);
+    border-color: var(--primary);
+    box-shadow: var(--shadow-sm);
+}
+
 .botoes-detalhes {
     display: flex;
     gap: 10px;
@@ -2090,120 +2371,3 @@ body::before {
     opacity: 0;
 }
 
-/*============================= Responsivo  ==========================*/
-@media (max-width: 1200px) {
-    .station-grid {
-        grid-template-columns: repeat(2, minmax(320px, 1fr));
-    }
-}
-
-@media (max-width:992px) {
-    .menu-btn {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-}
-
-/* RESPONSIVO*/
-@media(max-width:900px) {
-    .dashboard {
-        grid-template-columns: 1fr;
-    }
-    .operacao-card,
-    .kpi-card,
-    .action-area {
-        grid-column: auto;
-    }
-    .operacao-card {
-        grid-template-columns: 1fr;
-    }
-    .search-box {
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 900px) {
-    .kpis-container {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 600px) {
-    .kpis-container {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .station-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width:768px) {
-    .app {
-        display: block;
-    }
-    .sidebar {
-        background: var(--fundo-sidebar);
-        position: fixed;
-        top: 0;
-        left: -280px;
-        width: 280px;
-        height: 100vh;
-        z-index: 1000;
-        transition: left .3s ease;
-    }
-    .sidebar.active {
-        left: 0;
-    }
-    .main {
-        width: 100%;
-        margin-left: 0;
-        padding: 15px;
-    }
-    input,
-    select,
-    textarea,
-    button {
-        font-size: 16px;
-        padding: 16px;
-    }
-    .top {
-        position: static;
-        margin: 20px auto 0;
-    }
-}
-
-@media (max-width:768px) {
-    .dashboard {
-        grid-template-columns: 1fr;
-        width: 100%;
-        margin: 0;
-    }
-    .search-box {
-        flex-direction: column;
-        align-items: center;
-    }
-    .search-box button {
-        width: 100%;
-    }
-    .kpis {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        width: 100%;
-        margin: 0;
-    }
-    .stations {
-        width: 100%;
-        margin: 0;
-        ;
-    }
-    .card,
-    .kpi-card,
-    .stations {
-        width: 100%;
-    }
-}

@@ -133,7 +133,7 @@ function buscarVeiculo() {
     verificarRecargaAberta(placa);
 }
 
-// =============Verificando recarga aberta ==========
+// ============= Verificando recarga aberta ==========
 function verificarRecargaAberta(placa) {
     const registro = recargas.find(
         r =>
@@ -209,9 +209,11 @@ function atualizarEtapa3(registro) {
         atualizarEstacaoConcluida(registro);
         console.log("ESTAÇÃO REGISTRO:", registro.estacao);
         console.log("PRISMA REGISTRO:", registro.prisma);
+        
         // Salva a recarga concluída no histórico
         historicoRecargas.push({ ...registro });
         console.table("HISTÓRICO:", historicoRecargas);
+
     // ================= Input da Estação =================
     const selectEstacao =
         document.getElementById("estacao");
@@ -221,33 +223,46 @@ function atualizarEtapa3(registro) {
             opcao.value,
             opcao.text
         );
-        if (
-            opcao.value === registro.estacao ||
-            opcao.text.includes(registro.estacao)
-        ) {
+        // if (
+        //     opcao.value === registro.estacao ||
+        //     opcao.text.includes(registro.estacao)
+        // ) 
+        
+        if (opcao.value === registro.estacao) {
+            console.log("ACHEI ESTAÇÃO");
+
+            opcao.disabled = false;
+            opcao.textContent = opcao.value;
+        }{
             console.log("ACHEI ESTAÇÃO");
             opcao.disabled = false;
             opcao.text = registro.estacao;
         }
     });
+  
     // ================= Input do Prisma =================
     const selectPrisma =
         document.getElementById("prisma");
+
     [...selectPrisma.options].forEach(opcao => {
+
         console.log(
             "PRISMA OPTION:",
             opcao.value,
             opcao.text
         );
-        if (
-            opcao.value === registro.prisma ||
-            opcao.text.includes(registro.prisma)
-        ) {
+
+        if (opcao.value === registro.prisma) {
+
             console.log("ACHEI PRISMA");
+
             opcao.disabled = false;
-            opcao.text = registro.prisma;
+
+            // Restaura o número original do prisma
+            opcao.textContent = opcao.value;
         }
     });
+
     // ================= Cards das estações =================
     const card = [...document.querySelectorAll(".station-card")]
         .find(c =>

@@ -361,51 +361,6 @@ async function atualizarPrevisao(latitude, longitude) {
 }
 
 // ===== Ícone do clima =====
-// function obterIconeTempo(codigo, isDia) {
-//     // Céu limpo
-//     if (codigo === 0) {
-//         return isDia
-//             ? "bi-sun-fill"
-//             : "bi-moon-stars-fill";
-//     }
-//     // Poucas nuvens
-//     if (codigo === 1 || codigo === 2) {
-//         return isDia
-//             ? "bi-cloud-sun-fill"
-//             : "bi-cloud-moon-fill";
-//     }
-//     // Nublado
-//     if (codigo === 3) {
-//         return "bi-cloud-fill";
-//     }
-//     // Neblina
-//     if (codigo === 45 || codigo === 48) {
-//         return "bi-cloud-haze-fill";
-//     }
-//     // Garoa
-//     if ([51, 53, 55, 56, 57].includes(codigo)) {
-//         return "bi-cloud-drizzle-fill";
-//     }
-//     // Chuva
-//     if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
-//         return "bi-cloud-rain-fill";
-//     }
-//     // Neve
-//     if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
-//         return "bi-snow";
-//     }
-//     // Trovoada
-//     if ([95, 96, 99].includes(codigo)) {
-//         return "bi-cloud-lightning-rain-fill";
-//     }
-//     // Caso não reconheça
-//     return isDia
-//         ? "bi-cloud-sun-fill"
-//         : "bi-cloud-moon-fill";
-// }
-
-// ===== Ícone do clima =====
-
 function obterIconeTempo(codigo, isDia) {
 
     // Céu limpo
@@ -1099,194 +1054,478 @@ btnToggle.addEventListener("click", () => {
         : "🔽";
 });
 
+// =========================================================
+// Registrar recarga
+// =========================================================
 function registrarRecarga() {
-  const estacaoSelecionada = document.getElementById("estacao").value;
-  const prismaSelecionado = document.getElementById("prisma").value;
-  const placa = document.getElementById("placa").value;
-  const proprietario =
-    document.getElementById("nomeVeiculo").textContent.trim();
-  const registroExistente = recargas.find(
-    r =>
-        r.placa.toUpperCase() === placa.toUpperCase() &&
-        r.status !== "Concluído"
-    );
-    const existeCarregando = recargas.find(
-    r =>
-        r.estacao === estacaoSelecionada &&
-        r.status !== "Concluído"
-    );
-    console.log(
-    "EXISTE RECARGA NESSA ESTAÇÃO:",
-    existeCarregando
-    );
 
-    if (registroExistente) {
-    if (registroExistente.status === "Aberto") {
-        atualizarEtapa2(registroExistente);
-    } else if (registroExistente.status === "Carregando") {
-        atualizarEtapa3(registroExistente);
-    }
+    // =========================================================
+    // Dados selecionados
+    // =========================================================
+    const estacaoSelecionada =
+        document.getElementById("estacao").value;
 
-    } else {
-        const card = [...document.querySelectorAll(".station-card")]
-    .find(c =>
-        c.querySelector("h3").textContent.trim() === estacaoSelecionada
-    );
+    const prismaSelecionado =
+        document.getElementById("prisma").value;
 
-    const nomesTorres = {
-        alfredo: "Torre Alfredo Egydio",
-        jabaquara: "Torre Jabaquara",
-        olavo: "Torre Olavo Setubal"
-    };
 
-    const torre = nomesTorres[card.dataset.torre];
-    const opcaoEstacao = document.getElementById("estacao").selectedOptions[0];
-    const piso = opcaoEstacao.dataset.piso;
+    // =========================================================
+    // Validação de estação e prisma
+    // =========================================================
+    if (!estacaoSelecionada || !prismaSelecionado) {
 
-        // Só cria uma nova recarga se NÃO existir uma aberta
-        const novaRecarga = criarRecarga({
-            status: existeCarregando ? "Fila" : "Aberto",
-            placa: placa,
-            proprietario: proprietario,
-            torre: torre,
-            piso: piso,
-            manobristaEntrada:
-                document.getElementById("manobristaEntrada").value,
-            prisma: prismaSelecionado,
-            estacao: estacaoSelecionada,
-            dataEntrada:
-                document.getElementById("dataEntrada").value,
-            diaSemana:
-                document.getElementById("diaSemana").value,
-            horaChegada:
-                document.getElementById("horaChegada").value
+        //Opção 1 muito boa   
+        // Swal.fire({
+        //     icon: "warning",
+        //     title: "Atenção!",
+        //     html: `
+        //         <div style="font-size: 15px; color: #555; margin-top: 8px;">
+        //             Selecione uma <strong>placa</strong> e preencha
+        //             <strong>todos os campos obrigatórios</strong> antes de continuar.
+        //         </div>
+        //     `,
+        //     confirmButtonText: '<i class="fa-solid fa-check"></i> Entendi',
+        //     confirmButtonColor: "#ff6b00",
+        //     background: "#ffffff",
+        //     color: "#1e293b",
+        //     showCloseButton: true,
+        //     customClass: {
+        //         popup: "swal-smart-charger",
+        //         title: "swal-titulo",
+        //         confirmButton: "swal-botao"
+        //     }
+        // }); 
+
+        //Opção 2 muito boa tbm
+        Swal.fire({
+            icon: "warning",
+            title: "Atenção!",
+            html: `
+                <div class="smart-alert-content">
+                    <div class="smart-alert-message">
+                        <strong>Quase lá!</strong>
+                        <span>
+                            Para continuar, selecione uma <b>placa</b> e
+                            preencha todos os <b>campos obrigatórios</b>.
+                        </span>
+                    </div>
+
+                    <div class="smart-alert-tip">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <span>Confira os dados antes de continuar.</span>
+                    </div>
+                </div>
+            `,
+            confirmButtonText: `
+                <i class="fa-solid fa-check"></i>
+                Entendi
+            `,
+            confirmButtonColor: "#ff6b00",
+            showCloseButton: true,
+            buttonsStyling: false,
+
+            customClass: {
+                popup: "smart-alert",
+                icon: "smart-alert-icon",
+                title: "smart-alert-title",
+                confirmButton: "smart-alert-button",
+                closeButton: "smart-alert-close"
+            }
         });
-        console.table(novaRecarga);
-    }
-  if (!estacaoSelecionada || !prismaSelecionado) {
-    alert("Selecione estação e prisma");
-    return;
-  }
-    const card = [...document.querySelectorAll(".station-card")]
-        .find(c =>
-            c.querySelector("h3").textContent.trim() === estacaoSelecionada
-        );
-    if (!card) {
-        console.error("Estação não encontrada:", estacaoSelecionada);
+
         return;
     }
- 
-  //========== Atualiza status do card ===============
-  card.dataset.status = "em uso";
-  card.classList.add("em-uso");
- 
-  //=========== Ícone principal verde ===============
-  const icone = card.querySelector(".station-icon");
-  icone.className = "station-icon verde";
-  icone.innerHTML = '<i class="fa-solid fa-charging-station"></i><i class="bi bi-ev-front-fill"></i>';
-  
-  //=========== Badge verde “Em uso ⚡” ================
-  const status = card.querySelector(".status");
-  status.className = "status uso";
-  status.innerHTML = 'Em uso <i class="bi bi-lightning-charge"></i>';
 
-  //=============== Título verde ===========================
-  const titulo = card.querySelector("h3");
-  titulo.style.color = "#0b5e29";
+    // =========================================================
+    // Dados do veículo
+    // =========================================================
+    const placa =
+        document.getElementById("placa").value;
 
-  //========== Ícones da lista azul claro (corrigido) =========
-  const listaItens = card.querySelectorAll("ul li i");
-  listaItens.forEach(i => {
-    i.classList.remove("status", "livre", "uso");
-    i.style.backgroundColor = "#dcfce7";
-    i.style.color = "#0b5e29";          
-    i.style.borderRadius = "50%";
-    i.style.padding = "10px";
-    i.style.width = "36px";
-    i.style.height = "36px";
-    i.style.display = "flex";
-    i.style.justifyContent = "center";
-    i.style.alignItems = "center";
-  });
+    const proprietario =
+        document.getElementById("nomeVeiculo")
+            .textContent
+            .trim();
 
-  //========== Botão verde claro =============
-  const botao = card.querySelector("button");
-  botao.className = "status uso";
-  botao.style.backgroundColor = "#dcfce7";
-  botao.style.color = "#0b5e29";
-  botao.textContent = "Ver detalhes";
 
-//========= Desativa estação e prisma no select ============
-//   const selectEstacao = document.getElementById("estacao");
-//   [...selectEstacao.options].forEach(opcao => {
-//     if (opcao.text.includes(estacaoSelecionada)) {
-//         opcao.disabled = false;
-//         opcao.text = `${estacaoSelecionada} ⚡`;
-//     }
-//   });
+    // =========================================================
+    // Verifica se já existe uma recarga para a placa
+    // =========================================================
+    const registroExistente = recargas.find(
+        r =>
+            r.placa.toUpperCase() === placa.toUpperCase() &&
+            r.status !== "Concluído"
+    );
 
-const selectEstacao = document.getElementById("estacao");
-[...selectEstacao.options].forEach(opcao => {
-    if (opcao.value === estacaoSelecionada) {
-        opcao.disabled = false;
-        opcao.textContent = `${estacaoSelecionada} ⚡`;
+
+    // =========================================================
+    // Verifica se a estação já está carregando
+    // =========================================================
+    const existeCarregando = recargas.find(
+        r =>
+            r.estacao === estacaoSelecionada &&
+            r.status !== "Concluído"
+    );
+
+    console.log(
+        "EXISTE RECARGA NESSA ESTAÇÃO:",
+        existeCarregando
+    );
+
+
+    // =========================================================
+    // Se já existe registro para a placa
+    // =========================================================
+    if (registroExistente) {
+
+        if (registroExistente.status === "Aberto") {
+
+            atualizarEtapa2(registroExistente);
+
+        } else if (registroExistente.status === "Carregando") {
+
+            atualizarEtapa3(registroExistente);
+        }
+
+    } else {
+
+        // =====================================================
+        // Localiza o card da estação
+        // =====================================================
+        const card = [...document.querySelectorAll(".station-card")]
+            .find(c =>
+                c.querySelector("h3")
+                    .textContent
+                    .trim() === estacaoSelecionada
+            );
+
+
+        // =====================================================
+        // Proteção contra estação não encontrada
+        // =====================================================
+        if (!card) {
+
+            console.error(
+                "Estação não encontrada:",
+                estacaoSelecionada
+            );
+
+            Swal.fire({
+                icon: "error",
+                title: "Estação não encontrada",
+                text: "Não foi possível localizar o card da estação selecionada.",
+                confirmButtonText: "OK"
+            });
+
+            return;
+        }
+
+
+        // =====================================================
+        // Identifica a torre
+        // =====================================================
+        const nomesTorres = {
+
+            alfredo: "Torre Alfredo Egydio",
+
+            jabaquara: "Torre Jabaquara",
+
+            olavo: "Torre Olavo Setubal"
+
+        };
+
+
+        const torre =
+            nomesTorres[card.dataset.torre];
+
+
+        // =====================================================
+        // Identifica o piso da estação
+        // =====================================================
+        const opcaoEstacao =
+            document.getElementById("estacao")
+                .selectedOptions[0];
+
+
+        const piso =
+            opcaoEstacao.dataset.piso;
+
+
+        // =====================================================
+        // Cria nova recarga
+        // =====================================================
+        const novaRecarga = criarRecarga({
+
+            status:
+                existeCarregando
+                    ? "Fila"
+                    : "Aberto",
+
+            placa:
+                placa,
+
+            proprietario:
+                proprietario,
+
+            torre:
+                torre,
+
+            piso:
+                piso,
+
+            manobristaEntrada:
+                document.getElementById(
+                    "manobristaEntrada"
+                ).value,
+
+            prisma:
+                prismaSelecionado,
+
+            estacao:
+                estacaoSelecionada,
+
+            dataEntrada:
+                document.getElementById(
+                    "dataEntrada"
+                ).value,
+
+            diaSemana:
+                document.getElementById(
+                    "diaSemana"
+                ).value,
+
+            horaChegada:
+                document.getElementById(
+                    "horaChegada"
+                ).value
+        });
+
+
+        console.table(novaRecarga);
     }
-});
 
-//const selectPrisma = document.getElementById("prisma");
-//   [...selectPrisma.options].forEach(opcao => {
-//     if (opcao.text.includes(prismaSelecionado)) {
-//         opcao.disabled = false;
-//         opcao.text = `${prismaSelecionado} ⚡`;
-//     }
-//   });
-// const selectPrisma = document.getElementById("prisma");
-// [...selectPrisma.options].forEach(opcao => {
-//     if (opcao.value === prismaSelecionado) {
-//         opcao.disabled = false;
-//         opcao.textContent = `${prismaSelecionado} ⚡`;
-//     }
-// });
 
-const selectPrisma = document.getElementById("prisma");
-[...selectPrisma.options].forEach(opcao => {
-    if (!opcao.dataset.textoOriginal) {
-        opcao.dataset.textoOriginal = opcao.textContent;
+    // =========================================================
+    // Localiza o card da estação
+    // =========================================================
+    const card = [...document.querySelectorAll(".station-card")]
+        .find(c =>
+            c.querySelector("h3")
+                .textContent
+                .trim() === estacaoSelecionada
+        );
+
+
+    if (!card) {
+
+        console.error(
+            "Estação não encontrada:",
+            estacaoSelecionada
+        );
+
+        return;
     }
-    if (opcao.value === prismaSelecionado) {
-        opcao.disabled = false;
-        opcao.textContent =
-            `${opcao.dataset.textoOriginal} ⚡`;
-    }
-});
 
-   //========= Limpa os campos da operação após registrar ===========
+
+    // =========================================================
+    // Atualiza status do card
+    // =========================================================
+    card.dataset.status = "em uso";
+
+    card.classList.add("em-uso");
+
+
+    // =========================================================
+    // Ícone principal verde
+    // =========================================================
+    const icone =
+        card.querySelector(".station-icon");
+
+    icone.className =
+        "station-icon verde";
+
+    icone.innerHTML =
+        '<i class="fa-solid fa-charging-station"></i>' +
+        '<i class="bi bi-ev-front-fill"></i>';
+
+
+    // =========================================================
+    // Badge verde "Em uso ⚡"
+    // =========================================================
+    const status =
+        card.querySelector(".status");
+
+    status.className =
+        "status uso";
+
+    status.innerHTML =
+        'Em uso <i class="bi bi-lightning-charge"></i>';
+
+
+    // =========================================================
+    // Título verde
+    // =========================================================
+    const titulo =
+        card.querySelector("h3");
+
+    titulo.style.color =
+        "#0b5e29";
+
+
+    // =========================================================
+    // Ícones da lista
+    // =========================================================
+    const listaItens =
+        card.querySelectorAll("ul li i");
+
+    listaItens.forEach(i => {
+
+        i.classList.remove(
+            "status",
+            "livre",
+            "uso"
+        );
+
+        i.style.backgroundColor =
+            "#dcfce7";
+
+        i.style.color =
+            "#0b5e29";
+
+        i.style.borderRadius =
+            "50%";
+
+        i.style.padding =
+            "10px";
+
+        i.style.width =
+            "36px";
+
+        i.style.height =
+            "36px";
+
+        i.style.display =
+            "flex";
+
+        i.style.justifyContent =
+            "center";
+
+        i.style.alignItems =
+            "center";
+    });
+
+
+    // =========================================================
+    // Botão verde claro
+    // =========================================================
+    const botao =
+        card.querySelector("button");
+
+    botao.className =
+        "status uso";
+
+    botao.style.backgroundColor =
+        "#dcfce7";
+
+    botao.style.color =
+        "#0b5e29";
+
+    botao.textContent =
+        "Ver detalhes";
+
+
+    // =========================================================
+    // Atualiza estação no select
+    // =========================================================
+    const selectEstacao =
+        document.getElementById("estacao");
+
+    [...selectEstacao.options].forEach(opcao => {
+
+        if (opcao.value === estacaoSelecionada) {
+
+            opcao.disabled = false;
+
+            opcao.textContent =
+                `${estacaoSelecionada} ⚡`;
+        }
+    });
+
+
+    // =========================================================
+    // Atualiza prisma no select
+    // =========================================================
+    const selectPrisma =
+        document.getElementById("prisma");
+
+    [...selectPrisma.options].forEach(opcao => {
+
+        if (!opcao.dataset.textoOriginal) {
+
+            opcao.dataset.textoOriginal =
+                opcao.textContent;
+        }
+
+        if (opcao.value === prismaSelecionado) {
+
+            opcao.disabled = false;
+
+            opcao.textContent =
+                `${opcao.dataset.textoOriginal} ⚡`;
+        }
+    });
+
+
+    // =========================================================
+    // Limpa os campos da operação
+    // =========================================================
     document.getElementById("placa").value = "";
-    document.getElementById("fotoVeiculo").src = "img/charge1.jpg"
+
+    document.getElementById("fotoVeiculo").src =
+        "img/charge1.jpg";
+
     document.getElementById("manobristaEntrada").value = "";
+
     document.getElementById("dataEntrada").value = "";
+
     document.getElementById("diaSemana").value = "";
+
     document.getElementById("horaChegada").value = "";
+
     document.getElementById("horaCargaInicial").value = "";
+
     document.getElementById("cargaInicial").value = "";
+
     document.getElementById("manobristaSaida").value = "";
+
     document.getElementById("cargaFinal").value = "";
+
     document.getElementById("horaFinal").value = "";
-    document.getElementById("dataEntrada").value = "";
-    document.getElementById("diaSemana").value = "";
+
     document.getElementById("estacao").selectedIndex = 0;
+
     document.getElementById("prisma").selectedIndex = 0;
 
+
+    // =========================================================
+    // Limpeza e atualização
+    // =========================================================
     limparCard();
 
     liberarFormulario();
+
+
     console.log("1");
 
     atualizarContadores();
-     console.log("2")  
-    
-    //atualizarComparativoOntem();
-    console.log("3")
+
+
+    console.log("2");
+
+    // atualizarComparativoOntem();
+
+
+    console.log("3");
 
     renderizarMovimentacoes();
 }

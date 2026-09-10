@@ -8,7 +8,7 @@ const base = [
 
     ["BRE1002", "Brenno Malveira de Souza Castro", "Func: 123456793", "Cons Financas - Breno Design LTDA", "Volkswagen Polo - Prata", "breno@correio.itau.com.br", "pictures/breno-ft.png"],
 
-    ["DAN905", "Danilo Pereira da Silva", "Func: 123456794", "Cons Financas - JP Morgan", "Chevrolet Onix - Preto", "Danilo@correio.itau.com.br", "pictures/danilo-ft.jpg"],
+    ["DAN0905", "Danilo Pereira da Silva", "Func: 123456794", "Cons Financas - JP Morgan", "Chevrolet Onix - Preto", "Danilo@correio.itau.com.br", "pictures/danilo-ft.jpg"],
 
     ["DAC1307", "Dacio Costa Nascimento", "Func: 123456796", "Gte Financas - Google", "Kia Niro sx - Cinza", "Dacio@correio.itau.com.br", "pictures/dacio-ft.jpg"],
 
@@ -75,20 +75,21 @@ const base = [
 
     ["EMY1209", "Fiona Gallager", "Func:123456126", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "fiona@correio.itau.com.br", " pictures/fiona-ft.png"],
 
-    ["KIE1205", "Kiara Carrera", "Func:123456127", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "Kiara@correio.itau.com.br", " pictures/kie-ft.png"],
+    ["KIE1205", "Kiara Carrera", "Func:123456127", "Pogue - Caçador de Tesouros", "Porsche Cayenne - Branco", "Kiara@correio.itau.com.br", " pictures/kie-ft.png"],
 
-    ["POP1122", "Pope Heyward", "Func:123456128", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "Pope@correio.itau.com.br", " pictures/pop-ft.png"],
+    ["POP1122", "Pope Heyward", "Func:123456128", "Pogue - Caçador de Tesouros", "Porsche Cayenne - Branco", "Pope@correio.itau.com.br", " pictures/pop-ft.png"],
 
-    ["JJJ2562", "JJ Maybank", "Func:123456129", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "JJ@correio.itau.com.br", " pictures/jj-ft.png"],
+    ["JJJ2562", "JJ Maybank", "Func:123456129", "Pogue - Caçador de Tesouros", "Porsche Cayenne - Branco", "JJ@correio.itau.com.br", " pictures/jj-ft.png"],
 
-    ["RAF5505", "Rafe Cameron", "Func:123456130", "Gerente - Patsys'Pies", "Mercedes - Branco", "Rafe@correio.itau.com.br", " pictures/jj-ft.png"],
+    ["RAF5505", "Rafe Cameron", "Func:123456130", "Herdeiro - Família Cameron", "Mercedes - Branco", "Rafe@correio.itau.com.br", " pictures/rafe-ft.png"],
 
-    ["SOF0555", "Sofia Cameron", "Func:123456131", "Gerente - Patsys'Pies", "Mercedes - Branco", "Sofia@correio.itau.com.br", " pictures/jj-ft.png"],
+    ["SOF0555", "Sofia Cameron", "Func:123456131", "Garçonete - Club de Golf", "Mercedes - Branco", "Sofia@correio.itau.com.br", " pictures/sofia-ft.png"],
 
-    
-    ["CLE3612", "Cleo Heyward", "Func:123456132", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "Cleo@correio.itau.com.br", " pictures/cleo-ft.png"],
+    ["CLE3612", "Cleo Heyward", "Func:123456132", "Pogue - Caçador de Tesouros", "Porsche Cayenne - Branco", "Cleo@correio.itau.com.br", " pictures/cleo-ft.png"],
 
-    ["SAR2124", "Sarah Cameron Routledg", "Func:123456133", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "Sarah@correio.itau.com.br", " pictures/sarah-ft.png"],
+    ["SAR2124", "Sarah Cameron Routledg", "Func:123456133", "Herdeira - Família Cameron", "Porsche Cayenne - Branco", "Sarah@correio.itau.com.br", " pictures/sarah-ft.png"],
 
-    ["JOH2125", "John B. Routledge", "Func:123456134", "Gerente - Patsys'Pies", "Porsche Cayenne - Branco", "John@correio.itau.com.br", " pictures/john-ft.png"],
+     ["WHE1504", "Wheezie Cameron ", "Func:123456134", "Herdeira -Família Cameron", "Volvo XC90 - Branco", "Wheezie@correio.itau.com.br", " pictures/wheezie-ft.png"],
+
+    ["JOH2125", "John B. Routledge", "Func:123456135", "Pogue - Caçador de Tesouros", "VW Kombi - Amarelo", "John@correio.itau.com.br", " pictures/john-ft.png"],
 ];
