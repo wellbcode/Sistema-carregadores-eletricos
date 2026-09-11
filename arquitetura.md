@@ -123,7 +123,7 @@ Essa estrutura permite que cada estação mantenha seu estado atual e, quando ne
     │
     ├── ESTAÇÃO #004
     │   └── 🔋 ABERTURA
-    │       └── NAT8204 → ⚡PRISMA 03
+    │       └── NAT8204 → ⚡PRISMA 06
     │       │
     │       └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
