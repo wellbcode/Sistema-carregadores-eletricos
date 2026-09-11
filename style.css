@@ -1285,21 +1285,21 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 /* Hoje */
 .tempo .kpi-footer {
     background: linear-gradient(90deg,
-        #fffdfb 0%,
-        #fef5eb 100%);
+        #fbfffc 0%,
+        #eef9f0 100%);
 }
 
 .hoje .kpi-footer {
-    background: linear-gradient(90deg,
-        #fffdfb 0%,
-        #fef5eb 100%);
+     background: linear-gradient(90deg,
+        #fbfcff 0%,
+        #eef3ff 100%);
 }
 
 /* Total */
 .total .kpi-footer {
     background: linear-gradient(90deg,
-    #fffdfb 0%,
-    #fef5eb 100%);
+        #fffdfb 0%,
+        #fef5eb 100%);
 }
 
 /* Livres */
@@ -1318,8 +1318,8 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 
 .fila .kpi-footer {
     background: linear-gradient(90deg,
-        #fbfffc 0%,
-        #eef9f0 100%);
+        #fffdfb 0%,
+        #fef5eb 100%);
 }
 
 /* .tempo .kpi-footer i {
