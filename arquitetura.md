@@ -99,31 +99,31 @@ Essa estrutura permite que cada estação mantenha seu estado atual e, quando ne
     │
     ├──⚡ESTAÇÃO #001
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗WEL2811 → ⚡PRISMA 00
+    │   │   └── 🚗 WEL2811 → ⚡PRISMA 00
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗ELI2408 → ⚡PRISMA 01
-    │       ├── 2º 🚗ING1311 → ⚡PRISMA 02
-    │       └── 3º 🚗MAY1611 → ⚡PRISMA 03
+    │       ├── 1º 🚗 ELI2408 → ⚡PRISMA 01
+    │       ├── 2º 🚗 ING1311 → ⚡PRISMA 02
+    │       └── 3º 🚗 MAY1611 → ⚡PRISMA 03
     │       ├── Nenhum veículo aguardando...
     │
     ├── ESTAÇÃO #002
     │   └── 🔋 ABERTURA
-    │       └── BRE1002 → ⚡PRISMA 04 
+    │       └── 🚗 BRE1002 → ⚡PRISMA 04 
     │       │
     │       └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │
     ├── ESTAÇÃO #003
     │   └── 🔋 ABERTURA
-    │       └── 🚗DAN0905 → ⚡PRISMA 05
+    │       └── 🚗 DAN0905 → ⚡PRISMA 05
     │       │
     │       └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │
     ├── ESTAÇÃO #004
     │   └── 🔋 ABERTURA
-    │       └── NAT8204 → ⚡PRISMA 06
+    │       └── 🚗 NAT8204 → ⚡PRISMA 06
     │       │
     │       └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
@@ -133,18 +133,18 @@ Essa estrutura permite que cada estação mantenha seu estado atual e, quando ne
     │
     ├──⚡ESTAÇÃO #005
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗DAC1307 → ⚡PRISMA 00
+    │   │   └── 🚗 DAC1307 → ⚡PRISMA 00
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗DOM2609 → ⚡PRISMA 01   
+    │       ├── 1º 🚗 DOM2609 → ⚡PRISMA 01   
     │       ├── Nenhum veículo aguardando...
     │        
     ├──⚡ESTAÇÃO #006
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗ADA2308 → ⚡PRISMA 02
+    │   │   └── 🚗 ADA2308 → ⚡PRISMA 02
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗FAB3010 → ⚡PRISMA 03
+    │       ├── 1º 🚗 FAB3010 → ⚡PRISMA 03
     │       ├── Nenhum veículo aguardando...
     │        
     _____________________________________________
@@ -153,56 +153,56 @@ Essa estrutura permite que cada estação mantenha seu estado atual e, quando ne
     │
     ├──⚡ESTAÇÃO #007
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗BRU2108 → ⚡PRISMA 00
+    │   │   └── 🚗 BRU2108 → ⚡PRISMA 00
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │        
     ├──⚡ESTAÇÃO #008
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗TAT1110 → ⚡PRISMA 01
+    │   │   └── 🚗 TAT1110 → ⚡PRISMA 01
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │             
     ├──⚡ESTAÇÃO #009
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗LAN2802 → ⚡PRISMA 02
+    │   │   └── 🚗 LAN2802 → ⚡PRISMA 02
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │ 
     ├──⚡ESTAÇÃO #010
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗ERI2806 → ⚡PRISMA 03
+    │   │   └── 🚗 ERI2806 → ⚡PRISMA 03
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │ 
     ├──⚡ESTAÇÃO #011
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗ITA0910 → ⚡PRISMA 04
+    │   │   └── 🚗 ITA0910 → ⚡PRISMA 04
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │ 
     ├──⚡ESTAÇÃO #012
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗CLE2908 → ⚡PRISMA 05
+    │   │   └── 🚗 CLE2908 → ⚡PRISMA 05
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │ 
     ├──⚡ESTAÇÃO #013
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗ALV0701 → ⚡PRISMA 06
+    │   │   └── 🚗 ALV0701 → ⚡PRISMA 06
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │ 
     ├──⚡ESTAÇÃO #014
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗KET3112 → ⚡PRISMA 07
+    │   │   └── 🚗 KET3112 → ⚡PRISMA 07
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
@@ -212,33 +212,33 @@ Essa estrutura permite que cada estação mantenha seu estado atual e, quando ne
     │
     ├──⚡ESTAÇÃO #015
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗LAR2007 → ⚡PRISMA 00
+    │   │   └── 🚗 LAR2007 → ⚡PRISMA 00
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗BET0905 → ⚡PRISMA 01
-    │       ├── 2º 🚗SAB1512 → ⚡PRISMA 02
+    │       ├── 1º 🚗 BET0905 → ⚡PRISMA 01
+    │       ├── 2º 🚗 SAB1512 → ⚡PRISMA 02
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #016
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗LOR0909 → ⚡PRISMA 03
+    │   │   └── 🚗 LOR0909 → ⚡PRISMA 03
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗TAL1805 → ⚡PRISMA 04
-    │       ├── 2º 🚗VER0801 → ⚡PRISMA 05
+    │       ├── 1º 🚗 TAL1805 → ⚡PRISMA 04
+    │       ├── 2º 🚗 VER0801 → ⚡PRISMA 05
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #017
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗RAY2105  → ⚡PRISMA 06
+    │   │   └── 🚗 RAY2105  → ⚡PRISMA 06
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗JOY3101 → ⚡PRISMA 06
+    │       ├── 1º 🚗 JOY3101 → ⚡PRISMA 07
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #018
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗NAT2905  → ⚡PRISMA 07
+    │   │   └── 🚗 NAT2905  → ⚡PRISMA 08
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
@@ -248,54 +248,54 @@ Essa estrutura permite que cada estação mantenha seu estado atual e, quando ne
     │
     ├──⚡ESTAÇÃO #019
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗MAR0703 → ⚡PRISMA 00
+    │   │   └── 🚗 MAR0703 → ⚡PRISMA 00
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗MAR0306 → ⚡PRISMA 01
-    │       ├── 2º 🚗VIC1202 → ⚡PRISMA 02
+    │       ├── 1º 🚗 MAR0306 → ⚡PRISMA 01
+    │       ├── 2º 🚗 VIC1202 → ⚡PRISMA 02
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #020
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗WEB0111 → ⚡PRISMA 03
+    │   │   └── 🚗 WEB0111 → ⚡PRISMA 03
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #021
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗ABM1601  → ⚡PRISMA 04
+    │   │   └── 🚗 ABM1601  → ⚡PRISMA 04
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #022
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗AMA2010  → ⚡PRISMA 05
+    │   │   └── 🚗 AMA2010  → ⚡PRISMA 05
     │   │
     │   └── ⏳ FILA DE ESPERA
     │       ├── Nenhum veículo aguardando...
     │
     ├──⚡ESTAÇÃO #032
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗EMY1209  → ⚡PRISMA 06
+    │   │   └── 🚗 EMY1209  → ⚡PRISMA 06
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗KIE1205 → ⚡PRISMA 07
-    │       ├── 2º 🚗JJJ2562 → ⚡PRISMA 08
-    │       ├── 3º 🚗CLE3612 → ⚡PRISMA 09
-    │       ├── 4º 🚗POP1122 → ⚡PRISMA 10
+    │       ├── 1º 🚗 KIE1205 → ⚡PRISMA 07
+    │       ├── 2º 🚗 JJJ2562 → ⚡PRISMA 08
+    │       ├── 3º 🚗 CLE3612 → ⚡PRISMA 09
+    │       ├── 4º 🚗 POP1122 → ⚡PRISMA 10
     │       ├── Nenhum veículo aguardando... 
     │
     ├──⚡ESTAÇÃO #024
     │   ├── 🔋 ABERTURA
-    │   │   └── 🚗SAR2124  → ⚡PRISMA 11
+    │   │   └── 🚗 SAR2124  → ⚡PRISMA 11
     │   │
     │   └── ⏳ FILA DE ESPERA
-    │       ├── 1º 🚗JOH2125 → ⚡PRISMA 12
-    │       ├── 2º 🚗RAF5505 → ⚡PRISMA 13
-    │       ├── 3º 🚗SOF0555 → ⚡PRISMA 14
-    │       ├── 4º 🚗WHE1504 → ⚡PRISMA 15
+    │       ├── 1º 🚗 JOH2125 → ⚡PRISMA 12
+    │       ├── 2º 🚗 RAF5505 → ⚡PRISMA 13
+    │       ├── 3º 🚗 SOF0555 → ⚡PRISMA 14
+    │       ├── 4º 🚗 WHE1504 → ⚡PRISMA 15
     │       ├── Nenhum veículo aguardando...
     │
 
@@ -314,18 +314,18 @@ flowchart TD
     DISP -->|Não| FILA["⏳ Entrar na fila"]
 
     FILA --> POS["Definir posição"]
-    POS --> N1["1º"]
-    N1 --> N2["2º"]
-    N2 --> N3["3º"]
-    N3 --> NN["..."]
+    POS  --> N1["1º"]
+    N1   --> N2["2º"]
+    N2   --> N3["3º"]
+    N3   --> NN["..."]
 
     AB --> FIM{"Recarga concluída?"}
 
-    FIM -->|Não| AB
-    FIM -->|Sim| PROX{"Existe veículo na fila?"}
+    FIM --> |Não| AB
+    FIM --> |Sim| PROX{"Existe veículo na fila?"}
 
-    PROX -->|Sim| RET["🚗 Próximo veículo"]
-    PROX -->|Não| LIVRE["🟢 Estação livre"]
+    PROX --> |Sim| RET["🚗 Próximo veículo"]
+    PROX --> |Não| LIVRE["🟢 Estação livre"]
 
     RET --> AB
 

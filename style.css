@@ -592,24 +592,22 @@ body::before {
     box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
-.placa-main {
-    background: #111;
-}
-
 /* Placa */
 .placa1 {
     grid-column: 1;
     grid-row: 1;
-    width: 207px;
-    height: 70px;
-    background: #fff;
-    border: 2px solid #fff;
+    width: 200px;
+    height: 68px;
+    background: #000;
+    border: 1px solid #fff;
     border-radius: 10px;
     overflow: hidden;
+    padding: 1px;
     margin: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+    box-shadow: 0 4px 10px #000;
 }
 
+/*Aqui o BR da placa*/
 .placa::after {
     content: "BR";
     position: absolute;
@@ -627,44 +625,28 @@ body::before {
     transform-origin: bottom left;
 }
 
-.placa::before {
-    content: "";
-    position: absolute;
-    top: 3px;
-    right: 6px;
-    width: 20px;
-    height: 13px;
-    background-image: url("https://flagcdn.io/flags/4x3/br.svg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
-    z-index: 3;
-    pointer-events: none;
-}
-
 .placa {
     position: relative;
     width: 200px;
     height: 65px;
     background: #fff;
-    border: 3px solid #333;
+    border: 2px solid #000;
     border-radius: 10px;
     overflow: hidden;
     margin: 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, .3);
 }
 
 /* Faixa azul da placa */
 .placa-topo {
-    background: #0039A6;
-    color: #fff;
+    position: relative;
+    background-image: url("img/top.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
-    letter-spacing: -1px;
-    font-size: 14px;
+    color: transparent;
 }
 
 /* Área número */
