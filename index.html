@@ -448,6 +448,29 @@
                     </div>
                 </article>
 
+                <!-- Em uso -->
+                <article class="kpi-card verde">
+                    <div class="kpi-decoration">
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                        <span></span><span></span><span></span>
+                    </div>
+
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-charging-station"></i><i class="bi bi-ev-front-fill"></i>
+                    </div>
+
+                    <h2 id="kpiEmUso">0</h2>
+                    <h4>Em uso</h4>
+
+                    <div class="kpi-footer">
+                        <i class="bi bi-plug-fill"></i>
+                        <span>
+                            Atualmente carregando
+                        </span>
+                    </div>
+                </article>
+
                 <!-- Livres -->
                 <article class="kpi-card azul">
                     <div class="kpi-decoration">
@@ -472,28 +495,7 @@
                     </div>
                 </article>
 
-                <!-- Em uso -->
-                <article class="kpi-card verde">
-                    <div class="kpi-decoration">
-                        <span></span><span></span><span></span>
-                        <span></span><span></span><span></span>
-                        <span></span><span></span><span></span>
-                    </div>
 
-                    <div class="kpi-icon">
-                        <i class="fa-solid fa-charging-station"></i><i class="bi bi-ev-front-fill"></i>
-                    </div>
-
-                    <h2 id="kpiEmUso">0</h2>
-                    <h4>Em uso</h4>
-
-                    <div class="kpi-footer">
-                        <i class="bi bi-plug-fill"></i>
-                        <span>
-                            Atualmente carregando
-                        </span>
-                    </div>
-                </article>
 
                 <!-- Fila de espera -->
                 <article class="kpi-card fila">
@@ -520,49 +522,6 @@
             </section>
 
             <!-- =============== Movimentação do dia ========================= -->
-            <!-- <section class="painel-movimentacoes">
-                <div class="painel-header"> -->
-                    <!-- <h3>Movimentações Recentes 📋<i class="bi bi-clipboard-data"></i></h3> -->
-                    <!-- <h3>Movimentações Recentes <i class="bi bi-clipboard-data"></i></h3>
-                    <div class="acoes">
-                        <button id="btnFiltroMov" aria-label="filtros"> -->
-                            <!-- <i class="bi bi-funnel-fill"></i> -->
-                            <!-- 🔍
-                        </button>
-
-                        <button id="btnToggleMov" aria-label="expandir">
-                            🔽
-                        </button>
-                    </div>
-                </div>
-                <div id="menuFiltroMov" class="menu-filtro-mov">
-                    <button onclick="filtrarMovimentacoes('todos')">Todos</button>
-                    <button onclick="filtrarMovimentacoes('Aberto')">Aberto</button>
-                    <button onclick="filtrarMovimentacoes('Carregando')">Carregando</button>
-                    <button onclick="filtrarMovimentacoes('Fila')">Fila</button>
-                    <button onclick="filtrarMovimentacoes('Concluído')">Concluído</button> -->
-                    <!-- PISOS 
-                    <button onclick="filtrarMovimentacoes('Torre Alfredo Egydio')">
-                        Alfredo PG
-                    </button>
-                    <button onclick="filtrarMovimentacoes('Torre Olavo Setubal')">
-                        Olavo PG
-                    </button>
-                    <button onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS')">
-                        Jabaquara 1º SS
-                    </button>
-                    <button onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul')">
-                        Jabaquara Azul
-                    </button>
-                    <button onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar')">
-                        Jabaquara 1º Andar
-                    </button>
-                </div>
-
-                <div id="listaMovimentacoes"></div>
-            </section>-->
-
-            <!-- =============== Movimentação do dia ========================= -->
             <section class="painel-movimentacoes">
                 <div class="painel-header">
                     <!-- <h3>Movimentações Recentes 📋<i class="bi bi-clipboard-data"></i></h3> -->
@@ -580,16 +539,16 @@
                 </div>
 
                 <div id="menuFiltroMov" class="menu-filtro-mov">
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('todos')">Todos</button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Aberto')">Aberto</button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Carregando')">Carregando</button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Fila')">Fila</button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Concluído')">Concluído</button>
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('todos')"><strong>Todos os Status</strong> <i class="bi bi-list-ul status-todos"></i></button>
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Fila')"><strong>Fila </strong> <i class="bi bi-hourglass-split status-fila"></i></i></button>
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Aberto')"><strong>Aberto</strong> <i class="bi bi-door-open status-aberto"></i></button>
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Carregando')"><strong>Carregando</strong> <i class="bi bi-battery-half half status-carregando"></i></button>
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Concluído')"><strong>Concluído</strong> <i class="bi bi-battery-full full status-concluido"></i></button>
 
                     <!-- PISOS -->
                     <div class="linha-filtro">
                         <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Alfredo Egydio')">
-                            Alfredo PG
+                            <strong>Alfredo PG</strong>
                         </button>
 
                         <button class="filtro-torre btn-expandir">
@@ -599,25 +558,26 @@
 
                     <div class="sub-filtros">
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Fila')">
-                            Alfredo PG - Fila
+                           <!-- Status &bull; Fila -->
+                            Fila <i class="bi bi-hourglass-split status-fila"></i></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Aberto')">
-                            Alfredo PG - Aberto
+                            Aberto <i class="bi bi-door-open status-aberto"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Carregando')">
-                            Alfredo PG - Carregando
+                            Carregando <i class="bi bi-battery-half half status-carregando"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Concluído')">
-                            Alfredo PG - Concluído
+                            Concluído <i class="bi bi-battery-full full status-concluido"></i> 
                         </button>
                     </div>
 
                     <div class="linha-filtro">
                         <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Olavo Setubal')">
-                            Olavo PG
+                            <strong>Olavo PG</strong>
                         </button>
 
                         <button class="filtro-torre btn-expandir">
@@ -627,26 +587,26 @@
 
                     <div class="sub-filtros">
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Olavo Setubal|Fila')">
-                            Olavo PG - Fila
+                            Fila <i class="bi bi-hourglass-split status-fila"></i></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Olavo Setubal|Aberto')">
-                            Olavo PG - Aberto
+                            Aberto <i class="bi bi-door-open status-aberto"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Olavo Setubal|Carregando')">
-                            Olavo PG - Carregando
+                            Carregando <i class="bi bi-battery-half half status-carregando"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Olavo Setubal|Concluído')">
-                            Olavo PG - Concluído
+                            Concluído <i class="bi bi-battery-full full status-concluido"></i>
                         </button>
                     </div>  
 
                     <!-- ================= JABAQUARA ================= -->
                     <div class="linha-filtro">
                         <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Jabaquara')">
-                            Jabaquara
+                            <strong>Jabaquara</strong>
                         </button>
 
                         <button class="filtro-torre btn-expandir">
@@ -658,7 +618,7 @@
                         <!-- 1º SS -->
                         <div class="linha-filtro">
                             <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS')">
-                                1º SS
+                                <strong>1º SS</strong>
                             </button>
 
                             <button class="filtro-torre btn-expandir">
@@ -669,22 +629,22 @@
                         <div class="sub-filtros">
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS|Fila')">
-                                Fila
+                                Fila <i class="bi bi-hourglass-split status-fila"></i></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS|Aberto')">
-                                Aberto
+                               Aberto <i class="bi bi-door-open status-aberto"></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS|Carregando')">
-                                Carregando
+                                Carregando <i class="bi bi-battery-half half status-carregando"></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS|Concluído')">
-                                Concluído
+                                Concluído <i class="bi bi-battery-full full status-concluido"></i>
                             </button>
                         </div>
 
@@ -692,7 +652,7 @@
                         <div class="linha-filtro">
                             <button class="btn-torre"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul')">
-                                Azul
+                                <strong>Azul</strong>
                             </button>
 
                             <button class="filtro-torre btn-expandir">
@@ -703,22 +663,22 @@
                         <div class="sub-filtros">
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul|Fila')">
-                                Fila
+                                Fila <i class="bi bi-hourglass-split status-fila"></i></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul|Aberto')">
-                                Aberto
+                                Aberto <i class="bi bi-door-open status-aberto"></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul|Carregando')">
-                                Carregando
+                                Carregando <i class="bi bi-battery-half half status-carregando"></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul|Concluído')">
-                                Concluído
+                                Concluído <i class="bi bi-battery-full full status-concluido"></i>
                             </button>
 
                         </div>
@@ -727,7 +687,7 @@
                         <div class="linha-filtro">
                             <button class="btn-torre"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar')">
-                                1º Andar
+                                <strong>1º Andar</strong>
                             </button>
 
                             <button class="filtro-torre btn-expandir">
@@ -739,22 +699,22 @@
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar|Fila')">
-                                Fila
+                                Fila <i class="bi bi-hourglass-split status-fila"></i></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar|Aberto')">
-                                Aberto
+                                Aberto <i class="bi bi-door-open status-aberto"></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar|Carregando')">
-                                Carregando
+                                Carregando <i class="bi bi-battery-half half status-carregando"></i>
                             </button>
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar|Concluído')">
-                                Concluído
+                                Concluído <i class="bi bi-battery-full full status-concluido"></i>
                             </button>
                         </div>
                     </div>

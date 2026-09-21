@@ -1882,6 +1882,110 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 
 }
 
+/* =====================================================
+   ANIMAÇÕES DOS ÍCONES DE STATUS nos filtros da lupinha
+   ===================================================== */
+.btn-torre {
+    display: inline-flex;
+    align-items: center;
+    justify-content: left;
+    gap: 6px;
+}
+
+.status-carregando,
+.status-concluido {
+    font-size: 1.4em;
+    line-height: 1;
+}
+
+/* Ajuste vertical */
+.status-todos,
+.status-fila,
+.status-aberto {
+    position: relative;
+    top: 0;
+    font-size: 1.3em;
+   
+}
+
+.status-todos {
+    display: inline-block;
+    /* animation: pulsarStatus 1.5s infinite; */
+    color: var(--dark-soft);
+}
+
+.status-fila {
+    display: inline-block;
+    animation: pulsarStatus 1.5s infinite;
+    color: var(--primary);
+}
+
+.status-aberto {
+    display: inline-block;
+    animation: entradaStatus 1.8s infinite;
+    color: var(--primary-blue);
+}
+
+.status-carregando {
+    display: inline-block;
+    animation: carregarStatus 1.2s infinite;
+}
+
+.status-concluido {
+    display: inline-block;
+    animation: concluidoStatus 2s infinite;
+}
+
+
+/* Fila - pulsação */
+@keyframes pulsarStatus {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 0.65;
+    }
+}
+
+
+/* Aberto - pequeno movimento */
+@keyframes entradaStatus {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(2px);
+    }
+}
+
+
+/* Carregando - pulsação mais rápida */
+@keyframes carregarStatus {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+
+/* Concluído - destaque suave */
+@keyframes concluidoStatus {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
+}
+
 /*========================= Fim ===========================*/
 
 /*============ Estações de carregamento ===============*/
