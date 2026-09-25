@@ -2187,7 +2187,7 @@ html {
 
 }
 
-.azul {
+.cinza {
     border-left: 5px solid #5b6472;
 }
 
@@ -2227,7 +2227,7 @@ html {
 
 }
 
-.indicador-icone.azul {
+.indicador-icone.cinza {
 
     background: #f1f3f6;
 
@@ -2299,6 +2299,75 @@ html {
 
     font-weight: 750;
 
+}
+
+.status-tempo {
+    display: inline-block;
+    animation: pulsarStatus 1.5s infinite;
+    color: var(--primary-blue);
+}
+
+.status-media {
+    display: inline-block;
+    animation: pulsarStatus 1.5s infinite;
+    color: #c73a3a;
+}
+
+.status-energia {
+    display: inline-block;
+    animation: pulsarStatus 1.5s infinite;
+    color: #e2bf20;
+}
+
+
+
+/* Fila - pulsação */
+@keyframes pulsarStatus {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 0.65;
+    }
+}
+
+
+/* Aberto - pequeno movimento */
+@keyframes entradaStatus {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(2px);
+    }
+}
+
+
+/* Carregando - pulsação mais rápida */
+@keyframes carregarStatus {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+
+/* Concluído - destaque suave */
+@keyframes concluidoStatus {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.12);
+    }
 }
 
 
