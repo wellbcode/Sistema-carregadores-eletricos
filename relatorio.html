@@ -44,6 +44,72 @@
     </div>
     <!-- ============== Container principal pai =================== -->
     <div class="app" id="inicio">
+        <!-- ================ Sidebar ====================== -->
+        <aside class="sidebar" id="sidebar">
+            <!--=== Logo ===-->
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+                <h2>Smart <span>Charger</span></h2>
+            </div>
+
+            <!--=== Menu ===-->
+            <nav class="menu">
+                <a href="#dashboard" class="active">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#Relatorios e Indicadores">
+                    <i class="bi bi-graph-up-arrow"></i>
+                    <span>Relatórios e Indicadores</span>
+                </a>
+                <a href="#Comparativo mensal">
+                    <i class="bi bi-calendar3"></i> 
+                    <span>Comparativos</span>
+                </a>
+                <a href="#Graficos">
+                    <i class="bi bi-bar-chart"></i>
+                    <span>Gráficos</span>
+                </a>
+                <a href="#Filtros e Referencias">
+                    <i class="bi bi-funnel-fill"></i>
+                    <span>Filtros e Referências</span>
+                </a>
+                <a href="#Historico de Movimentacoes">
+                    <i class="bi bi-clipboard-data"></i>
+                    <span>Histórico de Movimentações</span>
+                    <!-- <span class="alertas-badge" id="badgeAlertas">0</span> -->
+                </a>
+                <a href="#">
+                    <i class="bi bi-gear"></i>
+                    <span>Configurações</span>
+                </a>
+            </nav>
+
+            <!-- Rodapé -->
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="avatar">
+                        W
+                    </div>
+                    <div class="user-info">
+                        <h4>Wellington</h4>
+                        <small>Administrador</small>
+                    </div>
+                    <i class="bi bi-chevron-down"></i>
+                </div>
+            </div>
+
+            <!-- Botão sair -->
+            <button class="btn-logout">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sair</span>
+            </button>
+        </aside>
+
+        <div class="overlay" id="overlay"></div>
+
         <main class="main">
             <!-- ================== Cabeçalho ===================== -->
             <header class="topbar">
@@ -58,10 +124,10 @@
                 </div>
 
                 <div class="topbar-right">
-                    <button class="notification" id="btnNotificacoes">
+                    <!-- <button class="notification" id="btnNotificacoes">
                         <i class="bi bi-bell"></i>
                         <span class="notification-badge" id="badgeNotificacoes">0</span>
-                    </button>
+                    </button> -->
                     <div class="profile">
                         <div class="profile-avatar">W</div>
                         <i class="bi bi-chevron-down"></i>
@@ -71,13 +137,12 @@
 
              <!-- ========== Conteúdo dos relatórios ================ -->
             <div class="historico-container">
-                <!-- ========= Título ============== -->
-                <header class="historico-titulo">
-                    <!-- <h1>Relatórios e Indicadores 📊</h1> -->
+                <!-- ==================== Título Relatórios e Indicadores ==================== -->
+                <header class="historico-titulo" id="Relatorios e Indicadores">
                     <h1>Relatórios e Indicadores <i class="bi bi-graph-up-arrow"></i></h1>
                 </header>
 
-                <!-- ======== Seção dos KPIs de Indicadores ========= -->
+                <!-- ======== Seção dos KPIs cards ========= -->
                 <section class="relatorio-kpis">
                     <article class="card kpi-relatorio">
                         <div class="card-body">
@@ -108,7 +173,7 @@
                     </article>
                 </section>
 
-                <!-- ============= Section Indicadroes=============== -->
+                <!-- ============= Seção Indicadores=============== -->
                 <section class="relatorio-indicadores">
                     <article class="indicador-card azul">
                         <div class="indicador-icone azul">
@@ -198,6 +263,11 @@
                         </div>
                     </article>
                 </section>  
+
+                <!-- ==================== Título comparativo-mensal ==================== -->
+                <header class="historico-titulo" id="Comparativo mensal">
+                    <h1>Comparativo mensal <i class="bi bi-calendar3"></i></h1>
+                </header>
 
                 <!-- ================ Seção de comparativos =============== -->
                 <!-- <section class="comparativo-mensal">
@@ -359,6 +429,11 @@
                     </article>
 
                 </section>
+
+                <!-- ==================== Título Graficos ==================== -->
+                <header class="historico-titulo" id="Graficos">
+                    <h1>Gráficos <i class="bi bi-bar-chart"></i></h1>
+                </header>
 
                 <!-- ============ Seção dos gráficos e indicadores ============== -->
                 <section class="dashboard-graficos">
@@ -543,34 +618,34 @@
                     <article class="grafico-card">
                         <header class="grafico-card-header">
                             <div>
-                                <h3>🚗 Top Veículos</h3>
+                                <h3>🚗 Top Cargos</h3>
                                 <span>Mais carregados</span>
                             </div>
                         </header>
 
                         <div class="ranking-lista">
                             <div class="ranking-item">
-                                <span>1º 🥇 WEL1234</span>
+                                <span>1º 🥇 Diretores</span>
                                 <strong>74</strong>
                             </div>
 
                             <div class="ranking-item">
-                                <span>2º 🥈 MAY3377</span>
+                                <span>2º 🥈 Superintendes</span>
                                 <strong>63</strong>
                             </div>
 
                             <div class="ranking-item">
-                                <span>3º 🥉 ING3345</span>
+                                <span>3º 🥉 Gerentes</span>
                                 <strong>58</strong>
                             </div>
 
                             <div class="ranking-item">
-                                <span>4º 🏅 DAN2E77</span>
+                                <span>4º 🏅 Coordenadore</span>
                                 <strong>44</strong>
                             </div>
 
                             <div class="ranking-item">
-                                <span>5º 🎖️ MNO7890</span>
+                                <span>5º 🎖️ Analistas</span>
                                 <strong>37</strong>
                             </div>
                         </div>
@@ -896,12 +971,13 @@
                     </article>
                 </section>
 
-                <!-- =========Seção dos filtros de data e meses ================ -->
-                <header class="secao-titulo">
+                <!-- ========= Filtros e Referências ================ -->
+                <header class="historico-titulo" id="Filtros e Referencias">
                     <!-- <h1> Filtros e Referências 🔎</h1> -->
                     <h1>Filtros e Referências <i class="bi bi-search"></i></h1>
                 </header>
 
+                <!-- ========= Seção dos filtros de data e meses ================ -->
                 <section class="filtros-referencia">                  
                     <article class="filtro-data-card">
                         <div class="filtro-data-header">
@@ -1075,15 +1151,14 @@
                 </section>
 
                 <!-- ================ Seção Histórico de Movimentações =============== -->
-                <section class="card historico-card">
+                <section class="card historico-card" id="Historico de Movimentacoes">
                     <div class="card-header historico-header">
                         <!-- <h1>
                             Histórico de Movimentações  📋></i>
-                        </h1> -->
+                        </h1>--> 
                         <h1>
                             Histórico de Movimentações <i class="bi bi-clipboard-data"></i>
                         </h1>
-
 
                         <div class="historico-acoes">
                             <!--===Botão para exportar o PDF===-->
@@ -1153,13 +1228,6 @@
     </script>
 
     <!-- ====================== Scripts ======================== -->
-    <script src="js/script.js"></script>
-    <script src="js/veiculos.js"></script>
-    <script src="js/graficos.js"></script>
-    <script src="js/dados.js"></script>
-    <script src="js/recargas.js"></script>
-    <script src="js/carregadores.js"></script>
-    <script src="js/interacao.js"></script>
-    <script src="js/conexao.js"></script>
+   
 </body>
 </html>
