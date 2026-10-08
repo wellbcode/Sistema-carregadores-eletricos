@@ -1681,205 +1681,109 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 }
 
 /*============ filtro das movimentações ===============*/
-
 .painel-movimentacoes {
-
     position: relative;
 
 }
 
- 
-
 .menu-filtro-mov {
-
     display: none;
-
     position: absolute;
-
     top: 55px;
-
     right: 10px;
-
     width: 260px;
-
     max-height: 400px;
-
     overflow-y: auto;
-
     background: #fff;
-
     border-radius: 12px;
-
     padding: 8px;
-
     box-shadow: 0 8px 20px rgba(0, 0, 0, .12);
-
     z-index: 999;
-
 }
-
- 
 
 .menu-filtro-mov.ativo {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 4px;
-
 }
-
- 
 
 .menu-filtro-mov hr {
-
     width: 100%;
-
     border: none;
-
     border-top: 1px solid #e2e8f0;
-
     margin: 4px 0;
-
 }
-
  
-
 .menu-filtro-mov button {
-
     border: none;
-
     background: #fff;
-
     color: #334155;
-
     padding: 8px 10px;
-
     border-radius: 8px;
-
     text-align: left;
-
     cursor: pointer;
-
     transition: .2s;
-
     white-space: nowrap;
-
 }
-
- 
 
 .menu-filtro-mov .btn-torre:hover, .sub-filtro:hover{
-
     background: #e2e8f0;
-
     transform: translateY(-1px);
-
 }
-
  
-
 /* linha torre + seta */
-
 .linha-filtro {
-
     display: flex;
-
     align-items: center;
-
     justify-content: flex-start;
-
     gap: 4px;
-
 }
-
- 
 
 .btn-torre {
-
     flex: unset;
-
     width: auto;
-
     padding-right: 0;
-
     font-size: 14px;
-
     font-weight: 500;
-
 }
-
- 
 
 /* botão da seta */
 
 .btn-expandir {
-
     width: 18px;
-
     height: 18px;
-
     min-width: 18px;
-
     padding: 0 !important;
-
     margin: 0 !important;
-
 }
-
- 
 
 .sub-filtro {
-
     font-size: 13px;
-
 }
-
- 
 
 .btn-expandir:hover {
-
     transform: translateY(-1px);
-
     font-size: 15px;
-
 }
-
- 
 
 /* submenu */
-
 .sub-filtros {
-
     display: none;
-
     margin-left: 8px;
-
 }
-
- 
 
 .sub-filtros.ativo {
-
     display: flex;
-
     flex-direction: column;
-
     gap: 2px;
-
 }
 
- 
-
 .sub-filtro {
-
+    top: -1;
     padding-left: 12px !important;
-
     white-space: nowrap;
-
-    font-size: 0.92rem;
-
+    font-size: 0.85rem;
+    line-height: 1;
 }
 
 /* =====================================================
@@ -1892,18 +1796,20 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
     gap: 6px;
 }
 
+.status-aberto,
 .status-carregando,
-.status-concluido {
+.status-concluido
+ {
     font-size: 1.4em;
     line-height: 1;
 }
 
 /* Ajuste vertical */
 .status-todos,
-.status-fila,
-.status-aberto {
+.status-fila
+{
     position: relative;
-    top: 0;
+    top: -2;
     font-size: 1.3em;
    
 }
@@ -1922,8 +1828,8 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 
 .status-aberto {
     display: inline-block;
-    animation: entradaStatus 1.8s infinite;
-    color: var(--primary-blue);
+    animation: entradaStatus 1.5s infinite;
+    color: #c73a3a;
 }
 
 .status-carregando {
@@ -2362,7 +2268,8 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 .station-card h3 {
     font-size: 22px;
     font-weight: 800;
-    color: #1e293b;
+    /* color: #1e293b; */
+    color: #1d4ed8;
     margin-bottom: 8px;
 }
 

@@ -189,6 +189,7 @@
                         <i class="bi bi-battery-full full"></i>
                     </h4>
 
+                    <!-- ============== Manobristas ========================= -->
                     <div class="abert-recarga">
                         <div class="sessao-grid">
                             <div class="campo">
@@ -201,9 +202,14 @@
                                     <option value="Diego">Diego</option>
                                     <option value="Everaldo">Everaldo</option>
                                     <option value="Fabiano">Fabiano</option>
+                                    <option value="Fabiano">Cléber</option>
+                                    <option value="Fabiano">Roberto</option>
+                                    <option value="Fabiano">André</option>
+                                    <option value="Fabiano">Rodrigo</option>
                                 </select>
                             </div>
 
+                            <!-- ============== Prismas de indentificação ========================= -->
                             <div class="campo">
                                 <label>Prisma</label>
                                 <select id="prisma" name="prisma">
@@ -244,6 +250,7 @@
                                 </select>
                             </div>
 
+                            <!-- ============== Torres ========================= -->
                             <div class="campo">
                                 <label>Estação</label>
                                 <select id="estacao">
@@ -373,7 +380,7 @@
                 </div>
             </section>
 
-            <!-- =============== KPIs ========================= -->
+            <!-- =============== Cards dos KPIs ========================= -->
             <section class="kpis">
                 <!-- KPI Hora -->
                 <article class="kpi-card tempo">
@@ -539,16 +546,35 @@
                 </div>
 
                 <div id="menuFiltroMov" class="menu-filtro-mov">
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('todos')"><strong>Todos os Status</strong> <i class="bi bi-list-ul status-todos"></i></button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Fila')"><strong>Fila </strong> <i class="bi bi-hourglass-split status-fila"></i></i></button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Aberto')"><strong>Aberto</strong> <i class="bi bi-door-open status-aberto"></i></button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Carregando')"><strong>Carregando</strong> <i class="bi bi-battery-half half status-carregando"></i></button>
-                    <button class="btn-torre" onclick="filtrarMovimentacoes('Concluído')"><strong>Concluído</strong> <i class="bi bi-battery-full full status-concluido"></i></button>
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('todos')">
+                        <p><strong>Todos os Status</strong></p>
+                        <i class="bi bi-list-ul status-todos"></i>
+                    </button>
+
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Fila')">
+                        <p><strong>Fila</strong></p>
+                        <i class="bi bi-hourglass-split status-fila"></i>
+                    </button>
+
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Aberto')">
+                        <p><strong>Aberto</strong></p>
+                        <i class="bi bi-battery-half status-aberto"></i>
+                    </button>
+
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Carregando')">
+                        <p><strong>Carregando</strong></p> 
+                        <i class="bi bi-battery-half half status-carregando"></i>
+                    </button>
+
+                    <button class="btn-torre" onclick="filtrarMovimentacoes('Concluído')">
+                        <p><strong>Concluído</strong></p> 
+                        <i class="bi bi-battery-full full status-concluido"></i>
+                    </button>
 
                     <!-- PISOS -->
                     <div class="linha-filtro">
                         <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Alfredo Egydio')">
-                            <strong>Alfredo PG</strong>
+                            <strong>🏢 Alfredo PG</strong>
                         </button>
 
                         <button class="filtro-torre btn-expandir">
@@ -559,11 +585,11 @@
                     <div class="sub-filtros">
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Fila')">
                            <!-- Status &bull; Fila -->
-                            Fila <i class="bi bi-hourglass-split status-fila"></i></i>
+                            Fila <i class="bi bi-hourglass-split status-fila"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Aberto')">
-                            Aberto <i class="bi bi-door-open status-aberto"></i>
+                            Aberto <i class="bi bi-battery-half status-aberto"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Alfredo Egydio|Carregando')">
@@ -577,7 +603,7 @@
 
                     <div class="linha-filtro">
                         <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Olavo Setubal')">
-                            <strong>Olavo PG</strong>
+                            <strong>🏢 Olavo PG</strong>
                         </button>
 
                         <button class="filtro-torre btn-expandir">
@@ -591,7 +617,7 @@
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Olavo Setubal|Aberto')">
-                            Aberto <i class="bi bi-door-open status-aberto"></i>
+                            Aberto <i class="bi bi-battery-half status-aberto"></i>
                         </button>
 
                         <button class="sub-filtro" onclick="filtrarMovimentacoes('Torre Olavo Setubal|Carregando')">
@@ -606,7 +632,7 @@
                     <!-- ================= JABAQUARA ================= -->
                     <div class="linha-filtro">
                         <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Jabaquara')">
-                            <strong>Jabaquara</strong>
+                            <strong>🏢 Jabaquara</strong>
                         </button>
 
                         <button class="filtro-torre btn-expandir">
@@ -618,7 +644,7 @@
                         <!-- 1º SS -->
                         <div class="linha-filtro">
                             <button class="btn-torre" onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS')">
-                                <strong>1º SS</strong>
+                                <strong>🏢 1º SS</strong>
                             </button>
 
                             <button class="filtro-torre btn-expandir">
@@ -634,7 +660,7 @@
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1ºSS|Aberto')">
-                               Aberto <i class="bi bi-door-open status-aberto"></i>
+                               Aberto <i class="bi bi-battery-half status-aberto"></i>
                             </button>
 
                             <button class="sub-filtro"
@@ -652,7 +678,7 @@
                         <div class="linha-filtro">
                             <button class="btn-torre"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul')">
-                                <strong>Azul</strong>
+                                <strong>🏢 Azul</strong>
                             </button>
 
                             <button class="filtro-torre btn-expandir">
@@ -668,7 +694,7 @@
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: Azul|Aberto')">
-                                Aberto <i class="bi bi-door-open status-aberto"></i>
+                                Aberto <i class="bi bi-battery-half status-aberto"></i>
                             </button>
 
                             <button class="sub-filtro"
@@ -687,7 +713,7 @@
                         <div class="linha-filtro">
                             <button class="btn-torre"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar')">
-                                <strong>1º Andar</strong>
+                                <strong>🏢 1º Andar</strong>
                             </button>
 
                             <button class="filtro-torre btn-expandir">
@@ -704,7 +730,7 @@
 
                             <button class="sub-filtro"
                                 onclick="filtrarMovimentacoes('Torre Jabaquara|Piso: 1º Andar|Aberto')">
-                                Aberto <i class="bi bi-door-open status-aberto"></i>
+                                Aberto <i class="bi bi-battery-half status-aberto"></i>
                             </button>
 
                             <button class="sub-filtro"

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="relatorio.css">
     <link rel="stylesheet" href="responsivo.css">
     <!-- Favicon -->
-    <link rel="shortcut icon" href="img/charge2.png" type="image/x-icon">
+    <link rel="shortcut icon" href="img/Charge2.png" type="image/x-icon">
     <title>Histórico e Relatórios</title>
 </head>
 <body>
@@ -182,7 +182,7 @@
 
                         <div class="indicador-info">
                             <span>Tempo médio de carregamento</span>
-                            <strong>3h 31min</strong>
+                            <strong id="indicadorTempoCarga">0h 0min</strong>
                         </div>
                     </article>
 
@@ -193,7 +193,7 @@
 
                         <div class="indicador-info">
                             <span>Tempo médio de espera</span>
-                            <strong>4h 42min</strong>
+                            <strong id="indicadorTempoEspera">0h 0min</strong>
                         </div>
                     </article>
 
@@ -204,7 +204,7 @@
 
                         <div class="indicador-info">
                             <span>Média de bateria na entrada</span>
-                            <strong>37,1%</strong>
+                            <strong id="indicadorBateriaEntrada">0%</strong>
                         </div>
                     </article>
 
@@ -215,7 +215,7 @@
 
                         <div class="indicador-info">
                             <span>Média de bateria na saída</span>
-                            <strong>56,6%</strong>
+                            <strong id="indicadorBateriaSaida">0%</strong>
                         </div>
                     </article>
 
@@ -226,7 +226,7 @@
 
                         <div class="indicador-info">
                             <span>Energia total consumida</span>
-                            <strong>1.248 kWh</strong>
+                            <strong id="indicadorEnergia">-</strong>
                         </div>
                     </article>
 
@@ -237,7 +237,7 @@
 
                         <div class="indicador-info">
                             <span>Taxa de utilização</span>
-                            <strong>87,4%</strong>
+                            <strong id="indicadorUtilizacao">0%</strong>
                         </div>
                     </article>
 
@@ -248,7 +248,7 @@
 
                         <div class="indicador-info">
                             <span>Economia Estimada</span>
-                            <strong>R$ 8.214</strong>
+                            <strong id="indicadorEconomia">-</strong>
                         </div>
                     </article>
 
@@ -259,7 +259,7 @@
 
                         <div class="indicador-info">
                             <span>CO₂ Evitado</span>
-                            <strong>2.384 kg</strong>
+                            <strong id="indicadorCo2">-</strong>
                         </div>
                     </article>
                 </section>  
@@ -269,37 +269,6 @@
                     <h1>Comparativo mensal <i class="bi bi-calendar3"></i></h1>
                 </header>
 
-                <!-- ================ Seção de comparativos =============== -->
-                <!-- <section class="comparativo-mensal">
-                    <article class="comparativo-card">
-                        <div class="comparativo-header">
-                            <h3>📈 Comparativo Mensal</h3>
-                            <span class="badge bg-success mb-3">Últimos 2 meses</span>
-                        </div>
-
-                        <div class="comparativo-body">
-                            <div class="comparativo-mes">
-                                <span>Julho/2026</span>
-                                <strong>1.247</strong>
-                                <small>Recargas</small>
-                            </div>
-
-                            <div class="comparativo-seta">
-                                <i class="bi bi-arrow-up-right"></i>
-                            </div>
-
-                            <div class="comparativo-mes">
-                                <span>Agosto/2026</span>
-                                <strong>1.379</strong>
-                                <small>Recargas</small>
-                            </div>
-                        </div>
-
-                        <div class="comparativo-resultado positivo">
-                            ▲ +10,58%
-                        </div>
-                    </article>
-                </section> -->
                 <section class="comparativo-mensal">
 
                     <article class="comparativo-card">
@@ -428,6 +397,225 @@
 
                     </article>
 
+                </section>
+
+                <!-- ================ Seção Histórico de Movimentações =============== -->
+                <section class="card historico-card" id="Historico de Movimentacoes">
+                    <div class="card-header historico-header">
+                        <!-- <h1>
+                            Histórico de Movimentações  📋></i>
+                        </h1>--> 
+                        <h1>
+                            Histórico de Movimentações <i class="bi bi-clipboard-data"></i>
+                        </h1>
+
+                        <div class="historico-acoes">
+                            <!--===Botão para exportar o PDF===-->
+                            <button type="button" class="btn btn-secondary ms-2" onclick="exportarPDF()">
+                                <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
+                            </button>
+
+                            <!--===Botão para exportar o EXCEL===-->
+                            <button type="button" class="btn btn-success ms-2" onclick="exportarExcel()">
+                                <i class="bi bi-file-earmark-excel"></i> Exportar Excel
+                            </button>
+
+                            <!--=== Botão lupaL ===-->
+                            <button class="filter" id="btnFiltroMov" aria-label="filtros">
+                            <!-- <i class="bi bi-funnel-fill"></i> -->
+                            🔍
+                            </button>
+
+                            <!--=== Botão expandir ===-->   
+                            <button class="filter" id="btnToggleMov" aria-label="expandir">
+                                🔽
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="tabelaHistorico"></div>
+                    </div>
+                </section>
+
+                
+                <!-- ========= Filtros e Referências ================ -->
+                <header class="historico-titulo" id="Filtros e Referencias">
+                    <!-- <h1> Filtros e Referências 🔎</h1> -->
+                    <h1>Filtros e Referências <i class="bi bi-search"></i></h1>
+                </header>
+
+                <!-- ========= Seção dos filtros de data e meses ================ -->
+                <section class="filtros-referencia">                  
+                    <article class="filtro-data-card">
+                        <div class="filtro-data-header">
+                            <span>FILTROS</span>
+                            <i class="bi bi-funnel-fill"></i>
+                        </div>
+ 
+                        <div class="filtro-data-conteudo">
+                            <div class="filtro-titulo">
+                                DATA ENTRADA
+                            </div>
+ 
+                            <div class="filtro-periodo">
+                                <span>Agosto de 2026</span>
+                                <strong>MESES</strong>
+                            </div>
+
+                            <div class="filtro-anos">
+                                2026
+                            </div>
+
+                            <div class="filtro-meses">
+                                <span>JANEIRO</span>
+                                <span>FEVEREIRO</span>
+                                <span>MARÇO</span>
+                                <span>ABRIL</span>
+                                <span>MAIO</span>
+                                <span>JUNHO</span>
+                                <span>JULHO</span>
+                                <span>AGOSTO</span>
+                                <span>SETEMBRO</span>
+                                <span>OUTUBRO</span>
+                                <span>NOVEMBRO</span>
+                                <span>DEZEMBRO</span>
+                            </div>
+
+                            <div class="filtro-calendario">
+                                <span>S</span>
+                                <span>T</span>
+                                <span>Q</span>
+                                <span>Q</span>
+                                <span>S</span>
+                                <span>S</span>
+                                <span>D</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ============= Tabelo de uso por dia ============== -->
+                    <article class="tabela-uso-card">
+                        <div class="tabela-uso-header">
+                            <span>Data</span>
+                            <span>
+                                <i class="bi bi-funnel"></i>
+                                uso por dia
+                            </span>
+                        </div>
+
+                        <div class="tabela-uso-corpo">
+                            <div>
+                                <span>01/08/2026</span>
+                                <strong>86</strong>
+                            </div>
+
+                            <div>
+                                <span>02/08/2026</span>
+                                <strong>94</strong>
+                            </div>
+
+                            <div>
+                                <span>03/08/2026</span>
+                                <strong>63</strong>
+                            </div>
+ 
+                            <div>
+                                <span>05/08/2026</span>
+                                <strong>57</strong>
+                            </div>
+
+                            <div>
+                                <span>08/08/2026</span>
+                                <strong>52</strong>
+                            </div>
+
+                            <div>
+                                <span>09/08/2026</span>
+                                <strong>97</strong>
+                            </div>
+
+                            <div>
+                                <span>10/08/2026</span>
+                                <strong>91</strong>
+                            </div>
+
+                            <div>
+                                <span>11/08/2026</span>
+                                <strong>84</strong>
+                            </div>
+
+                            <div>
+                                <span>12/08/2026</span>
+                                <strong>60</strong>
+                            </div>
+
+                            <div>
+                                <span>15/08/2026</span>
+                                <strong>66</strong>
+                            </div>
+
+                            <div>
+                                <span>16/08/2026</span>
+                                <strong>77</strong>
+                            </div>
+
+                            <div>
+                                <span>17/08/2026</span>
+                                <strong>81</strong>
+                            </div>
+
+                            <div>
+                                <span>18/08/2026</span>
+                                <strong>101</strong>
+                            </div>
+
+                            <div>
+                                <span>19/08/2026</span>
+                                <strong>28</strong>
+                            </div>
+
+                            <div>
+                                <span>22/08/2026</span>
+                                <strong>84</strong>
+                            </div>
+
+                            <div>
+                                <span>23/08/2026</span>
+                                <strong>3</strong>
+                            </div>
+
+                            <div>
+                                <span>24/08/2026</span>
+                                <strong>61</strong>
+                            </div>
+
+                            <div>
+                                <span>25/08/2026</span>
+                                <strong>73</strong>
+                            </div>
+
+                            <div>
+                                <span>26/08/2026</span>
+                                <strong>62</strong>
+                            </div>
+
+                            <div>
+                                <span>29/08/2026</span>
+                                <strong>57</strong>
+                            </div>
+
+                            <div>
+                                <span>30/08/2026</span>
+                                <strong>60</strong>
+                            </div>
+                        </div>
+
+                        <div class="tabela-uso-total">
+                            <span>Total Geral</span>
+                            <strong>1379</strong>
+                        </div>
+                    </article>
                 </section>
 
                 <!-- ==================== Título Graficos ==================== -->
@@ -970,224 +1158,6 @@
 
                     </article>
                 </section>
-
-                <!-- ========= Filtros e Referências ================ -->
-                <header class="historico-titulo" id="Filtros e Referencias">
-                    <!-- <h1> Filtros e Referências 🔎</h1> -->
-                    <h1>Filtros e Referências <i class="bi bi-search"></i></h1>
-                </header>
-
-                <!-- ========= Seção dos filtros de data e meses ================ -->
-                <section class="filtros-referencia">                  
-                    <article class="filtro-data-card">
-                        <div class="filtro-data-header">
-                            <span>FILTROS</span>
-                            <i class="bi bi-funnel-fill"></i>
-                        </div>
- 
-                        <div class="filtro-data-conteudo">
-                            <div class="filtro-titulo">
-                                DATA ENTRADA
-                            </div>
- 
-                            <div class="filtro-periodo">
-                                <span>Agosto de 2026</span>
-                                <strong>MESES</strong>
-                            </div>
-
-                            <div class="filtro-anos">
-                                2026
-                            </div>
-
-                            <div class="filtro-meses">
-                                <span>JANEIRO</span>
-                                <span>FEVEREIRO</span>
-                                <span>MARÇO</span>
-                                <span>ABRIL</span>
-                                <span>MAIO</span>
-                                <span>JUNHO</span>
-                                <span>JULHO</span>
-                                <span>AGOSTO</span>
-                                <span>SETEMBRO</span>
-                                <span>OUTUBRO</span>
-                                <span>NOVEMBRO</span>
-                                <span>DEZEMBRO</span>
-                            </div>
-
-                            <div class="filtro-calendario">
-                                <span>S</span>
-                                <span>T</span>
-                                <span>Q</span>
-                                <span>Q</span>
-                                <span>S</span>
-                                <span>S</span>
-                                <span>D</span>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- ============= Tabelo de uso por dia ============== -->
-                    <article class="tabela-uso-card">
-                        <div class="tabela-uso-header">
-                            <span>Data</span>
-                            <span>
-                                <i class="bi bi-funnel"></i>
-                                uso por dia
-                            </span>
-                        </div>
-
-                        <div class="tabela-uso-corpo">
-                            <div>
-                                <span>01/08/2026</span>
-                                <strong>86</strong>
-                            </div>
-
-                            <div>
-                                <span>02/08/2026</span>
-                                <strong>94</strong>
-                            </div>
-
-                            <div>
-                                <span>03/08/2026</span>
-                                <strong>63</strong>
-                            </div>
- 
-                            <div>
-                                <span>05/08/2026</span>
-                                <strong>57</strong>
-                            </div>
-
-                            <div>
-                                <span>08/08/2026</span>
-                                <strong>52</strong>
-                            </div>
-
-                            <div>
-                                <span>09/08/2026</span>
-                                <strong>97</strong>
-                            </div>
-
-                            <div>
-                                <span>10/08/2026</span>
-                                <strong>91</strong>
-                            </div>
-
-                            <div>
-                                <span>11/08/2026</span>
-                                <strong>84</strong>
-                            </div>
-
-                            <div>
-                                <span>12/08/2026</span>
-                                <strong>60</strong>
-                            </div>
-
-                            <div>
-                                <span>15/08/2026</span>
-                                <strong>66</strong>
-                            </div>
-
-                            <div>
-                                <span>16/08/2026</span>
-                                <strong>77</strong>
-                            </div>
-
-                            <div>
-                                <span>17/08/2026</span>
-                                <strong>81</strong>
-                            </div>
-
-                            <div>
-                                <span>18/08/2026</span>
-                                <strong>101</strong>
-                            </div>
-
-                            <div>
-                                <span>19/08/2026</span>
-                                <strong>28</strong>
-                            </div>
-
-                            <div>
-                                <span>22/08/2026</span>
-                                <strong>84</strong>
-                            </div>
-
-                            <div>
-                                <span>23/08/2026</span>
-                                <strong>3</strong>
-                            </div>
-
-                            <div>
-                                <span>24/08/2026</span>
-                                <strong>61</strong>
-                            </div>
-
-                            <div>
-                                <span>25/08/2026</span>
-                                <strong>73</strong>
-                            </div>
-
-                            <div>
-                                <span>26/08/2026</span>
-                                <strong>62</strong>
-                            </div>
-
-                            <div>
-                                <span>29/08/2026</span>
-                                <strong>57</strong>
-                            </div>
-
-                            <div>
-                                <span>30/08/2026</span>
-                                <strong>60</strong>
-                            </div>
-                        </div>
-
-                        <div class="tabela-uso-total">
-                            <span>Total Geral</span>
-                            <strong>1379</strong>
-                        </div>
-                    </article>
-                </section>
-
-                <!-- ================ Seção Histórico de Movimentações =============== -->
-                <section class="card historico-card" id="Historico de Movimentacoes">
-                    <div class="card-header historico-header">
-                        <!-- <h1>
-                            Histórico de Movimentações  📋></i>
-                        </h1>--> 
-                        <h1>
-                            Histórico de Movimentações <i class="bi bi-clipboard-data"></i>
-                        </h1>
-
-                        <div class="historico-acoes">
-                            <!--===Botão para exportar o PDF===-->
-                            <button type="button" class="btn btn-secondary ms-2" onclick="exportarPDF()">
-                                <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
-                            </button>
-
-                            <!--===Botão para exportar o EXCEL===-->
-                            <button type="button" class="btn btn-success ms-2" onclick="exportarExcel()">
-                                <i class="bi bi-file-earmark-excel"></i> Exportar Excel
-                            </button>
-
-                            <!--=== Botão lupaL ===-->
-                            <button class="filter" id="btnFiltroMov" aria-label="filtros">
-                            <!-- <i class="bi bi-funnel-fill"></i> -->
-                            🔍
-                            </button>
-
-                            <!--=== Botão expandir ===-->   
-                            <button class="filter" id="btnToggleMov" aria-label="expandir">
-                                🔽
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <div id="tabelaHistorico"></div>
-                    </div>
-                </section>
             </div>
         </main>
     </div>
@@ -1209,8 +1179,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Exportação Excel -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+    <!-- Exportação PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
+
+
     <!-- ================= Script de rodar off-line =============== -->
-    
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -1228,6 +1206,23 @@
     </script>
 
     <!-- ====================== Scripts ======================== -->
-   
+    <!-- <script src="js/script.js"></script>
+    <script src="js/veiculos.js"></script>
+    <script src="js/graficos.js"></script>
+    <script src="js/dados.js"></script>
+    <script src="js/recargas.js"></script>
+    <script src="js/carregadores.js"></script>
+    <script src="js/interacao.js"></script>
+    <script src="js/conexao.js"></script> -->
+
+    <!-- ====================== Scripts ======================== -->
+    <script src="js/script.js"></script>
+    <script src="js/veiculos.js"></script>
+    <script src="js/dados.js"></script>
+    <script src="js/recargas.js"></script>
+    <script src="js/carregadores.js"></script>
+    <script src="js/graficos.js"></script>
+    <script src="js/interacao.js"></script>
+    <script src="js/conexao.js"></script>
 </body>
 </html>
