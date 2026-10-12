@@ -256,8 +256,12 @@ if (horaCargaInicial) {
 
 }
 
+ 
+
 // ============================================================
+
 // MODAL DE DETALHES
+
 // ============================================================
 
 let registroModalAtual = null;
@@ -598,13 +602,20 @@ function salvarDetalhes() {
 
     console.log("Registro atualizado:", registro);
 
+ 
+
+    atualizarPrismasOcupados();
+
+   
+
     // Volta para o modo de visualização
 
     mostrarDetalhes(registro);
 
 }
 
- 
+
+
 
 function mostrarDetalhes(registro) {
 
@@ -1219,5 +1230,67 @@ function formatarDataExibicao(data) {
  
 
     return `${dia}/${mes}/${ano}`;
+
+}
+
+ 
+
+function atualizarPrismasOcupados() {
+
+ 
+
+    const selectPrisma =
+
+        document.getElementById("prisma");
+
+ 
+
+    [...selectPrisma.options].forEach(opcao => {
+
+ 
+
+        if (!opcao.dataset.textoOriginal) {
+
+            opcao.dataset.textoOriginal =
+
+                opcao.textContent.replace(" ⚡", "");
+
+        }
+
+ 
+
+        opcao.textContent =
+
+            opcao.dataset.textoOriginal;
+
+    });
+
+ 
+
+    recargas
+
+        .filter(r => r.status !== "Concluído")
+
+        .forEach(r => {
+
+ 
+
+            const opcao =
+
+                [...selectPrisma.options]
+
+                    .find(o => o.value === r.prisma);
+
+ 
+
+            if (opcao) {
+
+                opcao.textContent =
+
+                    `${opcao.dataset.textoOriginal} ⚡`;
+
+            }
+
+        });
 
 }

@@ -632,3 +632,23 @@ RESPONSIVIDADE
 }
 
 }
+
+ 
+
+/* =========================================
+   RESPONSIVIDADE DOS FILTROS
+========================================= */
+
+@media (max-width: 480px) {
+    .filtro-data-conteudo {
+        gap: 12px;
+    }
+
+    .filtro-data-conteudo select {
+        padding: 9px 10px;
+    }
+
+    #tabelaUsoPorDia > div {
+        padding: 9px 10px;
+    }
+}

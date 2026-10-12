@@ -1,26 +1,66 @@
 // ============ Controle de recargas =====================
 
+ 
+
 console.log("recargas.js carregado!");
+
+ 
 
 const recargas = [];
 
-let historicoRecargas =
+ 
+
+const historicoRecargas =
+
     JSON.parse(
+
         localStorage.getItem("historicoRecargas")
-    ) || [];
+
+    ) || [];//apague se der errado
+
+ 
+
+ 
+
+ 
 
 function criarRecarga(dados) {
+
+ 
+
     const recarga = {
+
+ 
+
         id: Date.now(),
 
+ 
+
         //status: "Aberto",
+
+ 
+
         status: dados.status || "Aberto",
+
+ 
 
         placa: dados.placa.toUpperCase(),
 
+ 
+
         proprietario: dados.proprietario,
 
+       
+
+        cargo: dados.cargo, // NOVO
+
+
+        funcional: dados.funcional,
+        
+
         torre: dados.torre,
+
+ 
 
         piso: dados.piso,
 
@@ -707,11 +747,6 @@ function liberarPrimeiraEtapa() {
 }
 
  
-
- 
-
- 
-
 // ============= Atualizando a etapa 2 de 3 carregando... ===========
 
  
@@ -753,33 +788,440 @@ function atualizarEtapa2(registro) {
  
 
 // ============= Atualizando a etapa 3 de 3 concluído! ===========
+
+ 
+
 function atualizarEtapa3(registro) {
 
+ 
+
     registro.manobristaSaida =
+
+ 
+
         document.getElementById("manobristaSaida").value;
 
+ 
+
     registro.horaFinal =
+
+ 
+
         document.getElementById("horaFinal").value;
 
+ 
+
     registro.cargaFinal =
+
+ 
+
         document.getElementById("cargaFinal").value;
 
-    registro.tempoCarga =
-        calcularTempoCarga(
-            registro.horaCargaInicial,
-            registro.horaFinal
-        );
+ 
 
-    // Terceira etapa finalizada
+    registro.tempoCarga =
+
+    calcularTempoCarga(
+
+        registro.horaCargaInicial,
+
+        registro.horaFinal
+
+    );
+
+ 
+
     registro.status = "Concluído";
 
-    console.log("ETAPA 3 ATUALIZADA");
-    console.log("STATUS:", registro.status);
-    console.log("ESTAÇÃO:", registro.estacao);
-    console.log("PRISMA:", registro.prisma);
+ 
+
+        atualizarEstacaoConcluida(registro);
+
+ 
+
+        console.log("ESTAÇÃO REGISTRO:", registro.estacao);
+
+ 
+
+        console.log("PRISMA REGISTRO:", registro.prisma);
+
+ 
+
+        // Salva a recarga concluída no histórico
+
+ 
+
+        historicoRecargas.push({ ...registro });
+
+ 
+
+        localStorage.setItem(
+
+            "historicoRecargas",
+
+            JSON.stringify(historicoRecargas)
+
+        );
+
+ 
+
+        renderizarTopUsuarios();
+
+        renderizarTopCargos();
+
+ 
+
+        console.table("HISTÓRICO:", historicoRecargas);
+
+ 
+
+    // ================= Input da Estação =================
+
+ 
+
+    const selectEstacao =
+
+ 
+
+        document.getElementById("estacao");
+
+ 
+
+ 
+
+ 
+
+    [...selectEstacao.options].forEach(opcao => {
+
+ 
+
+ 
+
+ 
+
+        console.log(
+
+ 
+
+            "ESTACAO OPTION:",
+
+ 
+
+            opcao.value,
+
+ 
+
+            opcao.text
+
+ 
+
+        );
+
+ 
+
+ 
+
+ 
+
+        if (opcao.value === registro.estacao) {
+
+ 
+
+ 
+
+ 
+
+            console.log("ACHEI ESTAÇÃO");
+
+ 
+
+ 
+
+ 
+
+            opcao.disabled = false;
+
+ 
+
+            opcao.textContent = opcao.value;
+
+ 
+
+        }
+
+ 
+
+ 
+
+ 
+
+    });
+
+ 
+
+ 
+
+ 
+
+    // ================= Input do Prisma =================
+
+ 
+
+    const selectPrisma =
+
+ 
+
+        document.getElementById("prisma");
+
+ 
+
+ 
+
+ 
+
+    [...selectPrisma.options].forEach(opcao => {
+
+ 
+
+ 
+
+ 
+
+        console.log(
+
+ 
+
+            "PRISMA OPTION:",
+
+ 
+
+            opcao.value,
+
+ 
+
+            opcao.text
+
+ 
+
+        );
+
+ 
+
+ 
+
+ 
+
+        if (opcao.value === registro.prisma) {
+
+ 
+
+ 
+
+ 
+
+            console.log("ACHEI PRISMA");
+
+ 
+
+ 
+
+ 
+
+            opcao.disabled = false;
+
+ 
+
+ 
+
+ 
+
+            // Restaura o número original do prisma
+
+ 
+
+            opcao.textContent = opcao.value;
+
+ 
+
+        }
+
+ 
+
+    });
+
+ 
+
+    // ================= Cards das estações =================
+
+ 
+
+    const card = [...document.querySelectorAll(".station-card")]
+
+ 
+
+        .find(c =>
+
+ 
+
+            c.querySelector("h3").textContent.trim() ===
+
+ 
+
+            registro.estacao
+
+ 
+
+        );
+
+ 
+
+    console.log("CARD ENCONTRADO:", card);
+
+ 
+
+    const proximoFila = recargas.find(
+
+ 
+
+    r =>
+
+ 
+
+        r.estacao === registro.estacao &&
+
+ 
+
+        r.status === "Fila"
+
+ 
+
+    );
+
+ 
+
+    if (proximoFila) {
+
+ 
+
+        proximoFila.status = "Aberto";
+
+ 
+
+        console.log(
+
+ 
+
+        "PRÓXIMO DA FILA ASSUMIU:",
+
+ 
+
+        proximoFila.placa
+
+ 
+
+    );
+
+ 
+
+    } else {
+
+ 
+
+        if (card) {
+
+ 
+
+            card.dataset.status = "livre";
+
+ 
+
+            card.classList.remove("em-uso");
+
+ 
+
+            const status = card.querySelector(".status");
+
+ 
+
+            status.className = "status livre";
+
+ 
+
+            status.textContent = "Disponível";
+
+ 
+
+        }
+
+ 
+
+    }
+
+ 
+
+    liberarFormulario();
+
+ 
+
+    console.log(
+
+ 
+
+        "MANOBRISTA:",
+
+ 
+
+        document.getElementById("manobristaEntrada").disabled
+
+ 
+
+    );
+
+ 
+
+    console.log(
+
+ 
+
+        "PRISMA:",
+
+ 
+
+        document.getElementById("prisma").disabled
+
+ 
+
+    );
+
+ 
+
+    console.log(
+
+ 
+
+        "ESTACAO:",
+
+ 
+
+        document.getElementById("estacao").disabled
+
+ 
+
+    );
+
+ 
 
     console.table(registro);
+
+ 
+
 }
+
+ 
+
+ 
+
+ 
 
 function controlarEtapa(registro) {
 

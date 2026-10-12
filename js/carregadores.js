@@ -48,9 +48,54 @@ let filtroTorreAtual = "todas";
 
 let filtroMovimentacao = "todos";
 
-let lembretes = [];
+// let lembretes = [];
+// let lembretes = JSON.parse(
+//     localStorage.getItem("lembretes")
+// ) || [];
 
+// ================= LEMBRETES =================
+
+let lembretes = (() => {
+    try {
+        const salvos = JSON.parse(
+            localStorage.getItem("lembretesSmartCharger") || "[]"
+        );
+
+        if (!Array.isArray(salvos)) return [];
+
+        return salvos.map(lembrete => ({
+            ...lembrete,
+            lido: Boolean(lembrete.lido)
+        }));
+
+    } catch (erro) {
+        console.error("Erro ao carregar lembretes:", erro);
+        return [];
+    }
+})();
+
+const timeoutsLembretes = new Map();
+
+function salvarLembretes() {
+    localStorage.setItem(
+        "lembretesSmartCharger",
+        JSON.stringify(lembretes)
+    );
+}
  
+// =====================================================
+// UTILITÁRIOS DOS LEMBRETES
+// =====================================================
+
+function escaparHTML(valor) {
+    return String(valor ?? "").replace(/[&<>"']/g, caractere => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[caractere]);
+}
 
 function filtrarCarregadores(filtro, botaoClicado) {
 
@@ -266,91 +311,51 @@ function atualizarContadores() {
 
     // ================= CONTADORES GERAIS =================
 
-const contadorTodos =
-    document.getElementById("contadorTodos");
+    document.getElementById("contadorTodos").textContent =
 
-const contadorLivres =
-    document.getElementById("contadorLivres");
-
-const contadorEmuso =
-    document.getElementById("contadorEmuso");
-
-if (contadorTodos) {
-    contadorTodos.textContent =
         `Todas: ${total}`;
-}
 
-if (contadorLivres) {
-    contadorLivres.textContent =
+    document.getElementById("contadorLivres").textContent =
+
         `Livres: ${livres}`;
-}
 
-if (contadorEmuso) {
-    contadorEmuso.textContent =
+    document.getElementById("contadorEmuso").textContent =
+
         `Em uso: ${emUso}`;
-}
 
+ 
 
-// ================= CONTADOR DA FILA =================
+    // ================= CONTADOR DA FILA =================
 
-const contadorFila =
-    document.getElementById("kpiFila");
+    document.getElementById("kpiFila").textContent =
 
-if (contadorFila) {
-    contadorFila.textContent =
-        fila;
-}
+        `Fila: ${fila}`;
 
+ 
 
-// ================= CONTADORES DAS TORRES =================
+    // ================= CONTADORES DAS TORRES =================
 
-const contadorAlfredo =
-    document.getElementById("contadorAlfredo");
+    document.getElementById("contadorAlfredo").textContent =
 
-const contadorJabaquara =
-    document.getElementById("contadorJabaquara");
-
-const contadorOlavo =
-    document.getElementById("contadorOlavo");
-
-if (contadorAlfredo) {
-    contadorAlfredo.textContent =
         `Alfredo: ${alfredo}`;
-}
 
-if (contadorJabaquara) {
-    contadorJabaquara.textContent =
+    document.getElementById("contadorJabaquara").textContent =
+
         `Jabaquara: ${jabaquara}`;
-}
 
-if (contadorOlavo) {
-    contadorOlavo.textContent =
+    document.getElementById("contadorOlavo").textContent =
+
         `Olavo: ${olavo}`;
-}
 
+ 
 
-// ================= KPIs =================
+    // ================= KPIs =================
 
-const kpiLivres =
-    document.getElementById("kpiLivres");
+    document.getElementById("kpiLivres").textContent = livres;
 
-const kpiEmUso =
-    document.getElementById("kpiEmUso");
+    document.getElementById("kpiEmUso").textContent = emUso;
 
-const kpiFila =
-    document.getElementById("kpiFila");
-
-if (kpiLivres) {
-    kpiLivres.textContent = livres;
-}
-
-if (kpiEmUso) {
-    kpiEmUso.textContent = emUso;
-}
-
-if (kpiFila) {
-    kpiFila.textContent = fila;
-}
+    document.getElementById("kpiFila").textContent = fila;
 
 }
 
@@ -372,78 +377,45 @@ function contarFilaEstacao(estacao) {
 
  
 
-// function atualizarDataHoje() {
-
-//     const hoje = new Date();
-
-//     // Dia do mês
-
-//     document.getElementById("kpiHoje").textContent =
-
-//         String(hoje.getDate()).padStart(2, "0");
-
-//     // Dia da semana
-
-//     const dias = [
-
-//         "Domingo",
-
-//         "Segunda-feira",
-
-//         "Terça-feira",
-
-//         "Quarta-feira",
-
-//         "Quinta-feira",
-
-//         "Sexta-feira",
-
-//         "Sábado"
-
-//     ];
-
-//     document.getElementById("kpiDiaSemana").textContent =
-
-//         dias[hoje.getDay()];
-
-// }
-
- 
-
-// Atualiza agora
-
 function atualizarDataHoje() {
 
     const hoje = new Date();
 
     // Dia do mês
-    const kpiHoje = document.getElementById("kpiHoje");
 
-    if (kpiHoje) {
-        kpiHoje.textContent =
-            String(hoje.getDate()).padStart(2, "0");
-    }
+    document.getElementById("kpiHoje").textContent =
+
+        String(hoje.getDate()).padStart(2, "0");
 
     // Dia da semana
-    const kpiDiaSemana =
-        document.getElementById("kpiDiaSemana");
 
-    if (kpiDiaSemana) {
+    const dias = [
 
-        const dias = [
-            "Domingo",
-            "Segunda-feira",
-            "Terça-feira",
-            "Quarta-feira",
-            "Quinta-feira",
-            "Sexta-feira",
-            "Sábado"
-        ];
+        "Domingo",
 
-        kpiDiaSemana.textContent =
-            dias[hoje.getDay()];
-    }
+        "Segunda-feira",
+
+        "Terça-feira",
+
+        "Quarta-feira",
+
+        "Quinta-feira",
+
+        "Sexta-feira",
+
+        "Sábado"
+
+    ];
+
+    document.getElementById("kpiDiaSemana").textContent =
+
+        dias[hoje.getDay()];
+
 }
+
+ 
+
+// Atualiza agora
 
 atualizarDataHoje();
 
@@ -459,101 +431,101 @@ setInterval(atualizarDataHoje, 60000);
 
 //================== sem funcionar por enquanto, ainda não tem armazenamento ===========
 
-// function atualizarComparativoOntem() {
-
-//     const hoje = new Date();
-
-//     hoje.setHours(0, 0, 0, 0);
-
-//     const ontem = new Date(hoje);
-
-//     ontem.setDate(ontem.getDate() - 1);
-
-//     const formatarData = data =>
-
-//         data.toISOString().split("T")[0];
-
-//     const dataHoje = formatarData(hoje);
-
-//     const dataOntem = formatarData(ontem);
-
-//     const totalHoje = recargas.filter(
-
-//         r => r.dataEntrada === dataHoje
-
-//     ).length;
-
-//     const totalOntem = recargas.filter(
-
-//         r => r.dataEntrada === dataOntem
-
-//     ).length;
-
-//     let percentual = 0;
-
-//     if (totalOntem > 0) {
-
-//         percentual =
-
-//             ((totalHoje - totalOntem) / totalOntem) * 100;
-
-//     }
-
-//     percentual = Math.round(percentual);
-
-//     const sinal = percentual > 0 ? "+" : "";
-
-//     document.getElementById("comparativoOntem").textContent =
-
-//         `${sinal}${percentual}% quanto a ontem`;
-
-// }
-
 function atualizarComparativoOntem() {
+
+ 
 
     const hoje = new Date();
 
     hoje.setHours(0, 0, 0, 0);
 
+ 
+
     const ontem = new Date(hoje);
 
     ontem.setDate(ontem.getDate() - 1);
 
+ 
+
     const formatarData = data =>
+
         data.toISOString().split("T")[0];
+
+ 
 
     const dataHoje = formatarData(hoje);
 
     const dataOntem = formatarData(ontem);
 
-    const totalHoje = recargas.filter(
+ 
+
+    const totalHoje = historicoRecargas.filter(
+
         r => r.dataEntrada === dataHoje
+
     ).length;
 
-    const totalOntem = recargas.filter(
+ 
+
+    const totalOntem = historicoRecargas.filter(
+
         r => r.dataEntrada === dataOntem
+
     ).length;
+
+ 
 
     let percentual = 0;
 
+ 
+
     if (totalOntem > 0) {
 
+ 
+
         percentual =
+
             ((totalHoje - totalOntem) / totalOntem) * 100;
+
+ 
+
     }
+
+ 
 
     percentual = Math.round(percentual);
 
-    const sinal = percentual > 0 ? "+" : "";
+ 
 
-    const comparativoOntem =
+    const sinal =
+
+        percentual > 0 ? "+" : "";
+
+ 
+
+    const elemento =
+
         document.getElementById("comparativoOntem");
 
-    if (comparativoOntem) {
-        comparativoOntem.textContent =
+ 
+
+    if (elemento) {
+
+ 
+
+        elemento.textContent =
+
             `${sinal}${percentual}% quanto a ontem`;
+
+ 
+
     }
-} 
+
+ 
+
+}
+
+ 
 
 // =========  Atualizando os KPI's =====================
 
@@ -1197,17 +1169,15 @@ obterLocalizacao();
 
 setInterval(obterLocalizacao, 30 * 60 * 1000);
 
+ 
+
 //============= dia da semana ================
 
 window.addEventListener("DOMContentLoaded", () => {
 
-    const dataEntrada =
-        document.getElementById("dataEntrada");
+    const dataEntrada = document.getElementById("dataEntrada");
 
-    const diaSemana =
-        document.getElementById("diaSemana");
-
-    if (!dataEntrada || !diaSemana) return;
+    const diaSemana = document.getElementById("diaSemana");
 
     dataEntrada.addEventListener("change", () => {
 
@@ -1215,27 +1185,35 @@ window.addEventListener("DOMContentLoaded", () => {
 
         if (!valor) return;
 
-        const [ano, mes, dia] =
-            valor.split("-");
+        const [ano, mes, dia] = valor.split("-");
 
-        const data =
-            new Date(ano, mes - 1, dia);
+        const data = new Date(ano, mes - 1, dia);
 
         const dias = [
+
             "Domingo",
+
             "Segunda-feira",
+
             "Terça-feira",
+
             "Quarta-feira",
+
             "Quinta-feira",
+
             "Sexta-feira",
+
             "Sábado"
+
         ];
 
-        diaSemana.value =
-            dias[data.getDay()];
+        diaSemana.value = dias[data.getDay()];
+
     });
 
 });
+
+ 
 
 //============= Movimentação do dia da semana ================
 
@@ -1361,6 +1339,8 @@ function renderizarMovimentacoes() {
 
                 </h4>
 
+ 
+
                 <p>
 
                     <i class="bi bi-person-vcard"></i>
@@ -1368,6 +1348,18 @@ function renderizarMovimentacoes() {
                     ${registro.proprietario}
 
                 </p>
+
+ 
+
+                <p>
+
+                    <i class="bi bi-briefcase-fill"></i>
+
+                    ${registro.cargo || "-"}
+
+                </p>
+
+ 
 
                 <p>
 
@@ -1657,6 +1649,8 @@ function confirmarNotificacao(id) {
 
 }
 
+ 
+
 function confirmarConclusao(id) {
 
     const registro = recargas.find(r => r.id === id);
@@ -1666,6 +1660,7 @@ function confirmarConclusao(id) {
         console.log("Recarga não encontrada:", id);
 
         return;
+
     }
 
     Swal.fire({
@@ -1690,202 +1685,249 @@ function confirmarConclusao(id) {
 
     })
 
+ 
+
     .then((resultado) => {
 
-        if (!resultado.isConfirmed) return;
+ 
 
+    if (!resultado.isConfirmed) return;
 
-        // =====================================================
-        // CONCLUI A MOVIMENTAÇÃO
-        // =====================================================
+ 
 
-        registro.status = "Concluído";
+    registro.status = "Concluído";
 
+ 
 
-        // =====================================================
-        // SALVA NO HISTÓRICO / RESUMÃO GERALZÃO
-        // =====================================================
+    const pendentes = recargas.filter(r =>
 
-        const jaExisteNoHistorico = historicoRecargas.some(
-            r => r.id === registro.id
+        r.estacao === registro.estacao &&
+
+        r.status !== "Concluído"
+
+    );
+
+ 
+
+    console.log("ESTAÇÃO:", registro.estacao);
+
+    console.log("PENDENTES:", pendentes.length);
+
+ 
+
+    if (pendentes.length === 0) {
+
+ 
+
+        console.log("LIBERANDO ESTAÇÃO");
+
+ 
+
+        const numeroEstacao = parseInt(
+
+            registro.estacao.replace(/\D/g, "")
+
         );
 
-        if (!jaExisteNoHistorico) {
+ 
 
-            historicoRecargas.push({ ...registro });
+        const carregador = carregadores.find(
 
-            localStorage.setItem(
-                "historicoRecargas",
-                JSON.stringify(historicoRecargas)
-            );
+            c => c.id === numeroEstacao
 
-            console.log("=== HISTÓRICO APÓS CONCLUSÃO ===");
-            console.log("ARRAY:", historicoRecargas);
+        );
 
-            console.log(
-                "LOCALSTORAGE:",
-                JSON.parse(localStorage.getItem("historicoRecargas"))
-            );
+ 
 
-            renderizarHistorico();
+        if (carregador) {
+
+            carregador.status = "livre";
+
         }
 
-        // =====================================================
-        // VERIFICA SE EXISTEM OUTRAS MOVIMENTAÇÕES NA ESTAÇÃO
-        // =====================================================
+ 
 
-        const pendentes = recargas.filter(r =>
-            r.estacao === registro.estacao &&
-            r.status !== "Concluído"
-        );
+        const card = [...document.querySelectorAll(".station-card")]
 
-        console.log("ESTAÇÃO:", registro.estacao);
-        console.log("PENDENTES:", pendentes.length);
+            .find(c =>
 
+                c.querySelector("h3")
 
-        // =====================================================
-        // LIBERA A ESTAÇÃO SOMENTE SE NÃO HOUVER PENDENTES
-        // =====================================================
+                    .textContent
 
-        if (pendentes.length === 0) {
+                    .trim() === registro.estacao
 
-            console.log("LIBERANDO ESTAÇÃO");
-
-            const numeroEstacao = parseInt(
-                registro.estacao.replace(/\D/g, "")
             );
 
-            const carregador = carregadores.find(
-                c => c.id === numeroEstacao
-            );
+ 
 
-            if (carregador) {
-                carregador.status = "livre";
-            }
+        if (card) {
 
+            card.dataset.status = "livre";
 
-            const card = [...document.querySelectorAll(".station-card")]
-                .find(c =>
-                    c.querySelector("h3")
-                        .textContent
-                        .trim() === registro.estacao
-                );
+ 
 
+        const selectEstacao =
 
-            if (card) {
+            document.getElementById("estacao");
 
-                card.dataset.status = "livre";
+ 
 
+        [...selectEstacao.options].forEach(opcao => {
 
-                // ============================
-                // LIBERA INPUT DA ESTAÇÃO
-                // ============================
+ 
 
-                const selectEstacao =
-                    document.getElementById("estacao");
+            if (opcao.value === registro.estacao) {
 
-                [...selectEstacao.options].forEach(opcao => {
+ 
 
-                    if (opcao.value === registro.estacao) {
+                if (opcao.dataset.textoOriginal) {
 
-                        if (opcao.dataset.textoOriginal) {
-
-                            opcao.textContent =
-                                opcao.dataset.textoOriginal;
-
-                        } else {
-
-                            opcao.textContent =
-                                opcao.textContent.replace(" ⚡", "");
-                        }
-
-                        console.log(
-                            "ESTAÇÃO LIBERADA:",
-                            registro.estacao
-                        );
-                    }
-                });
-
-
-                liberarEstacaoVisualmente(card);
-
-                console.log("CARD LIBERADO");
-            }
-        }
-
-
-        // =====================================================
-        // VERIFICA SE O PRISMA AINDA ESTÁ SENDO UTILIZADO
-        // =====================================================
-
-        const prismaEmUso = recargas.some(r =>
-            r.prisma === registro.prisma &&
-            r.id !== registro.id &&
-            r.status !== "Concluído"
-        );
-
-        console.log("PRISMA:", registro.prisma);
-        console.log("AINDA EM USO?", prismaEmUso);
-
-
-        // =====================================================
-        // LIBERA O PRISMA
-        // =====================================================
-
-        if (!prismaEmUso) {
-
-            const selectPrisma =
-                document.getElementById("prisma");
-
-            [...selectPrisma.options].forEach(opcao => {
-
-                if (opcao.value === registro.prisma) {
-
-                    console.log(
-                        "TEXTO ORIGINAL:",
-                        opcao.dataset.textoOriginal
-                    );
+ 
 
                     opcao.textContent =
+
                         opcao.dataset.textoOriginal;
 
-                    console.log(
-                        "PRISMA LIBERADO:",
-                        registro.prisma
-                    );
+ 
+
+                } else {
+
+ 
+
+                    opcao.textContent =
+
+                        opcao.textContent.replace(" ⚡", "");
+
                 }
-            });
-        }
 
+ 
 
-        // =====================================================
-        // ATUALIZA A INTERFACE
-        // =====================================================
+                console.log(
 
-        Swal.fire({
+                    "ESTAÇÃO LIBERADA:",
 
-            title: "Movimentação concluída!",
+                    registro.estacao
 
-            text: `O atendimento da placa ${registro.placa} foi encerrado.`,
+                );
 
-            icon: "success",
-
-            confirmButtonText: "OK",
-
-            confirmButtonColor: "#16a34a",
-
-            timer: 2500,
-
-            timerProgressBar: true
+            }
 
         });
 
+ 
 
-        atualizarContadores();
+            liberarEstacaoVisualmente(card);
 
-        // atualizarKPIs();
+ 
 
-        renderizarMovimentacoes();
+            console.log("CARD LIBERADO");
+
+        }
+
+    }
+
+ 
+
+    const prismaEmUso = recargas.some(r =>
+
+        r.prisma === registro.prisma &&
+
+        r.id !== registro.id &&
+
+        r.status !== "Concluído"
+
+    );
+
+ 
+
+    console.log("PRISMA:", registro.prisma);
+
+    console.log("AINDA EM USO?", prismaEmUso);
+
+ 
+
+    if (!prismaEmUso) {
+
+ 
+
+        const selectPrisma =
+
+            document.getElementById("prisma");
+
+ 
+
+        [...selectPrisma.options].forEach(opcao => {
+
+ 
+
+            if (opcao.value === registro.prisma) {
+
+ 
+
+                console.log(
+
+                    "TEXTO ORIGINAL:",
+
+                    opcao.dataset.textoOriginal
+
+                );
+
+ 
+
+                opcao.textContent =
+
+                    opcao.dataset.textoOriginal;
+
+ 
+
+                console.log(
+
+                    "PRISMA LIBERADO:",
+
+                    registro.prisma
+
+                );
+
+            }
+
+        });
+
+    }
+
+ 
+
+    Swal.fire({
+
+        title: "Movimentação concluída!",
+
+        text: `O atendimento da placa ${registro.placa} foi encerrado.`,
+
+        icon: "success",
+
+        confirmButtonText: "OK",
+
+        confirmButtonColor: "#16a34a",
+
+        timer: 2500,
+
+        timerProgressBar: true
+
+    });
+
+ 
+
+    atualizarContadores();
+
+ 
+
+    // atualizarKPIs();
+
+ 
+
+    renderizarMovimentacoes();
+
+ 
 
     });
 
@@ -2141,418 +2183,971 @@ function liberarEstacaoVisualmente(card) {
 
  
 
+// function agendarLembrete(registro, dataLembrete, mensagem) {
+
+//     const agora = new Date();
+
+//     const tempoRestante =
+
+//         dataLembrete.getTime() - agora.getTime();
+
+//     if (tempoRestante <= 0) {
+
+//         Swal.fire({
+
+//             title: "Data inválida",
+
+//             text: "A data escolhida já passou.",
+
+//             icon: "error",
+
+//             confirmButtonText: "OK"
+
+//         });
+
+//         return;
+
+//     }
+
+//     // Evita dois lembretes para a mesma movimentação
+
+//     const jaExiste = lembretes.some(
+
+//         lembrete => lembrete.id === registro.id
+
+//     );
+
+//     if (jaExiste) {
+
+//         Swal.fire({
+
+//             title: "Lembrete já existe",
+
+//             text: `Já existe um lembrete para ${registro.placa}.`,
+
+//             icon: "info",
+
+//             confirmButtonText: "OK"
+
+//         });
+
+//         return;
+
+//     }
+
+//     lembretes.push({
+
+//         id: registro.id,
+
+//         placa: registro.placa,
+
+//         proprietario: registro.proprietario,
+
+//         estacao: registro.estacao,
+
+//         torre: registro.torre,
+
+//         data: dataLembrete,
+
+//         mensagem: mensagem
+
+//     });
+
+//     atualizarLembretes();
+
+//     Swal.fire({
+
+//         title: "Lembrete definido!",
+
+//         text: `Você será lembrado em ${dataLembrete.toLocaleString("pt-BR")}.`,
+
+//         icon: "success",
+
+//         confirmButtonText: "OK"
+
+//     });
+
+//     setTimeout(() => {
+
+//         mostrarNotificacaoLembrete(
+
+//             registro,
+
+//             mensagem
+
+//         );
+
+// }, tempoRestante);
+
+// }
+// =====================================================
+// AGENDAR NOTIFICAÇÃO
+// =====================================================
+
 function agendarLembrete(registro, dataLembrete, mensagem) {
-
     const agora = new Date();
+    const tempoRestante = dataLembrete.getTime() - agora.getTime();
 
-    const tempoRestante =
-
-        dataLembrete.getTime() - agora.getTime();
-
-    if (tempoRestante <= 0) {
-
+    if (isNaN(dataLembrete.getTime()) || tempoRestante <= 0) {
         Swal.fire({
-
             title: "Data inválida",
-
-            text: "A data escolhida já passou.",
-
+            text: "Escolha uma data e hora futuras.",
             icon: "error",
-
             confirmButtonText: "OK"
-
         });
-
         return;
-
     }
 
-    // Evita dois lembretes para a mesma movimentação
-
     const jaExiste = lembretes.some(
-
-        lembrete => lembrete.id === registro.id
-
+        lembrete => String(lembrete.id) === String(registro.id)
     );
 
     if (jaExiste) {
-
         Swal.fire({
-
             title: "Lembrete já existe",
-
             text: `Já existe um lembrete para ${registro.placa}.`,
-
             icon: "info",
-
             confirmButtonText: "OK"
-
         });
-
         return;
-
     }
 
-    lembretes.push({
-
+    const novoLembrete = {
         id: registro.id,
-
         placa: registro.placa,
-
         proprietario: registro.proprietario,
-
         estacao: registro.estacao,
-
         torre: registro.torre,
+        data: dataLembrete.toISOString(),
+        mensagem: mensagem || "",
+        lido: false
+    };
 
-        data: dataLembrete,
+    lembretes.push(novoLembrete);
 
-        mensagem: mensagem
-
-    });
-
+    salvarLembretes();
     atualizarLembretes();
+    agendarTimerLembrete(novoLembrete);
 
     Swal.fire({
-
         title: "Lembrete definido!",
-
         text: `Você será lembrado em ${dataLembrete.toLocaleString("pt-BR")}.`,
-
         icon: "success",
-
         confirmButtonText: "OK"
-
     });
-
-    setTimeout(() => {
-
-        mostrarNotificacaoLembrete(
-
-            registro,
-
-            mensagem
-
-        );
-
-}, tempoRestante);
-
 }
 
- 
+// =====================================================
+// PROGRAMAR O TEMPORIZADOR
+// =====================================================
+
+function agendarTimerLembrete(lembrete) {
+    const chave = String(lembrete.id);
+
+    // Evita criar dois temporizadores para o mesmo lembrete.
+    if (timeoutsLembretes.has(chave)) {
+        clearTimeout(timeoutsLembretes.get(chave));
+        timeoutsLembretes.delete(chave);
+    }
+
+    const tempoRestante =
+        new Date(lembrete.data).getTime() - Date.now();
+
+    // Não dispara notificações antigas ao recarregar a página.
+    if (!Number.isFinite(tempoRestante) || tempoRestante <= 0) {
+        return;
+    }
+
+    const timeout = setTimeout(() => {
+        timeoutsLembretes.delete(chave);
+
+        // Confirma que o lembrete ainda existe.
+        const aindaExiste = lembretes.some(
+            item => String(item.id) === chave
+        );
+
+        if (!aindaExiste) return;
+
+        mostrarNotificacaoLembrete(
+            lembrete,
+            lembrete.mensagem
+        );
+
+    }, tempoRestante);
+
+    timeoutsLembretes.set(chave, timeout);
+}
+
+
+
+// function mostrarNotificacaoLembrete(registro, mensagem) {
+
+//     const som = new Audio("audios/success-1-6297.mp3");
+
+//     som.play().catch(erro => {
+
+//         console.log("Não foi possível reproduzir o som:", erro);
+
+//     });
+
+//     if (Notification.permission === "granted") {
+
+//         new Notification("🔔 Lembrete Smart Charger", {
+
+//             body:
+
+//                 mensagem ||
+
+//                 `Veículo ${registro.placa} — ${registro.estacao}`
+
+//         });
+
+//     } else {
+
+//         Swal.fire({
+
+//             title: "🔔 Lembrete",
+
+//             text:
+
+//                 mensagem ||
+
+//                 `Veículo ${registro.placa} está relacionado à ${registro.estacao}.`,
+
+//             icon: "info",
+
+//             confirmButtonText: "OK"
+
+//         });
+
+//     }
+
+// }
+// =====================================================
+// MOSTRAR A NOTIFICAÇÃO
+// =====================================================
 
 function mostrarNotificacaoLembrete(registro, mensagem) {
-
     const som = new Audio("audios/success-1-6297.mp3");
 
     som.play().catch(erro => {
-
         console.log("Não foi possível reproduzir o som:", erro);
-
     });
 
-    if (Notification.permission === "granted") {
-
+    if (
+        "Notification" in window &&
+        Notification.permission === "granted"
+    ) {
         new Notification("🔔 Lembrete Smart Charger", {
-
             body:
-
                 mensagem ||
-
                 `Veículo ${registro.placa} — ${registro.estacao}`
-
         });
 
     } else {
-
         Swal.fire({
-
             title: "🔔 Lembrete",
-
             text:
-
                 mensagem ||
-
                 `Veículo ${registro.placa} está relacionado à ${registro.estacao}.`,
-
             icon: "info",
-
             confirmButtonText: "OK"
-
         });
-
     }
-
 }
-
  
 
-function confirmarLembrete(id) {
+// function confirmarLembrete(id) {
 
-    const registro = recargas.find(r => r.id === id);
+//     const registro = recargas.find(r => r.id === id);
+
+//     if (!registro) {
+
+//         console.log("Recarga não encontrada:", id);
+
+//         return;
+
+//     }
+
+//     Swal.fire({
+
+//         title: "🔔 Criar lembrete",
+
+//         html: `
+
+//             <div style="text-align: left;">
+
+//                 <p>
+
+//                     <strong>🚗 ${registro.placa}</strong>
+
+//                 </p>
+
+//                 <p>👤 ${registro.proprietario}</p>
+
+//                 <p>⚡ ${registro.estacao}</p>
+
+//                 <p>📍 ${registro.torre}</p>
+
+//                 <input
+
+//                     type="datetime-local"
+
+//                     id="lembreteData"
+
+//                     class="swal2-input"
+
+//                 >
+
+//                 <textarea
+
+//                     id="lembreteMensagem"
+
+//                     class="swal2-textarea"
+
+//                     placeholder="Digite uma mensagem para a notificação..."
+
+//                 ></textarea>
+
+//             </div>
+
+//         `,
+
+//         showCancelButton: true,
+
+//         confirmButtonText: "Salvar lembrete",
+
+//         cancelButtonText: "Cancelar",
+
+//         reverseButtons: true,
+
+//         preConfirm: () => {
+
+//             const data =
+
+//                 document.getElementById("lembreteData").value;
+
+//             const mensagem =
+
+//                 document.getElementById("lembreteMensagem").value.trim();
+
+//             if (!data) {
+
+//                 Swal.showValidationMessage(
+
+//                     "Escolha uma data e hora."
+
+//                 );
+
+//                 return false;
+
+//             }
+
+//             return {
+
+//                 data,
+
+//                 mensagem
+
+//             };
+
+//         }
+
+//     }).then(resultado => {
+
+//         if (!resultado.isConfirmed) return;
+
+//         const [data, hora] = resultado.value.data.split("T");
+
+//         const [ano, mes, dia] = data.split("-").map(Number);
+
+//         const [horas, minutos] = hora.split(":").map(Number);
+
+//         const dataLembrete = new Date(
+
+//             ano,
+
+//             mes - 1,
+
+//             dia,
+
+//             horas,
+
+//             minutos
+
+//         );
+
+//         agendarLembrete(
+
+//             registro,
+
+//             dataLembrete,
+
+//             resultado.value.mensagem
+
+//         );
+
+//     });
+
+// }
+// CRIAR LEMBRETE
+// =====================================================
+
+function confirmarLembrete(id) {
+    const registro = recargas.find(
+        r => String(r.id) === String(id)
+    );
 
     if (!registro) {
-
         console.log("Recarga não encontrada:", id);
-
         return;
-
     }
 
     Swal.fire({
-
         title: "🔔 Criar lembrete",
 
         html: `
-
             <div style="text-align: left;">
-
                 <p>
-
-                    <strong>🚗 ${registro.placa}</strong>
-
+                    <strong>🚗 ${escaparHTML(registro.placa)}</strong>
                 </p>
 
-                <p>👤 ${registro.proprietario}</p>
-
-                <p>⚡ ${registro.estacao}</p>
-
-                <p>📍 ${registro.torre}</p>
+                <p>👤 ${escaparHTML(registro.proprietario)}</p>
+                <p>⚡ ${escaparHTML(registro.estacao)}</p>
+                <p>📍 ${escaparHTML(registro.torre)}</p>
 
                 <input
-
                     type="datetime-local"
-
                     id="lembreteData"
-
                     class="swal2-input"
-
+                    required
                 >
 
                 <textarea
-
                     id="lembreteMensagem"
-
                     class="swal2-textarea"
-
                     placeholder="Digite uma mensagem para a notificação..."
-
                 ></textarea>
-
             </div>
-
         `,
 
         showCancelButton: true,
-
         confirmButtonText: "Salvar lembrete",
-
         cancelButtonText: "Cancelar",
-
         reverseButtons: true,
 
+        didOpen: () => {
+            const campoData = document.getElementById("lembreteData");
+
+            // Impede selecionar horários anteriores ao momento atual.
+            const agora = new Date();
+            agora.setMinutes(agora.getMinutes() + 1);
+
+            const ano = agora.getFullYear();
+            const mes = String(agora.getMonth() + 1).padStart(2, "0");
+            const dia = String(agora.getDate()).padStart(2, "0");
+            const hora = String(agora.getHours()).padStart(2, "0");
+            const minuto = String(agora.getMinutes()).padStart(2, "0");
+
+            campoData.min = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
+        },
+
         preConfirm: () => {
-
             const data =
-
                 document.getElementById("lembreteData").value;
 
             const mensagem =
-
                 document.getElementById("lembreteMensagem").value.trim();
 
             if (!data) {
-
                 Swal.showValidationMessage(
-
                     "Escolha uma data e hora."
-
                 );
-
                 return false;
-
             }
 
-            return {
-
-                data,
-
-                mensagem
-
-            };
-
+            return { data, mensagem };
         }
 
     }).then(resultado => {
-
         if (!resultado.isConfirmed) return;
 
-        const [data, hora] = resultado.value.data.split("T");
-
-        const [ano, mes, dia] = data.split("-").map(Number);
-
-        const [horas, minutos] = hora.split(":").map(Number);
-
-        const dataLembrete = new Date(
-
-            ano,
-
-            mes - 1,
-
-            dia,
-
-            horas,
-
-            minutos
-
-        );
+        const dataLembrete = new Date(resultado.value.data);
 
         agendarLembrete(
-
             registro,
-
             dataLembrete,
-
             resultado.value.mensagem
-
         );
-
     });
-
 }
 
  
 
+// function mostrarLembretes() {
+
+//     if (lembretes.length === 0) {
+
+//         Swal.fire({
+
+//             title: "🔔 Lembretes",
+
+//             text: "Nenhum lembrete agendado.",
+
+//             icon: "info",
+
+//             confirmButtonText: "OK"
+
+//         });
+
+//         return;
+
+//     }
+
+//     const lista = lembretes.map(lembrete => `
+
+//         <div style="
+
+//             text-align: left;
+
+//             padding: 12px;
+
+//             margin-bottom: 10px;
+
+//             background: #f8fafc;
+
+//             border-radius: 10px;
+
+//         ">
+
+//             <strong>🚗 ${lembrete.placa}</strong>
+
+//             <p>👤 ${lembrete.proprietario}</p>
+
+//             <p>⚡ ${lembrete.estacao}</p>
+
+//             <p>📍 ${lembrete.torre}</p>
+
+//             <p>
+
+//                 📝 ${lembrete.mensagem || "Sem mensagem"}
+
+//             </p>
+
+//             <small>
+
+//                 🕐 ${new Date(lembrete.data).toLocaleString("pt-BR")}
+
+//             </small>
+
+//         </div>
+
+//     `).join("");
+
+//     Swal.fire({
+
+//         title: "🔔 Meus lembretes",
+
+//         html: `
+
+//             <div style="
+
+//                 max-height: 400px;
+
+//                 overflow-y: auto;
+
+//             ">
+
+//                 ${lista}
+
+//             </div>
+
+//         `,
+
+//         confirmButtonText: "Fechar"
+
+//     });
+
+// }
+// =====================================================
+// MONTAR A LISTA DE LEMBRETES
+// =====================================================
+
+// =====================================================
+// EXIBIR E GERENCIAR LEMBRETES
+// =====================================================
+
+// function mostrarLembretes() {
+//     Swal.fire({
+//         title: "🔔 Meus lembretes",
+//         html: montarListaLembretes(),
+//         confirmButtonText: "Fechar",
+//         width: 600,
+
+//         didOpen: () => {
+//             const container = Swal.getHtmlContainer();
+
+//             if (!container) return;
+
+//             // Um único listener atende os botões da lista.
+//             container.addEventListener("click", async evento => {
+//                 const botao = evento.target.closest(
+//                     ".btn-acao-lembrete"
+//                 );
+
+//                 if (!botao) return;
+
+//                 const id = botao.dataset.id;
+//                 const acao = botao.dataset.acao;
+
+//                 const lembrete = lembretes.find(
+//                     item => String(item.id) === String(id)
+//                 );
+
+//                 if (!lembrete) return;
+
+//                 if (acao === "alternar") {
+//                     lembrete.lido = !lembrete.lido;
+
+//                     salvarLembretes();
+//                     atualizarLembretes();
+
+//                     Swal.update({
+//                         html: montarListaLembretes()
+//                     });
+
+//                     return;
+//                 }
+
+//                 if (acao === "excluir") {
+//                     const resultado = await Swal.fire({
+//                         title: "Excluir lembrete?",
+//                         text: `Deseja excluir o lembrete da placa ${lembrete.placa}?`,
+//                         icon: "warning",
+//                         showCancelButton: true,
+//                         confirmButtonText: "Sim, excluir",
+//                         cancelButtonText: "Cancelar",
+//                         confirmButtonColor: "#dc2626",
+//                         cancelButtonColor: "#64748b",
+//                         reverseButtons: true
+//                     });
+
+//                     if (resultado.isConfirmed) {
+//                         const chave = String(lembrete.id);
+
+//                         if (timeoutsLembretes.has(chave)) {
+//                             clearTimeout(timeoutsLembretes.get(chave));
+//                             timeoutsLembretes.delete(chave);
+//                         }
+
+//                         lembretes = lembretes.filter(
+//                             item => String(item.id) !== chave
+//                         );
+
+//                         salvarLembretes();
+//                         atualizarLembretes();
+//                     }
+
+//                     // Reabre a lista atualizada, inclusive se cancelar.
+//                     mostrarLembretes();
+//                 }
+//             });
+//         }
+//     });
+// }
+
+
 function mostrarLembretes() {
-
-    if (lembretes.length === 0) {
-
-        Swal.fire({
-
-            title: "🔔 Lembretes",
-
-            text: "Nenhum lembrete agendado.",
-
-            icon: "info",
-
-            confirmButtonText: "OK"
-
-        });
-
-        return;
-
-    }
-
-    const lista = lembretes.map(lembrete => `
-
-        <div style="
-
-            text-align: left;
-
-            padding: 12px;
-
-            margin-bottom: 10px;
-
-            background: #f8fafc;
-
-            border-radius: 10px;
-
-        ">
-
-            <strong>🚗 ${lembrete.placa}</strong>
-
-            <p>👤 ${lembrete.proprietario}</p>
-
-            <p>⚡ ${lembrete.estacao}</p>
-
-            <p>📍 ${lembrete.torre}</p>
-
-            <p>
-
-                📝 ${lembrete.mensagem || "Sem mensagem"}
-
-            </p>
-
-            <small>
-
-                🕐 ${new Date(lembrete.data).toLocaleString("pt-BR")}
-
-            </small>
-
-        </div>
-
-    `).join("");
-
     Swal.fire({
-
         title: "🔔 Meus lembretes",
+        html: montarListaLembretes(),
+        confirmButtonText: "Fechar",
+        width: 600,
 
-        html: `
+        didOpen: () => {
+            const popup = Swal.getPopup();
 
-            <div style="
+            if (!popup) return;
 
-                max-height: 400px;
+            popup.addEventListener("click", async evento => {
+                const botao = evento.target.closest(
+                    ".btn-acao-lembrete"
+                );
 
-                overflow-y: auto;
+                if (!botao || botao.disabled) return;
 
-            ">
+                evento.preventDefault();
+                evento.stopPropagation();
 
-                ${lista}
+                const id = botao.dataset.id;
+                const acao = botao.dataset.acao;
 
-            </div>
+                const lembrete = lembretes.find(
+                    item => String(item.id) === String(id)
+                );
 
-        `,
+                if (!lembrete) {
+                    console.error(
+                        "Lembrete não encontrado:",
+                        id
+                    );
+                    return;
+                }
 
-        confirmButtonText: "Fechar"
+                // Impede cliques repetidos durante a ação.
+                botao.disabled = true;
 
+                // MARCAR COMO LIDO OU NÃO LIDO
+                if (acao === "alternar") {
+                    lembrete.lido = !lembrete.lido;
+
+                    try {
+                        salvarLembretes();
+                        atualizarLembretes();
+
+                        Swal.update({
+                            html: montarListaLembretes()
+                        });
+                    } catch (erro) {
+                        console.error(
+                            "Erro ao atualizar lembrete:",
+                            erro
+                        );
+
+                        Swal.fire(
+                            "Erro",
+                            "Não foi possível salvar o lembrete.",
+                            "error"
+                        );
+                    }
+
+                    return;
+                }
+
+                // EXCLUIR LEMBRETE
+                if (acao === "excluir") {
+                    const resultado = await Swal.fire({
+                        title: "Excluir lembrete?",
+                        text: `Deseja excluir o lembrete da placa ${lembrete.placa}?`,
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Sim, excluir",
+                        cancelButtonText: "Cancelar",
+                        confirmButtonColor: "#dc2626",
+                        cancelButtonColor: "#64748b",
+                        reverseButtons: true
+                    });
+
+                    if (resultado.isConfirmed) {
+                        const chave = String(lembrete.id);
+
+                        if (timeoutsLembretes.has(chave)) {
+                            clearTimeout(
+                                timeoutsLembretes.get(chave)
+                            );
+
+                            timeoutsLembretes.delete(chave);
+                        }
+
+                        lembretes = lembretes.filter(
+                            item => String(item.id) !== chave
+                        );
+
+                        try {
+                            salvarLembretes();
+                            atualizarLembretes();
+                        } catch (erro) {
+                            console.error(
+                                "Erro ao excluir lembrete:",
+                                erro
+                            );
+
+                            Swal.fire(
+                                "Erro",
+                                "Não foi possível excluir o lembrete.",
+                                "error"
+                            );
+
+                            return;
+                        }
+                    }
+
+                    // Reabre a lista atualizada após a confirmação
+                    // ou o cancelamento da exclusão.
+                    mostrarLembretes();
+                }
+            });
+        }
     });
-
 }
 
+function montarListaLembretes() {
+    if (lembretes.length === 0) {
+        return `
+            <p style="padding: 20px;">
+                Nenhum lembrete agendado.
+            </p>
+        `;
+    }
+
+    return `
+        <div style="
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 4px;
+        ">
+            ${lembretes.map(lembrete => `
+                <div style="
+                    text-align: left;
+                    padding: 12px;
+                    margin-bottom: 10px;
+                    background: ${lembrete.lido ? "#f1f5f9" : "#fff7ed"};
+                    border: 1px solid ${lembrete.lido ? "#e2e8f0" : "#fed7aa"};
+                    border-radius: 10px;
+                ">
+                    <div style="
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 8px;
+                        align-items: center;
+                        flex-wrap: wrap;
+                    ">
+                        <strong>
+                            🚗 ${escaparHTML(lembrete.placa)}
+                        </strong>
+
+                        <span style="
+                            font-size: 12px;
+                            color: ${lembrete.lido ? "#64748b" : "#c2410c"};
+                        ">
+                            ${lembrete.lido ? "Lido" : "Não lido"}
+                        </span>
+                    </div>
+
+                    <p>👤 ${escaparHTML(lembrete.proprietario)}</p>
+                    <p>⚡ ${escaparHTML(lembrete.estacao)}</p>
+                    <p>📍 ${escaparHTML(lembrete.torre)}</p>
+
+                    <p>
+                        📝 ${escaparHTML(lembrete.mensagem || "Sem mensagem")}
+                    </p>
+
+                    <small>
+                        🕐 ${escaparHTML(
+                            new Date(lembrete.data).toLocaleString("pt-BR")
+                        )}
+                    </small>
+
+                    <div style="
+                        display: flex;
+                        gap: 8px;
+                        margin-top: 12px;
+                        flex-wrap: wrap;
+                    ">
+                        <button
+                            type="button"
+                            class="btn-acao-lembrete"
+                            data-acao="alternar"
+                            data-id="${escaparHTML(lembrete.id)}"
+                            style="
+                                border: 0;
+                                border-radius: 6px;
+                                padding: 8px 10px;
+                                background: #1e293b;
+                                color: white;
+                                cursor: pointer;
+                            "
+                        >
+                            ${lembrete.lido ? "Marcar não lido" : "Marcar como lido"}
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-acao-lembrete"
+                            data-acao="excluir"
+                            data-id="${escaparHTML(lembrete.id)}"
+                            style="
+                                border: 0;
+                                border-radius: 6px;
+                                padding: 8px 10px;
+                                background: #dc2626;
+                                color: white;
+                                cursor: pointer;
+                            "
+                        >
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+                    </div>
+                </div>
+            `).join("")}
+        </div>
+    `;
+}
  
 
 window.confirmarLembrete = confirmarLembrete;
 
  
 
-function atualizarLembretes() {
+// function atualizarLembretes() {
 
-    const quantidade = lembretes.length;
+//     const quantidade = lembretes.length;
+
+//     const badgeTopbar =
+
+//         document.getElementById("badgeNotificacoes");
+
+//     const badgeSidebar =
+
+//         document.getElementById("badgeAlertas");
+
+//     // ================= TOPBAR =================
+
+//     if (badgeTopbar) {
+
+//         badgeTopbar.textContent = quantidade;
+
+//         badgeTopbar.style.display =
+
+//             quantidade > 0 ? "flex" : "none";
+
+//     }
+
+//     // ================= SIDEBAR =================
+
+//     if (badgeSidebar) {
+
+//         badgeSidebar.textContent = quantidade;
+
+//         badgeSidebar.style.display =
+
+//             quantidade > 0 ? "flex" : "none";
+
+//     }
+
+// }
+// =====================================================
+// ATUALIZAR CONTADORES: SOMENTE NÃO LIDOS
+// =====================================================
+
+function atualizarLembretes() {
+    const quantidade = lembretes.filter(
+        lembrete => !lembrete.lido
+    ).length;
 
     const badgeTopbar =
-
         document.getElementById("badgeNotificacoes");
 
     const badgeSidebar =
-
         document.getElementById("badgeAlertas");
 
-    // ================= TOPBAR =================
+    [badgeTopbar, badgeSidebar].forEach(badge => {
+        if (!badge) return;
 
-    if (badgeTopbar) {
-
-        badgeTopbar.textContent = quantidade;
-
-        badgeTopbar.style.display =
-
-            quantidade > 0 ? "flex" : "none";
-
-    }
-
-    // ================= SIDEBAR =================
-
-    if (badgeSidebar) {
-
-        badgeSidebar.textContent = quantidade;
-
-        badgeSidebar.style.display =
-
-            quantidade > 0 ? "flex" : "none";
-
-    }
-
+        badge.textContent = quantidade;
+        badge.style.display = quantidade > 0 ? "flex" : "none";
+    });
 }
-
  
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -2575,13 +3170,149 @@ window.addEventListener("DOMContentLoaded", () => {
 
 });
 
+// =====================================================
+// INICIALIZAR LEMBRETES E LINK DA SIDEBAR
+// =====================================================
+
+function inicializarLembretes() {
+    atualizarLembretes();
+
+    // Restaura os agendamentos futuros após atualizar a página.
+    lembretes.forEach(agendarTimerLembrete);
+
+    const linkAlertas = document.getElementById("linkAlertas");
+
+    if (linkAlertas && !linkAlertas.dataset.lembretesConfigurados) {
+        linkAlertas.dataset.lembretesConfigurados = "true";
+
+        linkAlertas.addEventListener("click", evento => {
+            evento.preventDefault();
+            mostrarLembretes();
+        });
+    }
+}
+
+window.confirmarLembrete = confirmarLembrete;
+
+if (document.readyState === "loading") {
+    window.addEventListener("DOMContentLoaded", inicializarLembretes);
+} else {
+    inicializarLembretes();
+}
+
+//============= Botão lixeira vermelha ================
+
+// function confirmarExclusao(id) {
+
+//     const registro = recargas.find(r => r.id === id);
+
+//     if (!registro) {
+
+//         console.log("Recarga não encontrada:", id);
+
+//         return;
+
+//     }
+
+//     Swal.fire({
+
+//         title: "Excluir movimentação?",
+
+//         html: `
+
+//             <p>
+
+//                 Você está prestes a excluir a movimentação da placa
+
+//                 <strong>${registro.placa}</strong>.
+
+//             </p>
+
+//             <p style="
+
+//                 margin-top:10px;
+
+//                 color:#dc2626;
+
+//                 font-size:13px;
+
+//             ">
+
+//                 Essa ação não poderá ser desfeita.
+
+//             </p>
+
+//         `,
+
+//         icon: "warning",
+
+//         showCancelButton: true,
+
+//         confirmButtonText: "Sim, excluir",
+
+//         cancelButtonText: "Cancelar",
+
+//         confirmButtonColor: "#dc2626",
+
+//         cancelButtonColor: "#64748b",
+
+//         reverseButtons: true
+
+//     }).then((resultado) => {
+
+//         if (!resultado.isConfirmed) return;
+
+//         const indice = recargas.findIndex(
+
+//             r => r.id === id
+
+//         );
+
+//         if (indice === -1) return;
+
+//         recargas.splice(indice, 1);
+
+//         atualizarPrismasOcupados();
+
+       
+
+//         Swal.fire({
+
+//             title: "Movimentação excluída!",
+
+//             text: `A movimentação ${registro.placa} foi removida.`,
+
+//             icon: "success",
+
+//             confirmButtonText: "OK",
+
+//             confirmButtonColor: "#dc2626",
+
+//             timer: 2500,
+
+//             timerProgressBar: true
+
+//         });
+
+//         atualizarContadores();
+
+//         renderizarMovimentacoes();
+
+//     });
+
+// }
+
  
 
 //============= Botão lixeira vermelha ================
 
 function confirmarExclusao(id) {
 
+ 
+
     const registro = recargas.find(r => r.id === id);
+
+ 
 
     if (!registro) {
 
@@ -2590,6 +3321,30 @@ function confirmarExclusao(id) {
         return;
 
     }
+
+ 
+
+    if (registro.status !== "Concluído") {
+
+ 
+
+        Swal.fire({
+
+            icon: "warning",
+
+            title: "Exclusão não permitida",
+
+            text: "Somente movimentações concluídas podem ser excluídas."
+
+        });
+
+ 
+
+        return;
+
+    }
+
+ 
 
     Swal.fire({
 
@@ -2637,7 +3392,11 @@ function confirmarExclusao(id) {
 
     }).then((resultado) => {
 
+ 
+
         if (!resultado.isConfirmed) return;
+
+ 
 
         const indice = recargas.findIndex(
 
@@ -2645,9 +3404,15 @@ function confirmarExclusao(id) {
 
         );
 
+ 
+
         if (indice === -1) return;
 
+ 
+
         recargas.splice(indice, 1);
+
+ 
 
         Swal.fire({
 
@@ -2667,7 +3432,11 @@ function confirmarExclusao(id) {
 
         });
 
+ 
+
         atualizarContadores();
+
+        atualizarComparativoOntem();
 
         renderizarMovimentacoes();
 
@@ -2676,7 +3445,6 @@ function confirmarExclusao(id) {
 }
 
  
-
 const btnFiltroMov =
 
     document.getElementById("btnFiltroMov");
@@ -2706,28 +3474,33 @@ const btnFiltroMov =
     });
 
  
+
 //============= Botão expandir e guardar ================
 
 const btnToggle =
+
     document.getElementById("btnToggleMov");
 
 const historicoBox =
+
     document.getElementById("listaMovimentacoes");
 
-if (btnToggle && historicoBox) {
+ 
 
-    btnToggle.addEventListener("click", () => {
+//============= Botão expandir e guardar ================
 
-        const fechado =
-            historicoBox.classList.toggle("fechado");
+btnToggle.addEventListener("click", () => {
 
-        btnToggle.innerHTML = fechado
-            ? "🔼"
-            : "🔽";
+    const fechado = historicoBox.classList.toggle("fechado");
 
-    });
+    btnToggle.innerHTML = fechado
 
-}
+        ? "🔼"
+
+        : "🔽";
+
+});
+
  
 
 // =========================================================
@@ -2906,13 +3679,31 @@ function registrarRecarga() {
 
     const proprietario =
 
-        document.getElementById("nomeVeiculo")
+            document.getElementById("nomeVeiculo")
 
-            .textContent
+                .textContent
 
-            .trim();
+                .trim();
 
  
+
+            const encontrado = base.find(
+
+        item => item[0].toUpperCase() === placa.toUpperCase()
+
+    );
+
+ 
+
+    const cargo = encontrado
+
+        ? encontrado[3].replace(" - Itaú Unibanco", "")
+
+        : "";
+
+    const funcional = encontrado
+    ? encontrado[2]
+    : "";    
 
     // =========================================================
 
@@ -3134,7 +3925,15 @@ function registrarRecarga() {
 
                 proprietario,
 
- 
+
+            cargo:
+
+             cargo,
+
+            funcional: 
+
+                funcional,
+
 
             torre:
 
@@ -3644,7 +4443,7 @@ function registrarRecarga() {
 
  
 
-    // atualizarComparativoOntem();
+    atualizarComparativoOntem();
 
  
 
@@ -3653,5 +4452,13 @@ function registrarRecarga() {
  
 
     renderizarMovimentacoes();
+
+ 
+
+    renderizarTopUsuarios();
+
+ 
+
+    renderizarTopCargos();
 
 }
