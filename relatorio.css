@@ -348,7 +348,13 @@ html {
 
  
 
-}
+} 
+/* .relatorio-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+} */
 
  
 
@@ -446,7 +452,26 @@ html {
 
 }
 
- 
+.kpi-relatorio:nth-child(5)::before {
+
+    background: #0408df;
+
+}
+
+.kpi-relatorio:nth-child(6)::before {
+
+    background: #e6a04b;
+
+}
+
+/* Os dois últimos cards ocupam metade da largura cada */
+.relatorio-kpis .kpi-relatorio:nth-child(5) {
+    grid-column: 1 / span 2;
+}
+
+.relatorio-kpis .kpi-relatorio:nth-child(6) {
+    grid-column: 3 / span 2;
+} 
 
 .kpi-relatorio:hover {
 
@@ -562,7 +587,7 @@ html {
 
  
 
-    font-size: 1.5rem;
+    font-size: 2rem;
 
  
 
@@ -1521,8 +1546,11 @@ html {
  
 
 .historico-header {
+    background: var(--gradient-header);
+    border-radius:15px;
+      margin: 0 0 20px;
 
- 
+    padding: 16px;
 
     position: relative;
 
@@ -1542,7 +1570,7 @@ html {
 
     gap: 10px;
 
- 
+  
 
     box-shadow:
 
@@ -1555,7 +1583,7 @@ html {
  
 
 .historico-header h1 {
-
+    
  
 
     position: absolute;
@@ -1662,7 +1690,7 @@ html {
 
  
 
-    padding: 7px 20px;
+    padding: 1px 10px;
 
  
 
@@ -1890,93 +1918,6 @@ html {
 
    ========================================================= */
 
- 
-
-/* .secao-titulo {
-
- 
-
-    display: flex;
-
- 
-
-    justify-content: center;
-
- 
-
-    align-items: center;
-
- 
-
-    padding: 20px 18px;
-
- 
-
-    margin: 18px 0 12px;
-
- 
-
-    border: 1px solid var(--border-soft);
-
- 
-
-    background: var(--gradient-header);
-
- 
-
-    border-radius: 40px;
-
- 
-
-    box-shadow: var(--shadow-sm);
-
- 
-
-}
-
- 
-
-.secao-titulo h1 {
-
- 
-
-    margin: 0;
-
- 
-
-    color: #fff;
-
- 
-
-    text-align: center;
-
- 
-
-    font-size: clamp(1.25rem, 2vw, 1.8rem);
-
- 
-
-    line-height: 1.2;
-
- 
-
-    font-weight: 700;
-
- 
-
-    letter-spacing: -0.4px;
-
- 
-
-    text-shadow:
-
-        0 0 10px rgba(255,255,255,.25);
-
- 
-
-} */
-
- 
 
 .filtros-referencia {
 
@@ -2100,7 +2041,7 @@ html {
 
 .filtro-data-header i {
 
-    font-size: 11px;
+    font-size: 1.5rem;
 
 }
 
@@ -2519,7 +2460,7 @@ html {
  
 
 .tabela-uso-header i {
-
+    font-size: 1.5rem;
     margin-right: 4px;
 
 }

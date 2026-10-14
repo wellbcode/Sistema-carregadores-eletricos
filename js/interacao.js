@@ -1229,7 +1229,8 @@ function formatarDataExibicao(data) {
 
  
 
-    return `${dia}/${mes}/${ano}`;
+    //return `${dia}/${mes}/${ano}`; //aqui antes: 2026-10-13
+    return `${dia}-${mes}-${ano}`; //aqui depois 13-10-2026
 
 }
 

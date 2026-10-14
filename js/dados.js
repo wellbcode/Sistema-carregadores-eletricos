@@ -44,39 +44,74 @@ document.addEventListener("DOMContentLoaded", () => {
 
  
 
+// window.addEventListener("storage", (event) => {
+
+ 
+
+//     if (event.key !== "historicoRecargas") {
+
+//         return;
+
+//     }
+
+ 
+
+//     historicoRecargas =
+
+//         JSON.parse(event.newValue) || [];
+
+ 
+
+//     console.log(
+
+//         "HISTÓRICO ATUALIZADO PELO STORAGE:",
+
+//         historicoRecargas
+
+//     );
+
+ 
+
+//     renderizarHistorico();
+
+// });
+
 window.addEventListener("storage", (event) => {
 
- 
-
     if (event.key !== "historicoRecargas") {
-
         return;
-
     }
 
- 
+    try {
+        const novosRegistros = JSON.parse(
+            event.newValue || "[]"
+        );
 
-    historicoRecargas =
+        if (!Array.isArray(novosRegistros)) {
+            return;
+        }
 
-        JSON.parse(event.newValue) || [];
+        // Atualiza o array existente sem reatribuir a constante.
+        historicoRecargas.splice(
+            0,
+            historicoRecargas.length,
+            ...novosRegistros
+        );
 
- 
+        console.log(
+            "HISTÓRICO ATUALIZADO PELO STORAGE:",
+            historicoRecargas
+        );
 
-    console.log(
+        renderizarHistorico();
 
-        "HISTÓRICO ATUALIZADO PELO STORAGE:",
-
-        historicoRecargas
-
-    );
-
- 
-
-    renderizarHistorico();
-
+    } catch (erro) {
+        console.error(
+            "Erro ao atualizar o histórico:",
+            erro
+        );
+    }
 });
-
- 
 
 function renderizarHistorico() {
 
@@ -1066,7 +1101,21 @@ function formatarDataBR(data) {
 
 }
 
- 
+
+function formatarDataExportacao(data) {
+    if (!data || data === "-") return "-";
+
+    const partes = String(data).split("-");
+
+    if (
+        partes.length === 3 &&
+        partes[0].length === 4
+    ) {
+        return `${partes[2]}/${partes[1]}/${partes[0]}`;
+    }
+
+    return data;
+}
 
 function exportarExcel() {
 
@@ -1112,8 +1161,8 @@ function exportarExcel() {
 
  
 
-        Data: r.dataEntrada || "-",
-
+        // Data: r.dataEntrada || "-",
+        Data: formatarDataExportacao(r.dataEntrada),
  
 
         Dia: r.diaSemana || "-",
@@ -1240,7 +1289,8 @@ function exportarPDF() {
 
         r.piso || "-",
 
-        r.dataEntrada || "-",
+        // r.dataEntrada || "-",
+        formatarDataExportacao(r.dataEntrada),
 
         r.diaSemana || "-",
 

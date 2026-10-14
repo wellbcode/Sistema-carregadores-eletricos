@@ -20,9 +20,35 @@ const historicoRecargas =
 
  
 
- 
+function salvarMovimentacoesRecentes() {
+    localStorage.setItem(
+        "movimentacoesRecentes",
+        JSON.stringify(recargas)
+    );
+}//apague se ramelar
 
- 
+function registrarIdIndicador(chave, id) {
+    let ids = [];
+
+    try {
+        ids = JSON.parse(localStorage.getItem(chave) || "[]");
+
+        if (!Array.isArray(ids)) {
+            ids = [];
+        }
+    } catch (erro) {
+        console.error(`Erro ao ler ${chave}:`, erro);
+    }
+
+    const idTexto = String(id);
+
+    if (!ids.some(idSalvo => String(idSalvo) === idTexto)) {
+        ids.push(idTexto);
+
+        localStorage.setItem(chave, JSON.stringify(ids));
+    }
+} 
+
 
 function criarRecarga(dados) {
 
@@ -120,31 +146,21 @@ function criarRecarga(dados) {
 
     recargas.push(recarga);
 
- 
+    registrarIdIndicador("kpiTotalIds", recarga.id);// apague se der ruim
+
+    if (recarga.status.trim().toLowerCase() === "fila") {
+    registrarIdIndicador("kpiFilaIds", recarga.id);
+    }
+
+    salvarMovimentacoesRecentes();
 
     console.table(recargas);
 
- 
-
     return recarga;
-
- 
-
 }
 
- 
-
- 
-
- 
-
 // ============== Consulta da placa ========================
-
- 
-
 const inputPlaca = document.getElementById("placa");
-
- 
 
 if (inputPlaca) {
 
@@ -196,16 +212,7 @@ if (inputPlaca) {
 
 }
 
- 
-
- 
-
- 
-
 // =================== Consulta do veículo ===================
-
- 
-
 function buscarVeiculo() {
 
  
@@ -530,16 +537,7 @@ function buscarVeiculo() {
 
 }
 
- 
-
- 
-
- 
-
 // ============= Verificando recarga aberta ==========
-
- 
-
 function verificarRecargaAberta(placa) {
 
  
@@ -618,16 +616,7 @@ function verificarRecargaAberta(placa) {
 
 }
 
- 
-
- 
-
- 
-
 // ============= Bloqueando a etapa 1 de 3 aberto ===========
-
- 
-
 function bloquearPrimeiraEtapa() {
 
  
@@ -706,16 +695,7 @@ function bloquearPrimeiraEtapa() {
 
 }
 
- 
-
- 
-
- 
-
 // ============= liberando a etapa 1 de 3 aberto ===========
-
- 
-
 function liberarPrimeiraEtapa() {
 
  
@@ -746,11 +726,7 @@ function liberarPrimeiraEtapa() {
 
 }
 
- 
 // ============= Atualizando a etapa 2 de 3 carregando... ===========
-
- 
-
 function atualizarEtapa2(registro) {
 
  
@@ -773,7 +749,9 @@ function atualizarEtapa2(registro) {
 
     registro.status = "Carregando";
 
- 
+    registrarIdIndicador("kpiCarregandoIds", registro.id);
+
+    salvarMovimentacoesRecentes();//apague se ramelar
 
     console.table(registro);
 
@@ -781,16 +759,7 @@ function atualizarEtapa2(registro) {
 
 }
 
- 
-
- 
-
- 
-
 // ============= Atualizando a etapa 3 de 3 concluído! ===========
-
- 
-
 function atualizarEtapa3(registro) {
 
  
@@ -833,7 +802,9 @@ function atualizarEtapa3(registro) {
 
     registro.status = "Concluído";
 
- 
+        registrarIdIndicador("kpiConcluidasIds", registro.id);// apague se der ruim
+
+        salvarMovimentacoesRecentes();//apague se ramelar
 
         atualizarEstacaoConcluida(registro);
 
@@ -1121,7 +1092,7 @@ function atualizarEtapa3(registro) {
 
     );
 
- 
+    salvarMovimentacoesRecentes();
 
     } else {
 
@@ -1217,12 +1188,6 @@ function atualizarEtapa3(registro) {
 
 }
 
- 
-
- 
-
- 
-
 function controlarEtapa(registro) {
 
  
@@ -1313,16 +1278,7 @@ function controlarEtapa(registro) {
 
 }
 
- 
-
- 
-
- 
-
 // =================== Preenchendo recargas ==============================
-
- 
-
 function preencherRecarga(registro) {
 
  
@@ -1549,12 +1505,6 @@ function preencherRecarga(registro) {
 
 }
 
- 
-
- 
-
- 
-
 function atualizarBarraEstacao(registro) {
 
  
@@ -1673,15 +1623,7 @@ function atualizarBarraEstacao(registro) {
 
 }
 
- 
-
- 
-
- 
-
 // ==============Limpando os cards ======================
-
- 
 
 function limparCard() {
 
@@ -1781,12 +1723,6 @@ function limparCard() {
 
 }
 
- 
-
- 
-
- 
-
 function liberarFormulario() {
 
  
@@ -1837,10 +1773,7 @@ function liberarFormulario() {
 
 }
 
- 
-
 // ================= EXPANDIR DOS SELECTS DOS CARDS =================
-
 document.querySelectorAll(".campo select").forEach(select => {
 
  
@@ -1886,11 +1819,8 @@ document.querySelectorAll(".campo select").forEach(select => {
  
 
 });
-
  
-
 // ================= Evento de clicar enter no botão registar =================
-
 document.addEventListener("keydown", (e) => {
 
  

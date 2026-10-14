@@ -1630,7 +1630,6 @@ body::before {
 
 }
 
- 
 
 /* .campo:has(select option)::after {
 
@@ -1654,7 +1653,6 @@ body::before {
 
 } */
 
- 
 
 .campo:has(select)::after {
 
@@ -1678,7 +1676,7 @@ body::before {
 
 }
 
- 
+
 
 .campo.select-aberto::after {
 
@@ -2898,7 +2896,7 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
 
  
 
-/* lista ddos cards */
+/* lista dos cards */
 
 .mov-item {
 

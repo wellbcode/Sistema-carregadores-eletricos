@@ -3412,7 +3412,7 @@ function confirmarExclusao(id) {
 
         recargas.splice(indice, 1);
 
- 
+            salvarMovimentacoesRecentes();//apague se ramelar    
 
         Swal.fire({
 

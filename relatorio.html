@@ -221,6 +221,37 @@
 
                     </article>
 
+                    <article class="card kpi-relatorio azul">
+
+                        <div class="card-body">
+
+                            <h6>Iniciaram a carga  
+                                <i class="fa-solid fa-charging-station status-carregando"></i>
+                                <i class="bi bi-ev-front-fill status-carregando"></i>
+                            </h6>
+
+                            <h2 id="relIniciaramCarga">0 </h2>  
+                        </div>
+
+                    </article>
+
+ 
+
+                    <article class="card kpi-relatorio laranja">
+
+                        <div class="card-body">
+
+                            <h6>Passaram pela Fila 
+                                <i class="bi bi-hourglass-split status-fila"></i>
+                                <!-- <i class="bi bi-car-front-fill status-fila"></i> -->
+                                <i class="bi bi-ev-front status-fila"></i>
+                            </h6>
+
+                            <h2 id="relPassaramFila">0</h2>                             
+                        </div>
+
+                    </article>
+
                 </section>
 
  
@@ -665,7 +696,7 @@
 
                 <section class="card historico-card" id="Historico de Movimentacoes">
 
-                    <div class="card-header historico-header">
+                    <div class=" historico-header">
 
                         <!-- <h1>
 
@@ -768,40 +799,48 @@
                         <div class="filtro-data-conteudo">
                             <div class="filtro-titulo">DATA DE ENTRADA</div>
 
-                            <label for="filtroMes">Mês e ano</label>
-                            <select id="filtroMes">
-                                <option value="">Todos os meses</option>
-                            </select>
-
-                            <label for="filtroDiaSemana">Dia da semana</label>
-                            <select id="filtroDiaSemana">
-                                <option value="">Todos os dias</option>
-                                <option value="Segunda-feira">Segunda-feira</option>
-                                <option value="Terça-feira">Terça-feira</option>
-                                <option value="Quarta-feira">Quarta-feira</option>
-                                <option value="Quinta-feira">Quinta-feira</option>
-                                <option value="Sexta-feira">Sexta-feira</option>
-                                <option value="Sábado">Sábado</option>
-                                <option value="Domingo">Domingo</option>
-                            </select>
-
-                            <label for="filtroTorre">Torre</label>
-                            <select id="filtroTorre">
-                                <option value="">Todas as torres</option>
-                                <option value="Alfredo Egydio">Alfredo Egydio</option>
-                                <option value="Olavo Setubal">Olavo Setubal</option>
-                                <option value="Jabaquara">Jabaquara</option>
-                            </select>
-
-                            <label for="filtroPiso">Piso</label>
-                            <select id="filtroPiso">
-                                <option value="">Todos os pisos</option>
-                                <option value="Guajuviras">Guajuviras</option>
-                                <option value="1º SS">1º SS</option>
-                                <option value="Azul">Azul</option>
-                                <option value="PG">PG</option>
-                                <option value="1º Andar">1º Andar</option>
-                            </select>
+                            <div class="campo">
+                                <label for="filtroMes">Mês e ano</label>
+                                <select id="filtroMes">
+                                    <option value="">Todos os meses</option>
+                                </select>
+                            </div>
+                           
+                            <div class="campo">
+                                <label for="filtroDiaSemana">Dia da semana</label>
+                                <select id="filtroDiaSemana">
+                                    <option value="">Todos os dias</option>
+                                    <option value="Segunda-feira">Segunda-feira</option>
+                                    <option value="Terça-feira">Terça-feira</option>
+                                    <option value="Quarta-feira">Quarta-feira</option>
+                                    <option value="Quinta-feira">Quinta-feira</option>
+                                    <option value="Sexta-feira">Sexta-feira</option>
+                                    <option value="Sábado">Sábado</option>
+                                    <option value="Domingo">Domingo</option>
+                                </select>
+                            </div>
+                            
+                            <div class="campo">
+                                <label for="filtroTorre">Torre</label>
+                                <select id="filtroTorre">
+                                    <option value="">Todas as torres</option>
+                                    <option value="Alfredo Egydio">Alfredo Egydio</option>
+                                    <option value="Olavo Setubal">Olavo Setubal</option>
+                                    <option value="Jabaquara">Jabaquara</option>
+                                </select>
+                            </div>
+                            
+                            <div class="campo">
+                                <label for="filtroPiso">Piso</label>
+                                <select id="filtroPiso">
+                                    <option value="">Todos os pisos</option>
+                                    <option value="Guajuviras">Guajuviras</option>
+                                    <option value="1º SS">1º SS</option>
+                                    <option value="Azul">Azul</option>
+                                    <option value="PG">PG</option>
+                                    <option value="1º Andar">1º Andar</option>
+                                </select>
+                            </div>
 
                             <button type="button" id="limparFiltros">
                                 Limpar filtros

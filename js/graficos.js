@@ -18,115 +18,179 @@ const FATOR_CO2 = 0.12;
 
 const TOTAL_ESTACOES = 24;
 
- 
+
+// function atualizarKPIsMovimentacoes() {
+//     console.log("ATUALIZANDO KPIs DAS MOVIMENTAÇÕES RECENTES");
+
+//     let movimentacoes = [];
+
+//     try {
+//         movimentacoes = JSON.parse(
+//             localStorage.getItem("movimentacoesRecentes") || "[]"
+//         );
+
+//         if (!Array.isArray(movimentacoes)) {
+//             movimentacoes = [];
+//         }
+//     } catch (erro) {
+//         console.error("Erro ao carregar movimentações:", erro);
+//     }
+
+//     const normalizarStatus = status =>
+//         (status || "").trim().toLowerCase();
+
+//     const total = movimentacoes.length;
+
+//     const concluidas = movimentacoes.filter(
+//         r => normalizarStatus(r.status) === "concluído" ||
+//              normalizarStatus(r.status) === "concluido"
+//     ).length;
+
+//     const emAndamento = movimentacoes.filter(
+//         r => normalizarStatus(r.status) === "carregando"
+//     ).length;
+
+//     const fila = movimentacoes.filter(
+//         r => normalizarStatus(r.status) === "fila"
+//     ).length;
+
+//     const indicadores = {
+//         relTotal: total,
+//         relConcluidas: concluidas,
+//         relEmAndamento: emAndamento,
+//         relFila: fila
+//     };
+
+//     Object.entries(indicadores).forEach(([id, valor]) => {
+//         const elemento = document.getElementById(id);
+
+//         if (elemento) {
+//             elemento.textContent = valor;
+//         } else {
+//             console.warn(`Elemento KPI não encontrado: #${id}`);
+//         }
+//     });
+
+//     console.table(indicadores);
+// }
 
 function atualizarKPIsMovimentacoes() {
+    console.log("ATUALIZANDO KPIs DAS MOVIMENTAÇÕES RECENTES");
 
- 
+    let movimentacoes = [];
+    let idsCarregando = [];
+    let idsFila = [];
 
-    console.log("ATUALIZANDO KPIs:", recargas);
+    try {
+        movimentacoes = JSON.parse(
+            localStorage.getItem("movimentacoesRecentes") || "[]"
+        );
 
- 
+        idsCarregando = JSON.parse(
+            localStorage.getItem("kpiCarregandoIds") || "[]"
+        );
 
-    const total =
+        idsFila = JSON.parse(
+            localStorage.getItem("kpiFilaIds") || "[]"
+        );
 
-    historicoRecargas.length;
+        if (!Array.isArray(movimentacoes)) movimentacoes = [];
+        if (!Array.isArray(idsCarregando)) idsCarregando = [];
+        if (!Array.isArray(idsFila)) idsFila = [];
 
- 
-
-    const concluidas =
-
-        historicoRecargas.filter(
-
-            r => r.status === "Concluído"
-
-        ).length;
-
- 
-
-    const emAndamento =
-
-        historicoRecargas.filter(
-
-            r =>
-
-                r.status === "Aberto" ||
-
-                r.status === "Carregando"
-
-        ).length;
-
- 
-
-    const fila =
-
-        historicoRecargas.filter(
-
-            r => r.status === "Fila"
-
-        ).length;
-
- 
-
-    const relTotal =
-
-        document.getElementById("relTotal");
-
- 
-
-    const relConcluidas =
-
-        document.getElementById("relConcluidas");
-
- 
-
-    const relEmAndamento =
-
-        document.getElementById("relEmAndamento");
-
- 
-
-    const relFila =
-
-        document.getElementById("relFila");
-
- 
-
-    if (relTotal) {
-
-        relTotal.textContent = total;
-
+    } catch (erro) {
+        console.error("Erro ao carregar dados dos KPIs:", erro);
     }
 
- 
+    const normalizarStatus = status =>
+        (status || "").trim().toLowerCase();
 
-    if (relConcluidas) {
+    // KPIs atuais: variam conforme o status da movimentação.
+    // const total = movimentacoes.length;
 
-        relConcluidas.textContent = concluidas;
+    // const concluidas = movimentacoes.filter(r => {
+    //     const status = normalizarStatus(r.status);
+    //     return status === "concluído" || status === "concluido";
+    // }).length;
+    const idsTotal = JSON.parse(
+        localStorage.getItem("kpiTotalIds") || "[]"
+    );
 
-    }
+    const idsConcluidas = JSON.parse(
+        localStorage.getItem("kpiConcluidasIds") || "[]"
+    );
 
- 
+    const total = new Set(
+        idsTotal.map(id => String(id))
+    ).size;
 
-    if (relEmAndamento) {
+    const concluidas = new Set(
+        idsConcluidas.map(id => String(id))
+    ).size;
 
-        relEmAndamento.textContent = emAndamento;
+    const emAndamento = movimentacoes.filter(
+        r => normalizarStatus(r.status) === "carregando"
+    ).length;
 
-    }
+    const fila = movimentacoes.filter(
+        r => normalizarStatus(r.status) === "fila"
+    ).length;
 
- 
+    // Novos KPIs: contagens acumulativas de veículos únicos.
+    const iniciaramCarga = new Set(
+        idsCarregando.map(id => String(id))
+    ).size;
 
-    if (relFila) {
+    const passaramFila = new Set(
+        idsFila.map(id => String(id))
+    ).size;
 
-        relFila.textContent = fila;
+    const indicadores = {
+        relTotal: total,
+        relConcluidas: concluidas,
+        relEmAndamento: emAndamento,
+        relFila: fila,
+        relIniciaramCarga: iniciaramCarga,
+        relPassaramFila: passaramFila
+    };
 
-    }
+    Object.entries(indicadores).forEach(([id, valor]) => {
+        const elemento = document.getElementById(id);
 
- 
+        if (elemento) {
+            elemento.textContent = valor;
+        } else {
+            console.warn(`Elemento KPI não encontrado: #${id}`);
+        }
+    });
 
+    console.table(indicadores);
 }
 
- 
+window.addEventListener("storage", evento => {
+    if (
+        evento.key === "movimentacoesRecentes" ||
+        evento.key === "kpiCarregandoIds" ||
+        evento.key === "kpiFilaIds"
+    ) {
+        atualizarKPIsMovimentacoes();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarKPIsMovimentacoes();
+});
+
+
+window.addEventListener("storage", evento => {
+    if (evento.key === "movimentacoesRecentes") {
+        atualizarKPIsMovimentacoes();
+    }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    atualizarKPIsMovimentacoes();
+});
 
 function atualizarIndicativos() {
 
@@ -774,40 +838,6 @@ function atualizarIndicativos() {
 
 }
 
- 
-
-// function obterRecargasPorDia() {
-
- 
-
-//     const recargasPorDia = {};
-
- 
-
-//     obterRecargasFiltradas().forEach(recarga => {
-
- 
-
-//         const data = recarga.dataEntrada;
-
- 
-
-//         if (!data) return;
-
- 
-
-//         recargasPorDia[data] =
-
-//             (recargasPorDia[data] || 0) + 1;
-
-//     });
-
- 
-
-//     return recargasPorDia;
-
-// }
-
 function obterRecargasPorDia() {
     const recargasPorDia = {};
 
@@ -855,7 +885,6 @@ function obterDadosGraficoDia() {
 }
 
  
-
 function obterTopUsuarios() {
 
  
@@ -923,65 +952,13 @@ function renderizarTopUsuarios() {
 }
 
 
-// window.addEventListener("load", () => {
-
-//     renderizarTopUsuarios();
-
-//     renderizarTopCargos();
-
-//     renderizarUsoPorTorre();
-
-//     renderizarUsoPorPiso();
-
-//     renderizarDiaSemana();
-
-//     renderizarRecargasPorDia();
-
-//     renderizarComparativoMensal();
-
-//     renderizarGraficoCargos();
-
-//     renderizarCardsCargos();
-
-// });
-
 window.addEventListener("load", () => {
     atualizarKPIsMovimentacoes();
     atualizarIndicativos();
     iniciarFiltrosDashboard();
 });
 
-// function obterTopCargos() {
 
- 
-
-//     const cargos = {};
-
- 
-
-//     historicoRecargas.forEach(recarga => {
-
- 
-
-//         if (!recarga.cargo) return;
-
- 
-
-//         cargos[recarga.cargo] =
-
-//             (cargos[recarga.cargo] || 0) + 1;
-
-//     });
-
- 
-
-//     return Object.entries(cargos)
-
-//         .sort((a, b) => b[1] - a[1])
-
-//         .slice(0, 5);
-
-// }
 
 function obterTopCargos() {
     const cargos = {};
@@ -1038,37 +1015,7 @@ function renderizarTopCargos() {
 
 }
 
- 
 
-// function obterUsoPorTorre() {
-
- 
-
-//     const torres = {};
-
- 
-
-//     historicoRecargas.forEach(recarga => {
-
- 
-
-//         if (!recarga.torre) return;
-
- 
-
-//         torres[recarga.torre] =
-
-//             (torres[recarga.torre] || 0) + 1;
-
-//     });
-
- 
-
-//     return Object.entries(torres)
-
-//         .sort((a, b) => b[1] - a[1]);
-
-// }
 
 function obterUsoPorTorre() {
     const torres = {};
@@ -1200,37 +1147,7 @@ function renderizarUsoPorTorre() {
 
 }
 
- 
 
-// function obterUsoPorPiso() {
-
- 
-
-//     const pisos = {};
-
- 
-
-//     historicoRecargas.forEach(recarga => {
-
- 
-
-//         if (!recarga.piso) return;
-
- 
-
-//         pisos[recarga.piso] =
-
-//             (pisos[recarga.piso] || 0) + 1;
-
-//     });
-
- 
-
-//     return Object.entries(pisos)
-
-//         .sort((a, b) => b[1] - a[1]);
-
-// }
 
 function obterUsoPorPiso() {
     const pisos = {};
@@ -1355,52 +1272,6 @@ function renderizarUsoPorPiso() {
  
 
 }
-
- 
-
-// function obterCarregamentosPorDiaSemana() {
-
- 
-
-//     const dias = {
-
-//         "Segunda-feira": 0,
-
-//         "Terça-feira": 0,
-
-//         "Quarta-feira": 0,
-
-//         "Quinta-feira": 0,
-
-//         "Sexta-feira": 0,
-
-//         "Sábado": 0,
-
-//         "Domingo": 0
-
-//     };
-
- 
-
-//     historicoRecargas.forEach(recarga => {
-
- 
-
-//         if (!recarga.diaSemana) return;
-
- 
-
-//         dias[recarga.diaSemana]++;
-
- 
-
-//     });
-
- 
-
-//     return dias;
-
-// }
 
 function obterCarregamentosPorDiaSemana() {
     const dias = {
@@ -1643,45 +1514,6 @@ function renderizarRecargasPorDia() {
         </g>
     `;
 }
-
-
-// function obterRecargasPorMes() {
-
- 
-
-//     const meses = {};
-
- 
-
-//     historicoRecargas.forEach(recarga => {
-
- 
-
-//         if (!recarga.dataEntrada) return;
-
- 
-
-//         const [ano, mes] =
-
-//             recarga.dataEntrada.split("-");
-
- 
-
-//         const chave = `${ano}-${mes}`;
-
- 
-
-//         meses[chave] =
-
-//             (meses[chave] || 0) + 1;
-
-//     });
-
- 
-
-//     return meses;
-
-// }
 
 function obterRecargasPorMes() {
     const meses = {};
@@ -2135,99 +1967,44 @@ function renderizarComparativoMensal() {
 
 }
 
- 
+function classificarCargo(valor) {
+    const cargo = normalizarTexto(valor);
 
-// function obterDistribuicaoCargos() {
+    if (!cargo || cargo === "-") return null;
 
- 
+    if (
+        cargo.includes("diretor") ||
+        /^dir\.?\s/.test(cargo) ||
+        cargo === "dir" ||
+        cargo.startsWith("ceo") ||
+        cargo.includes("conselheiro") ||
+        cargo.includes("conselheira") ||
+        cargo.includes("presidente") ||
+        /\bcons\b/.test(cargo) ||
+        /\bpres\b/.test(cargo)
+    ) {
+        return "Diretores(as)";
+    }
 
-//     const categorias = {
+    if (cargo.includes("superint")) {
+        return "Superintendentes";
+    }
 
-//         "Analistas": 0,
+    if (
+        cargo.includes("gerente") ||
+        cargo.includes("gerencia")
+    ) {
+        return "Gerentes";
+    }
 
-//         "Coordenadores(as)": 0,
+    if (cargo.includes("coord")) {
+        return "Coordenadores(as)";
+    }
 
-//         "Gerentes": 0,
+    return "Analistas";
+}
 
-//         "Superintendentes": 0,
-
-//         "Diretores(as)": 0
-
-//     };
-
- 
-
-//     historicoRecargas.forEach(recarga => {
-
- 
-
-//         const cargo =
-
-//             (recarga.cargo || "").toLowerCase();
-
- 
-
-//         if (cargo.includes("diretor")) {
-
-//             categorias["Diretores(as)"]++;
-
-//         }
-
- 
-
-//         else if (
-
-//             cargo.includes("superint")
-
-//         ) {
-
-//             categorias["Superintendentes"]++;
-
-//         }
-
- 
-
-//         else if (
-
-//             cargo.includes("ger")
-
-//         ) {
-
-//             categorias["Gerentes"]++;
-
-//         }
-
- 
-
-//         else if (
-
-//             cargo.includes("coord")
-
-//         ) {
-
-//             categorias["Coordenadores(as)"]++;
-
-//         }
-
- 
-
-//         else {
-
-//             categorias["Analistas"]++;
-
-//         }
-
- 
-
-//     });
-
- 
-
-//     return categorias;
-
-// }
-
-function obterDistribuicaoCargos() {
+function obterDistribuicaoCargos(registros = obterRecargasFiltradas()) {
     const categorias = {
         "Analistas": 0,
         "Coordenadores(as)": 0,
@@ -2236,146 +2013,58 @@ function obterDistribuicaoCargos() {
         "Diretores(as)": 0
     };
 
-    obterRecargasFiltradas().forEach(recarga => {
-        const cargo = (recarga.cargo || "").toLowerCase();
+    registros.forEach(recarga => {
+        const categoria = classificarCargo(recarga.cargo);
 
-        if (cargo.includes("diretor")) {
-            categorias["Diretores(as)"]++;
-        } else if (cargo.includes("superint")) {
-            categorias["Superintendentes"]++;
-        } else if (cargo.includes("ger")) {
-            categorias["Gerentes"]++;
-        } else if (cargo.includes("coord")) {
-            categorias["Coordenadores(as)"]++;
-        } else {
-            categorias["Analistas"]++;
+        if (categoria) {
+            categorias[categoria]++;
         }
     });
 
     return categorias;
 }
 
- 
 
 function renderizarGraficoCargos() {
-
- 
-
-    const container =
-
-        document.getElementById(
-
-            "graficoCargos"
-
-        );
-
- 
+    const container = document.getElementById("graficoCargos");
 
     if (!container) return;
 
- 
+    // Quantidade de recargas conforme os filtros selecionados
+    const dadosFiltrados = obterDistribuicaoCargos();
 
-    const dados =
+    // Total geral de recargas, independentemente dos filtros
+    const totalGeral = historicoRecargas.length;
 
-        obterDistribuicaoCargos();
-
- 
-
-    const total =
-
-        Object.values(dados)
-
-            .reduce((a, b) => a + b, 0);
-
- 
-
-    container.innerHTML =
-
-        Object.entries(dados)
-
+    container.innerHTML = Object.entries(dadosFiltrados)
         .map(([cargo, qtd]) => {
-
- 
-
-            const percentual =
-
-                total > 0
-
-                    ? Math.round(
-
-                        (qtd / total) * 100
-
-                    )
-
-                    : 0;
-
- 
+            // Percentual da quantidade filtrada sobre o total geral
+            const percentual = totalGeral > 0
+                ? (qtd / totalGeral) * 100
+                : 0;
 
             return `
-
- 
-
                 <div class="cargo-barra">
-
- 
-
                     <div class="cargo-barra-topo">
-
- 
-
                         <span>${cargo}</span>
-
- 
-
                         <strong>
-
-                            ${percentual}%
-
+                            ${percentual.toLocaleString("pt-BR", {
+                                minimumFractionDigits: 2,
+                                maximumFractionDigits: 2
+                            })}%
                         </strong>
-
- 
-
                     </div>
-
- 
 
                     <div class="cargo-barra-fundo">
-
- 
-
                         <div
-
                             class="cargo-barra-preenchimento"
-
-                            style="
-
-                                width:${percentual}%;
-
-                            ">
-
+                            style="width:${percentual}%;">
                         </div>
-
- 
-
                     </div>
-
- 
-
                 </div>
-
- 
-
             `;
-
- 
-
         }).join("");
-
- 
-
 }
-
- 
 
 function renderizarCardsCargos() {
 
@@ -2483,7 +2172,6 @@ function renderizarCardsCargos() {
 // =====================================================
 // FILTROS GLOBAIS DO DASHBOARD
 // =====================================================
-
 function normalizarTexto(valor) {
     return String(valor || "")
         .normalize("NFD")
@@ -2602,8 +2290,13 @@ function obterRecargasFiltradas() {
         }
 
         if (pisoSelecionado) {
-            const piso = normalizarTexto(registro.piso);
-            const filtro = normalizarTexto(pisoSelecionado);
+            const normalizarPiso = valor =>
+                normalizarTexto(valor)
+                    .replace(/^piso:\s*/, "")
+                    .replace(/\s+/g, "");
+
+            const piso = normalizarPiso(registro.piso);
+            const filtro = normalizarPiso(pisoSelecionado);
 
             if (piso !== filtro) return false;
         }
@@ -2752,3 +2445,30 @@ function iniciarFiltrosDashboard() {
 
     atualizarDashboardFiltrado();
 }
+
+
+window.addEventListener("storage", evento => {
+    if (evento.key !== "historicoRecargas") return;
+
+    try {
+        const atualizadas = JSON.parse(evento.newValue || "[]");
+
+        if (!Array.isArray(atualizadas)) return;
+
+        // Atualiza o histórico que os gráficos já utilizam.
+        historicoRecargas.splice(
+            0,
+            historicoRecargas.length,
+            ...atualizadas
+        );
+
+        // Atualiza os indicadores e os gráficos.
+        preencherFiltroMes();
+        atualizarIndicativos();
+        atualizarDashboardFiltrado();
+
+        console.log("Dashboard atualizado com o novo histórico.");
+    } catch (erro) {
+        console.error("Erro ao atualizar o dashboard:", erro);
+    }
+});
