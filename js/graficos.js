@@ -74,12 +74,108 @@ const TOTAL_ESTACOES = 24;
 //     console.table(indicadores);
 // }
 
-function atualizarKPIsMovimentacoes() {
-    console.log("ATUALIZANDO KPIs DAS MOVIMENTAÇÕES RECENTES");
+// function atualizarKPIsMovimentacoes() {
+//     console.log("ATUALIZANDO KPIs DAS MOVIMENTAÇÕES RECENTES");
+
+//     let movimentacoes = [];
+//     let idsCarregando = [];
+//     let idsFila = [];
+
+//     try {
+//         movimentacoes = JSON.parse(
+//             localStorage.getItem("movimentacoesRecentes") || "[]"
+//         );
+
+//         idsCarregando = JSON.parse(
+//             localStorage.getItem("kpiCarregandoIds") || "[]"
+//         );
+
+//         idsFila = JSON.parse(
+//             localStorage.getItem("kpiFilaIds") || "[]"
+//         );
+
+//         if (!Array.isArray(movimentacoes)) movimentacoes = [];
+//         if (!Array.isArray(idsCarregando)) idsCarregando = [];
+//         if (!Array.isArray(idsFila)) idsFila = [];
+
+//     } catch (erro) {
+//         console.error("Erro ao carregar dados dos KPIs:", erro);
+//     }
+
+//     const normalizarStatus = status =>
+//         (status || "").trim().toLowerCase();
+
+//     // KPIs atuais: variam conforme o status da movimentação.
+//     // const total = movimentacoes.length;
+
+//     // const concluidas = movimentacoes.filter(r => {
+//     //     const status = normalizarStatus(r.status);
+//     //     return status === "concluído" || status === "concluido";
+//     // }).length;
+//     const idsTotal = JSON.parse(
+//         localStorage.getItem("kpiTotalIds") || "[]"
+//     );
+
+//     const idsConcluidas = JSON.parse(
+//         localStorage.getItem("kpiConcluidasIds") || "[]"
+//     );
+
+//     const total = new Set(
+//         idsTotal.map(id => String(id))
+//     ).size;
+
+//     const concluidas = new Set(
+//         idsConcluidas.map(id => String(id))
+//     ).size;
+
+//     const emAndamento = movimentacoes.filter(
+//         r => normalizarStatus(r.status) === "carregando"
+//     ).length;
+
+//     const fila = movimentacoes.filter(
+//         r => normalizarStatus(r.status) === "fila"
+//     ).length;
+
+//     // Novos KPIs: contagens acumulativas de veículos únicos.
+//     const iniciaramCarga = new Set(
+//         idsCarregando.map(id => String(id))
+//     ).size;
+
+//     const passaramFila = new Set(
+//         idsFila.map(id => String(id))
+//     ).size;
+
+//     const indicadores = {
+//         relTotal: total,
+//         relConcluidas: concluidas,
+//         relEmAndamento: emAndamento,
+//         relFila: fila,
+//         relIniciaramCarga: iniciaramCarga,
+//         relPassaramFila: passaramFila
+//     };
+
+//     Object.entries(indicadores).forEach(([id, valor]) => {
+//         const elemento = document.getElementById(id);
+
+//         if (elemento) {
+//             elemento.textContent = valor;
+//         } else {
+//             console.warn(`Elemento KPI não encontrado: #${id}`);
+//         }
+//     });
+
+//     console.table(indicadores);
+// }
+
+
+function atualizarKPIsMovimentacoes(registrosFiltrados = null) {
+    console.log("ATUALIZANDO KPIs COM FILTROS");
 
     let movimentacoes = [];
     let idsCarregando = [];
     let idsFila = [];
+    let idsTotal = [];
+    let idsConcluidas = [];
 
     try {
         movimentacoes = JSON.parse(
@@ -94,56 +190,133 @@ function atualizarKPIsMovimentacoes() {
             localStorage.getItem("kpiFilaIds") || "[]"
         );
 
+        idsTotal = JSON.parse(
+            localStorage.getItem("kpiTotalIds") || "[]"
+        );
+
+        idsConcluidas = JSON.parse(
+            localStorage.getItem("kpiConcluidasIds") || "[]"
+        );
+
         if (!Array.isArray(movimentacoes)) movimentacoes = [];
         if (!Array.isArray(idsCarregando)) idsCarregando = [];
         if (!Array.isArray(idsFila)) idsFila = [];
+        if (!Array.isArray(idsTotal)) idsTotal = [];
+        if (!Array.isArray(idsConcluidas)) idsConcluidas = [];
 
     } catch (erro) {
-        console.error("Erro ao carregar dados dos KPIs:", erro);
+        console.error("Erro ao carregar KPIs:", erro);
     }
 
+    // Combina movimentações atuais e histórico sem duplicar IDs.
+    const registros = new Map();
+
+    [...(historicoRecargas || []), ...movimentacoes].forEach(registro => {
+        if (registro?.id == null) return;
+        registros.set(String(registro.id), registro);
+    });
+
+    const todosRegistros = [...registros.values()];
+
+    // Utiliza os filtros globais já existentes.
+    const filtrados = registrosFiltrados || obterRecargasFiltradas();
+
+    const idsFiltrados = new Set(
+        filtrados
+            .filter(registro => registro?.id != null)
+            .map(registro => String(registro.id))
+    );
+
     const normalizarStatus = status =>
-        (status || "").trim().toLowerCase();
+        normalizarTexto(status);
 
-    // KPIs atuais: variam conforme o status da movimentação.
-    // const total = movimentacoes.length;
+    const contarIdsFiltrados = ids =>
+        new Set(
+            ids
+                .map(id => String(id))
+                .filter(id => idsFiltrados.has(id))
+        ).size;
 
-    // const concluidas = movimentacoes.filter(r => {
-    //     const status = normalizarStatus(r.status);
-    //     return status === "concluído" || status === "concluido";
-    // }).length;
-    const idsTotal = JSON.parse(
-        localStorage.getItem("kpiTotalIds") || "[]"
-    );
+    const total = contarIdsFiltrados(idsTotal);
 
-    const idsConcluidas = JSON.parse(
-        localStorage.getItem("kpiConcluidasIds") || "[]"
-    );
+    const concluidas = contarIdsFiltrados(idsConcluidas);
 
-    const total = new Set(
-        idsTotal.map(id => String(id))
-    ).size;
+    // const emAndamento = filtrados.filter(
+    //     registro => normalizarStatus(registro.status) === "carregando"
+    // ).length;
 
-    const concluidas = new Set(
-        idsConcluidas.map(id => String(id))
-    ).size;
+    // const fila = filtrados.filter(
+    //     registro => normalizarStatus(registro.status) === "fila"
+    // ).length;
 
-    const emAndamento = movimentacoes.filter(
-        r => normalizarStatus(r.status) === "carregando"
+    // Movimentações atuais: respeitam os filtros globais.
+    const movimentacoesFiltradas = obterRecargasFiltradas
+        ? movimentacoes.filter(registro => {
+            const data = obterDataRecarga(registro);
+
+            const mesSelecionado =
+                document.getElementById("filtroMes")?.value || "";
+
+            const diaSelecionado =
+                document.getElementById("filtroDiaSemana")?.value || "";
+
+            const torreSelecionada =
+                document.getElementById("filtroTorre")?.value || "";
+
+            const pisoSelecionado =
+                document.getElementById("filtroPiso")?.value || "";
+
+            if (mesSelecionado) {
+                if (!data) return false;
+
+                const chaveMes =
+                    `${data.ano}-${String(data.mes).padStart(2, "0")}`;
+
+                if (chaveMes !== mesSelecionado) return false;
+            }
+
+            if (diaSelecionado &&
+                normalizarTexto(obterDiaSemanaRegistro(registro)) !==
+                normalizarTexto(diaSelecionado)) {
+                return false;
+            }
+
+            if (torreSelecionada &&
+                !normalizarTexto(registro.torre).includes(
+                    normalizarTexto(torreSelecionada)
+                )) {
+                return false;
+            }
+
+            if (pisoSelecionado) {
+                const normalizarPiso = valor =>
+                    normalizarTexto(valor)
+                        .replace(/^piso:\s*/, "")
+                        .replace(/\s+/g, "");
+
+                if (
+                    normalizarPiso(registro.piso) !==
+                    normalizarPiso(pisoSelecionado)
+                ) {
+                    return false;
+                }
+            }
+
+            return true;
+        })
+        : movimentacoes;
+
+    const emAndamento = movimentacoesFiltradas.filter(
+        registro => normalizarStatus(registro.status) === "carregando"
     ).length;
 
-    const fila = movimentacoes.filter(
-        r => normalizarStatus(r.status) === "fila"
+    const fila = movimentacoesFiltradas.filter(
+        registro => normalizarStatus(registro.status) === "fila"
     ).length;
+    //fim
+    const iniciaramCarga = contarIdsFiltrados(idsCarregando);
 
-    // Novos KPIs: contagens acumulativas de veículos únicos.
-    const iniciaramCarga = new Set(
-        idsCarregando.map(id => String(id))
-    ).size;
-
-    const passaramFila = new Set(
-        idsFila.map(id => String(id))
-    ).size;
+    const passaramFila = contarIdsFiltrados(idsFila);
 
     const indicadores = {
         relTotal: total,
@@ -159,13 +332,12 @@ function atualizarKPIsMovimentacoes() {
 
         if (elemento) {
             elemento.textContent = valor;
-        } else {
-            console.warn(`Elemento KPI não encontrado: #${id}`);
         }
     });
 
     console.table(indicadores);
 }
+
 
 window.addEventListener("storage", evento => {
     if (
@@ -192,16 +364,24 @@ document.addEventListener("DOMContentLoaded", () => {
     atualizarKPIsMovimentacoes();
 });
 
-function atualizarIndicativos() {
+// function atualizarIndicativos() {
 
  
 
-    const registros = historicoRecargas.filter(
+//     const registros = historicoRecargas.filter(
 
-        r => r.status === "Concluído"
+//         r => r.status === "Concluído"
 
+//     );
+
+
+function atualizarIndicativos(registrosFiltrados = null) {
+
+    const base = registrosFiltrados || obterRecargasFiltradas();
+
+    const registros = base.filter(
+        r => normalizarTexto(r.status) === "concluido"
     );
-
  
 
     // =====================================================
@@ -2396,7 +2576,12 @@ function renderizarTabelaUsoPorDia(registros) {
 function atualizarDashboardFiltrado() {
     const registros = obterRecargasFiltradas();
 
+    atualizarIndicativos(registros);
+
     renderizarTabelaUsoPorDia(registros);
+
+    // Atualiza os seis KPIs com os mesmos filtros.
+    atualizarKPIsMovimentacoes(registros);
 
     // Os gráficos são atualizados usando a mesma seleção.
     renderizarTopUsuarios();

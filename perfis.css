@@ -1,0 +1,1278 @@
+:root {
+
+    /* =========================
+
+       CORES PRINCIPAIS
+
+    =========================== */
+
+    --primary-blue: #4F8EF7;
+
+    --primary: #ff6b00;
+
+    --secondary: #38bdf8;
+
+    --sucess: #16a34a;
+
+    --danger: #ff0000;
+
+    --h1-dark: #ffffff;
+
+    --tema: #F25D27;
+
+    --cor-css: #1d78e7;
+
+    --cor-js: #F2B236;
+
+    --texto: #ec7b12;
+
+    --github: #b918ce;
+
+    --dark: #0f172a;
+
+    --fundo-sidebar: #0f172a;
+
+    --bar: #272626e5;
+
+    --background-section: #f9fbfcef;
+
+ 
+
+    /* =========================
+
+       CORES DO SISTEMA
+
+    ========================= */
+
+    --dark: #17202b;
+
+    --dark-soft: #3f4a59;
+
+ 
+
+    --text: #20242c;
+
+    --text-muted: #64748b;
+
+    --text-light: #9298a1;
+
+ 
+
+    /* =========================
+
+       CORES ESPECÍFICAS
+
+       ========================= */
+
+    --tema: #f25d27;
+
+    --cor-css: #1d78e7;
+
+    --cor-js: #f2b236;
+
+    --github: #b918ce;
+
+ 
+
+    /* =========================
+
+       BACKGROUNDS
+
+       ========================= */
+
+    --background: #f8fafc;
+
+    --background-section: #f9fbfc;
+
+    --background-card: #ffffff;
+
+    --background-muted: #f0f2f5;
+
+    --background-hover: #f3f5f8;
+
+ 
+
+    /* =========================
+
+       BORDAS
+
+       ========================= */
+
+    --border: #e7ebf0;
+
+    --border-soft: #edf0f3;
+
+ 
+
+    /* =========================
+
+       SOMBRAS
+
+       ========================= */
+
+ 
+
+    --shadow-xs: 0 2px 8px rgba(15, 23, 42, 0.04);
+
+    --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
+
+    --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.08);
+
+    --shadow-lg: 0 12px 30px rgba(10, 15, 20, 0.12);
+
+ 
+
+    /* =========================
+
+       RAIOS
+
+       ========================= */
+
+ 
+
+    --radius-sm: 7px;
+
+    --radius-md: 10px;
+
+    --radius-lg: 15px;
+
+ 
+
+    /* =========================
+
+       TRANSIÇÕES
+
+       ========================= */
+
+ 
+
+    --transition-fast: 0.2s ease;
+
+    --transition-normal: 0.3s ease;
+
+}
+
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+ 
+
+.background-slider::after {
+
+    content: "";
+
+ 
+
+    position: absolute;
+
+    inset: 0;
+
+ 
+
+    background: rgba(0,0,0,.65);
+
+}
+
+.profiles-container {
+
+    position: relative;
+
+    z-index: 10;
+
+    /* min-height: 100vh; */
+
+   flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+.profiles-header {
+
+    text-align: center;
+
+    margin-bottom: 60px;
+
+}
+
+ 
+
+.profiles-header h1 {
+
+    color: #fff;
+
+    font-size: 3rem;
+
+    font-weight: 700;
+
+}
+
+.profiles-header h1 span {
+    color:  var(--tema);
+} 
+
+.profiles-header h1 span i {
+    color: #fff;
+}
+
+.profiles-header p {
+
+    color: rgba(255,255,255,.8);
+
+}
+
+ 
+
+.profiles-grid {
+
+    display: flex;
+
+    gap: 40px;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+}
+
+ 
+
+.profile-item,
+
+.add-profile {
+
+    text-align: center;
+
+    cursor: pointer;
+
+}
+
+ 
+
+.profile-item img {
+
+    width: 140px;
+
+    height: 140px;
+
+    border-radius: 50%;
+
+ 
+
+    object-fit: cover;
+
+ 
+
+    transition: .3s;
+
+}
+
+ 
+
+.profile-item:hover img {
+
+    transform: scale(1.08);
+
+}
+
+ 
+
+.profile-item h3 {
+
+    margin-top: 15px;
+
+    color: #fff;
+
+}
+
+ 
+
+.profile-item span {
+
+    color: rgba(255,255,255,.7);
+
+}
+
+ 
+
+.profile-avatar {
+
+    position: relative;
+
+ 
+
+    width: 140px;
+
+    height: 140px;
+
+ 
+
+    margin: 0 auto;
+
+}
+
+ 
+
+.profile-avatar img {
+
+    width: 100%;
+
+    height: 100%;
+
+ 
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+}
+
+ 
+
+.foto-perfil {
+
+    position: relative;
+
+ 
+
+    width: 140px;
+
+    height: 140px;
+
+ 
+
+    margin: 0 auto;
+
+}
+
+ 
+
+.foto-perfil img {
+
+    width: 100%;
+
+    height: 100%;
+
+ 
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+}
+
+
+.editar-perfil {
+
+    position: absolute;
+
+ 
+
+    right: 6px;
+
+    bottom: 6px;
+
+ 
+
+    width: 32px;
+
+    height: 32px;
+
+ 
+
+    border-radius: 50%;
+
+ 
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+ 
+
+    background: #fff;
+
+    /*color: var(--primary);*/
+    color: #2563eb;
+
+    box-shadow: 0 2px 8px rgba(0,0,0,.25);
+
+ 
+
+    cursor: pointer;
+
+ 
+
+    transition: .2s;
+
+}
+
+ 
+
+.editar-perfil:hover {
+
+    transform: scale(1.15);
+
+}
+
+ 
+
+.editar-perfil::after {
+
+    content: "Editar perfil";
+
+ 
+
+    position: absolute;
+
+ 
+
+    bottom: -38px;
+
+    right: 50%;
+
+ 
+
+    transform: translateX(50%);
+
+ 
+
+    background: rgba(0,0,0,.85);
+
+    color: #fff;
+
+ 
+
+    font-size: .75rem;
+
+    white-space: nowrap;
+
+ 
+
+    padding: 6px 10px;
+
+ 
+
+    border-radius: 6px;
+
+ 
+
+    opacity: 0;
+
+    visibility: hidden;
+
+ 
+
+    transition: .2s;
+
+}
+
+ 
+
+.editar-perfil:hover::after {
+
+    opacity: 1;
+
+    visibility: visible;
+
+}
+
+ 
+
+.operadores-avatar {
+
+    width: 140px;
+
+    height: 140px;
+
+    border-radius: 50%;
+
+ 
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+ 
+
+    background: rgba(255,255,255,.15);
+
+    backdrop-filter: blur(8px);
+
+ 
+
+    margin: 0 auto 15px;
+
+}
+
+ 
+
+.operadores-avatar i {
+
+    font-size: 4rem;
+
+    color: #fff;
+
+}
+
+.modal-operadores {
+
+    position: fixed;
+
+    inset: 0;
+
+ 
+
+    background: rgba(0,0,0,.7);
+
+ 
+
+    display: none;
+
+ 
+
+    justify-content: center;
+
+    align-items: center;
+
+ 
+
+    z-index: 9999;
+
+}
+
+ 
+
+.modal-operadores.active {
+
+    display: flex;
+
+}
+
+ 
+
+.modal-box {
+
+    width: 500px;
+
+    max-width: 90%;
+
+ 
+
+    background: #fff;
+
+ 
+
+    border-radius: 20px;
+
+ 
+
+    padding: 24px;
+
+}
+
+ 
+
+.modal-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+ 
+
+    margin-bottom: 20px;
+
+}
+
+ 
+
+.modal-header button {
+
+    border: none;
+
+    background: none;
+
+    font-size: 1.2rem;
+
+    cursor: pointer;
+
+}
+
+ 
+
+#buscarOperador {
+
+    width: 100%;
+
+    padding: 12px;
+
+ 
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+ 
+
+    margin-bottom: 20px;
+
+}
+
+ 
+
+.lista-operadores {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+ 
+
+/* .operador-item {
+
+    padding: 14px;
+
+ 
+
+    border-radius: 10px;
+
+ 
+
+    background: #f5f5f5;
+
+ 
+
+    cursor: pointer;
+
+ 
+
+    transition: .2s;
+
+}
+
+ 
+
+.operador-item:hover {
+
+    background: #e9ecef;
+
+} */
+
+ 
+
+/* .operador-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+ 
+
+    padding: 14px 18px;
+
+ 
+
+    background: #f5f5f5;
+
+ 
+
+    border-radius: 14px;
+
+ 
+
+    cursor: pointer;
+
+ 
+
+    transition: .2s ease;
+
+} */
+
+ 
+
+.operador-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+ 
+
+    padding: 16px 20px;
+
+ 
+
+    background: #f5f5f5;
+
+    border-radius: 16px;
+
+}
+
+ 
+
+.operador-item:hover {
+
+    background: #eef4ff;
+
+    transform: translateX(4px);
+
+}
+
+.operador-avatar {
+
+    width: 56px;
+
+    height: 56px;
+
+    min-width: 56px;
+
+ 
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+ 
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+ 
+
+    /* background: #2563eb; */
+        background: var(--primary);
+
+    color: #fff;
+
+    font-weight: 700;
+
+}
+
+ 
+
+.operador-avatar img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+}
+
+ 
+
+/* .operador-avatar img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+} */
+
+ 
+
+.operador-info {
+
+    flex: 1;
+
+}
+
+ 
+
+.operador-info h4 {
+
+    margin: 0;
+
+    font-size: 1rem;
+
+}
+
+ 
+
+.operador-info small {
+
+    color: #6b7280;
+
+}
+
+ 
+
+.operador-item i.bi-chevron-right {
+
+    color: #6b7280;
+
+    font-size: 1.1rem;
+
+}
+
+ 
+
+.lista-operadores {
+
+    max-height: 320px;
+
+    overflow-y: auto;
+
+    padding-right: 6px;
+
+}
+
+ 
+
+/* =========================
+
+   MODAL OPERADORES
+
+========================= */
+
+ 
+
+.modal-operadores {
+
+    position: fixed;
+
+    inset: 0;
+
+ 
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+ 
+
+    background: rgba(0, 0, 0, .75);
+
+ 
+
+    z-index: 9999;
+
+}
+
+ 
+
+.modal-operadores.active {
+
+    display: flex;
+
+}
+
+ 
+
+.modal-box {
+
+    width: 500px;
+
+    max-width: 90%;
+
+ 
+
+    background: #fff;
+
+ 
+
+    border-radius: 20px;
+
+ 
+
+    padding: 24px;
+
+ 
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+
+}
+
+ 
+
+/* =========================
+
+   MODAL SENHA
+
+========================= */
+
+ 
+
+.modal-senha {
+
+    position: fixed;
+
+    inset: 0;
+
+ 
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+ 
+
+    background: rgba(0,0,0,.8);
+
+ 
+
+    z-index: 10000;
+
+}
+
+ 
+
+.modal-senha.active {
+
+    display: flex;
+
+}
+
+ 
+
+/* .modal-senha-box {
+
+    width: 400px;
+
+    max-width: 90%;
+
+ 
+
+    background: #fff;
+
+ 
+
+    border-radius: 20px;
+
+ 
+
+    padding: 30px;
+
+ 
+
+    text-align: center;
+
+ 
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+
+} */
+
+ 
+
+.modal-senha-box {
+
+    position: relative;
+
+ 
+
+    width: 400px;
+
+    max-width: 90%;
+
+ 
+
+    padding: 30px;
+
+ 
+
+    background: #fff;
+
+ 
+
+    border-radius: 20px;
+
+ 
+
+    text-align: center;
+
+ 
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+ 
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+
+}
+
+ 
+
+.btn-fechar-modal {
+
+    position: absolute;
+
+    top: 15px;
+
+    right: 15px;
+
+ 
+
+    border: none;
+
+    background: transparent;
+
+ 
+
+    cursor: pointer;
+
+ 
+
+    font-size: 1rem;
+
+}
+
+ 
+
+#nomeSelecionado {
+
+    color: #64748b;
+
+}
+
+ 
+
+#senhaPerfil {
+
+    width: 100%;
+
+ 
+
+    padding: 12px;
+
+ 
+
+    border: 1px solid #ddd;
+
+    border-radius: 10px;
+
+}
+
+ 
+
+#senhaPerfil:focus {
+
+    outline: none;
+
+    border-color: #4F8EF7;
+
+}
+
+ 
+
+#btnEntrarPerfil {
+
+    width: 100%;
+
+ 
+
+    padding: 12px;
+
+ 
+
+    border: none;
+
+    border-radius: 10px;
+
+ 
+
+    background: #4F8EF7;
+
+    color: #fff;
+
+ 
+
+    font-weight: 600;
+
+ 
+
+    cursor: pointer;
+
+}
+
+ 
+
+#btnEntrarPerfil:hover {
+
+    opacity: .9;
+
+}
+
+ 
+
+.modal-senha-box h2 {
+
+    margin: 10px 0;
+
+}
+
+ 
+
+#nomeSelecionado {
+
+    margin-bottom: 20px;
+
+    color: #64748b;
+
+}
+
+ 
+
+#senhaPerfil {
+
+    width: 100%;
+
+    padding: 12px;
+
+ 
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 10px;
+
+ 
+
+    margin-bottom: 15px;
+
+ 
+
+    font-size: 1rem;
+
+}
+
+ 
+
+#btnEntrarPerfil {
+
+    width: 100%;
+
+ 
+
+    padding: 12px;
+
+ 
+
+    border: none;
+
+    border-radius: 10px;
+
+ 
+
+    background: #2563eb;
+
+    color: #fff;
+
+ 
+
+    font-weight: 600;
+
+ 
+
+    cursor: pointer;
+
+}
+
+ 
+
+#btnEntrarPerfil:hover {
+
+    background: #1d4ed8;
+
+}
+
+ 
+
+.add-profile {
+
+    width: 140px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+ 
+
+.add-profile span {
+
+    color: rgba(255,255,255,.7);
+
+}
+
+ 
+
+.add-profile i {
+
+    width: 140px;
+
+    height: 140px;
+
+    margin-bottom: 30px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+ 
+
+    border-radius: 50%;
+
+ 
+
+    font-size: 3rem;
+
+ 
+
+    background: rgba(255,255,255,.1);
+
+ 
+
+    color: #fff;
+
+}
+
+ 
+
+.add-profile:hover  {
+
+    transform: scale(1.08);
+
+}
