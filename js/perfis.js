@@ -109,48 +109,6 @@ const fecharModalSenha =
 
 });
 
- 
-     // Editar perfil dos adms, comentado porque não salva as imgs ao carregar a página
-    // document.querySelectorAll('.profile-item').forEach(perfil => {
-    //     const editar = perfil.querySelector('.editar-perfil');
-
-    //     const input = perfil.querySelector('.inputFoto');
-
-    //     const foto = perfil.querySelector('.foto');
-
- 
-
-    //     editar.addEventListener('click', () => {
-
-    //         input.click();
-
-    //     });
-
- 
-
-    //     input.addEventListener('change', (event) => {
-
- 
-
-    //         const arquivo = event.target.files[0];
-
- 
-
-    //         if (!arquivo) return;
-
- 
-
-    //         foto.src = URL.createObjectURL(arquivo);
-
- 
-
-    //     });
-
- 
-
-    // });
-
-
 /* =========================================
    GERENCIAMENTO DOS PERFIS DE ADMINISTRADOR
    Perfis: localStorage
@@ -226,6 +184,8 @@ function criarCardPerfil(perfil) {
 
     const imagem = document.createElement('img');
     imagem.className = 'foto';
+    imagem.alt = `Foto de ${perfil.nome}`;
+    
     imagem.src = perfil.fotoPadrao || 'img/charge4.png'; //Aqui foto padrão para os novos perfis, depois apenas edite e escolha uma img de preferência
     imagem.alt = `Foto de ${perfil.nome}`;
 
@@ -246,37 +206,377 @@ function criarCardPerfil(perfil) {
     const cargo = document.createElement('span');
     cargo.textContent = '';
 
+            
+        const cadeado = document.createElement('i');
+        cadeado.className = perfil.pin
+            ? 'bi bi-lock-fill cadeado-perfil'
+            : 'bi bi-unlock cadeado-perfil';
+
+        cadeado.title = perfil.pin
+            ? 'Perfil protegido por PIN'
+            : 'Definir PIN do perfil';
+
+        cadeado.style.color = '#ffffff';
+        cadeado.style.pointerEvents = 'none';
+
+        card.append(cadeado);
+        //cadeado.style.cursor = 'pointer';
+
+        cadeado.addEventListener('click', async (event) => {
+            event.stopPropagation();
+
+            const resultado = await Swal.fire({
+                title: 'PIN do perfil',
+                text: `Defina um PIN de 4 dígitos para ${perfil.nome}.`,
+                input: 'password',
+                inputAttributes: {
+                    maxlength: 4,
+                    inputmode: 'numeric',
+                    autocomplete: 'new-password'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Salvar PIN',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#ff6b00',
+                inputValidator: (valor) => {
+                    if (!/^\d{4}$/.test(valor)) {
+                        return 'Digite exatamente 4 números.';
+                    }
+                }
+            });
+
+            if (!resultado.isConfirmed) return;
+
+            perfil.pin = resultado.value;
+
+            const indice = perfisAdministradores.findIndex(
+                item => item.id === perfil.id
+            );
+
+            if (indice !== -1) {
+                perfisAdministradores[indice].pin = resultado.value;
+                salvarPerfis(perfisAdministradores);
+            }
+
+            cadeado.className = 'bi bi-lock-fill cadeado-perfil';
+            cadeado.title = 'Perfil protegido por PIN';
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'PIN cadastrado!',
+                text: 'O PIN foi salvo para este perfil.',
+                confirmButtonColor: '#ff6b00'
+            });
+        });
+
+        card.append(cadeado);
+
     // card.append(areaFoto, titulo, cargo);
 
-    card.append(areaFoto, titulo, cargo,);
+    card.append(areaFoto, titulo, cargo, cadeado);
 
+    // editar.addEventListener('click', async (event) => {
+    //     event.stopPropagation();
+
+    //     const resultado = await Swal.fire({
+    //         title: 'Editar perfil',
+    //         text: `O que deseja fazer com o perfil de ${perfil.nome}?`,
+    //         icon: 'question',
+    //         showDenyButton: true,
+    //         showCancelButton: true,
+    //         confirmButtonText: 'Trocar foto',
+    //         denyButtonText: 'Excluir perfil',
+    //         cancelButtonText: 'Fechar',
+    //         confirmButtonColor: '#ff6b00',
+    //         denyButtonColor: '#dc2626',
+    //         cancelButtonColor: '#64748b',
+    //         reverseButtons: true
+    //     });
+
+    //     // Opção 1: trocar a foto
+    //     if (resultado.isConfirmed) {
+    //         input.click();
+    //         return;
+    //     }
+
+    //     // Opção 2: excluir o perfil
+    //     if (resultado.isDenied) {
+    //         // Impedir a exclusão do administrador principal
+    //         if (perfil.id === 'admin-wellington') {
+    //             await Swal.fire({
+    //                 icon: 'info',
+    //                 title: 'Administrador principal',
+    //                 text: 'Este perfil é protegido e não pode ser excluído.',
+    //                 confirmButtonText: 'Entendi',
+    //                 confirmButtonColor: '#ff6b00'
+    //             });
+
+    //             return;
+    //         }
+    //         const confirmacao = await Swal.fire({
+    //             title: 'Excluir este perfil?',
+    //             text: `O perfil de ${perfil.nome} e sua foto salva serão removidos.`,
+    //             icon: 'warning',
+    //             showCancelButton: true,
+    //             confirmButtonText: 'Sim, excluir',
+    //             cancelButtonText: 'Manter perfil',
+    //             confirmButtonColor: '#dc2626',
+    //             cancelButtonColor: '#64748b',
+    //             reverseButtons: true
+    //         });
+
+    //         if (!confirmacao.isConfirmed) return;
+
+    //         try {
+    //             // Primeiro remove a foto do IndexedDB
+    //             await excluirFotoOperador(perfil.id);
+
+    //             // Depois remove o perfil do localStorage
+    //             perfisAdministradores = perfisAdministradores.filter(
+    //                 item => item.id !== perfil.id
+    //             );
+
+    //             salvarPerfis(perfisAdministradores);
+    //             renderizarPerfis();
+
+    //             await Swal.fire({
+    //                 icon: 'success',
+    //                 title: 'Perfil excluído!',
+    //                 text: 'O perfil e sua foto foram removidos com sucesso.',
+    //                 confirmButtonColor: '#ff6b00',
+    //                 timer: 2000,
+    //                 showConfirmButton: false
+    //             });
+
+    //         } catch (erro) {
+    //             console.error('Erro ao excluir perfil:', erro);
+
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Não foi possível excluir',
+    //                 text: 'Ocorreu um erro ao remover a foto ou o perfil. Tente novamente.',
+    //                 confirmButtonText: 'Entendi',
+    //                 confirmButtonColor: '#ff6b00'
+    //             });
+    //         }
+    //     }
+    // });
+    
     editar.addEventListener('click', async (event) => {
         event.stopPropagation();
 
         const resultado = await Swal.fire({
             title: 'Editar perfil',
             text: `O que deseja fazer com o perfil de ${perfil.nome}?`,
-            icon: 'question',
-            showDenyButton: true,
+            input: 'radio',
+            inputOptions: {
+                foto: 'Trocar foto',
+                pin: 'PIN do perfil',
+                excluir: 'Excluir perfil'
+            },
+            inputValidator: (valor) => {
+                if (!valor) {
+                    return 'Selecione uma opção.';
+                }
+            },
+
+            // didOpen: () => {
+            //     const opcoes = Swal.getPopup().querySelectorAll(
+            //         'input[type="radio"], label'
+            //     );
+
+            //     opcoes.forEach(opcao => {
+            //         opcao.style.cursor = 'pointer';
+            //     });
+            // },
+            didOpen: () => {
+                const popup = Swal.getPopup();
+
+                const opcoes = popup.querySelectorAll(
+                    'input[type="radio"], label'
+                );
+
+                opcoes.forEach(opcao => {
+                    opcao.style.cursor = 'pointer';
+                    opcao.style.transition = 'transform 0.2s ease';
+
+                    opcao.addEventListener('mouseenter', () => {
+                        opcao.style.transform = 'translateY(-2px)';
+                    });
+
+                    opcao.addEventListener('mouseleave', () => {
+                        opcao.style.transform = 'translateY(0)';
+                    });
+                });
+            },
             showCancelButton: true,
-            confirmButtonText: 'Trocar foto',
-            denyButtonText: 'Excluir perfil',
+            confirmButtonText: 'Continuar',
             cancelButtonText: 'Fechar',
             confirmButtonColor: '#ff6b00',
-            denyButtonColor: '#dc2626',
             cancelButtonColor: '#64748b',
             reverseButtons: true
         });
 
+        if (!resultado.isConfirmed) return;
+
         // Opção 1: trocar a foto
-        if (resultado.isConfirmed) {
+        if (resultado.value === 'foto') {
             input.click();
             return;
         }
 
-        // Opção 2: excluir o perfil
-        if (resultado.isDenied) {
-            // Impedir a exclusão do administrador principal
+        // Opção 2: cadastrar ou alterar o PIN
+        // if (resultado.value === 'pin') {
+        //     const respostaPin = await Swal.fire({
+        //         title: perfil.pin ? 'Alterar PIN' : 'Proteger perfil',
+        //         text: `Digite um PIN de 4 dígitos para ${perfil.nome}.`,
+        //         input: 'password',
+        //         inputAttributes: {
+        //             maxlength: 4,
+        //             inputmode: 'numeric',
+        //             pattern: '[0-9]{4}',
+        //             autocomplete: 'new-password'
+        //         },
+        //         showCancelButton: true,
+        //         confirmButtonText: 'Salvar PIN',
+        //         cancelButtonText: 'Cancelar',
+        //         confirmButtonColor: '#ff6b00',
+        //         cancelButtonColor: '#64748b',
+        //         inputValidator: (valor) => {
+        //             if (!/^\d{4}$/.test(valor || '')) {
+        //                 return 'Digite exatamente 4 números.';
+        //             }
+        //         }
+        //     });
+
+        //     if (!respostaPin.isConfirmed) return;
+
+        //     const indice = perfisAdministradores.findIndex(
+        //         item => item.id === perfil.id
+        //     );
+
+        //     if (indice === -1) {
+        //         await Swal.fire({
+        //             icon: 'error',
+        //             title: 'Perfil não encontrado',
+        //             confirmButtonColor: '#ff6b00'
+        //         });
+        //         return;
+        //     }
+
+        //     perfisAdministradores[indice].pin = respostaPin.value;
+        //     perfil.pin = respostaPin.value;
+
+        //     salvarPerfis(perfisAdministradores);
+        //     renderizarPerfis();
+
+        //     await Swal.fire({
+        //         icon: 'success',
+        //         title: 'PIN salvo!',
+        //         text: `O perfil de ${perfil.nome} agora possui um PIN cadastrado.`,
+        //         confirmButtonColor: '#ff6b00'
+        //     });
+
+        //     return;
+        // }
+        
+        // Opção 2: cadastrar ou alterar o PIN
+        if (resultado.value === 'pin') {
+            const respostaPin = await Swal.fire({
+                title: perfil.pin ? 'Alterar PIN' : 'Proteger perfil',
+                text: `Digite um PIN de 4 dígitos para ${perfil.nome}.`,
+                input: 'password',
+                inputAttributes: {
+                    maxlength: 4,
+                    inputmode: 'numeric',
+                    pattern: '[0-9]{4}',
+                    autocomplete: 'new-password'
+                },
+                showCancelButton: true,
+                confirmButtonText: 'Salvar PIN',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#ff6b00',
+                cancelButtonColor: '#64748b',
+
+                // Cadeado para mostrar ou ocultar o PIN
+                didOpen: () => {
+                    const campo = Swal.getInput();
+
+                    const cadeadoPin = document.createElement('i');
+                    cadeadoPin.className = 'bi bi-lock-fill';
+                    cadeadoPin.title = 'Mostrar PIN';
+
+                    cadeadoPin.style.cssText = `
+                        position: absolute;
+                        right: 50px;
+                        top: 55%;
+                        transform: translateY(-50%);
+                        cursor: pointer;
+                        font-size: 20px;
+                        color: #64748b;
+                        z-index: 10;
+                    `;
+
+                    campo.parentElement.style.position = 'relative';
+                    campo.style.paddingRight = '42px';
+                    campo.parentElement.appendChild(cadeadoPin);
+
+                    cadeadoPin.addEventListener('click', () => {
+                        const mostrar = campo.type === 'password';
+
+                        campo.type = mostrar ? 'text' : 'password';
+
+                        cadeadoPin.className = mostrar
+                            ? 'bi bi-unlock-fill'
+                            : 'bi bi-lock-fill';
+
+                        cadeadoPin.title = mostrar
+                            ? 'Ocultar PIN'
+                            : 'Mostrar PIN';
+                    });
+                },
+
+                inputValidator: (valor) => {
+                    if (!/^\d{4}$/.test(valor || '')) {
+                        return 'Digite exatamente 4 números.';
+                    }
+                }
+            });
+
+            if (!respostaPin.isConfirmed) return;
+
+            const indice = perfisAdministradores.findIndex(
+                item => item.id === perfil.id
+            );
+
+            if (indice === -1) {
+                await Swal.fire({
+                    icon: 'error',
+                    title: 'Perfil não encontrado',
+                    confirmButtonColor: '#ff6b00'
+                });
+                return;
+            }
+
+            perfisAdministradores[indice].pin = respostaPin.value;
+            perfil.pin = respostaPin.value;
+
+            salvarPerfis(perfisAdministradores);
+            renderizarPerfis();
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'PIN salvo!',
+                text: `O perfil de ${perfil.nome} agora possui um PIN cadastrado.`,
+                confirmButtonColor: '#ff6b00'
+            });
+
+            return;
+        }
+
+        // Opção 3: excluir perfil
+        if (resultado.value === 'excluir') {
+
             if (perfil.id === 'admin-wellington') {
                 await Swal.fire({
                     icon: 'info',
@@ -288,6 +588,7 @@ function criarCardPerfil(perfil) {
 
                 return;
             }
+
             const confirmacao = await Swal.fire({
                 title: 'Excluir este perfil?',
                 text: `O perfil de ${perfil.nome} e sua foto salva serão removidos.`,
@@ -303,10 +604,8 @@ function criarCardPerfil(perfil) {
             if (!confirmacao.isConfirmed) return;
 
             try {
-                // Primeiro remove a foto do IndexedDB
                 await excluirFotoOperador(perfil.id);
 
-                // Depois remove o perfil do localStorage
                 perfisAdministradores = perfisAdministradores.filter(
                     item => item.id !== perfil.id
                 );
@@ -326,7 +625,7 @@ function criarCardPerfil(perfil) {
             } catch (erro) {
                 console.error('Erro ao excluir perfil:', erro);
 
-                Swal.fire({
+                await Swal.fire({
                     icon: 'error',
                     title: 'Não foi possível excluir',
                     text: 'Ocorreu um erro ao remover a foto ou o perfil. Tente novamente.',
@@ -405,6 +704,9 @@ function criarCardPerfil(perfil) {
     return card;
 }
 
+const NOME_BANCO_FOTOS = 'SmartChargerFotos';
+const NOME_STORE_FOTOS = 'fotosOperadores';
+
 // Renderiza os administradores sem remover os manobristas
 function renderizarPerfis() {
     gradePerfis
@@ -468,7 +770,7 @@ botaoNovoPerfil.addEventListener('click', async () => {
             ? crypto.randomUUID()
             : `admin-${Date.now()}-${Math.random().toString(36).slice(2)}`,
         nome: nome.trim(),
-        fotoPadrao: 'pictures/ft-teste.jpg'
+        fotoPadrao: 'img/charge4.png'
     };
 
     perfisAdministradores.push(novoPerfil);
@@ -487,19 +789,11 @@ botaoNovoPerfil.addEventListener('click', async () => {
     });
 
 });
-
-
-// Exibir os perfis salvos
-renderizarPerfis();
-
-    
+  
 /* =========================================
    FOTOS DOS PERFIS DOS ADMINISTRADORES
    Armazenamento: IndexedDB
-   ========================================= */
-
-const NOME_BANCO_FOTOS = 'SmartChargerFotos';
-const NOME_STORE_FOTOS = 'fotosOperadores';
+========================================= */
 
 function abrirBancoFotos() {
     return new Promise((resolve, reject) => {
@@ -604,86 +898,88 @@ async function excluirFotoOperador(id) {
     });
 }
 
+// Exibir os perfis salvos
+renderizarPerfis();
 
 // Editar perfil dos administradores
-document.querySelectorAll('.profile-item').forEach((perfil, index) => {
-    const editar = perfil.querySelector('.editar-perfil');
-    const input = perfil.querySelector('.inputFoto');
-    const foto = perfil.querySelector('.foto');
+// document.querySelectorAll('.profile-item').forEach((perfil, index) => {
+//     const editar = perfil.querySelector('.editar-perfil');
+//     const input = perfil.querySelector('.inputFoto');
+//     const foto = perfil.querySelector('.foto');
 
-    if (!editar || !input || !foto) return;
+//     if (!editar || !input || !foto) return;
 
-    // Use um identificador exclusivo e estável para cada perfil.
-    const idPerfil =
-        perfil.dataset.usuarioId ||
-        perfil.id ||
-        input.id ||
-        perfil.dataset.nome ||
-        `perfil-${index}`;
+//     // Use um identificador exclusivo e estável para cada perfil.
+//     const idPerfil =
+//         perfil.dataset.usuarioId ||
+//         perfil.id ||
+//         input.id ||
+//         perfil.dataset.nome ||
+//         `perfil-${index}`;
 
-    let urlTemporaria = null;
+//     let urlTemporaria = null;
 
-    function exibirFoto(arquivo) {
-        if (urlTemporaria) {
-            URL.revokeObjectURL(urlTemporaria);
-        }
+//     function exibirFoto(arquivo) {
+//         if (urlTemporaria) {
+//             URL.revokeObjectURL(urlTemporaria);
+//         }
 
-        urlTemporaria = URL.createObjectURL(arquivo);
-        foto.src = urlTemporaria;
-    }
+//         urlTemporaria = URL.createObjectURL(arquivo);
+//         foto.src = urlTemporaria;
+//     }
 
-    // Recuperar a foto salva ao abrir a página
-    buscarFotoOperador(idPerfil)
-        .then((arquivo) => {
-            if (arquivo) {
-                exibirFoto(arquivo);
-            }
-        })
-        .catch((erro) => {
-            console.error('Erro ao recuperar foto:', erro);
-        });
+//     // Recuperar a foto salva ao abrir a página
+//     buscarFotoOperador(idPerfil)
+//         .then((arquivo) => {
+//             if (arquivo) {
+//                 exibirFoto(arquivo);
+//             }
+//         })
+//         .catch((erro) => {
+//             console.error('Erro ao recuperar foto:', erro);
+//         });
 
-    // Abrir seletor de arquivos
-    editar.addEventListener('click', () => {
-        input.click();
-    });
+//     // Abrir seletor de arquivos
+//     editar.addEventListener('click', () => {
+//         input.click();
+//     });
 
-    // Selecionar, exibir e salvar a foto
-    input.addEventListener('change', async (event) => {
-        const arquivo = event.target.files[0];
+//     // Selecionar, exibir e salvar a foto
+//     input.addEventListener('change', async (event) => {
+//         const arquivo = event.target.files[0];
 
-        if (!arquivo) return;
+//         if (!arquivo) return;
 
-        if (!arquivo.type.startsWith('image/')) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Arquivo inválido',
-                text: 'Selecione uma imagem válida para o perfil.',
-                confirmButtonColor: '#ff6b00'
-            });
-            input.value = '';
-            return;
-        }
+//         if (!arquivo.type.startsWith('image/')) {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Arquivo inválido',
+//                 text: 'Selecione uma imagem válida para o perfil.',
+//                 confirmButtonColor: '#ff6b00'
+//             });
+//             input.value = '';
+//             return;
+//         }
 
-        try {
-            await salvarFotoOperador(idPerfil, arquivo);
+//         try {
+//             await salvarFotoOperador(idPerfil, arquivo);
 
-            exibirFoto(arquivo);
+//             exibirFoto(arquivo);
 
-            console.log('Foto salva com sucesso:', idPerfil);
-        } catch (erro) {
-            console.error('Erro ao salvar foto:', erro);
-            Swal.fire({
-                icon: 'error',
-                title: 'Ops! Não foi possível salvar',
-                text: 'Ocorreu um erro ao salvar a foto. Tente novamente.',
-                confirmButtonText: 'Entendi',
-                confirmButtonColor: '#ff6b00'
-            });
-        }
+//             console.log('Foto salva com sucesso:', idPerfil);
+//         } catch (erro) {
+//             console.error('Erro ao salvar foto:', erro);
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Ops! Não foi possível salvar',
+//                 text: 'Ocorreu um erro ao salvar a foto. Tente novamente.',
+//                 confirmButtonText: 'Entendi',
+//                 confirmButtonColor: '#ff6b00'
+//             });
+//         }
 
-        // Permite selecionar novamente o mesmo arquivo
-        input.value = '';
-    });
-});
+//         // Permite selecionar novamente o mesmo arquivo
+//         input.value = '';
+//     });
+// });
 

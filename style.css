@@ -561,7 +561,7 @@ body::before {
 }
 
  
-
+.btn-login,
 .btn-logout {
 
     /*Aqui é o botão sair*/
@@ -594,18 +594,136 @@ body::before {
 
 }
 
+.btn-login:hover,
 .btn-logout:hover {
-
-    background: var(--primary);
-
+    /* background: var(--primary); */
+    background-color: rgba(15, 23, 42, .75);;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(193, 192, 209),
+                0 0 25px rgb(59, 103, 185),
+                0 0 50px rgb(12, 60, 133),
+                0 0 100px rgb(3, 14, 167);
 }
 
- 
+.enviar{
+    width: 100%;
+    height: 50px;
+    background: rgba(15, 23, 42, .75);
+    border: none;
 
+    color: #fff;
+    font-weight: 500;
+    margin-top: 24px;
+    cursor: pointer;
+    outline: none;
+    font-size: 16px;
+    position: relative;
+    padding: 10px 100px;
+    overflow: hidden;
+    transition: .5s;
+    letter-spacing: 4px;
+    border: none;    
+    opacity: .7;
+    /* box-shadow: 3px 3px 3px rgb(0, 0, 0) ; */
+ }
+
+/* Bordas animadas do menu */
+.enviar span {
+    position: absolute;
+    display: block;
+    pointer-events: none;
+}
+
+.enviar span:nth-child(1) {
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 3px;
+    /* background: linear-gradient(90deg, transparent, var(--primary)); */
+    background: linear-gradient(90deg, transparent,#fff);
+    animation: btn-anim1 6s linear infinite;
+}
+
+@keyframes btn-anim1 {
+0% {
+    left: -100%;
+}
+50%, 100% {
+    left: 100%;
+    }
+}
+
+.enviar span:nth-child(2) {
+    top: -100%;
+    right: 0;
+    width: 3px;
+    height: 100%;
+    /* background: linear-gradient(180deg, transparent,var(--primary)); */
+    background: linear-gradient(180deg, transparent,#fff);
+    animation: btn-anim2 1s linear infinite;
+    animation-delay: .25s ;
+    }
+    
+@keyframes btn-anim2 {
+    0% {
+        top: -100%;
+    }
+    50%, 100% {
+        top: 100%;
+    }
+}
+
+.enviar span:nth-child(3) {
+    bottom: 0;
+    right: -100%;
+    width: 100%;
+    height: 3px;
+    /* background: linear-gradient(180deg, transparent,var(--primary)); */
+    background: linear-gradient(270deg, transparent, #fff);
+    animation: btn-anim3 1s linear infinite;
+    animation-delay: .5s ;
+}
+
+@keyframes btn-anim3 {
+    0% {
+        right: -100%;
+}
+    50%, 100% {
+        right: 100%;
+    }
+}
+
+.enviar span:nth-child(4) {
+    bottom: -100%;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    /* background: linear-gradient(180deg, transparent,var(--primary)); */
+     background: linear-gradient(360deg, transparent,#fff);
+    animation: btn-anim4 1s linear infinite;
+    animation-delay: .75s ;
+}
+            
+@keyframes btn-anim4 {
+    0% {
+        bottom: -100%;
+}
+    50%, 100% {
+        bottom: 100%;
+}
+}
+
+.enviar:hover{
+    background-color: rgba(15, 23, 42, .75);;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgb(193, 192, 209),
+                0 0 25px rgb(59, 103, 185),
+                0 0 50px rgb(12, 60, 133),
+                0 0 100px rgb(3, 14, 167);
+} 
 /* ================= Fim ============================ */
 
  
-
 /* ======= Cabeçalho da Topbar =================== */
 
 .main {
@@ -833,7 +951,6 @@ body::before {
 }
 
  
-
 /* Avatar */
 
 .profile-avatar {
@@ -858,199 +975,6 @@ body::before {
 
     font-weight: 700;
 
-}
-
- 
-
-/* seta */
-
-.profile i {
-
-    color: #9b9b9b;
-
-    font-size: 18px;
-
-}
-
-#profileToggle {
-    cursor: pointer;
-} 
-
-/* Menu do perfil */
-.profile-menu {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 0;
-    width: 150px;
-    padding: 6px;
-    background-color: #5400b5;
-    border: none;
-    border-radius: 5px;
-    color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
-    z-index: 1000;
-    overflow: hidden;
-}
-
-.profile-menu.active {
-    display: block;
-}
-
-.profile-login {
-    display: flex;
-    gap: 5px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    width: 100%;
-    padding: 5px 12px;
-    border: none;
-    border-radius: 6px;
-    background: transparent;
-    color: var(--text-color, #1e293b);
-    font-size: 14px;
-    font-weight: 500;
-    text-align: left;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-
-
-.profile-login i {
-    color: var(--primary);
-    font-size: 18px;
-    flex-shrink: 0;
-}
-
-.profile-login:hover {
-    /* background: #fff3eb; */
-    color: var(--primary);
-}
-
-.profile-menu.active {
-    display: block;
-}
-
-
-
-.profile-menu strong {
-    color: var(--text-color, #1e293b);
-}
-
-.profile-login span {
-    color: #9b9b9b;
-    font-size: 13px;
-}
-
-
-/* Bordas animadas do menu */
-.profile-menu span {
-    position: absolute;
-    display: block;
-    pointer-events: none;
-}
-
-.profile-menu span:nth-child(1) {
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 3px;
-    /* background: linear-gradient(90deg, transparent, var(--primary)); */
-    background: linear-gradient(90deg, transparent,#fff);
-    animation: btn-anim1 6s linear infinite;
-}
-
-@keyframes btn-anim1 {
-0% {
-    left: -100%;
-}
-50%, 100% {
-    left: 100%;
-    }
-}
-
-.profile-menu span:nth-child(2) {
-    top: -100%;
-    right: 0;
-    width: 3px;
-    height: 100%;
-    /* background: linear-gradient(180deg, transparent,var(--primary)); */
-    background: linear-gradient(180deg, transparent,#fff);
-    animation: btn-anim2 1s linear infinite;
-    animation-delay: .25s ;
-    }
-    
-@keyframes btn-anim2 {
-    0% {
-        top: -100%;
-    }
-    50%, 100% {
-        top: 100%;
-    }
-}
-
-.profile-menu span:nth-child(3) {
-    bottom: 0;
-    right: -100%;
-    width: 100%;
-    height: 3px;
-    /* background: linear-gradient(180deg, transparent,var(--primary)); */
-    background: linear-gradient(270deg, transparent, #fff);
-    animation: btn-anim3 1s linear infinite;
-    animation-delay: .5s ;
-}
-
-@keyframes btn-anim3 {
-    0% {
-        right: -100%;
-}
-    50%, 100% {
-        right: 100%;
-    }
-}
-
-.profile-menu span:nth-child(4) {
-    bottom: -100%;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    /* background: linear-gradient(180deg, transparent,var(--primary)); */
-     background: linear-gradient(360deg, transparent,#fff);
-    animation: btn-anim4 1s linear infinite;
-    animation-delay: .75s ;
-}
-            
-@keyframes btn-anim4 {
-    0% {
-        bottom: -100%;
-}
-    50%, 100% {
-        bottom: 100%;
-}
-}
-
-/* .profile-menu:hover {
-    background-color: #fff3eb;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(255, 107, 0, 0.25),
-                0 0 15px rgba(255, 107, 0, 0.20),
-                0 0 30px rgba(255, 107, 0, 0.12);
-} */
-
-.profile-menu:hover{
-    background-color: var(--background-card);
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgb(193, 192, 209),
-                0 0 25px rgb(110, 109, 150),
-                0 0 50px rgb(47, 37, 105),
-                0 0 100px rgb(255, 107, 0, 0.12);
 }
 
 /* ================ Seção Dashboard ====================== */

@@ -488,7 +488,15 @@ body {
 
 }
 
- 
+/* Efeito hover nos botões do SweetAlert2 */
+.swal2-actions button {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.swal2-actions button:hover {
+    transform: translateY(-2px);
+} 
 
 .operadores-avatar {
 
