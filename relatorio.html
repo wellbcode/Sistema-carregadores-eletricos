@@ -44,7 +44,6 @@
 <body>
 
     <!-- ==========Carrossel das imgs de fundo -->
-
     <div class="background-slider">
 
         <div class="bg-slide active">
@@ -92,7 +91,6 @@
     </div>
 
     <!-- ============== Container principal pai =================== -->
-
     <div class="app" id="inicio">
 
         <div class="overlay" id="overlay"></div>
@@ -164,97 +162,231 @@
  
 
                 <!-- ======== Seção dos KPIs cards ========= -->
-
                 <section class="relatorio-kpis">
-
+                    <!-- KPI Total -->
                     <article class="card kpi-relatorio cinza">
-
                         <div class="card-body">
 
-                            <h6>Total <i class="bi bi-clipboard-data status-tempo"></i></h6>
+                            <div class="kpi-header">
 
-                            <h2 id="relTotal">0</h2>
+                                <div class="kpi-icone">
+                                    <i class="bi bi-clipboard-data"></i>
+                                </div>
+
+                                <div class="kpi-info">
+                                    <div class="kpi-title">Total</div>
+                                    <div class="kpi-subtitle">
+                                        de operações
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="kpi-value" id="relTotal">0</div>
+
+                            <div class="kpi-footer">
+                                <i class="bi bi-graph-up-arrow"></i>
+                                Operações registradas
+                            </div>
+
+                            <div class="kpi-bg-icon">
+                                <i class="bi bi-bar-chart"></i>
+                            </div>
 
                         </div>
-
                     </article>
 
+                    
  
-
+                    <!-- KPI Cocluídas -->
                     <article class="card kpi-relatorio verde">
+                        <div class="card-body">
+                            <div class="kpi-header">
 
+                                <div class="kpi-icone">
+                                    <i class="bi bi-check-lg"></i>
+                                </div>
+
+                                <div class="kpi-info">
+                                    <div class="kpi-title">
+                                        Concluídas
+                                    </div>
+
+                                    <div class="kpi-subtitle">
+                                        operações finalizadas
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="kpi-value" id="relConcluidas">
+                                7
+                            </div>
+
+                            <div class="kpi-footer">
+                                <i class="bi bi-arrow-up-circle-fill"></i>
+                                100% do total
+                            </div>
+
+                            <div class="kpi-bg-icon">
+                                <i class="bi bi-trophy"></i>
+                            </div>
+                        </div>
+                    </article>
+                    
+                     <!-- KPI Carregando -->
+                    <article class="card kpi-relatorio azul">
                         <div class="card-body">
 
-                            <h6>Concluídas <i class="bi bi-check-circle-fill status-concluido"></i></h6>
+                            <div class="kpi-header">
 
-                            <h2 id="relConcluidas">0</h2>
+                                <div class="kpi-icone">
+                                    <i class="bi bi-lightning-charge-fill"></i>
+                                </div>
+
+                                <div class="kpi-info">
+                                    <div class="kpi-title">
+                                        Carregando
+                                    </div>
+
+                                    <div class="kpi-subtitle">
+                                        em andamento
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="kpi-value" id="relEmAndamento">0</div>
+
+                            <div class="kpi-footer">
+                                <i class="bi bi-circle-fill"></i>
+                                Veículos nesse momento
+                            </div>
+
+                            <div class="kpi-bg-icon">
+                                <i class="bi bi-ev-front"></i>
+                            </div>
 
                         </div>
-
                     </article>
-
  
+                    <article class="card kpi-relatorio laranja">
+                        <div class="card-body">
+
+                            <div class="kpi-header">
+
+                                <div class="kpi-icone">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </div>
+
+                                <div class="kpi-info">
+                                    <div class="kpi-title">
+                                        Fila
+                                    </div>
+
+                                    <div class="kpi-subtitle">
+                                        aguardando carregamento
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="kpi-value" id="relFila">
+                                0
+                            </div>
+
+                            <div class="kpi-footer">
+                                <i class="bi bi-circle-fill"></i>
+                                Veículos em tempo real
+                            </div>
+
+                            <div class="kpi-bg-icon">
+                                <i class="bi bi-people-fill"></i>
+                            </div>
+
+                        </div>
+                    </article>
 
                     <article class="card kpi-relatorio azul">
-
                         <div class="card-body">
 
-                            <h6>Carregando <i class="bi bi-plugin status-carregando"></i></h6>
+                            <div class="kpi-header">
 
-                            <h2 id="relEmAndamento">0</h2>
+                                <div class="kpi-icone">
+                                    <i class="fa-solid fa-charging-station"></i>
+                                </div>
+
+                                <div class="kpi-info">
+                                    <div class="kpi-title">
+                                        Iniciaram a carga
+                                    </div>
+
+                                    <div class="kpi-subtitle">
+                                        veículos que iniciaram hoje
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="kpi-value" id="relIniciaramCarga">
+                                0
+                            </div>
+
+                            <div class="kpi-footer">
+                                <i class="bi bi-arrow-up-right"></i>               
+                               <span>Veículos no total</span>
+                            </div>
+
+                            <div class="kpi-bg-icon">
+                                <i class="bi bi-battery-charging"></i>
+                            </div>
 
                         </div>
-
                     </article>
-
- 
 
                     <article class="card kpi-relatorio laranja">
-
                         <div class="card-body">
 
-                            <h6>Fila <i class="bi bi-hourglass-split status-fila"></i></h6>
+                            <div class="kpi-header">
 
-                            <h2 id="relFila">0</h2>
+                                <div class="kpi-icone">
+                                    <i class="bi bi-hourglass-split"></i>
+                                </div>
+
+                                <div class="kpi-info">
+                                    <div class="kpi-title">
+                                        Passaram pela Fila
+                                    </div>
+
+                                    <div class="kpi-subtitle">
+                                        veículos que aguardaram
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="kpi-value" id="relPassaramFila">
+                                0
+                            </div>
+
+                            <div class="kpi-footer">
+                                <i class="bi bi-arrow-up-right"></i>
+                                <span>Veículos no total</span>
+                            </div>
+
+                            <div class="kpi-bg-icon">
+                                <i class="bi bi-car-front-fill"></i>
+                            </div>
 
                         </div>
-
                     </article>
-
-                    <article class="card kpi-relatorio azul">
-
-                        <div class="card-body">
-
-                            <h6>Iniciaram a carga  
-                                <i class="fa-solid fa-charging-station status-carregando"></i>
-                                <i class="bi bi-ev-front-fill status-carregando"></i>
-                            </h6>
-
-                            <h2 id="relIniciaramCarga">0 </h2>  
-                        </div>
-
-                    </article>
-
- 
-
-                    <article class="card kpi-relatorio laranja">
-
-                        <div class="card-body">
-
-                            <h6>Passaram pela Fila 
-                                <i class="bi bi-hourglass-split status-fila"></i>
-                                <!-- <i class="bi bi-car-front-fill status-fila"></i> -->
-                                <i class="bi bi-ev-front status-fila"></i>
-                            </h6>
-
-                            <h2 id="relPassaramFila">0</h2>                             
-                        </div>
-
-                    </article>
-
                 </section>
 
- 
+                <div class="dashboard-signature">
+                    <span></span>
+                    <p>“MOBILIDADE MOVIDA POR DADOS”</p>
+                    <span></span>
+                </div>
 
                 <!-- ============= Seção Indicadores=============== -->
 
@@ -436,7 +568,7 @@
 
                 </section>
 
- 
+
 
                 <!-- ==================== Título comparativo-mensal ==================== -->
 

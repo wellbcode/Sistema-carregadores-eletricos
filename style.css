@@ -571,7 +571,7 @@ body::before {
     border: 1px solid var(--h1-dark);
 
     background: rgba(15, 23, 42, .75);
-
+     backdrop-filter: blur(8px);
     color: #fff;
 
     border-radius: 12px;
@@ -597,7 +597,7 @@ body::before {
 .btn-login:hover,
 .btn-logout:hover {
     /* background: var(--primary); */
-    background-color: rgba(15, 23, 42, .75);;
+    background-color: rgba(15, 23, 42, .75);
     border-radius: 5px;
     box-shadow: 0 0 5px rgb(193, 192, 209),
                 0 0 25px rgb(59, 103, 185),

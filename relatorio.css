@@ -319,14 +319,12 @@ html {
  
 
 /* =========================================================
-
    KPIs
-
-   ========================================================= */
+========================================================= */
 
  
 
-.relatorio-kpis {
+/* .relatorio-kpis {
 
  
 
@@ -348,121 +346,218 @@ html {
 
  
 
-} 
-/* .relatorio-kpis {
+}  */
+
+.kpi-relatorio{
+    position:relative;
+    overflow:hidden;
+
+    border:none;
+    border-radius:24px;
+
+    min-height:220px;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.08);
+}
+ 
+
+.relatorio-kpis {
+
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
     gap: 14px;
+
     margin-bottom: 18px;
-} */
-
- 
-
-.kpi-relatorio {
-
- 
-
-    position: relative;
-
- 
-
-    min-width: 0;
-
- 
-
-    overflow: hidden;
-
- 
-
-    background: var(--background-card);
-
- 
-
-    border: 1px solid var(--border);
-
- 
-
-    border-radius: var(--radius-lg);
-
- 
-
-    box-shadow: var(--shadow-sm);
-
- 
-
-    transition:
-
-        transform var(--transition-fast),
-
-        box-shadow var(--transition-fast);
 
  
 
 }
 
+
+.kpi-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
  
+.cinza .kpi-icone{
+    background:#cbd5e1;
+    color: var(--blue-dark);
+}
 
-.kpi-relatorio::before {
+.verde .kpi-icone{
+    background:#22c55e;
+    color:white;
+}
 
- 
+.azul .kpi-icone{
+    background:#2563eb;
+    color:white;
+}
 
-    content: "";
+.laranja .kpi-icone{
+    background:#fb923c;
+    color:white;
+}
 
- 
+/*Textos*/
 
-    position: absolute;
+.kpi-title{
+    font-size:1.7rem;
+    font-weight:700;
+    color:#1e293b;
+}
 
- 
+.kpi-subtitle{
+    font-size:.95rem;
+    color:#64748b;
+}
 
-    inset: 0 auto 0 0;
+.kpi-value{
+    margin-top:25px;
 
- 
+    font-size:4.2rem;
+    font-weight:800;
 
-    width: 4px;
+    line-height:1;
 
- 
+    color:#0f172a;
+}
 
-    background: #5b6472;
+.kpi-footer{
+    margin-top:14px;
 
- 
+    font-size:1rem;
+    font-weight:600;
 
+    color:#64748b;
+}
+
+.kpi-footer i{
+    font-size: 20px;
+}
+
+.laranja .kpi-footer {
+    background: linear-gradient(90deg,
+        #fffdfb 0%,
+        #fef5eb 100%);
+}
+
+.laranja .kpi-footer i {
+    color: #fb923c;
+}
+
+.cinza .kpi-footer {
+    background: linear-gradient(
+        90deg,
+        #fcfcfd 0%,
+        #eef2f7 100%
+    );
+}
+
+.kpi-icone{
+    width:65px;
+    height:60px;
+
+    border-radius:18px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:28px;
+
+    flex-shrink:0;
+}
+
+
+.kpi-bg-icon{
+    position:absolute;
+
+    right:25px;
+    bottom:20px;
+
+    font-size:90px;
+
+    opacity:.08;
+    pointer-events:none;
+}
+
+.cinza .kpi-bg-icon{
+    color: var(--blue-dark);
+}
+
+.verde .kpi-bg-icon{
+    
+    color: #0ca82e;
+}
+
+.azul .kpi-bg-icon{
+    color: #2563eb;
+}
+
+.laranja .kpi-bg-icon{
+    color: #fb923c;
+}
+
+/* Gradiente no fundo dos cards, não gostei muito 
+
+.kpi-relatorio.cinza {
+    background: linear-gradient(135deg, #f1f5ff 100%, #ffff 0%);
+}
+
+
+.kpi-relatorio.verde {
+    background: linear-gradient(135deg, #e2f8e9 100%, #ffff 0%);
+}
+
+
+.kpi-relatorio.azul {
+    background: linear-gradient(135deg, #e5edff 100%, #ffff 0%);
 }
 
  
+.kpi-relatorio.laranja {
+    background: linear-gradient(135deg, #dfdad5 100%, #ffff 0%);
+}
+*/
 
-.kpi-relatorio:nth-child(2)::before {
-
-    background: #59a96c;
-
+.verde{
+    background:linear-gradient(
+        135deg,
+        #eefcf3,
+        #ffffff
+    );
 }
 
- 
-
-.kpi-relatorio:nth-child(3)::before {
-
-    background: #0408df;
-
+.azul{
+    background:linear-gradient(
+        135deg,
+        #eef4ff,
+        #ffffff
+    );
 }
 
- 
-
-.kpi-relatorio:nth-child(4)::before {
-
-    background: #e6a04b;
-
+.laranja{
+    background:linear-gradient(
+        135deg,
+        #fff7ed,
+        #ffffff
+    );
 }
 
-.kpi-relatorio:nth-child(5)::before {
-
-    background: #0408df;
-
+.grafite{
+    background:linear-gradient(
+        135deg,
+        #f8fafc,
+        #ffffff
+    );
 }
 
-.kpi-relatorio:nth-child(6)::before {
 
-    background: #e6a04b;
-
-}
 
 /* Os dois últimos cards ocupam metade da largura cada */
 .relatorio-kpis .kpi-relatorio:nth-child(5) {
@@ -515,93 +610,8 @@ html {
 
 }
 
- 
 
-.kpi-relatorio h6 {
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin: 0 0 7px;
-
- 
-
-    color: var(--text-muted);
-
- 
-
-    font-size: 1.5rem;
-
- 
-
-    line-height: 1.3;
-
- 
-
-    font-weight: 600;
-
- 
-
-}
-
- 
-
-.kpi-relatorio h6 .status-concluido {
-
-    color: #16a34a;
-
-}
-
- 
-
-.kpi-relatorio h6 .status-carregando {
-
-    color: #0408df;
-
-}
-
- 
-
-.kpi-relatorio h2 {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 8p;
-
- 
-
-    margin: 0;
-
- 
-
-    color: var(--dark);
-
- 
-
-    font-size: 2rem;
-
- 
-
-    line-height: 1;
-
- 
-
-    font-weight: 750;
-
- 
-
-}
-
- 
 
 .relatorio-indicadores {
 
@@ -627,6 +637,478 @@ html {
 
 }
 
+.dashboard-signature{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:24px;
+
+    margin-top:32px;
+    margin-bottom:24px;
+}
+
+.dashboard-signature span{
+    width:80px;
+    height:1px;
+
+    background:rgba(255,255,255,.35);
+}
+
+.dashboard-signature p{
+    margin:0;
+
+    color:rgba(255,255,255,.75);
+
+    font-size:.95rem;
+
+    letter-spacing:4px;
+
+    font-weight:500;
+
+    text-transform:uppercase;
+}
+
+/* =========================================================
+   INDICADORES FINAIS
+   ========================================================= */
+
+ 
+
+.indicador-card {
+
+ 
+
+    min-width: 0;
+
+ 
+
+    min-height: 90px;
+
+ 
+
+    display: flex;
+
+ 
+
+    align-items: center;
+
+ 
+
+    gap: 14px;
+
+ 
+
+    padding: 17px;
+
+ 
+
+    background: #fff;
+
+ 
+
+    border: 1px solid var(--border);
+
+ 
+
+    border-radius: var(--radius-lg);
+
+ 
+
+    box-shadow: var(--shadow-sm);
+
+ 
+
+    transition:
+
+        transform var(--transition-fast),
+
+        box-shadow var(--transition-fast);
+
+ 
+
+}
+
+ 
+
+.indicador-card:hover {
+
+ 
+
+    transform: translateY(-2px);
+
+ 
+
+    box-shadow: var(--shadow-md);
+
+ 
+
+}
+
+ 
+
+.cinza {
+
+    border-left: 5px solid #5b6472;
+
+}
+
+ 
+
+.laranja {
+
+    border-left: 5px solid #e39a3e;
+
+}
+
+ 
+
+.vermelho {
+
+    border-left: 5px solid #c73a3a;
+
+}
+
+ 
+
+.verde {
+
+    border-left: 5px solid #5da661;
+
+}
+
+ 
+
+.amarelo {
+
+    border-left: 5px solid #e2bf20;
+
+}
+
+ 
+
+.azul {
+
+    border-left: 5px solid #0408df;
+
+}
+
+ 
+
+.indicador-icone {
+
+ 
+
+    width: 42px;
+
+ 
+
+    height: 42px;
+
+ 
+
+    flex-shrink: 0;
+
+ 
+
+    display: flex;
+
+ 
+
+    align-items: center;
+
+ 
+
+    justify-content: center;
+
+ 
+
+    border-radius: 11px;
+
+ 
+
+    /* font-size: 17px; */
+
+    font-size: 1.3em;
+
+ 
+
+}
+
+ 
+
+.indicador-icone.cinza {
+
+ 
+
+    background: #f1f3f6;
+
+ 
+
+    color: #5b6472;
+
+ 
+
+}
+
+ 
+
+.indicador-icone.laranja {
+
+ 
+
+    background: #fff4e5;
+
+ 
+
+    color: #e39a3e;
+
+ 
+
+}
+
+ 
+
+.indicador-icone.vermelho {
+
+ 
+
+    background: #fdf2f2;
+
+ 
+
+    color: #c73a3a;
+
+ 
+
+}
+
+ 
+
+.indicador-icone.amarelo {
+
+ 
+
+    background: #fff8e1;
+
+ 
+
+    color: #e2bf20;
+
+ 
+
+}
+
+ 
+
+.indicador-icone.verde {
+
+ 
+
+    background: #f4edfb;
+
+ 
+
+    color: #5da661;
+
+ 
+
+}
+
+ 
+
+.indicador-info {
+
+ 
+
+    min-width: 0;
+
+ 
+
+    display: flex;
+
+ 
+
+    flex-direction: column;
+
+ 
+
+    gap: 5px;
+
+ 
+
+}
+
+ 
+
+.indicador-info span {
+
+ 
+
+    color: #7b828d;
+
+ 
+
+    font-size: 12px;
+
+ 
+
+    line-height: 1.35;
+
+ 
+
+}
+
+ 
+
+.indicador-info strong {
+
+ 
+
+    color: var(--text);
+
+ 
+
+    font-size: 20px;
+
+ 
+
+    line-height: 1;
+
+ 
+
+    font-weight: 750;
+
+ 
+
+}
+
+ 
+
+.status-tempo {
+
+    display: inline-block;
+
+    animation: pulsarStatus 1.5s infinite;
+
+    color: var(--primary-blue);
+
+}
+
+ 
+
+.status-media {
+
+    display: inline-block;
+
+    animation: pulsarStatus 1.5s infinite;
+
+    color: #c73a3a;
+
+}
+
+ 
+
+.status-energia {
+
+    display: inline-block;
+
+    animation: pulsarStatus 1.5s infinite;
+
+    color: #e2bf20;
+
+}
+
+ 
+
+/* Fila - pulsação */
+
+@keyframes pulsarStatus {
+
+    0%, 100% {
+
+        transform: scale(1);
+
+        opacity: 1;
+
+    }
+
+ 
+
+    50% {
+
+        transform: scale(1.15);
+
+        opacity: 0.65;
+
+    }
+
+}
+
+ 
+
+/* Aberto - pequeno movimento */
+
+@keyframes entradaStatus {
+
+    0%, 100% {
+
+        transform: translateX(0);
+
+    }
+
+ 
+
+    50% {
+
+        transform: translateX(2px);
+
+    }
+
+}
+
+ 
+
+/* Carregando - pulsação mais rápida */
+
+@keyframes carregarStatus {
+
+    0%, 100% {
+
+        transform: scale(1);
+
+    }
+
+ 
+
+    50% {
+
+        transform: scale(1.15);
+
+    }
+
+}
+
+ 
+
+/* Concluído - destaque suave */
+
+@keyframes concluidoStatus {
+
+    0%, 100% {
+
+        transform: scale(1);
+
+    }
+
+    50% {
+
+        transform: scale(1.12);
+
+    }
+
+}
+
+ 
  
 
 /* =========================================================
@@ -4557,451 +5039,6 @@ html {
 }
 
  
-
-/* =========================================================
-
-   INDICADORES FINAIS
-
-   ========================================================= */
-
- 
-
-.indicador-card {
-
- 
-
-    min-width: 0;
-
- 
-
-    min-height: 90px;
-
- 
-
-    display: flex;
-
- 
-
-    align-items: center;
-
- 
-
-    gap: 14px;
-
- 
-
-    padding: 17px;
-
- 
-
-    background: #fff;
-
- 
-
-    border: 1px solid var(--border);
-
- 
-
-    border-radius: var(--radius-lg);
-
- 
-
-    box-shadow: var(--shadow-sm);
-
- 
-
-    transition:
-
-        transform var(--transition-fast),
-
-        box-shadow var(--transition-fast);
-
- 
-
-}
-
- 
-
-.indicador-card:hover {
-
- 
-
-    transform: translateY(-2px);
-
- 
-
-    box-shadow: var(--shadow-md);
-
- 
-
-}
-
- 
-
-.cinza {
-
-    border-left: 5px solid #5b6472;
-
-}
-
- 
-
-.laranja {
-
-    border-left: 5px solid #e39a3e;
-
-}
-
- 
-
-.vermelho {
-
-    border-left: 5px solid #c73a3a;
-
-}
-
- 
-
-.verde {
-
-    border-left: 5px solid #5da661;
-
-}
-
- 
-
-.amarelo {
-
-    border-left: 5px solid #e2bf20;
-
-}
-
- 
-
-.azul {
-
-    border-left: 5px solid #0408df;
-
-}
-
- 
-
-.indicador-icone {
-
- 
-
-    width: 42px;
-
- 
-
-    height: 42px;
-
- 
-
-    flex-shrink: 0;
-
- 
-
-    display: flex;
-
- 
-
-    align-items: center;
-
- 
-
-    justify-content: center;
-
- 
-
-    border-radius: 11px;
-
- 
-
-    /* font-size: 17px; */
-
-    font-size: 1.3em;
-
- 
-
-}
-
- 
-
-.indicador-icone.cinza {
-
- 
-
-    background: #f1f3f6;
-
- 
-
-    color: #5b6472;
-
- 
-
-}
-
- 
-
-.indicador-icone.laranja {
-
- 
-
-    background: #fff4e5;
-
- 
-
-    color: #e39a3e;
-
- 
-
-}
-
- 
-
-.indicador-icone.vermelho {
-
- 
-
-    background: #fdf2f2;
-
- 
-
-    color: #c73a3a;
-
- 
-
-}
-
- 
-
-.indicador-icone.amarelo {
-
- 
-
-    background: #fff8e1;
-
- 
-
-    color: #e2bf20;
-
- 
-
-}
-
- 
-
-.indicador-icone.verde {
-
- 
-
-    background: #f4edfb;
-
- 
-
-    color: #5da661;
-
- 
-
-}
-
- 
-
-.indicador-info {
-
- 
-
-    min-width: 0;
-
- 
-
-    display: flex;
-
- 
-
-    flex-direction: column;
-
- 
-
-    gap: 5px;
-
- 
-
-}
-
- 
-
-.indicador-info span {
-
- 
-
-    color: #7b828d;
-
- 
-
-    font-size: 12px;
-
- 
-
-    line-height: 1.35;
-
- 
-
-}
-
- 
-
-.indicador-info strong {
-
- 
-
-    color: var(--text);
-
- 
-
-    font-size: 20px;
-
- 
-
-    line-height: 1;
-
- 
-
-    font-weight: 750;
-
- 
-
-}
-
- 
-
-.status-tempo {
-
-    display: inline-block;
-
-    animation: pulsarStatus 1.5s infinite;
-
-    color: var(--primary-blue);
-
-}
-
- 
-
-.status-media {
-
-    display: inline-block;
-
-    animation: pulsarStatus 1.5s infinite;
-
-    color: #c73a3a;
-
-}
-
- 
-
-.status-energia {
-
-    display: inline-block;
-
-    animation: pulsarStatus 1.5s infinite;
-
-    color: #e2bf20;
-
-}
-
- 
-
-/* Fila - pulsação */
-
-@keyframes pulsarStatus {
-
-    0%, 100% {
-
-        transform: scale(1);
-
-        opacity: 1;
-
-    }
-
- 
-
-    50% {
-
-        transform: scale(1.15);
-
-        opacity: 0.65;
-
-    }
-
-}
-
- 
-
-/* Aberto - pequeno movimento */
-
-@keyframes entradaStatus {
-
-    0%, 100% {
-
-        transform: translateX(0);
-
-    }
-
- 
-
-    50% {
-
-        transform: translateX(2px);
-
-    }
-
-}
-
- 
-
-/* Carregando - pulsação mais rápida */
-
-@keyframes carregarStatus {
-
-    0%, 100% {
-
-        transform: scale(1);
-
-    }
-
- 
-
-    50% {
-
-        transform: scale(1.15);
-
-    }
-
-}
-
- 
-
-/* Concluído - destaque suave */
-
-@keyframes concluidoStatus {
-
-    0%, 100% {
-
-        transform: scale(1);
-
-    }
-
-    50% {
-
-        transform: scale(1.12);
-
-    }
-
-}
-
- 
-
 /* =========================================================
 
    Histórico do res geralzão

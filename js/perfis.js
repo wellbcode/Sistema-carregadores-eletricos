@@ -1,17 +1,9 @@
 
 const cardOperadores = document.querySelector('.operadores');
-
 const modalOperadores = document.getElementById('modalOperadores');
-
 const fecharModal = document.getElementById('fecharModal');
-
-
-
 const modalSenha = document.getElementById('modalSenha');
-
 const nomeSelecionado = document.getElementById('nomeSelecionado');
-
-
 
 // Abrir modal dos operadores
 
@@ -21,8 +13,6 @@ cardOperadores.addEventListener('click', () => {
 
 });
 
- 
-
 // Fechar modal dos operadores
 
 fecharModal.addEventListener('click', () => {
@@ -31,13 +21,32 @@ fecharModal.addEventListener('click', () => {
 
 });
 
-
-
 // Clique em um operador
 
 const operadores = document.querySelectorAll('.operador-item');
 
- 
+
+const buscarOperador = document.getElementById('buscarOperador');
+
+buscarOperador.addEventListener('input', () => {
+
+    const pesquisa = buscarOperador.value.toLowerCase().trim();
+
+    operadores.forEach(operador => {
+
+        const nome = operador.querySelector('h4').textContent.toLowerCase();
+
+        const detalhes = operador.querySelector('small').textContent.toLowerCase();
+
+        operador.style.display =
+            nome.includes(pesquisa) || detalhes.includes(pesquisa)
+                ? ''
+                : 'none';
+
+    });
+
+});
+
 
 operadores.forEach(operador => {
 
@@ -82,18 +91,13 @@ operadores.forEach(operador => {
 
 // Fecha o modal de senha
 const fecharModalSenha =
-
     document.getElementById('fecharModalSenha');
-
-
 
     fecharModalSenha.addEventListener('click', () => {
 
         modalSenha.classList.remove('active');
 
     });
-
-
 
     modalSenha.addEventListener('click', (e) => {
 
