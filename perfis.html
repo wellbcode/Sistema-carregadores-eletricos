@@ -7,8 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="responsivo.css">
@@ -17,446 +16,858 @@
     <link rel="stylesheet" href="perfis.css">
 </head>
 <body>
-    <!-- ======== Slides das imgs de fundo ================ -->
+<!-- ======== Slides das imgs de fundo ================ -->
     <div class="background-slider">
+
         <div class="bg-slide active">
+
             <img src="img/charge1.jpg" alt="">
+
         </div>
 
+ 
+
         <div class="bg-slide">
+
             <img src="img/charge2.png" alt="">
+
         </div>
 
+ 
+
         <div class="bg-slide">
+
             <img src="img/charge3.jpg" alt="">
+
         </div>
 
+ 
+
         <div class="bg-slide">
+
             <img src="img/charge4.png" alt="">
+
         </div>
 
+ 
+
         <div class="bg-slide">
+
             <img src="img/charge5.jpg" alt="">
+
         </div>
 
+ 
+
         <div class="bg-slide">
+
             <img src="img/charge6.jpg" alt="">
+
         </div>
 
+ 
+
         <div class="bg-slide">
+
             <img src="img/charge7.jpg" alt="">
+
         </div>
+
     </div>
 
-        <!-- ================ Sidebar aproveitada ====================== -->
-        <aside class="sidebar" >
-            <!--=== Logo ===-->
-            <div class="logo">
-                <div class="logo-icon">
-                    <i class="bi bi-lightning-charge-fill"></i>
-                </div>
-                <h2>Smart <span>Charger</span></h2>
+ 
+
+    <!-- ================ Sidebar aproveitada ====================== -->
+
+    <aside class="sidebar" >
+
+        <!--=== Logo ===-->
+
+        <div class="logo">
+
+            <div class="logo-icon">
+
+                <i class="bi bi-lightning-charge-fill"></i>
+
             </div>
-        </aside>
 
-        <!-- <div class="overlay" id="overlay"></div> -->
+             <h2>Smart <span>Charger</span></h2>
 
-    <main class="profiles-container">
-        <div class="profiles-header">
-            <h1>Quem está utilizando o Smart <span>Charger?</span> <span class="title"><i class="bi bi-lightning-charge-fill"></i></span></h1>
-            
-            <p>Selecione um perfil para continuar</p>
         </div>
 
+    </aside>
+
+ 
+
+    <!-- <div class="overlay" id="overlay"></div> -->
+
+    <main class="profiles-container">
+
+        <div class="profiles-actions">
+
+            <button id="btnGerenciarPerfis">
+
+                <i class="bi bi-pencil-square"></i>
+
+                Gerenciar Perfis
+
+            </button>
+
+        </div>
+
+ 
+
+        <div class="profiles-header">
+
+            <h1>Quem está utilizando o Smart <span>Charger?</span> <span class="title"><i class="bi bi-lightning-charge-fill"></i></span></h1>
+
+            <p>Selecione um perfil para continuar</p>
+
+        </div>
+
+ 
+
         <section class="profiles-grid">
+
             <div class="profile-item">
+
                 <div class="foto-perfil">
+
                     <img class="foto" src="" alt="">
+
                     <i class="bi bi-pencil-fill editar-perfil"></i>
-                    <input type="file" class="inputFoto" accept="image/*" hidden>
+
+                    <input type="file" class="inputFoto" accept="image/" hidden>
+
                 </div>
 
                 <h3>Wellington</h3>
 
                 <!-- <span>Administrador</span> -->
+
             </div>
+
+ 
 
             <div class="profile-item">
 
                 <div class="foto-perfil">
+
                     <img class="foto" src="" alt="">
+
                     <i class="bi bi-pencil-fill editar-perfil"></i>
-                    <input type="file" class="inputFoto" accept="image/*" hidden>
+
+                    <input type="file" class="inputFoto" accept="image/" hidden>
+
                 </div>
+
                 <h3>Wheezie</h3>
+
                 <span>Administrador</span>
+
             </div>
+
+ 
 
             <div class="profile-item">
+
                 <div class="foto-perfil">
+
                     <img class="foto" src="" alt="">
+
                     <i class="bi bi-pencil-fill editar-perfil"></i>
-                    <input type="file" class="inputFoto" accept="image/*" hidden>
+
+                    <input type="file" class="inputFoto" accept="image/" hidden>
+
                 </div>
+
                 <h3>Fiona</h3>
+
                 <span>Administrador</span>
+
             </div>
 
-              <div class="profile-item">
+ 
+
+            <div class="profile-item">
+
                 <div class="foto-perfil">
+
                     <img class="foto" src="" alt="">
+
                     <i class="bi bi-pencil-fill editar-perfil"></i>
-                    <input type="file" class="inputFoto" accept="image/*" hidden>
+
+                    <input type="file" class="inputFoto" accept="image/" hidden>
+
                 </div>
+
                 <h3>Sofia</h3>
+
                 <span>Administrador</span>
+
             </div>
+
+ 
 
             <div class="profile-item operadores">
+
                 <div class="operadores-avatar">
+
                     <img src="img/charge4.png" alt="">
+
                     <!-- <i class="bi bi-people-fill"></i> -->
+
                 </div>
 
                 <h3>Operador</h3>
+
                 <!-- <span>Selecionar usuário</span> -->
+
             </div>
+
+ 
 
             <div class="add-profile">
+
                 <i class="bi bi-plus-lg"></i>
+
                 <span>Novo Perfil</span>
+
             </div>
+
         </section>
+
     </main>
 
+ 
+
     <div class="modal-operadores" id="modalOperadores">
+
         <div class="modal-box">
+
             <div class="modal-header">
+
                 <h2>Selecionar Operador</h2>
+
                 <button id="fecharModal">
+
                     <i class="bi bi-x-lg"></i>
+
                 </button>
+
             </div>
+
+           
+
             <input type="text" id="buscarOperador" placeholder="Pesquisar operador...">
 
             <div class="lista-operadores">
+
                 <div class="operador-item">
+
                     <div class="operador-avatar">A</div>
+
                     <div class="operador-info">
+
                         <h4>Andrelino Clarence da Silva</h4>
+
                         <small>TEV - Piso -7</small>
+
                     </div>
-                    <i class="bi bi-chevron-right"></i>
+
+                        <i class="bi bi-chevron-right"></i>
+
                 </div>
+
  
+
                 <div class="operador-item">
+
                     <div class="operador-avatar">A</div>
+
                     <div class="operador-info">
+
                         <h4>Alex Sandro da Silva</h4>
+
                         <small>TJ - Piso: Amarelo</small>
+
                     </div>
+
                     <i class="bi bi-chevron-right"></i>
+
                 </div>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">C</div>
-                    <div class="operador-info">
-                        <h4>Claudio Roberto Nogueira</h4>
-                        <small>TJ - Piso Verde</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div> 
-
-                <div class="operador-item">
-                    <div class="operador-avatar">C</div>
-                    <div class="operador-info">
-                        <h4>Caio Tavares de Abreu</h4>
-                        <small>TJ - Piso: 1º SS</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">C</div>
-                    <div class="operador-info">
-                        <h4>Carlos Alberto Ferreira</h4>
-                        <small>TJ - Piso: 1º SS</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
  
-                <div class="operador-item">
-                    <div class="operador-avatar">D</div>
-                    <div class="operador-info">
-                        <h4>Danilo da Cruz Eugênio</h4>
-                        <small>TJ - Piso: 2º SS</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
 
                 <div class="operador-item">
-                    <div class="operador-avatar">D</div>
-                    <div class="operador-info">
-                        <h4>Daniel das Dorres Passos</h4>
-                        <small>TJ - Piso: 2º SS</small>
+
+                    <div class="operador-avatar">C</div>
+
+                        <div class="operador-info">
+
+                        <h4>Claudio Roberto Nogueira</h4>
+
+                        <small>TJ - Piso Verde</small>
+
                     </div>
+
                     <i class="bi bi-chevron-right"></i>
+
                 </div>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">E</div>
-                    <div class="operador-info">
-                        <h4>Evaldo Soares de Amorim</h4>
-                        <small>TEV - Piso: -6</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
+ 
 
                 <div class="operador-item">
-                    <div class="operador-avatar">H</div>
-                    <div class="operador-info">
-                        <h4>Heitor Soares</h4>
-                        <small>TOS - Piso: -1</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">I</div>
-                    <div class="operador-info">
-                        <h4>Igor Almeida Tasca</h4>
-                        <small>TOS - Piso: -3</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
+                    <div class="operador-avatar">C</div>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">J</div>
-                    <div class="operador-info">
-                        <h4>Jonas Cosmo de Araújo</h4>
-                        <small>TEV - Piso: -5</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
+                        <div class="operador-info">
 
-                <div class="operador-item">
-                    <div class="operador-avatar">J</div>
-                    <div class="operador-info">
-                        <h4>Jonathas Júlio Oliveira</h4>
-                        <small>TEV - Piso: -5</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-                
-                <div class="operador-item">
-                    <div class="operador-avatar">J</div>
-                    <div class="operador-info">
-                        <h4>João Victor Rodrigues</h4>
-                        <small>TJ - Piso: Verde</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
+                        <h4>Caio Tavares de Abreu</h4>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">J</div>
-                    <div class="operador-info">
-                        <h4>João Victor Santos Silva</h4>
-                        <small>TOS - Piso: -2</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">J</div>
-                    <div class="operador-info">
-                        <h4>José Vieira da Silva</h4>
-                        <small>TOS - Piso: PG</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">L</div>
-                    <div class="operador-info">
-                        <h4>Leandro Lins Lima</h4>
-                        <small>TOS - Piso: -3</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">L</div>
-                    <div class="operador-info">
-                        <h4>Lourival C. dos Santos Filho</h4>
-                        <small>TJ - Piso: Azul</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">M</div>
-                    <div class="operador-info">
-                        <h4>Marcelo Cardoso</h4>
-                        <small>TEV - Piso: -4</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">M</div>
-                    <div class="operador-info">
-                        <h4>Michael da Conceição Costa</h4>
-                        <small>TAE - Piso: PG</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">N</div>
-                    <div class="operador-info">
-                        <h4>Nilton Cesar Saturnino</h4>
-                        <small>TEV - Piso: -4</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-                
-                <div class="operador-item">
-                    <div class="operador-avatar">P</div>
-                    <div class="operador-info">
-                        <h4>Phelipe Costa da Silva</h4>
-                        <small>TAE - Piso: -2</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">R</div>
-                    <div class="operador-info">
-                        <h4>Raphael de Alencar Menezes</h4>
-                        <small>TAE - Piso: -2</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">R</div>
-                    <div class="operador-info">
-                        <h4>Reginaldo Lieck Lima</h4>
-                        <small>TOS - Piso: PG</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">R</div>
-                    <div class="operador-info">
-                        <h4>Ricardo Mário dos Santos</h4>
-                        <small>TJ - Piso: Azul</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">R</div>
-                    <div class="operador-info">
-                        <h4>Rodrigo Martins de Souza</h4>
-                        <small>TOS - Piso: -2</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">S</div>
-                    <div class="operador-info">
-                        <h4>Severino Vieira</h4>
-                        <small>TAE - Piso: PG</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">S</div>
-                    <div class="operador-info">
-                        <h4>Sidnei Oliveira de Sousa</h4>
-                        <small>TOS - Piso: PG</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
-
-                <div class="operador-item">
-                    <div class="operador-avatar">S</div>
-                    <div class="operador-info">
-                        <h4>Silvia Andreia Lopes Viana</h4>
                         <small>TJ - Piso: 1º SS</small>
+
                     </div>
+
                     <i class="bi bi-chevron-right"></i>
+
                 </div>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">T</div>
-                    <div class="operador-info">
-                        <h4>Tarcísio José Machado</h4>
-                        <small>TOS - Orientador</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
+ 
 
                 <div class="operador-item">
-                    <div class="operador-avatar">V</div>
-                    <div class="operador-info">
-                        <h4>Valter Rodrigo Garcia</h4>
-                        <small>TWMS - Piso: -2</small>
+
+                    <div class="operador-avatar">C</div>
+
+                        <div class="operador-info">
+
+                        <h4>Carlos Alberto Ferreira</h4>
+
+                        <small>TJ - Piso: 1º SS</small>
+
                     </div>
+
                     <i class="bi bi-chevron-right"></i>
+
                 </div>
 
+ 
+
                 <div class="operador-item">
-                    <div class="operador-avatar">V</div>
+
+                    <div class="operador-avatar">D</div>
+
                     <div class="operador-info">
-                        <h4>Vanderlei de Matos Ramos</h4>
+
+                        <h4>Danilo da Cruz Eugênio</h4>
+
                         <small>TJ - Piso: 2º SS</small>
+
                     </div>
+
                     <i class="bi bi-chevron-right"></i>
+
                 </div>
 
-                <div class="operador-item">
-                    <div class="operador-avatar">V</div>
-                    <div class="operador-info">
-                        <h4>Vinicius Matos Irmão</h4>
-                        <small>TAE - Piso: PG</small>
-                    </div>
-                    <i class="bi bi-chevron-right"></i>
-                </div>
+ 
 
                 <div class="operador-item">
-                    <div class="operador-avatar">W</div>
+
+                    <div class="operador-avatar">D</div>
+
                     <div class="operador-info">
-                        <h4>Weber Alves</h4>
+
+                        <h4>Daniel das Dorres Passos</h4>
+
+                        <small>TJ - Piso: 2º SS</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">E</div>
+
+                    <div class="operador-info">
+
+                        <h4>Evaldo Soares de Amorim</h4>
+
                         <small>TEV - Piso: -6</small>
+
                     </div>
+
                     <i class="bi bi-chevron-right"></i>
+
                 </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">H</div>
+
+                    <div class="operador-info">
+
+                        <h4>Heitor Soares</h4>
+
+                        <small>TOS - Piso: -1</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                <div class="operador-avatar">I</div>
+
+                <div class="operador-info">
+
+                <h4>Igor Almeida Tasca</h4>
+
+                <small>TOS - Piso: -3</small>
+
+                </div>
+
+                <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">J</div>
+
+                    <div class="operador-info">
+
+                        <h4>Jonas Cosmo de Araújo</h4>
+
+                        <small>TEV - Piso: -5</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">J</div>
+
+                    <div class="operador-info">
+
+                        <h4>Jonathas Júlio Oliveira</h4>
+
+                        <small>TEV - Piso: -5</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">J</div>
+
+                    <div class="operador-info">
+
+                        <h4>João Victor Rodrigues</h4>
+
+                        <small>TJ - Piso: Verde</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">J</div>
+
+                    <div class="operador-info">
+
+                        <h4>João Victor Santos Silva</h4>
+
+                        <small>TOS - Piso: -2</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">J</div>
+
+                    <div class="operador-info">
+
+                        <h4>José Vieira da Silva</h4>
+
+                        <small>TOS - Piso: PG</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">L</div>
+
+                    <div class="operador-info">
+
+                        <h4>Leandro Lins Lima</h4>
+
+                        <small>TOS - Piso: -3</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">L</div>
+
+                    <div class="operador-info">
+
+                        <h4>Lourival C. dos Santos Filho</h4>
+
+                        <small>TJ - Piso: Azul</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">M</div>
+
+                    <div class="operador-info">
+
+                        <h4>Marcelo Cardoso</h4>
+
+                        <small>TEV - Piso: -4</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">M</div>
+
+                    <div class="operador-info">
+
+                        <h4>Michael da Conceição Costa</h4>
+
+                        <small>TAE - Piso: PG</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">N</div>
+
+                    <div class="operador-info">
+
+                        <h4>Nilton Cesar Saturnino</h4>
+
+                        <small>TEV - Piso: -4</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">P</div>
+
+                    <div class="operador-info">
+
+                        <h4>Phelipe Costa da Silva</h4>
+
+                        <small>TAE - Piso: -2</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">R</div>
+
+                    <div class="operador-info">
+
+                        <h4>Raphael de Alencar Menezes</h4>
+
+                        <small>TAE - Piso: -2</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">R</div>
+
+                    <div class="operador-info">
+
+                        <h4>Reginaldo Lieck Lima</h4>
+
+                        <small>TOS - Piso: PG</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">R</div>
+
+                    <div class="operador-info">
+
+                        <h4>Ricardo Mário dos Santos</h4>
+
+                        <small>TJ - Piso: Azul</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">R</div>
+
+                    <div class="operador-info">
+
+                        <h4>Rodrigo Martins de Souza</h4>
+
+                        <small>TOS - Piso: -2</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">S</div>
+
+                    <div class="operador-info">
+
+                        <h4>Severino Vieira</h4>
+
+                        <small>TAE - Piso: PG</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">S</div>
+
+                    <div class="operador-info">
+
+                        <h4>Sidnei Oliveira de Sousa</h4>
+
+                        <small>TOS - Piso: PG</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">S</div>
+
+                    <div class="operador-info">
+
+                        <h4>Silvia Andreia Lopes Viana</h4>
+
+                        <small>TJ - Piso: 1º SS</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">T</div>
+
+                    <div class="operador-info">
+
+                        <h4>Tarcísio José Machado</h4>
+
+                        <small>TOS - Orientador</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">V</div>
+
+                    <div class="operador-info">
+
+                        <h4>Valter Rodrigo Garcia</h4>
+
+                        <small>TWMS - Piso: -2</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">V</div>
+
+                    <div class="operador-info">
+
+                        <h4>Vanderlei de Matos Ramos</h4>
+
+                        <small>TJ - Piso: 2º SS</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+ 
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">V</div>
+
+                    <div class="operador-info">
+
+                        <h4>Vinicius Matos Irmão</h4>
+
+                        <small>TAE - Piso: PG</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
+               
+
+                <div class="operador-item">
+
+                    <div class="operador-avatar">W</div>
+
+                    <div class="operador-info">
+
+                        <h4>Weber Alves</h4>
+
+                        <small>TEV - Piso: -6</small>
+
+                    </div>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </div>
+
             </div>
+
         </div>
+
     </div>
+
+ 
 
     <div class="modal-senha" id="modalSenha">
 
- 
-
         <div class="modal-senha-box">
 
- 
-
-            <button
-
-                type="button"
-
-                id="fecharModalSenha"
-
-                class="btn-fechar-modal"
-
-            >
+            <button type="button" id="fecharModalSenha" class="btn-fechar-modal">
 
                 <i class="bi bi-x-lg"></i>
 
@@ -464,11 +875,7 @@
 
  
 
-            <div class="cadeado">
-
-                🔒
-
-            </div>
+            <div class="cadeado">🔒</div>
 
  
 
@@ -480,15 +887,7 @@
 
  
 
-            <input
-
-                type="password"
-
-                id="senhaPerfil"
-
-                placeholder="Digite sua senha"
-
-            >
+            <input type="password" id="senhaPerfil" placeholder="Digite sua senha">
 
  
 
@@ -498,15 +897,14 @@
 
             </button>
 
- 
-
         </div>
-
- 
 
     </div>
 
+ 
+
     <!-- ================================= Seção Rodapé ============================= -->
+
     <footer class="footer">
 
         <div class="container text-center">
@@ -519,26 +917,46 @@
 
     </footer>
 
+ 
+
     <!-- ================================== Bibliotecas ============================= -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+ 
+
     <!-- ========================= Script de rodar offline ============================ -->
+
     <script>
+
         if ('serviceWorker' in navigator) {
+
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('js/service-worker.js')
-                    .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
-                    .catch(err => console.error('❌ Erro ao registrar Service Worker:', err));
+
+            navigator.serviceWorker.register('js/service-worker.js')
+
+            .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
+
+            .catch(err => console.error('❌ Erro ao registrar Service Worker:', err));
+
             });
+
         }
+
     </script>
 
     <!-- ====================== Scripts ======================== -->
+    <script src="js/pin.js"></script>
+    <script src="js/fotos-perfis.js"></script>
     <script src="js/perfis.js"></script>
     <script src="js/script.js"></script>
     <script src="js/conexao.js"></script>
-</body>
+    </body>
+
 </html>

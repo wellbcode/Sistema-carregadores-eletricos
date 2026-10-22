@@ -1,4 +1,4 @@
-const CACHE_NAME = "smart-charger-v6";
+const CACHE_NAME = "smart-charger-v12";
 
 const URLS_TO_CACHE = [
     "../../index.html",
