@@ -1,0 +1,655 @@
+:root {
+
+ 
+
+    /* =========================
+
+ 
+
+       CORES PRINCIPAIS
+
+ 
+
+    =========================== */
+
+ 
+
+    --primary-blue: #4F8EF7;
+
+ 
+
+    --primary: #ff6b00;
+
+ 
+
+    --secondary: #38bdf8;
+
+ 
+
+    --sucess: #16a34a;
+
+ 
+
+    --danger: #ff0000;
+
+ 
+
+    --h1-dark: #ffffff;
+
+ 
+
+    --tema: #F25D27;
+
+ 
+
+    --cor-css: #1d78e7;
+
+ 
+
+    --cor-js: #F2B236;
+
+ 
+
+    --texto: #ec7b12;
+
+ 
+
+    --github: #b918ce;
+
+ 
+
+    --dark: #0f172a;
+
+ 
+
+    --fundo-sidebar: #0f172a;
+
+ 
+
+    --bar: #272626e5;
+
+ 
+
+    --background-section: #f9fbfcef;
+
+    --marrom: #603b2a;
+
+    --marrom-escuro: #3f291f;
+
+    --dourado: #d89b45;
+
+    --creme: #fffaf2;
+
+    --fundo: #f7f4ee;
+
+ 
+
+    --texto-suave: #887d73;
+
+    --branco: #ffffff;
+
+    --borda: #d1d5db;
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       CORES DO SISTEMA
+
+ 
+
+    ========================= */
+
+ 
+
+    --dark: #17202b;
+
+ 
+
+    --dark-soft: #3f4a59;
+
+ 
+
+ 
+
+ 
+
+    --text: #20242c;
+
+ 
+
+    --text-muted: #64748b;
+
+ 
+
+    --text-light: #9298a1;
+
+ 
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       CORES ESPECÍFICAS
+
+ 
+
+       ========================= */
+
+ 
+
+    --tema: #f25d27;
+
+ 
+
+    --cor-css: #1d78e7;
+
+ 
+
+    --cor-js: #f2b236;
+
+ 
+
+    --github: #b918ce;
+
+ 
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       BACKGROUNDS
+
+ 
+
+       ========================= */
+
+ 
+
+    --background: #f8fafc;
+
+ 
+
+    --background-section: #f9fbfc;
+
+ 
+
+    --background-card: #ffffff;
+
+ 
+
+    --background-muted: #f0f2f5;
+
+ 
+
+    --background-hover: #f3f5f8;
+
+ 
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       BORDAS
+
+ 
+
+       ========================= */
+
+ 
+
+    --border: #e7ebf0;
+
+ 
+
+    --border-soft: #edf0f3;
+
+ 
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       SOMBRAS
+
+ 
+
+       ========================= */
+
+ 
+
+ 
+
+ 
+
+    --shadow-xs: 0 2px 8px rgba(15, 23, 42, 0.04);
+
+ 
+
+    --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
+
+ 
+
+    --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.08);
+
+ 
+
+    --shadow-lg: 0 12px 30px rgba(10, 15, 20, 0.12);
+
+ 
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       RAIOS
+
+ 
+
+       ========================= */
+
+ 
+
+ 
+
+ 
+
+    --radius-sm: 7px;
+
+ 
+
+    --radius-md: 10px;
+
+ 
+
+    --radius-lg: 15px;
+
+ 
+
+ 
+
+ 
+
+    /* =========================
+
+ 
+
+       TRANSIÇÕES
+
+ 
+
+       ========================= */
+
+ 
+
+ 
+
+ 
+
+    --transition-fast: 0.2s ease;
+
+ 
+
+    --transition-normal: 0.3s ease;
+
+ 
+
+}
+
+
+/* =====================================
+   CONFIGURAÇÕES - SMART CHARGER
+===================================== */
+
+.settings-container {
+    padding: 30px;
+    position: relative;
+}
+
+/* CABEÇALHO */
+
+.settings-header {
+    margin-bottom: 35px;
+    text-align: center;
+    color: #fff;
+}
+
+.settings-header h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.settings-header h2 i {
+    color: var(--primary);
+}
+
+.settings-header p {
+    margin-top: 10px;
+    color: rgba(255,255,255,.8);
+    font-size: 1.5rem;
+}
+
+.settings-header p span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.settings-header .title {
+    color: var(--primary);
+    margin-left: 3px;
+}
+
+/* GRID */
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, 340px), 1fr)
+    );
+    gap: 24px;
+    margin-top: 45px;
+}
+
+/* CARDS */
+
+.settings-card {
+    background: rgba(255,255,255,.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 20px;
+
+    padding: 24px;
+
+    transition: border-color .3s ease,
+                background .3s ease,
+                transform .3s ease;
+}
+
+.settings-card:hover {
+    border-color: rgba(255,107,0,.35);
+    background: rgba(255,255,255,.10);
+}
+
+/* TÍTULOS DOS CARDS */
+
+.card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.card-title h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.card-title i {
+    color: var(--primary);
+    font-size: 1.8rem;
+}
+
+/* ITENS */
+
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    padding: 14px 0;
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    color: rgba(255,255,255,.85);
+}
+
+.config-item:last-child {
+    border-bottom: none;
+}
+
+.config-item strong {
+    color: #fff;
+    font-size: .9rem;
+    text-align: right;
+}
+
+/* BOTÕES DE AÇÃO */
+
+.config-item button {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+
+    border: 1px solid rgba(255,255,255,.15);
+    border-radius: 8px;
+
+    padding: 7px 14px;
+
+    font-size: .85rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .25s ease;
+
+    backdrop-filter: blur(8px);
+}
+
+.config-item button:hover {
+    background: rgba(255,140,0,.15);
+    border-color: #ff7b00;
+    color: #ff9d3f;
+    transform: translateY(-2px);
+}
+
+/* BOTÕES DE EDIÇÃO */
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    background: rgba(255,140,0,.12) !important;
+    color: #ff9d3f !important;
+
+    border: 1px solid rgba(255,140,0,.30) !important;
+    border-radius: 10px !important;
+
+    padding: 8px 14px !important;
+}
+
+.btn-action:hover {
+    background: #ff7b00 !important;
+    color: #fff !important;
+    box-shadow: 0 0 15px rgba(255,123,0,.25);
+}
+
+/* INDICADORES VISUAIS */
+
+.config-indicator {
+    color: #ff9d3f;
+    font-size: 1.2rem;
+    opacity: .9;
+}
+
+/* BACKUP E DADOS */
+
+.config-button-item {
+    border-bottom: none;
+    padding: 7px 0;
+}
+
+.btn-config {
+    width: 100%;
+    min-height: 43px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+
+    padding: 11px 14px;
+
+    background: rgba(255,255,255,.10);
+    color: #fff;
+
+    border: 1px solid rgba(255,255,255,.13);
+    border-radius: 10px;
+
+    font-size: .88rem;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.btn-config:hover {
+    background: rgba(255,140,0,.15);
+    border-color: #ff7b00;
+    color: #ff9d3f;
+}
+
+/* BOTÃO DE PERIGO */
+
+.btn-config.btn-danger {
+    background: rgba(217,54,54,.15);
+    color: #ff7777;
+    border-color: rgba(217,54,54,.35);
+}
+
+.btn-config.btn-danger:hover {
+    background: #d93636;
+    color: #fff;
+    border-color: #d93636;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+
+    .settings-container {
+        padding: 20px 15px;
+    }
+
+    .settings-header h2 {
+        font-size: 1.8rem;
+    }
+
+    .settings-header p {
+        font-size: .9rem;
+    }
+
+    .settings-grid {
+        margin-top: 30px;
+        gap: 18px;
+    }
+
+    .settings-card {
+        padding: 20px;
+    }
+
+}
+
+@media (max-width: 420px) {
+
+    .settings-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .card-title h3 {
+        font-size: 1.05rem;
+    }
+
+    .config-item {
+        gap: 8px;
+        font-size: .88rem;
+    }
+
+    .config-item strong {
+        font-size: .82rem;
+    }
+
+}
+
+
+/* ===================== Seção Rodapé - Footer ===================== */
+/* =====================================
+   LAYOUT DA PÁGINA DE CONFIGURAÇÕES
+===================================== */
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    min-height: 0;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+.footerConfig {
+    width: 100%;
+     padding: 40px 30px;
+    flex-shrink: 0;
+
+    background: rgba(15, 23, 42, .75);
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border-top: 1px solid rgba(255,255,255,.08);
+
+    text-align: center;
+}
+
+.footerConfig .copyright {
+    margin: 0;
+    color: rgba(255,255,255,.75);
+}

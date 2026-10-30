@@ -6,8 +6,14 @@ console.log("recargas.js carregado!");
 
  
 
-const recargas = [];
+//const recargas = [];
+const recargasSalvas = JSON.parse(
+    localStorage.getItem("movimentacoesRecentes") || "[]"
+);
 
+const recargas = Array.isArray(recargasSalvas)
+    ? recargasSalvas
+    : [];
  
 
 const historicoRecargas =

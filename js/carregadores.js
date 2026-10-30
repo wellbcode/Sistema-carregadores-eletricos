@@ -311,52 +311,46 @@ function atualizarContadores() {
 
     // ================= CONTADORES GERAIS =================
 
-    document.getElementById("contadorTodos").textContent =
+    // document.getElementById("contadorTodos").textContent =
 
-        `Todas: ${total}`;
+    //     `Todas: ${total}`;
 
-    document.getElementById("contadorLivres").textContent =
+    // document.getElementById("contadorLivres").textContent =
 
-        `Livres: ${livres}`;
+    //     `Livres: ${livres}`;
 
-    document.getElementById("contadorEmuso").textContent =
+    // document.getElementById("contadorEmuso").textContent =
 
-        `Em uso: ${emUso}`;
+    //     `Em uso: ${emUso}`;
+    const contadorTodos = document.getElementById("contadorTodos");
+    const contadorLivres = document.getElementById("contadorLivres");
+    const contadorEmuso = document.getElementById("contadorEmuso");
 
- 
+    if (contadorTodos) contadorTodos.textContent = `Todas: ${total}`;
+    if (contadorLivres) contadorLivres.textContent = `Livres: ${livres}`;
+    if (contadorEmuso) contadorEmuso.textContent = `Em uso: ${emUso}`;
+    
 
     // ================= CONTADOR DA FILA =================
-
-    document.getElementById("kpiFila").textContent =
-
-        `Fila: ${fila}`;
-
- 
+    const elementoFila = document.getElementById("kpiFila");
+    if (elementoFila) elementoFila.textContent = fila;
 
     // ================= CONTADORES DAS TORRES =================
+    const contadorAlfredo = document.getElementById("contadorAlfredo");
+    const contadorJabaquara = document.getElementById("contadorJabaquara");
+    const contadorOlavo = document.getElementById("contadorOlavo");
 
-    document.getElementById("contadorAlfredo").textContent =
-
-        `Alfredo: ${alfredo}`;
-
-    document.getElementById("contadorJabaquara").textContent =
-
-        `Jabaquara: ${jabaquara}`;
-
-    document.getElementById("contadorOlavo").textContent =
-
-        `Olavo: ${olavo}`;
-
- 
+    if (contadorAlfredo) contadorAlfredo.textContent = `Alfredo: ${alfredo}`;
+    if (contadorJabaquara) contadorJabaquara.textContent = `Jabaquara: ${jabaquara}`;
+    if (contadorOlavo) contadorOlavo.textContent = `Olavo: ${olavo}`;
 
     // ================= KPIs =================
+    const kpiLivres = document.getElementById("kpiLivres");
+    const kpiEmUso = document.getElementById("kpiEmUso");
 
-    document.getElementById("kpiLivres").textContent = livres;
-
-    document.getElementById("kpiEmUso").textContent = emUso;
-
-    document.getElementById("kpiFila").textContent = fila;
-
+    if (kpiLivres) kpiLivres.textContent = livres;
+    if (kpiEmUso) kpiEmUso.textContent = emUso;
+    //if (elementoFila) elementoFila.textContent = fila;
 }
 
  
@@ -375,42 +369,32 @@ function contarFilaEstacao(estacao) {
 
 }
 
- 
-
 function atualizarDataHoje() {
 
     const hoje = new Date();
 
+    const elementoHoje = document.getElementById("kpiHoje");
+    const elementoDia = document.getElementById("kpiDiaSemana");
+
+    // Se os elementos não existirem nesta página, encerra
+    if (!elementoHoje || !elementoDia) return;
+
     // Dia do mês
-
-    document.getElementById("kpiHoje").textContent =
-
+    elementoHoje.textContent =
         String(hoje.getDate()).padStart(2, "0");
 
     // Dia da semana
-
     const dias = [
-
         "Domingo",
-
         "Segunda-feira",
-
         "Terça-feira",
-
         "Quarta-feira",
-
         "Quinta-feira",
-
         "Sexta-feira",
-
         "Sábado"
-
     ];
 
-    document.getElementById("kpiDiaSemana").textContent =
-
-        dias[hoje.getDay()];
-
+    elementoDia.textContent = dias[hoje.getDay()];
 }
 
  
@@ -1176,8 +1160,9 @@ setInterval(obterLocalizacao, 30 * 60 * 1000);
 window.addEventListener("DOMContentLoaded", () => {
 
     const dataEntrada = document.getElementById("dataEntrada");
-
     const diaSemana = document.getElementById("diaSemana");
+
+    if (!dataEntrada || !diaSemana) return;
 
     dataEntrada.addEventListener("change", () => {
 
@@ -1419,7 +1404,10 @@ function renderizarMovimentacoes() {
 
                     </button>
 
-                    <button class="btn-mov-agendar" onclick="confirmarNotificacao(${registro.id})">
+                    <button class="btn-mov-agendar" 
+                        onclick="confirmarNotificacao(${registro.id})"
+
+                        title="Concluir movimentação">
 
                         <i class="fa-solid fa-envelope-circle-check"></i>
 
@@ -1649,8 +1637,6 @@ function confirmarNotificacao(id) {
 
 }
 
- 
-
 function confirmarConclusao(id) {
 
     const registro = recargas.find(r => r.id === id);
@@ -1662,6 +1648,28 @@ function confirmarConclusao(id) {
         return;
 
     }
+
+    if (registro.conclusaoConfirmada) {
+
+        Swal.fire({
+
+                title: "Movimentação já concluída",
+
+                text: `O atendimento da placa ${registro.placa} já foi encerrado anteriormente.`,
+
+                icon: "info",
+
+                confirmButtonText: "OK",
+
+                confirmButtonColor: "#2563eb"
+
+            });
+
+            return;
+
+        }
+
+ 
 
     Swal.fire({
 
@@ -1786,154 +1794,70 @@ function confirmarConclusao(id) {
  
 
                     opcao.textContent =
-
-                        opcao.dataset.textoOriginal;
-
- 
+                    opcao.dataset.textoOriginal;
 
                 } else {
 
- 
-
                     opcao.textContent =
-
-                        opcao.textContent.replace(" ⚡", "");
-
+                    opcao.textContent.replace(" ⚡", "");
                 }
-
- 
-
                 console.log(
-
                     "ESTAÇÃO LIBERADA:",
-
                     registro.estacao
-
                 );
-
             }
-
         });
-
- 
-
             liberarEstacaoVisualmente(card);
-
- 
-
             console.log("CARD LIBERADO");
-
         }
-
     }
-
- 
 
     const prismaEmUso = recargas.some(r =>
-
         r.prisma === registro.prisma &&
-
         r.id !== registro.id &&
-
         r.status !== "Concluído"
-
     );
 
- 
-
     console.log("PRISMA:", registro.prisma);
-
     console.log("AINDA EM USO?", prismaEmUso);
 
- 
-
     if (!prismaEmUso) {
-
- 
-
         const selectPrisma =
-
-            document.getElementById("prisma");
-
- 
-
+        document.getElementById("prisma");           
         [...selectPrisma.options].forEach(opcao => {
-
- 
-
             if (opcao.value === registro.prisma) {
-
- 
-
                 console.log(
-
                     "TEXTO ORIGINAL:",
-
                     opcao.dataset.textoOriginal
-
                 );
-
- 
-
                 opcao.textContent =
-
                     opcao.dataset.textoOriginal;
-
- 
-
                 console.log(
-
                     "PRISMA LIBERADO:",
-
                     registro.prisma
-
                 );
-
             }
-
         });
-
     }
 
- 
-
     Swal.fire({
-
         title: "Movimentação concluída!",
-
         text: `O atendimento da placa ${registro.placa} foi encerrado.`,
-
         icon: "success",
-
         confirmButtonText: "OK",
-
         confirmButtonColor: "#16a34a",
-
         timer: 2500,
-
         timerProgressBar: true
-
     });
 
- 
+    registro.conclusaoConfirmada = true;
 
     atualizarContadores();
 
- 
-
     // atualizarKPIs();
-
- 
-
     renderizarMovimentacoes();
-
- 
-
     });
-
 }
-
- 
 
 function liberarEstacaoVisualmente(card) {
 

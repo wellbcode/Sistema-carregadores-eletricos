@@ -48,8 +48,6 @@
 
     --dark-soft: #3f4a59;
 
- 
-
     --text: #20242c;
 
     --text-muted: #64748b;
@@ -110,8 +108,6 @@
 
        ========================= */
 
- 
-
     --shadow-xs: 0 2px 8px rgba(15, 23, 42, 0.04);
 
     --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
@@ -128,8 +124,6 @@
 
        ========================= */
 
- 
-
     --radius-sm: 7px;
 
     --radius-md: 10px;
@@ -144,30 +138,65 @@
 
        ========================= */
 
- 
-
     --transition-fast: 0.2s ease;
 
     --transition-normal: 0.3s ease;
 
 }
 
+ 
 
 body {
+
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
- 
-.profiles-actions {
 
     display: flex;
+
+    flex-direction: column;
+
+}
+
+ 
+
+.sidebarPerfis {
+
+    width: 280px;
+
+    /* background:var(--fundo-sidebar); */
+
+    background: transparent;
+
+    color: var(--h1-dark);
+
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 10px 22px;
+
+}
+
+ 
+
+.profiles-actions {
+
+ 
+
+    display: flex;
+
+ 
 
     justify-content: end;
 
+ 
+
     margin-bottom: 30px;
 
+ 
+
 }
+
+ 
 
 #btnGerenciarPerfis {
 
@@ -187,6 +216,7 @@ body {
 
 }
 
+ 
 
 #btnGerenciarPerfis:hover {
 
@@ -194,23 +224,25 @@ body {
 
 }
 
+ 
+
 .background-slider::after {
 
     content: "";
-
- 
 
     position: absolute;
 
     inset: 0;
 
- 
-
     background: rgba(0,0,0,.65);
 
 }
 
+ 
+
 .profiles-container {
+
+    padding-bottom: 40px;
 
     position: relative;
 
@@ -230,6 +262,8 @@ body {
 
 }
 
+ 
+
 .profiles-header {
 
     text-align: center;
@@ -237,8 +271,6 @@ body {
     margin-bottom: 60px;
 
 }
-
- 
 
 .profiles-header h1 {
 
@@ -250,13 +282,23 @@ body {
 
 }
 
+ 
+
 .profiles-header h1 span {
+
     color:  var(--tema);
-} 
+
+}
+
+ 
 
 .profiles-header h1 span i {
+
     color: #fff;
+
 }
+
+ 
 
 .profiles-header p {
 
@@ -300,13 +342,11 @@ body {
 
     border-radius: 50%;
 
- 
-
     object-fit: cover;
 
- 
-
     transition: .3s;
+
+ 
 
 }
 
@@ -334,6 +374,8 @@ body {
 
     color: rgba(255,255,255,.7);
 
+ 
+
 }
 
  
@@ -342,15 +384,13 @@ body {
 
     position: relative;
 
- 
-
     width: 140px;
 
     height: 140px;
 
- 
-
     margin: 0 auto;
+
+ 
 
 }
 
@@ -361,8 +401,6 @@ body {
     width: 100%;
 
     height: 100%;
-
- 
 
     border-radius: 50%;
 
@@ -376,13 +414,9 @@ body {
 
     position: relative;
 
- 
-
     width: 140px;
 
     height: 140px;
-
- 
 
     margin: 0 auto;
 
@@ -396,36 +430,27 @@ body {
 
     height: 100%;
 
- 
-
     border-radius: 50%;
 
     object-fit: cover;
 
 }
 
+ 
 
 .editar-perfil {
 
     position: absolute;
 
- 
-
     right: 6px;
 
     bottom: 6px;
-
- 
 
     width: 32px;
 
     height: 32px;
 
- 
-
     border-radius: 50%;
-
- 
 
     display: flex;
 
@@ -433,20 +458,15 @@ body {
 
     justify-content: center;
 
- 
-
     background: #fff;
 
     /*color: var(--primary);*/
+
     color: #2563eb;
 
     box-shadow: 0 2px 8px rgba(0,0,0,.25);
 
- 
-
     cursor: pointer;
-
- 
 
     transition: .2s;
 
@@ -466,47 +486,29 @@ body {
 
     content: "Editar perfil";
 
- 
-
     position: absolute;
-
- 
 
     bottom: -38px;
 
     right: 50%;
 
- 
-
     transform: translateX(50%);
-
- 
 
     background: rgba(0,0,0,.85);
 
     color: #fff;
 
- 
-
     font-size: .75rem;
 
     white-space: nowrap;
 
- 
-
     padding: 6px 10px;
 
- 
-
     border-radius: 6px;
-
- 
 
     opacity: 0;
 
     visibility: hidden;
-
- 
 
     transition: .2s;
 
@@ -522,15 +524,27 @@ body {
 
 }
 
+ 
+
 /* Efeito hover nos botões do SweetAlert2 */
+
 .swal2-actions button {
+
     cursor: pointer;
+
     transition: transform 0.2s ease;
+
 }
 
+ 
+
 .swal2-actions button:hover {
+
     transform: translateY(-2px);
-} 
+
+}
+
+ 
 
 .operadores-avatar {
 
@@ -540,21 +554,15 @@ body {
 
     border-radius: 50%;
 
- 
-
     display: flex;
 
     justify-content: center;
 
     align-items: center;
 
- 
-
     background: rgba(255,255,255,.15);
 
     backdrop-filter: blur(8px);
-
- 
 
     margin: 0 auto 15px;
 
@@ -570,27 +578,21 @@ body {
 
 }
 
+ 
+
 .modal-operadores {
 
     position: fixed;
 
     inset: 0;
 
- 
-
     background: rgba(0,0,0,.7);
 
- 
-
     display: none;
-
- 
 
     justify-content: center;
 
     align-items: center;
-
- 
 
     z-index: 9999;
 
@@ -612,15 +614,9 @@ body {
 
     max-width: 90%;
 
- 
-
     background: #fff;
 
- 
-
     border-radius: 20px;
-
- 
 
     padding: 24px;
 
@@ -635,8 +631,6 @@ body {
     justify-content: space-between;
 
     align-items: center;
-
- 
 
     margin-bottom: 20px;
 
@@ -664,13 +658,9 @@ body {
 
     padding: 12px;
 
- 
-
     border: 1px solid #ddd;
 
     border-radius: 10px;
-
- 
 
     margin-bottom: 20px;
 
@@ -688,6 +678,8 @@ body {
 
 }
 
+ 
+
 .operador-item {
 
     display: flex;
@@ -696,11 +688,7 @@ body {
 
     gap: 16px;
 
- 
-
     padding: 16px 20px;
-
- 
 
     background: #f5f5f5;
 
@@ -718,6 +706,8 @@ body {
 
 }
 
+ 
+
 .operador-avatar {
 
     width: 56px;
@@ -726,13 +716,9 @@ body {
 
     min-width: 56px;
 
- 
-
     border-radius: 50%;
 
     overflow: hidden;
-
- 
 
     display: flex;
 
@@ -740,9 +726,8 @@ body {
 
     align-items: center;
 
- 
-
     /* background: #2563eb; */
+
         background: var(--primary);
 
     color: #fff;
@@ -763,7 +748,7 @@ body {
 
 }
 
-
+ 
 
 .operador-info {
 
@@ -819,15 +804,11 @@ body {
 
 ========================= */
 
- 
-
 .modal-senha {
 
     position: fixed;
 
     inset: 0;
-
- 
 
     display: none;
 
@@ -835,11 +816,7 @@ body {
 
     align-items: center;
 
- 
-
     background: rgba(0,0,0,.8);
-
- 
 
     z-index: 10000;
 
@@ -853,33 +830,23 @@ body {
 
 }
 
+ 
+
 .modal-senha-box {
 
     position: relative;
-
- 
 
     width: 400px;
 
     max-width: 90%;
 
- 
-
     padding: 30px;
-
- 
 
     background: #fff;
 
- 
-
     border-radius: 20px;
 
- 
-
     text-align: center;
-
- 
 
     display: flex;
 
@@ -887,9 +854,9 @@ body {
 
     gap: 12px;
 
- 
-
     box-shadow: 0 20px 60px rgba(0,0,0,.3);
+
+ 
 
 }
 
@@ -903,17 +870,11 @@ body {
 
     right: 15px;
 
- 
-
     border: none;
 
     background: transparent;
 
- 
-
     cursor: pointer;
-
- 
 
     font-size: 1rem;
 
@@ -933,11 +894,7 @@ body {
 
     width: 100%;
 
- 
-
     padding: 12px;
-
- 
 
     border: 1px solid #ddd;
 
@@ -961,29 +918,21 @@ body {
 
     width: 100%;
 
- 
-
     padding: 12px;
-
- 
 
     border: none;
 
     border-radius: 10px;
 
- 
-
     background: #4F8EF7;
 
     color: #fff;
 
- 
-
     font-weight: 600;
 
- 
-
     cursor: pointer;
+
+ 
 
 }
 
@@ -995,6 +944,7 @@ body {
 
 }
 
+ 
 
 .modal-senha-box h2 {
 
@@ -1020,22 +970,17 @@ body {
 
     padding: 12px;
 
- 
-
     border: 1px solid #d1d5db;
 
     border-radius: 10px;
 
- 
-
     margin-bottom: 15px;
-
- 
 
     font-size: 1rem;
 
-}
+ 
 
+}
 
  
 
@@ -1075,19 +1020,11 @@ body {
 
     align-items: center;
 
- 
-
     border-radius: 50%;
-
- 
 
     font-size: 3rem;
 
- 
-
     background: rgba(255,255,255,.1);
-
- 
 
     color: #fff;
 
@@ -1100,3 +1037,139 @@ body {
     transform: scale(1.08);
 
 }
+
+ 
+
+/* ===================== Seção Rodapé - Footer ===================== */
+
+.footerPerfis {
+
+    padding: 40px 30px;
+
+    margin-top: 0;
+
+    background: rgba(15, 23, 42, .75);
+
+    backdrop-filter: blur(8px);
+
+    border-top: 1px solid rgba(255, 255, 255, .08);
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+ 
+
+.footer h3 {
+
+    color: #fff;
+
+    margin-bottom: 12px;
+
+}
+
+ 
+
+.footer p {
+
+    color: #94a3b8;
+
+    margin-bottom: 8px;
+
+}
+
+ 
+
+.copyright {
+
+    font-size: .9rem;
+
+    color: #64748b;
+
+}
+
+ 
+
+/* .top {
+
+ 
+
+    position: absolute;
+
+ 
+
+    right: 30px;
+
+ 
+
+    bottom: 30px;
+
+ 
+
+    width: 48px;
+
+ 
+
+    height: 48px;
+
+ 
+
+    display: flex;
+
+ 
+
+    justify-content: center;
+
+ 
+
+    align-items: center;
+
+ 
+
+    border-radius: 50%;
+
+ 
+
+    background: var(--primary);
+
+ 
+
+    color: #fff;
+
+ 
+
+    text-decoration: none;
+
+ 
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .25);
+
+ 
+
+    transition: .3s;
+
+ 
+
+}
+
+ 
+
+ 
+
+ 
+
+.top:hover {
+
+ 
+
+    transform: translateY(-4px);
+
+ 
+
+    background: #ff7f22;
+
+ 
+
+} */

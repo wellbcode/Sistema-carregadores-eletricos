@@ -18,156 +18,6 @@ const FATOR_CO2 = 0.12;
 
 const TOTAL_ESTACOES = 24;
 
-
-// function atualizarKPIsMovimentacoes() {
-//     console.log("ATUALIZANDO KPIs DAS MOVIMENTAÇÕES RECENTES");
-
-//     let movimentacoes = [];
-
-//     try {
-//         movimentacoes = JSON.parse(
-//             localStorage.getItem("movimentacoesRecentes") || "[]"
-//         );
-
-//         if (!Array.isArray(movimentacoes)) {
-//             movimentacoes = [];
-//         }
-//     } catch (erro) {
-//         console.error("Erro ao carregar movimentações:", erro);
-//     }
-
-//     const normalizarStatus = status =>
-//         (status || "").trim().toLowerCase();
-
-//     const total = movimentacoes.length;
-
-//     const concluidas = movimentacoes.filter(
-//         r => normalizarStatus(r.status) === "concluído" ||
-//              normalizarStatus(r.status) === "concluido"
-//     ).length;
-
-//     const emAndamento = movimentacoes.filter(
-//         r => normalizarStatus(r.status) === "carregando"
-//     ).length;
-
-//     const fila = movimentacoes.filter(
-//         r => normalizarStatus(r.status) === "fila"
-//     ).length;
-
-//     const indicadores = {
-//         relTotal: total,
-//         relConcluidas: concluidas,
-//         relEmAndamento: emAndamento,
-//         relFila: fila
-//     };
-
-//     Object.entries(indicadores).forEach(([id, valor]) => {
-//         const elemento = document.getElementById(id);
-
-//         if (elemento) {
-//             elemento.textContent = valor;
-//         } else {
-//             console.warn(`Elemento KPI não encontrado: #${id}`);
-//         }
-//     });
-
-//     console.table(indicadores);
-// }
-
-// function atualizarKPIsMovimentacoes() {
-//     console.log("ATUALIZANDO KPIs DAS MOVIMENTAÇÕES RECENTES");
-
-//     let movimentacoes = [];
-//     let idsCarregando = [];
-//     let idsFila = [];
-
-//     try {
-//         movimentacoes = JSON.parse(
-//             localStorage.getItem("movimentacoesRecentes") || "[]"
-//         );
-
-//         idsCarregando = JSON.parse(
-//             localStorage.getItem("kpiCarregandoIds") || "[]"
-//         );
-
-//         idsFila = JSON.parse(
-//             localStorage.getItem("kpiFilaIds") || "[]"
-//         );
-
-//         if (!Array.isArray(movimentacoes)) movimentacoes = [];
-//         if (!Array.isArray(idsCarregando)) idsCarregando = [];
-//         if (!Array.isArray(idsFila)) idsFila = [];
-
-//     } catch (erro) {
-//         console.error("Erro ao carregar dados dos KPIs:", erro);
-//     }
-
-//     const normalizarStatus = status =>
-//         (status || "").trim().toLowerCase();
-
-//     // KPIs atuais: variam conforme o status da movimentação.
-//     // const total = movimentacoes.length;
-
-//     // const concluidas = movimentacoes.filter(r => {
-//     //     const status = normalizarStatus(r.status);
-//     //     return status === "concluído" || status === "concluido";
-//     // }).length;
-//     const idsTotal = JSON.parse(
-//         localStorage.getItem("kpiTotalIds") || "[]"
-//     );
-
-//     const idsConcluidas = JSON.parse(
-//         localStorage.getItem("kpiConcluidasIds") || "[]"
-//     );
-
-//     const total = new Set(
-//         idsTotal.map(id => String(id))
-//     ).size;
-
-//     const concluidas = new Set(
-//         idsConcluidas.map(id => String(id))
-//     ).size;
-
-//     const emAndamento = movimentacoes.filter(
-//         r => normalizarStatus(r.status) === "carregando"
-//     ).length;
-
-//     const fila = movimentacoes.filter(
-//         r => normalizarStatus(r.status) === "fila"
-//     ).length;
-
-//     // Novos KPIs: contagens acumulativas de veículos únicos.
-//     const iniciaramCarga = new Set(
-//         idsCarregando.map(id => String(id))
-//     ).size;
-
-//     const passaramFila = new Set(
-//         idsFila.map(id => String(id))
-//     ).size;
-
-//     const indicadores = {
-//         relTotal: total,
-//         relConcluidas: concluidas,
-//         relEmAndamento: emAndamento,
-//         relFila: fila,
-//         relIniciaramCarga: iniciaramCarga,
-//         relPassaramFila: passaramFila
-//     };
-
-//     Object.entries(indicadores).forEach(([id, valor]) => {
-//         const elemento = document.getElementById(id);
-
-//         if (elemento) {
-//             elemento.textContent = valor;
-//         } else {
-//             console.warn(`Elemento KPI não encontrado: #${id}`);
-//         }
-//     });
-
-//     console.table(indicadores);
-// }
-
-
 function atualizarKPIsMovimentacoes(registrosFiltrados = null) {
     console.log("ATUALIZANDO KPIs COM FILTROS");
 
@@ -2166,18 +2016,27 @@ function classificarCargo(valor) {
         return "Diretores(as)";
     }
 
-    if (cargo.includes("superint")) {
+    if (
+        cargo.includes("superint") ||
+        cargo.includes("ste")
+    ) {
         return "Superintendentes";
     }
 
     if (
         cargo.includes("gerente") ||
-        cargo.includes("gerencia")
+        cargo.includes("gerencia") ||
+        cargo.includes("ger") ||
+        cargo.includes("gte") 
     ) {
         return "Gerentes";
     }
 
-    if (cargo.includes("coord")) {
+    if (
+        cargo.includes("coord") || 
+        cargo.includes("esp") || 
+        cargo.includes("cientista")
+    ) {
         return "Coordenadores(as)";
     }
 

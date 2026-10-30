@@ -1,93 +1,57 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <!-- Ícones e fontes -->
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-
     <link rel="stylesheet"
-
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-    
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
         rel="stylesheet"
     >
-
     <!-- CSS do projeto -->
-
+    <link rel="stylesheet" href="perfis.css">
     <link rel="stylesheet" href="style.css">
-
     <link rel="stylesheet" href="relatorio.css">
-
     <link rel="stylesheet" href="responsivo.css">
-
     <!-- Favicon -->
-
     <link rel="shortcut icon" href="img/Charge2.png" type="image/x-icon">
-
     <title>Histórico e Relatórios</title>
-
 </head>
-
 <body>
-
     <!-- ==========Carrossel das imgs de fundo -->
     <div class="background-slider">
-
         <div class="bg-slide active">
-
             <img src="img/charge1.jpg" alt="">
-
         </div>
 
         <div class="bg-slide">
-
             <img src="img/charge2.png" alt="">
-
         </div>
 
         <div class="bg-slide">
-
             <img src="img/charge3.jpg" alt="">
-
         </div>
 
         <div class="bg-slide">
-
             <img src="img/charge4.png" alt="">
-
         </div>
 
         <div class="bg-slide">
-
             <img src="img/charge5.jpg" alt="">
-
         </div>
 
         <div class="bg-slide">
-
             <img src="img/charge6.jpg" alt="">
-
         </div>
 
         <div class="bg-slide">
-
             <img src="img/charge7.jpg" alt="">
-
         </div>
-
     </div>
 
     <!-- ============== Container principal pai =================== -->
@@ -95,488 +59,892 @@
 
         <div class="overlay" id="overlay"></div>
 
- 
-
         <main class="main">
-
             <!-- ================== Cabeçalho ===================== -->
-
-            <header class="topbar">
+            <header class="topbar-rel">
+                <!--=== Logo ===-->
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="bi bi-lightning-charge-fill"></i>
+                    </div>
+                    <h2>Smart <span>Charger</span></h2>
+                </div>
 
                 <div class="topbar-left">
-
                     <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-
                         <i class="bi bi-list"></i>
-
                     </button>
 
                     <div class="welcome">
-
-                        <h1>Olá,<span> Wellington!</span> 👋</h1>
-
-                        <p>Veja o resumo geral do sistema</p>
-
+                        <h1 id="nomeUsuario">Olá,<span>!</span>👋</h1>
+                        <p>“Tenha uma visão completa da operação em um só lugar.”</p>
                     </div>
-
                 </div>
 
- 
+                <div class="acessibilidade" role="group"
+                    aria-label="Ajuste do tamanho do texto">
+                    <i class="bi bi-universal-access"
+                    aria-hidden="true"></i>
+                    <i class="bi bi-type" aria-hidden="true"></i>
+                    <span>Tamanho do texto:</span>
+                    <button type="button" id="diminuirFonte"
+                            aria-label="Diminuir tamanho do texto">A−</button>
+                    <button type="button" id="aumentarFonte"
+                            aria-label="Aumentar tamanho do texto">A+</button>
+                    <button type="button" id="restaurarFonte">Restaurar</button>
+                </div>
 
                 <div class="topbar-right">
-
-                    <!-- <button class="notification" id="btnNotificacoes">
-
+                    <button class="notification" id="btnNotificacoes">
                         <i class="bi bi-bell"></i>
-
                         <span class="notification-badge" id="badgeNotificacoes">0</span>
-
-                    </button> -->
+                    </button>
 
                     <div class="profile">
-
-                        <div class="profile-avatar">W</div>
-
-                        <i class="bi bi-chevron-down"></i>
-
+                        <div class="profile-avatar" id="avatarUsuario">
+                            <span id="inicialUsuario" hidden></span>
+                            <img id="fotoUsuario" src="img/charge4.png" alt="Foto do perfil">
+                        </div>
                     </div>
-
                 </div>
-
             </header>
 
- 
-
              <!-- ========== Conteúdo dos relatórios ================ -->
-
             <div class="historico-container">
-
                 <!-- ==================== Título Relatórios e Indicadores ==================== -->
-
                 <header class="historico-titulo" id="Relatorios e Indicadores">
-
                     <h1>Relatórios e Indicadores <i class="bi bi-graph-up-arrow"></i></h1>
-
                 </header>
-
- 
 
                 <!-- ======== Seção dos KPIs cards ========= -->
                 <section class="relatorio-kpis">
                     <!-- KPI Total -->
+
                     <article class="card kpi-relatorio cinza">
+
                         <div class="card-body">
+
+ 
 
                             <div class="kpi-header">
 
+ 
+
                                 <div class="kpi-icone">
+
                                     <i class="bi bi-clipboard-data"></i>
+
                                 </div>
+
+ 
 
                                 <div class="kpi-info">
+
                                     <div class="kpi-title">Total</div>
+
                                     <div class="kpi-subtitle">
+
                                         de operações
+
                                     </div>
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                             <div class="kpi-value" id="relTotal">0</div>
 
+ 
+
                             <div class="kpi-footer">
+
                                 <i class="bi bi-graph-up-arrow"></i>
+
                                 Operações registradas
+
                             </div>
+
+ 
 
                             <div class="kpi-bg-icon">
+
                                 <i class="bi bi-bar-chart"></i>
+
                             </div>
+
+ 
 
                         </div>
+
                     </article>
 
-                    
  
+
+                   
+
+ 
+
                     <!-- KPI Cocluídas -->
+
                     <article class="card kpi-relatorio verde">
+
                         <div class="card-body">
+
                             <div class="kpi-header">
 
+ 
+
                                 <div class="kpi-icone">
+
                                     <i class="bi bi-check-lg"></i>
+
                                 </div>
+
+ 
 
                                 <div class="kpi-info">
+
                                     <div class="kpi-title">
+
                                         Concluídas
+
                                     </div>
+
+ 
 
                                     <div class="kpi-subtitle">
+
                                         operações finalizadas
+
                                     </div>
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                             <div class="kpi-value" id="relConcluidas">
+
                                 7
+
                             </div>
+
+ 
 
                             <div class="kpi-footer">
+
                                 <i class="bi bi-arrow-up-circle-fill"></i>
+
                                 100% do total
+
                             </div>
 
+ 
+
                             <div class="kpi-bg-icon">
+
                                 <i class="bi bi-trophy"></i>
+
                             </div>
+
                         </div>
+
                     </article>
-                    
+
+                   
+
                      <!-- KPI Carregando -->
+
                     <article class="card kpi-relatorio azul">
+
                         <div class="card-body">
+
+ 
 
                             <div class="kpi-header">
 
+ 
+
                                 <div class="kpi-icone">
+
                                     <i class="bi bi-lightning-charge-fill"></i>
+
                                 </div>
+
+ 
 
                                 <div class="kpi-info">
+
                                     <div class="kpi-title">
+
                                         Carregando
+
                                     </div>
+
+ 
 
                                     <div class="kpi-subtitle">
+
                                         em andamento
+
                                     </div>
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                             <div class="kpi-value" id="relEmAndamento">0</div>
 
+ 
+
                             <div class="kpi-footer">
+
                                 <i class="bi bi-circle-fill"></i>
+
                                 Veículos nesse momento
+
                             </div>
+
+ 
 
                             <div class="kpi-bg-icon">
+
                                 <i class="bi bi-ev-front"></i>
+
                             </div>
 
-                        </div>
-                    </article>
  
+
+                        </div>
+
+                    </article>
+
+ 
+
                     <article class="card kpi-relatorio laranja">
+
                         <div class="card-body">
+
+ 
 
                             <div class="kpi-header">
 
+ 
+
                                 <div class="kpi-icone">
+
                                     <i class="bi bi-hourglass-split"></i>
+
                                 </div>
+
+ 
 
                                 <div class="kpi-info">
+
                                     <div class="kpi-title">
+
                                         Fila
+
                                     </div>
+
+ 
 
                                     <div class="kpi-subtitle">
+
                                         aguardando carregamento
+
                                     </div>
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                             <div class="kpi-value" id="relFila">
+
                                 0
+
                             </div>
+
+ 
 
                             <div class="kpi-footer">
+
                                 <i class="bi bi-circle-fill"></i>
+
                                 Veículos em tempo real
+
                             </div>
+
+ 
 
                             <div class="kpi-bg-icon">
+
                                 <i class="bi bi-people-fill"></i>
+
                             </div>
 
+ 
+
                         </div>
+
                     </article>
+
+ 
 
                     <article class="card kpi-relatorio azul">
+
                         <div class="card-body">
+
+ 
 
                             <div class="kpi-header">
 
+ 
+
                                 <div class="kpi-icone">
+
                                     <i class="fa-solid fa-charging-station"></i>
+
                                 </div>
+
+ 
 
                                 <div class="kpi-info">
+
                                     <div class="kpi-title">
+
                                         Iniciaram a carga
+
                                     </div>
+
+ 
 
                                     <div class="kpi-subtitle">
+
                                         veículos que iniciaram hoje
+
                                     </div>
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                             <div class="kpi-value" id="relIniciaramCarga">
+
                                 0
+
                             </div>
+
+ 
 
                             <div class="kpi-footer">
-                                <i class="bi bi-arrow-up-right"></i>               
+
+                                <i class="bi bi-arrow-up-right"></i>              
+
                                <span>Veículos no total</span>
+
                             </div>
+
+ 
 
                             <div class="kpi-bg-icon">
+
                                 <i class="bi bi-battery-charging"></i>
+
                             </div>
 
+ 
+
                         </div>
+
                     </article>
 
+ 
+
                     <article class="card kpi-relatorio laranja">
+
                         <div class="card-body">
+
+ 
 
                             <div class="kpi-header">
 
+ 
+
                                 <div class="kpi-icone">
+
                                     <i class="bi bi-hourglass-split"></i>
+
                                 </div>
+
+ 
 
                                 <div class="kpi-info">
+
                                     <div class="kpi-title">
+
                                         Passaram pela Fila
+
                                     </div>
+
+ 
 
                                     <div class="kpi-subtitle">
+
                                         veículos que aguardaram
+
                                     </div>
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                             <div class="kpi-value" id="relPassaramFila">
+
                                 0
+
                             </div>
+
+ 
 
                             <div class="kpi-footer">
+
                                 <i class="bi bi-arrow-up-right"></i>
+
                                 <span>Veículos no total</span>
+
                             </div>
+
+ 
 
                             <div class="kpi-bg-icon">
+
                                 <i class="bi bi-car-front-fill"></i>
+
                             </div>
 
+ 
+
                         </div>
+
                     </article>
+
                 </section>
 
+ 
+
                 <div class="dashboard-signature">
+
                     <span></span>
+
                     <p>“MOBILIDADE MOVIDA POR DADOS”</p>
+
                     <span></span>
+
                 </div>
+
+ 
 
                 <!-- ============= Seção Indicadores=============== -->
 
+ 
+
                 <section class="relatorio-indicadores">
+
+ 
 
                     <article class="indicador-card cinza">
 
+ 
+
                         <div class="indicador-icone cinza">
+
+ 
 
                             <i class="bi bi-clock-history status-tempo"></i>
 
+ 
+
                         </div>
+
+ 
+
+ 
 
  
 
                         <div class="indicador-info">
 
+ 
+
                             <span>Tempo médio de carregamento</span>
+
+ 
 
                             <strong id="indicadorTempoCarga">0h 0min</strong>
 
+ 
+
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card laranja">
 
+ 
+
                         <div class="indicador-icone laranja">
 
+ 
+
                             <i class="bi bi-hourglass-split status-fila"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>Tempo médio de espera</span>
 
+ 
+
                             <strong id="indicadorTempoEspera">0h 0min</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card vermelho">
 
+ 
+
                         <div class="indicador-icone vermelho">
 
+ 
+
                             <i class="bi bi-battery-half status-carregando"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>Média de bateria na entrada</span>
 
+ 
+
                             <strong id="indicadorBateriaEntrada">0%</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card verde">
 
+ 
+
                         <div class="indicador-icone verde">
 
+ 
+
                             <i class="bi bi-battery-full status-concluido"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>Média de bateria na saída</span>
 
+ 
+
                             <strong id="indicadorBateriaSaida">0%</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card amarelo">
 
+ 
+
                         <div class="indicador-icone amarelo">
 
+ 
+
                             <i class="bi bi-lightning-charge status-energia"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>Energia total consumida</span>
 
+ 
+
                             <strong id="indicadorEnergia">-</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card verde">
 
+ 
+
                         <div class="indicador-icone verde">
 
+ 
+
                             <i class="bi bi-check-circle status-concluido"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>Taxa de utilização</span>
 
+ 
+
                             <strong id="indicadorUtilizacao">0%</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card laranja">
 
+ 
+
                         <div class="indicador-icone laranja">
 
+ 
+
                             <i class="bi bi-cash-stack status-carregando"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>Economia Estimada</span>
 
+ 
+
                             <strong id="indicadorEconomia">-</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="indicador-card verde">
 
+ 
+
                         <div class="indicador-icone verde">
 
+ 
+
                             <i class="bi bi-tree-fill status-concluido"></i>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
+
                         <div class="indicador-info">
+
+ 
 
                             <span>CO₂ Evitado</span>
 
+ 
+
                             <strong id="indicadorCo2">-</strong>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
 
                 </section>
 
-
+                
 
                 <!-- ==================== Título comparativo-mensal ==================== -->
 
+ 
+
                 <header class="historico-titulo" id="Comparativo mensal">
+
+ 
 
                     <h1>Comparativo mensal <i class="bi bi-calendar3"></i></h1>
 
+ 
+
                 </header>
+
+ 
+
+ 
 
  
 
@@ -584,7 +952,15 @@
 
  
 
+ 
+
+ 
+
                     <article class="comparativo-card" id="comparativoMensal">
+
+ 
+
+ 
 
  
 
@@ -592,33 +968,67 @@
 
  
 
+ 
+
+ 
+
                             <div>
+
+ 
 
                                 <h3>
 
+ 
+
                                     <i class="bi bi-graph-up-arrow"></i>
 
+ 
+
                                     Comparativo Mensal
+
+ 
 
                                 </h3>
 
  
 
+ 
+
+ 
+
                                 <span>
+
+ 
 
                                     Evolução das recargas
 
+ 
+
                                 </span>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <span class="comparativo-periodo">
+
+ 
 
                                 Últimos 2 meses
 
+ 
+
                             </span>
+
+ 
+
+ 
 
  
 
@@ -626,9 +1036,19 @@
 
  
 
+ 
+
+ 
+
                         <!-- COMPARAÇÃO PRINCIPAL -->
 
+ 
+
                         <div class="comparativo-body">
+
+ 
+
+ 
 
  
 
@@ -636,29 +1056,59 @@
 
  
 
+ 
+
+ 
+
                                 <span class="mes-nome">
+
+ 
 
                                 </span>
 
  
 
+ 
+
+ 
+
                                 <strong>
 
+ 
+
                                    
+
+ 
 
                                 </strong>
 
  
 
+ 
+
+ 
+
                                 <small>
 
+ 
+
                                     Recargas
+
+ 
 
                                 </small>
 
  
 
+ 
+
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
@@ -666,11 +1116,23 @@
 
  
 
+ 
+
+ 
+
                                 <i class="bi bi-arrow-right"></i>
 
  
 
+ 
+
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
@@ -678,107 +1140,215 @@
 
  
 
+ 
+
+ 
+
                                 <span class="mes-nome">
 
+ 
+
                                 </span>
+
+ 
+
+ 
 
  
 
                                 <strong>
 
+ 
+
                                    
+
+ 
 
                                 </strong>
 
  
 
+ 
+
+ 
+
                                 <small>
 
+ 
+
                                     Recargas
+
+ 
 
                                 </small>
 
  
 
+ 
+
+ 
+
                             </div>
 
  
 
+ 
+
+ 
+
                         </div>
+
+ 
+
+ 
 
  
 
                         <!-- RESULTADO -->
 
+ 
+
                         <div class="comparativo-resultado">
+
+ 
+
+ 
 
  
 
                             <div class="comparativo-diferenca">
 
+ 
+
                                 <i class="bi bi-arrow-up-right"></i>
+
+ 
 
                                 <strong>+132</strong>
 
+ 
+
                                 <span>recargas</span>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <div class="comparativo-percentual">
 
+ 
+
                                 +10,58%
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <small>
 
+ 
+
                                 crescimento no período
+
+ 
 
                             </small>
 
  
 
+ 
+
+ 
+
                         </div>
+
+ 
+
+ 
 
  
 
                         <!-- BARRAS -->
 
+ 
+
                         <div class="comparativo-barras">
 
  
 
+ 
+
+ 
+
                             <div class="comparativo-barra">
 
  
 
+ 
+
+ 
+
                                 <div class="barra-info">
+
+ 
 
                                     <span>Julho</span>
 
+ 
+
                                     <strong>1.247</strong>
 
+ 
+
                                 </div>
+
+ 
+
+ 
 
  
 
                                 <div class="barra-fundo">
 
+ 
+
                                     <div
+
+ 
 
                                         class="barra-preenchimento julho">
 
+ 
+
                                     </div>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
@@ -786,29 +1356,59 @@
 
  
 
+ 
+
+ 
+
                                 <div class="barra-info">
+
+ 
 
                                     <span>Agosto</span>
 
+ 
+
                                     <strong>1.379</strong>
 
+ 
+
                                 </div>
+
+ 
+
+ 
 
  
 
                                 <div class="barra-fundo">
 
+ 
+
                                     <div
+
+ 
 
                                         class="barra-preenchimento agosto">
 
+ 
+
                                     </div>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
@@ -816,1036 +1416,2067 @@
 
  
 
+ 
+
+ 
+
                     </article>
 
  
 
+ 
+
+ 
+
                 </section>
+
+ 
+
+ 
 
  
 
                 <!-- ================ Seção Histórico de Movimentações =============== -->
 
+ 
+
                 <section class="card historico-card" id="Historico de Movimentacoes">
+
+ 
 
                     <div class=" historico-header">
 
+ 
+
                         <!-- <h1>
+
+ 
 
                             Histórico de Movimentações  📋></i>
 
+ 
+
                         </h1>-->
+
+ 
 
                         <h1>
 
+ 
+
                             Histórico de Movimentações <i class="bi bi-clipboard-data"></i>
+
+ 
 
                         </h1>
 
  
 
+ 
+
+ 
+
                         <div class="historico-acoes">
+
+ 
 
                             <!--===Botão para exportar o PDF===-->
 
+ 
+
                             <button type="button" class="btn btn-secondary ms-2" onclick="exportarPDF()">
+
+ 
 
                                 <i class="bi bi-file-earmark-pdf"></i> Exportar PDF
 
+ 
+
                             </button>
+
+ 
+
+ 
 
  
 
                             <!--===Botão para exportar o EXCEL===-->
 
+ 
+
                             <button type="button" class="btn btn-success ms-2" onclick="exportarExcel()">
+
+ 
 
                                 <i class="bi bi-file-earmark-excel"></i> Exportar Excel
 
+ 
+
                             </button>
+
+ 
+
+ 
 
  
 
                             <!--=== Botão lupaL ===-->
 
+ 
+
                             <button class="filter" id="btnFiltroMov" aria-label="filtros">
+
+ 
 
                             <!-- <i class="bi bi-funnel-fill"></i> -->
 
+ 
+
                             🔍
 
+ 
+
                             </button>
+
+ 
+
+ 
 
  
 
                             <!--=== Botão expandir ===-->
 
+ 
+
                             <button class="filter" id="btnToggleMov" aria-label="expandir">
+
+ 
 
                                 🔽
 
+ 
+
                             </button>
+
+ 
 
                         </div>
 
+ 
+
                     </div>
+
+ 
+
+ 
 
  
 
                     <div class="card-body">
 
+ 
+
                         <div id="tabelaHistorico"></div>
+
+ 
 
                     </div>
 
+ 
+
                 </section>
+
+ 
+
+ 
 
  
 
                 <!-- ========= Filtros e Referências ================ -->
 
+ 
+
                 <header class="historico-titulo" id="Filtros e Referencias">
+
+ 
 
                     <!-- <h1> Filtros e Referências 🔎</h1> -->
 
+ 
+
                     <h1>Filtros e Referências <i class="bi bi-search"></i></h1>
 
+ 
+
                 </header>
+
+ 
+
+ 
 
  
 
                 <!-- ========= Seção dos filtros de data e meses ================ -->
 
+ 
+
                 <section class="filtros-referencia">
+
+ 
 
                     <article class="filtro-data-card">
 
+ 
+
                         <div class="filtro-data-header">
+
+ 
 
                             <span>FILTROS</span>
 
+ 
+
                             <i class="bi bi-funnel-fill"></i>
 
+ 
+
                         </div>
+
+ 
 
                         <div class="filtro-data-conteudo">
+
                             <div class="filtro-titulo">DATA DE ENTRADA</div>
 
+ 
+
                             <div class="campo">
+
                                 <label for="filtroMes">Mês e ano</label>
+
                                 <select id="filtroMes">
+
                                     <option value="">Todos os meses</option>
+
                                 </select>
+
                             </div>
+
                            
+
                             <div class="campo">
+
                                 <label for="filtroDiaSemana">Dia da semana</label>
+
                                 <select id="filtroDiaSemana">
+
                                     <option value="">Todos os dias</option>
+
                                     <option value="Segunda-feira">Segunda-feira</option>
+
                                     <option value="Terça-feira">Terça-feira</option>
+
                                     <option value="Quarta-feira">Quarta-feira</option>
+
                                     <option value="Quinta-feira">Quinta-feira</option>
+
                                     <option value="Sexta-feira">Sexta-feira</option>
+
                                     <option value="Sábado">Sábado</option>
+
                                     <option value="Domingo">Domingo</option>
+
                                 </select>
+
                             </div>
-                            
+
+                           
+
                             <div class="campo">
+
                                 <label for="filtroTorre">Torre</label>
+
                                 <select id="filtroTorre">
+
                                     <option value="">Todas as torres</option>
+
                                     <option value="Alfredo Egydio">Alfredo Egydio</option>
+
                                     <option value="Olavo Setubal">Olavo Setubal</option>
+
                                     <option value="Jabaquara">Jabaquara</option>
+
                                 </select>
+
                             </div>
-                            
+
+                           
+
                             <div class="campo">
+
                                 <label for="filtroPiso">Piso</label>
+
                                 <select id="filtroPiso">
+
                                     <option value="">Todos os pisos</option>
+
                                     <option value="Guajuviras">Guajuviras</option>
+
                                     <option value="1º SS">1º SS</option>
+
                                     <option value="Azul">Azul</option>
+
                                     <option value="PG">PG</option>
+
                                     <option value="1º Andar">1º Andar</option>
+
                                 </select>
+
                             </div>
+
+ 
 
                             <button type="button" id="limparFiltros">
+
                                 Limpar filtros
+
                             </button>
+
                         </div>
 
+ 
 
                     </article>
+
+ 
+
+ 
 
  
 
                     <!-- ============= Tabelo de uso por dia ============== -->
 
+ 
+
                     <article class="tabela-uso-card">
+
+ 
 
                         <div class="tabela-uso-header">
 
+ 
+
                             <span>Data</span>
+
+ 
 
                             <span>
 
+ 
+
                                 <i class="bi bi-funnel"></i>
+
+ 
 
                                 uso por dia
 
+ 
+
                             </span>
+
+ 
 
                         </div>
 
  
 
+ 
+
+ 
 
                         <div class="tabela-uso-corpo" id="tabelaUsoPorDia">
+
                             <p>Nenhum registro encontrado.</p>
+
                         </div>
+
+ 
 
                         <div class="tabela-uso-total">
+
                             <span>Total Geral</span>
+
                             <strong id="totalUsoPorDia">0</strong>
+
                         </div>
 
+ 
 
                     </article>
 
+ 
+
                 </section>
+
+ 
+
+ 
 
  
 
                 <!-- ==================== Título Graficos ==================== -->
 
+ 
+
                 <header class="historico-titulo" id="Graficos">
 
+ 
+
                     <h1>Gráficos <i class="bi bi-bar-chart"></i></h1>
+
+ 
 
                 </header>
 
  
 
+ 
+
+ 
+
                 <!-- ============ Seção dos gráficos e indicadores ============== -->
+
+ 
 
                 <section class="dashboard-graficos">
 
+ 
+
                     <article class="grafico-card grafico-linha">
+
+ 
 
                         <header class="grafico-card-header">
 
+ 
+
                             <div>
+
+ 
 
                                 <h3>Recargas por Dia</h3>
 
+ 
+
                                 <span>Evolução diária das recargas</span>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <button class="grafico-opcoes">
 
+ 
+
                                 <i class="bi bi-three-dots"></i>
+
+ 
 
                             </button>
 
+ 
+
                         </header>
+
+ 
+
+ 
 
  
 
                         <div class="linha-chart">
 
+ 
+
                             <!-- Dias da semana -->
+
+ 
 
                             <div class="linha-dias-semana">
 
+ 
+
                                 <span>Seg</span>
+
+ 
 
                                 <span>Ter</span>
 
+ 
+
                                 <span>Qua</span>
+
+ 
 
                                 <span>Qui</span>
 
+ 
+
                                 <span>Sex</span>
-                                
+
+                               
+
                                 <span>Sáb</span>
-    
+
+   
+
                                 <span>Dom</span>
+
+ 
 
                             </div>
 
+ 
+
                             <svg
+
+ 
 
                                 id="graficoRecargasDia"
 
+ 
+
                                 viewBox="0 0 800 280">
+
+ 
 
                             </svg>
 
+ 
+
                         </div>
+
+ 
 
                     </article>
 
  
 
+ 
+
+ 
+
                     <article class="grafico-card">
+
+ 
 
                         <header class="grafico-card-header">
 
+ 
+
                             <div>
+
+ 
 
                                 <h3>🏆 Top Usuários</h3>
 
+ 
+
                                 <span>Mais utilizam os carregadores</span>
+
+ 
 
                             </div>
 
+ 
+
                         </header>
+
+ 
+
+ 
 
  
 
                         <div class="ranking-lista" id="topUsuarios">
 
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>1º 🥇 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>2º 🥈 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>3º 🥉 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>4º 🏅 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>5º 🎖️ </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
+ 
+
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <article class="grafico-card">
 
+ 
+
                         <header class="grafico-card-header">
+
+ 
 
                             <div>
 
+ 
+
                                 <h3>🚗 Top Cargos</h3>
+
+ 
 
                                 <span>Mais carregados</span>
 
+ 
+
                             </div>
 
+ 
+
                         </header>
+
+ 
+
+ 
 
  
 
                         <div class="ranking-lista" id="topCargos">
 
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>1º 🥇 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>2º 🥈 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>3º 🥉 </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>4º 🏅 Coordenadore</span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="ranking-item">
+
+ 
 
                                 <span>5º 🎖️ </span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
+ 
+
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <!-- ================ Carregamentos por dia ================= -->
 
+ 
+
                     <article class="grafico-card grafico-carregamentos">
+
+ 
 
                         <header class="grafico-card-header">
 
+ 
+
                             <div>
+
+ 
 
                                 <h3>Carregamentos por dia da semana</h3>
 
+ 
+
                                 <span>Quantidade de carregamentos</span>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <button class="grafico-opcoes" type="button">
+
+ 
 
                                 <i class="bi bi-three-dots"></i>
 
+ 
+
                             </button>
 
+ 
+
                         </header>
+
+ 
+
+ 
 
  
 
                         <div class="grafico-barras-verticais">
 
+ 
+
                             <div class="barras-area">
+
+ 
 
                                 <div class="linha linha-100"></div>
 
+ 
+
                                 <div class="linha linha-75"></div>
+
+ 
 
                                 <div class="linha linha-50"></div>
 
+ 
+
                                 <div class="linha linha-25"></div>
+
+ 
 
                                 <div class="linha linha-0"></div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-colunas" id="graficoDiaSemana">
 
+ 
+
                                     <div class="barra-item">
+
+ 
 
                                         <span class="barra-valor"> </span>
 
+ 
+
                                         <div class="barra barra-1"></div>
+
+ 
 
                                         <span class="barra-label">Seg</span>
 
+ 
+
                                     </div>
+
+ 
+
+ 
 
  
 
                                     <div class="barra-item">
 
+ 
+
                                         <span class="barra-valor"></span>
+
+ 
 
                                         <div class="barra barra-2"></div>
 
+ 
+
                                         <span class="barra-label">Ter</span>
+
+ 
 
                                     </div>
 
  
 
+ 
+
+ 
+
                                     <div class="barra-item">
 
+ 
+
                                         <span class="barra-valor"></span>
+
+ 
 
                                         <div class="barra barra-3"></div>
 
+ 
+
                                         <span class="barra-label">Qua</span>
+
+ 
 
                                     </div>
 
  
 
+ 
+
+ 
+
                                     <div class="barra-item">
 
+ 
+
                                         <span class="barra-valor"></span>
+
+ 
 
                                         <div class="barra barra-4"></div>
 
+ 
+
                                         <span class="barra-label">Qui</span>
+
+ 
 
                                     </div>
 
  
 
+ 
+
+ 
+
                                     <div class="barra-item">
 
+ 
+
                                         <span class="barra-valor"></span>
+
+ 
 
                                         <div class="barra barra-5"></div>
 
+ 
+
                                         <span class="barra-label">Sex</span>
+
+ 
 
                                     </div>
 
  
 
+ 
+
+ 
+
                                     <div class="barra-item">
 
+ 
+
                                         <span class="barra-valor"></span>
+
+ 
 
                                         <div class="barra barra-6"></div>
 
+ 
+
                                         <span class="barra-label">Sáb</span>
+
+ 
 
                                     </div>
 
  
 
+ 
+
+ 
+
                                     <div class="barra-item">
+
+ 
 
                                         <span class="barra-valor"></span>
 
+ 
+
                                         <div class="barra barra-7"></div>
+
+ 
 
                                         <span class="barra-label">Dom</span>
 
+ 
+
                                     </div>
+
+ 
 
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <!-- ================ UTilização por Torre ================== -->
 
+ 
+
                     <article class="grafico-card grafico-torre">
+
+ 
 
                         <header class="grafico-card-header">
 
+ 
+
                             <div>
+
+ 
 
                                 <h3>Utilização por Torre</h3>
 
+ 
+
                                 <span>Distribuição dos carregamentos</span>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <button class="grafico-opcoes" type="button">
+
+ 
 
                                 <i class="bi bi-three-dots"></i>
 
+ 
+
                             </button>
 
+ 
+
                         </header>
+
+ 
+
+ 
 
  
 
                         <div class="barras-horizontais" id="usoPorTorre">
 
+ 
+
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>Olavo Setubal</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento torre-1">
 
+ 
+
                                     </div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>Jabaquara</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento torre-2"></div>
 
+ 
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>Alfredo Egydio</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento torre-3"></div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
+ 
+
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <!-- ============= Utilização por Piso ====================== -->
 
+ 
+
                     <article class="grafico-card grafico-piso">
+
+ 
 
                         <header class="grafico-card-header">
 
+ 
+
                             <div>
+
+ 
 
                                 <h3>Utilização por Piso</h3>
 
+ 
+
                                 <span>
+
+ 
 
                                     Distribuição dos carregamentos
 
+ 
+
                                 </span>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <button class="grafico-opcoes" type="button">
+
+ 
 
                                 <i class="bi bi-three-dots"></i>
 
+ 
+
                             </button>
 
+ 
+
                         </header>
+
+ 
+
+ 
 
  
 
                         <div class="barras-horizontais" id="usoPorPiso">
 
+ 
+
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>1ºSS</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento piso-1">
 
+ 
+
                                     </div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>Azul</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento piso-2">
 
+ 
+
                                     </div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>PG</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento piso-3"></div>
 
+ 
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <div class="barra-horizontal-item">
 
+ 
+
                                 <div class="barra-horizontal-topo">
+
+ 
 
                                     <span>1º AND.</span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="barra-horizontal-fundo">
+
+ 
 
                                     <div class="barra-horizontal-preenchimento piso-4">
 
+ 
+
                                     </div>
+
+ 
 
                                 </div>
 
+ 
+
                             </div>
+
+ 
 
                         </div>
 
+ 
+
                     </article>
+
+ 
+
+ 
 
  
 
                     <!-- ========= Cargos que mais usam os carregadores ========= -->
 
+ 
+
                     <article class="grafico-card grafico-cargo">
+
+ 
+
+ 
 
  
 
                         <header class="grafico-card-header">
 
+ 
+
                             <div>
+
+ 
 
                                 <h3>Tipo de Cargo</h3>
 
+ 
+
                                 <span>Perfil dos usuários</span>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <button class="grafico-opcoes" type="button">
 
+ 
+
                                 <i class="bi bi-three-dots"></i>
 
+ 
+
                             </button>
+
+ 
 
                         </header>
 
  
 
+ 
+
+ 
+
                         <!-- ============== GRÁFICO DE CARGOS ============== -->
+
+ 
 
                         <div class="cargo-grafico" id="graficoCargos">
 
  
 
+ 
+
+ 
+
                             <div class="cargo-barra">
+
+ 
 
                                 <div class="cargo-barra-topo">
 
+ 
+
                                     <span></span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="cargo-barra-fundo">
+
+ 
 
                                     <div class="cargo-barra-preenchimento cargo-35"></div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="cargo-barra">
+
+ 
 
                                 <div class="cargo-barra-topo">
 
+ 
+
                                     <span></span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="cargo-barra-fundo">
+
+ 
 
                                     <div class="cargo-barra-preenchimento cargo-28"></div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="cargo-barra">
+
+ 
 
                                 <div class="cargo-barra-topo">
 
+ 
+
                                     <span></span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="cargo-barra-fundo">
+
+ 
 
                                     <div class="cargo-barra-preenchimento cargo-20"></div>
 
+ 
+
                                 </div>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="cargo-barra">
+
+ 
 
                                 <div class="cargo-barra-topo">
 
+ 
+
                                     <span></span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="cargo-barra-fundo">
+
+ 
 
                                     <div class="cargo-barra-preenchimento cargo-17"></div>
 
+ 
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <div class="cargo-barra">
 
+ 
+
                                 <div class="cargo-barra-topo">
+
+ 
 
                                     <span></span>
 
+ 
+
                                     <strong></strong>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <div class="cargo-barra-fundo">
+
+ 
 
                                     <div class="cargo-barra-preenchimento cargo-50"></div>
 
+ 
+
                                 </div>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                         </div>
+
+ 
+
+ 
 
  
 
                         <!-- ============== CARDS DOS CARGOS ============== -->
 
+ 
+
                         <div class="cargo-cards" id="cardsCargos">
+
+ 
+
+ 
 
  
 
                             <div class="cargo-card">
 
+ 
+
                                 <div class="cargo-card-icone">
+
+ 
 
                                     <i class="bi bi-person"></i>
 
+ 
+
                                 </div>
+
+ 
+
+ 
 
  
 
                                 <span>Analistas</span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="cargo-card">
 
+ 
+
                                 <div class="cargo-card-icone">
+
+ 
 
                                     <i class="bi bi-people"></i>
 
+ 
+
                                 </div>
+
+ 
+
+ 
 
  
 
                                 <span></span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="cargo-card">
 
+ 
+
                                 <div class="cargo-card-icone">
+
+ 
 
                                     <i class="bi bi-person-badge"></i>
 
+ 
+
                                 </div>
+
+ 
+
+ 
 
  
 
                                 <span></span>
 
+ 
+
                                 <strong></strong>
+
+ 
 
                             </div>
 
  
 
+ 
+
+ 
+
                             <div class="cargo-card">
 
+ 
+
                                 <div class="cargo-card-icone">
+
+ 
 
                                     <i class="bi bi-person-vcard"></i>
 
+ 
+
                                 </div>
+
+ 
+
+ 
 
  
 
                                 <span></span>
 
+ 
+
                                 <strong></strong>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
                             <div class="cargo-card">
 
+ 
+
                                 <div class="cargo-card-icone">
 
+ 
+
                                     <i class="bi bi-person-workspace"></i>
+
+ 
 
                                 </div>
 
  
 
+ 
+
+ 
+
                                 <span></span>
+
+ 
 
                                 <strong></strong>
 
+ 
+
                             </div>
+
+ 
+
+ 
 
  
 
@@ -1853,104 +3484,209 @@
 
  
 
+ 
+
+ 
+
                     </article>
+
+ 
 
                 </section>
 
+ 
+
             </div>
 
+ 
+
         </main>
+
+ 
 
     </div>
 
  
 
+ 
+
+ 
+
     <!-- ====================== Rodapé ============================== -->
+
+ 
 
     <footer class="footer">
 
+ 
+
         <div class="container text-center">
+
+ 
 
             <p class="copyright">
 
+ 
+
                 © 2026 By 🔶 WBS - Soluções - Wellington Bertoso.
+
+ 
 
                 Todos os direitos reservados
 
+ 
+
             </p>
+
+ 
 
             <a href="#inicio" class="top" title="Botão de voltar ao topo">
 
+ 
+
                 <i class="bi bi-arrow-up"></i>
+
+ 
 
             </a>
 
+ 
+
         </div>
+
+ 
 
     </footer>
 
  
 
+ 
+
+ 
+
     <!-- ============================ Bibliotecas ======================= -->
+
+ 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+ 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 
+ 
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+ 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
  
 
+ 
+
+ 
+
     <!-- Exportação Excel -->
+
+ 
 
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
  
 
+ 
+
+ 
+
     <!-- Exportação PDF -->
 
+ 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/3.0.3/jspdf.umd.min.js"></script>
+
+ 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/5.0.2/jspdf.plugin.autotable.min.js"></script>
 
  
 
+ 
+
+ 
+
     <!-- ================= Script de rodar off-line =============== -->
+
+ 
 
     <script>
 
+ 
+
         if ('serviceWorker' in navigator) {
+
+ 
 
             window.addEventListener('load', () => {
 
+ 
+
                 navigator.serviceWorker.register('js/service-worker.js')
+
+ 
 
                     .then(reg => console.log(
 
+ 
+
                         '✅ Service Worker registrado:',
+
+ 
 
                         reg.scope
 
+ 
+
                     ))
+
+ 
 
                     .catch(err => console.error(
 
+ 
+
                         '❌ Erro ao registrar Service Worker:',
+
+ 
 
                         err
 
+ 
+
                     ));
+
+ 
 
             });
 
+ 
+
         }
+
+ 
 
     </script>
 
  
+
+ 
+
     <!-- ====================== Scripts ======================== -->
+
+    <script src="js/acessibilidade.js"></script>
+
+    <script src="js/fotos-perfis.js"></script>
 
     <script src="js/script.js"></script>
 
