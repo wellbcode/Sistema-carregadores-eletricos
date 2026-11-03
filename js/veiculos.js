@@ -1,10 +1,16 @@
 // ================ BASE =====================
 const base = [
     ["WEL2811", "Wellington Bertoso Santos", "Func: 123456789", "Dev Front-End Jr - Algum Lugar SA", "Kadillac Escalade - Preto", "WellingtonBertosoSantos@correio.itau.com.br", "pictures/ft-teste.jpg"],
+    
+    ["MAY1611", "Mayra da Silva Gal", "Func: 123456792", "Dir. Pedagógica - Harvard University", "Mitsubishi Pajero - Branco", "Mayra@correio.itau.com.br", "pictures/mayra-ft.jpg"],
+
+    ["ELI2408", "Eliene Brito Lima", "Func:123456103", "CEO - Tickets 4 fun Tomorrowland", "Mercedes-Benz Classe S -   Preto", "Eliene@correio.itau.com.br", " pictures/eli-ft.jpg"],
+
+    ["LAR2007", "Larissa Alves de Souza", "Func:123456111", "CEO - Sou Mamãe e sou feliz", "Range Rover Sport - Verde escuro", "Larissa@correio.itau.com.br", " pictures/lari-ft.jpg"],
+
+    ["LOR0909", "Lorainy Aline Oliveira Sales", "Func:123456112", "Vice-Pres. - Grupo Imperial", "BMW Série 7 - Preto", "Lorainy@correio.itau.com.br", " pictures/lore-ft.jpg"],
 
     ["ING1311", "Ingrid Souza Ferreira", "Func: 123456791", "Dir. Pres Conselho - Apple", "Honda Civic - Preto", "Ingrid@correio.itau.com.br", "pictures/ingrid-ft.png"],
-
-    ["MAY1611", "Mayra da Silva Gal", "Func: 123456792", "Dir. Pedagógica - Harvard University", "Mitsubishi Pajero - Branco", "Mayra@correio.itau.com.br", "pictures/mayra-ft.jpg"],
 
     ["BRE1002", "Brenno Malveira de Souza Castro", "Func: 123456793", "Cons Financas - Breno Design LTDA", "Volkswagen Polo - Prata", "breno@correio.itau.com.br", "pictures/breno-ft.png"],
 
@@ -24,8 +30,6 @@ const base = [
 
     ["LAN2802", "Elaine Souza Santos", "Func: 123456102", "Sec. Pres - Prada", "Mercedes C3000 - Preto", "Elaine@correio.itau.com.br", "pictures/lan-ft.jpg"],
 
-    ["ELI2408", "Eliene Brito Lima", "Func:123456103", "CEO - Tickets 4 fun Tomorrowland", "Mercedes-Benz Classe S -   Preto", "Eliene@correio.itau.com.br", " pictures/eli-ft.jpg"],
-
     ["ERI2806", "Erinaldo Pereira Angelo", "Func:123456104", "CFO - Banco Atlas", "BMW 740i - Azul Marinho", "Erinaldo@correio.itau.com.br", " pictures/eri-ft.jpg"],
 
     ["FAB3010", "Fabiano Santos da Silva", "Func:123456105", "Dir. Executivo - TechNova", "Porsche Panamera - Branco", "Fabiano@correio.itau.com. br", " pictures/fabi-ft.jpg"],
@@ -39,10 +43,6 @@ const base = [
     ["ALV0701", "Jose Alves da Silva Junior", "Func:123456109", "CEO - Grupo Aliança", "Porsche Cayenne - Cinza", "Jose@correio.itau.com.br", " pictures/alves-ft.jpg"],
 
     ["KET3112", "Ketilin de Melo dos Santos", "Func:123456110", "Dir. de Operações - InovaCorp", "Volvo XC90 - Preto", "Ketilin@correio.itau.com.br", " pictures/ket-ft.jpg"],
-
-    ["LAR2007", "Larissa Alves de Souza", "Func:123456111", "CEO - Sou Mamãe e sou feliz", "Range Rover Sport - Verde escuro", "Larissa@correio.itau.com.br", " pictures/lari-ft.jpg"],
-
-    ["LOR0909", "Lorainy Aline Oliveira Sales", "Func:123456112", "Vice-Pres. - Grupo Imperial", "BMW Série 7 - Preto", "Lorainy@correio.itau.com.br", " pictures/lore-ft.jpg"],
 
     ["MAR0703", "Marcio Pereira Inacio", "Func:123456113", "Dir. de Tecnologia - DataCloud", "Audi Q8 - Azul", "Marcio@correio.itau.com.br", " pictures/marciao-ft.jpg"],
 

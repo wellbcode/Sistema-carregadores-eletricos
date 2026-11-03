@@ -1705,296 +1705,140 @@ function obterComparativoMensal() {
  
 
 function renderizarComparativoMensal() {
-
- 
-
     const card =
-
         document.getElementById("comparativoMensal");
 
- 
-
     if (!card) return;
-
- 
-
     const comparativo =
 
         obterComparativoMensal();
-
- 
 
     // if (!comparativo) return;
     if (!comparativo) {
         card.innerHTML = "";
         return;
     }
+
+    const icone =
+    comparativo.diferenca >= 0
+        ? "bi-arrow-up-right"
+        : "bi-arrow-down-right";
+
+         const classeCor =
+        comparativo.diferenca >= 0
+            ? "positivo"
+            : "negativo";
+
+        const textoPeriodo =
+        comparativo.diferenca >= 0
+            ? "crescimento no período"
+            : "queda no período";
     
+        const maior = Math.max(
+            comparativo.anteriorValor,
+            comparativo.atualValor
+            );
 
-    const percentualBarraAnterior =
+        const percentualBarraAnterior =
+            (comparativo.anteriorValor / maior) * 100;
 
-        comparativo.atualValor > 0
+        const percentualBarraAtual =
+            (comparativo.atualValor / maior) * 100;
+        
+        card.innerHTML = `
+            <div class="comparativo-header">
+                <div>
+                    <h3>
+                        <i class="bi bi-graph-up-arrow"></i>
+                        Comparativo Mensal
+                    </h3>
+                    <span>Evolução das recargas</span>
+                </div>
 
-            ? (comparativo.anteriorValor / comparativo.atualValor) * 100
-
-            : 0;
-
- 
-
-    const percentualBarraAtual = 100;
-
- 
-
-    card.innerHTML = `
-
- 
-
-        <div class="comparativo-header">
-
- 
-
-            <div>
-
-                <h3>
-
-                    <i class="bi bi-graph-up-arrow"></i>
-
-                    Comparativo Mensal
-
-                </h3>
-
- 
-
-                <span>
-
-                    Evolução das recargas
-
+                <span class="comparativo-periodo">
+                    Últimos 2 meses
                 </span>
-
             </div>
 
- 
-
-            <span class="comparativo-periodo">
-
-                Últimos 2 meses
-
-            </span>
-
- 
-
-        </div>
-
- 
-
-        <div class="comparativo-body">
-
- 
-
-            <div class="comparativo-mes">
-
- 
-
-                <span class="mes-nome">
-
-                    ${comparativo.anteriorMes}
-
-                </span>
-
- 
-
-                <strong>
-
-                    ${comparativo.anteriorValor}
-
-                </strong>
-
- 
-
-                <small>Recargas</small>
-
- 
-
-            </div>
-
- 
-
-            <div class="comparativo-evolucao">
-
-                <i class="bi bi-arrow-right"></i>
-
-            </div>
-
- 
-
-            <div class="comparativo-mes destaque">
-
- 
-
-                <span class="mes-nome">
-
-                    ${formatarMesAno(comparativo.atualMes)}
-
-                </span>
-
- 
-
-                <strong>
-
-                    ${comparativo.atualValor}
-
-                </strong>
-
- 
-
-                <small>Recargas</small>
-
- 
-
-            </div>
-
- 
-
-        </div>
-
- 
-
-        <div class="comparativo-resultado">
-
- 
-
-            <div class="comparativo-diferenca">
-
- 
-
-                <i class="bi bi-arrow-up-right"></i>
-
- 
-
-                <strong>
-
-                    ${comparativo.diferenca >= 0 ? "+" : ""}
-
-                    ${comparativo.diferenca}
-
-                </strong>
-
- 
-
-                <span>recargas</span>
-
- 
-
-            </div>
-
- 
-
-            <div class="comparativo-percentual">
-
- 
-
-                ${comparativo.percentual}%
-
- 
-
-            </div>
-
- 
-
-            <small>
-
-                crescimento no período
-
-            </small>
-
- 
-
-        </div>
-
- 
-
-        <div class="comparativo-barras">
-
- 
-
-            <div class="comparativo-barra">
-
- 
-
-                <div class="barra-info">
-
-                    <span>${formatarMesAno(comparativo.anteriorMes)}</span>
+            <div class="comparativo-body">
+
+                <div class="comparativo-mes">
+                    <span class="mes-nome">
+                        ${formatarMesAno(comparativo.anteriorMes)}
+                    </span>
 
                     <strong>${comparativo.anteriorValor}</strong>
-
+                    <small>Recargas</small>
                 </div>
 
- 
-
-                <div class="barra-fundo">
-
-                    <div
-
-                        class="barra-preenchimento julho"
-
-                        style="width:${percentualBarraAnterior}%">
-
-                    </div>
-
+                <div class="comparativo-evolucao">
+                    <i class="bi bi-arrow-right"></i>
                 </div>
 
- 
-
-            </div>
-
- 
-
-            <div class="comparativo-barra">
-
- 
-
-                <div class="barra-info">
-
-                    <span>
-
-                        ${formatarMesAno(
-
-                            comparativo.atualMes
-
-                        )}
-
+                <div class="comparativo-mes destaque">
+                    <span class="mes-nome">
+                        ${formatarMesAno(comparativo.atualMes)}
                     </span>
 
                     <strong>${comparativo.atualValor}</strong>
-
+                    <small>Recargas</small>
                 </div>
-
- 
-
-                <div class="barra-fundo">
-
-                    <div
-
-                        class="barra-preenchimento agosto"
-
-                        style="width:${percentualBarraAtual}%">
-
-                    </div>
-
-                </div>
-
- 
 
             </div>
 
- 
+            <div class="comparativo-resultado">
 
-        </div>
+                <div class="comparativo-diferenca ${classeCor}">
+                    <i class="bi ${icone}"></i>
 
- 
+                    <strong>
+                        ${comparativo.diferenca >= 0 ? "+" : ""}
+                        ${comparativo.diferenca}
+                    </strong>
 
-    `;
+                    <span>recargas</span>
+                </div>
 
+                <div class="comparativo-percentual ${classeCor}">
+                    ${comparativo.percentual}%
+                </div>
+
+                <small>${textoPeriodo}</small>
+
+            </div>
+
+            <div class="comparativo-barras">
+
+                <div class="comparativo-barra">
+                    <div class="barra-info">
+                        <span>${formatarMesAno(comparativo.anteriorMes)}</span>
+                        <strong>${comparativo.anteriorValor}</strong>
+                    </div>
+
+                    <div class="barra-fundo">
+                        <div
+                            class="barra-preenchimento anterior"
+                            style="width:${percentualBarraAnterior}%">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparativo-barra">
+                    <div class="barra-info">
+                        <span>${formatarMesAno(comparativo.atualMes)}</span>
+                        <strong>${comparativo.atualValor}</strong>
+                    </div>
+
+                    <div class="barra-fundo">
+                        <div
+                            class="barra-preenchimento atual"
+                            style="width:${percentualBarraAtual}%">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        `;
 }
 
 function classificarCargo(valor) {

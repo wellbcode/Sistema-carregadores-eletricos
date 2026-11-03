@@ -1,73 +1,44 @@
-//Botões de filltrosCarregadores
-
+//======================================================
+//      Botões de filltros Carregadores
+//======================================================
 const carregadores = [
-
     {
-
         id: 1,
-
         nome: "Estação 01",
-
         status: "livre",
-
         potencia: "22 kW"
-
     },
-
     {
-
         id: 2,
-
         nome: "Estação 02",
-
         status: "em uso",
-
         potencia: "50 kW"
-
     },
-
     {
-
         id: 3,
-
         nome: "Estação 03",
-
         status: "livre",
-
         potencia: "150 kW"
-
     }
-
 ];
 
- 
-
 let filtroStatus = "todos";
-
 let filtroTorreAtual = "todas";
-
 let filtroMovimentacao = "todos";
 
-// let lembretes = [];
-// let lembretes = JSON.parse(
-//     localStorage.getItem("lembretes")
-// ) || [];
-
-// ================= LEMBRETES =================
-
+// =====================================================
+//              Variáveis para Lembretes
+// =====================================================
 let lembretes = (() => {
     try {
         const salvos = JSON.parse(
             localStorage.getItem("lembretesSmartCharger") || "[]"
         );
-
         if (!Array.isArray(salvos)) return [];
-
         return salvos.map(lembrete => ({
             ...lembrete,
             lido: Boolean(lembrete.lido)
         }));
-
     } catch (erro) {
         console.error("Erro ao carregar lembretes:", erro);
         return [];
@@ -82,11 +53,10 @@ function salvarLembretes() {
         JSON.stringify(lembretes)
     );
 }
- 
-// =====================================================
-// UTILITÁRIOS DOS LEMBRETES
-// =====================================================
 
+// =============================================================
+//         Função que escapa caracteres especiais para HTML
+// ==============================================================
 function escaparHTML(valor) {
     return String(valor ?? "").replace(/[&<>"']/g, caractere => ({
         "&": "&amp;",
@@ -97,293 +67,224 @@ function escaparHTML(valor) {
     })[caractere]);
 }
 
+// ====================================================================
+// Função que filtra os carregadores com base nos filtros selecionados
+// ====================================================================
 function filtrarCarregadores(filtro, botaoClicado) {
-
     filtroStatus = filtro;
 
-    // Ativa somente o botão de status
-
+    // =====================================================
+    //              Ativa somente o botão de status
+    // =====================================================
     document.querySelectorAll(".filtro-btn").forEach(btn => {
-
         btn.classList.remove("active");
-
     });
-
     botaoClicado.classList.add("active");
 
+    // =====================================================
     // Se clicar em TODOS, remove também o filtro de torre
-
+    // =====================================================
     if (filtro === "todos") {
-
         filtroTorreAtual = "todas";
-
         document.querySelectorAll(".torre-btn").forEach(btn => {
-
             btn.classList.remove("active");
-
         });
-
     }
-
     aplicarFiltros();
-
 }
 
- 
-
+// ================================================================
+// Função que filtra os carregadores com base na torre selecionada
+// ================================================================
 function filtrarTorre(torre, botaoClicado) {
-
     filtroTorreAtual = torre;
 
-    // Ativa somente o botão da torre
-
+    // =====================================================
+    //              Ativa somente o botão da torre
+    // =====================================================
     document.querySelectorAll(".torre-btn").forEach(btn => {
-
         btn.classList.remove("active");
-
     });
-
     botaoClicado.classList.add("active");
-
     aplicarFiltros();
-
 }
 
- 
-
+// ================================================================
+//          Função que aplica os filtros aos carregadores
+// ================================================================
 function aplicarFiltros() {
-
+    console.log("===== APLICAR FILTROS =====");
+    console.log(
+        "RECARGAS ATIVAS:",
+        recargas.filter(r => r.status !== "Concluído")
+    );
     document.querySelectorAll(".station-card").forEach(card => {
-
-        const status = card.dataset.status;
-
-        const torre = card.dataset.torre;
-
-        const correspondeStatus =
-
-            filtroStatus === "todos" ||
-
-            status === filtroStatus;
-
-        const correspondeTorre =
-
-            filtroTorreAtual === "todas" ||
-
-            torre === filtroTorreAtual;
-
-        if (correspondeStatus && correspondeTorre) {
-
-            card.style.display = "";
-
-        } else {
-
-            card.style.display = "none";
-
-        }
-
+        console.log(
+            card.querySelector("h3")?.textContent.trim(),
+            "| status:",
+            card.dataset.status,
+            "| display:",
+            card.style.display
+        );
     });
-
+    document.querySelectorAll(".station-card").forEach(card => {
+        const status = card.dataset.status;
+        const torre = card.dataset.torre;
+        const correspondeStatus =
+            filtroStatus === "todos" ||
+            status === filtroStatus;
+        const correspondeTorre =
+            filtroTorreAtual === "todas" ||
+            torre === filtroTorreAtual;
+        if (correspondeStatus && correspondeTorre) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
 }
 
- 
-
-//Renderização
-
+// ====================================================================
+// Função que renderiza os carregadores com base nos filtros aplicados
+// ====================================================================
 function renderizarCarregadores(filtro) {
-
     const carregadoresFiltrados = carregadores.filter(c => {
-
         if (filtro === "livres")
-
             return c.status === "livre";
-
         if (filtro === "em uso")
-
             return c.status === "em uso";
-
         return true; // todos
-
     });
 
-    //<======================= Renderizando os cards... ==========================>
-
-      console.log("1");
-
+    //======================================= 
+    //      Renderizando os cards...
+    //  ======================================
+    console.log("1");
         atualizarContadores();
-
     console.log("2");
 
+    //======================================= 
     //     atualizarComparativoOntem();
-
+    //======================================= 
     console.log("3");
-
         renderizarMovimentacoes();
-
 }
 
- 
-
+// ====================================================================
+// Função que atualiza os botões de contadores das Torres
+// ====================================================================
 function atualizarContadores() {
-
     const cards = document.querySelectorAll(".station-card");
-
     let total = cards.length;
-
     let emUso = 0;
-
     let livres = 0;
-
-    //let fila = 0;
-
     let alfredo = 0;
-
     let jabaquara = 0;
-
     let olavo = 0;
-
- 
-
     cards.forEach(card => {
-
         const status = card.dataset.status;
-
         const torre = card.dataset.torre;
 
- 
-
-        // ================= STATUS GERAL =================
-
-        // if (status === "Fila") {
-
-        //     fila++;
-
-        // }
-
+        //======================================
+        //              Status Geral
+        //============ =========================
         if (status === "em uso") {
-
             emUso++;
-
         }
-
         if (status === "livre") {
-
             livres++;
 
- 
-
-            // ================= TORRES =================
-
-            // Só conta a estação enquanto ela estiver livre
-
+            // ===================================== 
+            // Torres, Só conta a estação enquanto
+            //  ela estiver livre
+            // =====================================
             if (torre === "alfredo") {
-
                 alfredo++;
-
             }
-
             if (torre === "jabaquara") {
-
                 jabaquara++;
-
             }
-
             if (torre === "olavo") {
-
                 olavo++;
-
             }
-
         }
-
     });
 
- 
-
-        // ================= FILA =================
-
+    // =============================== 
+    //          Fila de espera
+    // ===============================
     const fila = recargas.filter(
-
         r => r.status === "Fila"
-
     ).length;
 
- 
-
-    // ================= CONTADORES GERAIS =================
-
-    // document.getElementById("contadorTodos").textContent =
-
-    //     `Todas: ${total}`;
-
-    // document.getElementById("contadorLivres").textContent =
-
-    //     `Livres: ${livres}`;
-
-    // document.getElementById("contadorEmuso").textContent =
-
-    //     `Em uso: ${emUso}`;
+    // ================================================================
+    //                Card do KPI de contadores gerais
+    // =================================================================
     const contadorTodos = document.getElementById("contadorTodos");
     const contadorLivres = document.getElementById("contadorLivres");
     const contadorEmuso = document.getElementById("contadorEmuso");
-
     if (contadorTodos) contadorTodos.textContent = `Todas: ${total}`;
     if (contadorLivres) contadorLivres.textContent = `Livres: ${livres}`;
     if (contadorEmuso) contadorEmuso.textContent = `Em uso: ${emUso}`;
-    
 
-    // ================= CONTADOR DA FILA =================
+    // ====================================================================
+    //               Card do KPI de contadores Fila
+    // ====================================================================
     const elementoFila = document.getElementById("kpiFila");
     if (elementoFila) elementoFila.textContent = fila;
 
-    // ================= CONTADORES DAS TORRES =================
+    // ====================================================================
+    //               Botões de contadores das Torres
+    // ====================================================================
     const contadorAlfredo = document.getElementById("contadorAlfredo");
     const contadorJabaquara = document.getElementById("contadorJabaquara");
     const contadorOlavo = document.getElementById("contadorOlavo");
-
     if (contadorAlfredo) contadorAlfredo.textContent = `Alfredo: ${alfredo}`;
     if (contadorJabaquara) contadorJabaquara.textContent = `Jabaquara: ${jabaquara}`;
     if (contadorOlavo) contadorOlavo.textContent = `Olavo: ${olavo}`;
 
-    // ================= KPIs =================
+    //====================================================================
+    //              Card dosKPIs Livres e Em uso
+    //====================================================================
     const kpiLivres = document.getElementById("kpiLivres");
     const kpiEmUso = document.getElementById("kpiEmUso");
-
     if (kpiLivres) kpiLivres.textContent = livres;
     if (kpiEmUso) kpiEmUso.textContent = emUso;
-    //if (elementoFila) elementoFila.textContent = fila;
 }
 
- 
-
+//====================================================================
+// Função que conta a quantidade de recargas na fila de espera
+//====================================================================
 function contarFilaEstacao(estacao) {
-
     return recargas.filter(
-
         r =>
-
             r.estacao === estacao &&
-
             r.status === "Fila"
-
     ).length;
-
 }
 
+//====================================================================
+// Função que atualiza a data atual e o dia da semana no KPI
+//====================================================================
 function atualizarDataHoje() {
-
     const hoje = new Date();
-
     const elementoHoje = document.getElementById("kpiHoje");
     const elementoDia = document.getElementById("kpiDiaSemana");
 
-    // Se os elementos não existirem nesta página, encerra
+    //====================================================================
+    //      Se os elementos não existirem nesta página, encerra
+    //====================================================================
     if (!elementoHoje || !elementoDia) return;
 
-    // Dia do mês
+    //===========================================
+    //             Dia do mês
+    //===========================================
     elementoHoje.textContent =
         String(hoje.getDate()).padStart(2, "0");
 
-    // Dia da semana
+    //===========================================    
+    //             Dia da semana
+    //===========================================
     const dias = [
         "Domingo",
         "Segunda-feira",
@@ -393,1411 +294,871 @@ function atualizarDataHoje() {
         "Sexta-feira",
         "Sábado"
     ];
-
     elementoDia.textContent = dias[hoje.getDay()];
 }
 
- 
-
-// Atualiza agora
-
+//===========================================
+//              Atualiza agora
+//===========================================
 atualizarDataHoje();
 
 atualizarComparativoOntem();
 
+//===========================================
 // Atualiza automaticamente a cada minuto
-
+//===========================================
 setInterval(atualizarDataHoje, 60000);
 
- 
-
-// =================  Atualizando o KPI  <span id="comparativo Ontem" ==================
-
-//================== sem funcionar por enquanto, ainda não tem armazenamento ===========
-
+// ================================================  
+// Função que atualiza o KPI  "comparativo Ontem" 
+// ================================================
 function atualizarComparativoOntem() {
-
- 
-
     const hoje = new Date();
-
     hoje.setHours(0, 0, 0, 0);
-
- 
-
     const ontem = new Date(hoje);
-
     ontem.setDate(ontem.getDate() - 1);
-
- 
-
     const formatarData = data =>
-
         data.toISOString().split("T")[0];
-
- 
-
     const dataHoje = formatarData(hoje);
-
     const dataOntem = formatarData(ontem);
-
- 
-
     const totalHoje = historicoRecargas.filter(
-
         r => r.dataEntrada === dataHoje
-
     ).length;
-
- 
-
     const totalOntem = historicoRecargas.filter(
-
         r => r.dataEntrada === dataOntem
-
     ).length;
-
- 
-
     let percentual = 0;
-
- 
-
     if (totalOntem > 0) {
-
- 
-
         percentual =
-
             ((totalHoje - totalOntem) / totalOntem) * 100;
-
- 
-
     }
-
- 
-
     percentual = Math.round(percentual);
-
- 
-
     const sinal =
-
         percentual > 0 ? "+" : "";
-
- 
-
     const elemento =
-
         document.getElementById("comparativoOntem");
-
- 
-
     if (elemento) {
-
- 
-
         elemento.textContent =
-
             `${sinal}${percentual}% quanto a ontem`;
-
- 
-
     }
-
- 
-
 }
 
- 
-
-// =========  Atualizando os KPI's =====================
-
+// =============================================================  
+//              Função que atualiza os KPI's
+//  =============================================================
 function atualizarKPIs() {
 
-    // ================ Data de hoje ====================
-
+    // ========================================================== 
+    //                      Data de hoje 
+    // ===========================================================
     const hoje = new Date();
-
     document.getElementById("kpiHoje").textContent = hoje.getDate();
 
-    //============== Contagem das estações ==============
-
+    //========================================================
+    //              Contagem das estações
+    //  ======================================================
     const cards = document.querySelectorAll(".station-card");
-
     let livres = 0;
-
     let emUso = 0;
-
     cards.forEach(card => {
-
         const status = card.querySelector(".status").textContent.trim().toLowerCase();
-
         if (status === "livre") livres++;
-
         if (status === "em uso") emUso++;
-
     });
 
     document.getElementById("kpiEmUso").textContent = emUso;
-
     document.getElementById("kpiLivres").textContent = livres;
-
 }
-
- 
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    console.log("1");
-
-        atualizarContadores();
-
-    console.log("2")    
-
-    //     atualizarComparativoOntem();
-
-    console.log("3")
-
-        renderizarMovimentacoes();
-
+    const abertas =
+        recargas.filter(r => r.status !== "Concluído");
+    console.log("RECARGAS ATIVAS:", abertas);
+    document.querySelectorAll(".station-card")
+        .forEach(card => {
+            console.log(
+                card.querySelector("h3")?.textContent.trim(),
+                "|",
+                card.dataset.status
+            );
+        });
+    abertas.forEach(r => {
+        console.log(
+            "ESTAÇÃO COM RECARGA ATIVA:",
+            r.estacao,
+            r.status
+        );
+    });
+    abertas.forEach(r => {
+        try {
+            console.log(
+                "RESTAURANDO",
+                r.estacao,
+                r.placa,
+                r.status,
+                r.cargaInicial
+            );
+            console.log(
+                "RESTAURANDO:",
+                r.estacao
+            );
+            const card = [...document.querySelectorAll(".station-card")]
+                .find(c =>
+                    c.querySelector("h3")
+                        ?.textContent.trim() === r.estacao
+                );
+            if (card) {
+                ocuparEstacaoVisualmente(card, r);
+            }
+        } catch (erro) {
+            console.error(
+                "ERRO AO RESTAURAR:",
+                r.estacao,
+                erro
+            );
+        }
+    });
+    abertas.forEach(r => {
+        const selectEstacao =
+            document.getElementById("estacao");
+        if (selectEstacao) {
+            [...selectEstacao.options].forEach(opcao => {
+                if (!opcao.dataset.textoOriginal) {
+                    opcao.dataset.textoOriginal =
+                        opcao.textContent;
+                }
+                if (opcao.value === r.estacao) {
+                    opcao.textContent =
+                        `${opcao.dataset.textoOriginal} ⚡`;
+                }
+            });
+        }
+        const selectPrisma =
+            document.getElementById("prisma");
+        if (selectPrisma) {
+            [...selectPrisma.options].forEach(opcao => {
+                if (!opcao.dataset.textoOriginal) {
+                    opcao.dataset.textoOriginal =
+                        opcao.textContent;
+                }
+                if (opcao.value === r.prisma) {
+                    opcao.textContent =
+                        `${opcao.dataset.textoOriginal} ⚡`;
+                }
+            });
+        }
+    });
+    atualizarContadores();
+    renderizarMovimentacoes();
     const btnTodos = document.querySelector(".filtro-btn");
-
     if (btnTodos) {
-
         filtrarCarregadores("todos", btnTodos);
-
     }
+});//me apague se der errado
 
-});
 
- 
-
- 
+// =============================================================  
+//              Função que restaura o status das estações em uso
+//  =============================================================
+function ocuparEstacaoVisualmente(card, recarga) {
+    card.dataset.status = "em uso";
+    card.classList.add("em-uso");
+    const icone = card.querySelector(".station-icon");
+    if (icone) {
+        icone.className = "station-icon verde";
+        icone.innerHTML =
+            '<i class="fa-solid fa-charging-station"></i>' +
+            '<i class="bi bi-ev-front-fill"></i>';
+    }
+    const status = card.querySelector(".status");
+    if (status) {
+        status.className = "status uso";
+        status.innerHTML =
+            'Em uso <i class="bi bi-lightning-charge"></i>';
+    }
+    const titulo = card.querySelector("h3");
+    if (titulo) {
+        titulo.style.color = "#0b5e29";
+    }
+    const botao = card.querySelector("button");
+    if (botao) {
+        botao.className = "status uso";
+        botao.style.backgroundColor = "#dcfce7";
+        botao.style.color = "#0b5e29";
+   }
+    card.querySelectorAll("ul li i").forEach(i => {
+        i.classList.remove("livre");
+        i.classList.add("uso");
+        i.style.backgroundColor = "#dcfce7";
+        i.style.color = "#0b5e29";
+        i.style.borderRadius = "50%";
+        i.style.padding = "10px";
+        i.style.width = "36px";
+        i.style.height = "36px";
+        i.style.display = "flex";
+        i.style.justifyContent = "center";
+        i.style.alignItems = "center";
+    });
+    const infoTempo =
+        card.querySelector(".info-tempo");
+    if (infoTempo) {
+        infoTempo.textContent = "Em uso";
+    }
+    const infoCarga =
+    card.querySelector(".info-carga");
+    if (infoCarga) {
+        console.log(
+            "CARGA INICIAL RESTAURADA:",
+            recarga.cargaInicial
+        );
+        infoCarga.innerHTML =
+            gerarBarra(
+                Number(recarga.cargaInicial) || 0
+            );
+    }
+}
 
 window.addEventListener("DOMContentLoaded", () => {
-
     const menuBtn = document.getElementById("menuBtn");
-
     const sidebar = document.getElementById("sidebar");
-
     const overlay = document.getElementById("overlay");
-
- 
-
     console.log(menuBtn);
-
     console.log(sidebar);
-
     console.log(overlay);
-
- 
-
     if(menuBtn){
-
         menuBtn.addEventListener("click", () => {
-
             sidebar.classList.toggle("active");
-
             overlay.classList.toggle("active");
-
         });
-
     }
-
- 
-
     if(overlay){
-
         overlay.addEventListener("click", () => {
-
             sidebar.classList.remove("active");
-
             overlay.classList.remove("active");
-
         });
-
     }
-
 });
 
- 
-
-// ===== KPI Hora e Data =====
-
+// ================================================================ 
+//              Função que atualiza o KPI Hora e Data 
+// ================================================================
 function atualizarKpiHoraData() {
-
     const agora = new Date();
 
-    // Hora
-
+// ================================
+//             Hora
+// ================================
     const hora = String(agora.getHours()).padStart(2, "0");
-
     const minutos = String(agora.getMinutes()).padStart(2, "0");
-
     const segundos = String(agora.getSeconds()).padStart(2, "0");
-
     const kpiHoraMinutos = document.getElementById("kpiHoraMinutos");
-
     const kpiHoraSegundos = document.getElementById("kpiHoraSegundos");
-
     if (kpiHoraMinutos) {
-
         kpiHoraMinutos.textContent = `${hora}:${minutos}`;
-
     }
-
     if (kpiHoraSegundos) {
-
         kpiHoraSegundos.textContent = `:${segundos}`;
-
     }
 
-    // Data
-
+    // ================================
+    //             Data
+    // ================================
     const diasSemana = [
-
         "Dom", "Seg", "Ter", "Qua",
-
         "Qui", "Sex", "Sáb"
-
     ];
-
     const diaSemana = diasSemana[agora.getDay()];
-
     const dia = String(agora.getDate()).padStart(2, "0");
-
     const mes = String(agora.getMonth() + 1).padStart(2, "0");
-
     const ano = String(agora.getFullYear()).slice(-2);
-
     const kpiData = document.getElementById("kpiData");
-
     if (kpiData) {
-
         kpiData.textContent = `${diaSemana} ${dia}/${mes}/${ano}`;
-
     }
-
 }
 
- 
-
-// Atualiza imediatamente
-
+// ======================================
+//      Atualiza imediatamente
+// ======================================
 atualizarKpiHoraData();
 
- 
-
-// Atualiza a cada segundo
-
+// =======================================
+//      Atualiza a cada segundo
+// =======================================
 setInterval(atualizarKpiHoraData, 1000);
 
- 
-
-// ===== KPI Previsão do Tempo =====
-
-// Localização padrão: São Paulo
-
+// ================================================================ 
+//  CArd KPI Previsão do Tempo, Localização padrão: São Paulo
+// ================================================================ 
 const LATITUDE_PADRAO = -23.5505;
-
 const LONGITUDE_PADRAO = -46.6333;
 
- 
-
 async function atualizarPrevisao(latitude, longitude) {
-
     const kpiPrevisao = document.getElementById("kpiPrevisao");
-
     const kpiIcone = document.querySelector(".kpi-footer i");
-
     if (!kpiPrevisao) return;
-
     try {
-
         const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code,is_day&daily=temperature_2m_max,temperature_2m_min&timezone=auto`;
-
             const resposta = await fetch(url);
-
         if (!resposta.ok) {
-
             throw new Error("Erro ao consultar previsão do tempo");
-
         }
-
         const dados = await resposta.json();
-
         const temperatura = Math.round(dados.current.temperature_2m);
-
         const maxima = Math.round(dados.daily.temperature_2m_max[0]);
-
         const minima = Math.round(dados.daily.temperature_2m_min[0]);
-
         const codigoTempo = dados.current.weather_code;
-
         const isDia = dados.current.is_day;
-
         console.log("Código do tempo:", codigoTempo);
-
         console.log("É dia?", isDia);
-
         console.log("Temperatura:", temperatura);
-
         console.log("Máxima:", maxima);
-
         console.log("Mínima:", minima);
 
-        // Atualiza temperaturas
-
+        // =================================================
+        //              Atualiza temperaturas
+        // =================================================
         kpiPrevisao.innerHTML = `
-
             ${temperatura}º |
-
             <span class="temp-max"> Máx: ${maxima}º</span> |
-
             <span class="temp-min"> Mín: ${minima}º</span>
-
         `;
-
-        // Atualiza ícone
-
+        // ================================
+        //         Atualiza ícone
+        // ================================
        if (kpiIcone) {
-
- 
-
         const tempo = obterIconeTempo(
-
             codigoTempo,
-
             isDia
-
         );
-
- 
-
         kpiIcone.className =
-
             `bi ${tempo.icone} ${tempo.classe}`;
-
         }
-
     } catch (erro) {
-
         console.error("Erro na previsão do tempo:", erro);
-
         kpiPrevisao.textContent = "Previsão indisponível";
-
     }
-
 }
 
- 
-
-// ===== Ícone do clima =====
-
+// ======================================== 
+// Função para obter o ícone do clima 
+// ========================================
 function obterIconeTempo(codigo, isDia) {
-
- 
-
-    // Céu limpo
-
+    // ====================================
+    //      Se o Céu estiver limpo
+    // ====================================
     if (codigo === 0) {
-
         return {
-
             icone: isDia
-
                 ? "bi-sun-fill"
-
                 : "bi-moon-stars-fill",
-
             classe: isDia
-
                 ? "tempo-sol"
-
                 : "tempo-noite"
-
         };
-
     }
 
- 
-
-    // Poucas nuvens
-
+    // ====================================
+    //      Se estiver com poucas nuvens
+    // ====================================
     if (codigo === 1 || codigo === 2) {
-
         return {
-
             icone: isDia
-
                 ? "bi-cloud-sun-fill"
-
                 : "bi-cloud-moon-fill",
-
             classe: isDia
-
                 ? "tempo-sol"
-
                 : "tempo-noite"
-
         };
-
     }
-
- 
-
-    // Nublado
-
+    // ====================================
+    //      Se estiver nublado
+    // ====================================
     if (codigo === 3) {
-
         return {
-
             icone: "bi-cloud-fill",
-
             classe: "tempo-nublado"
-
         };
-
     }
-
- 
-
-    // Neblina
-
+    
+    // ====================================
+    //      Se estiver com neblina
+    // ====================================
     if (codigo === 45 || codigo === 48) {
-
         return {
-
             icone: "bi-cloud-haze-fill",
-
             classe: "tempo-neblina"
-
         };
-
     }
 
- 
-
-    // Garoa
-
+    // ====================================
+    //      Se estiver com garoa
+    // ====================================
     if ([51, 53, 55, 56, 57].includes(codigo)) {
-
         return {
-
             icone: "bi-cloud-drizzle-fill",
-
             classe: "tempo-chuva"
-
         };
-
     }
 
- 
-
-    // Chuva
-
+    // ====================================
+    //      Se estiver com chuva
+    // ====================================
     if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
-
         return {
-
             icone: "bi-cloud-rain-fill",
-
             classe: "tempo-chuva"
-
         };
-
     }
 
- 
-
-    // Neve
-
+    // ====================================
+    //      Se estiver com neve
+    // ====================================
     if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
-
         return {
-
             icone: "bi-snow",
-
             classe: "tempo-neve"
-
         };
-
     }
 
- 
-
-    // Trovoada
-
+    // ====================================
+    //      Se estiver com trovoada
+    // ====================================
     if ([95, 96, 99].includes(codigo)) {
-
         return {
-
             icone: "bi-cloud-lightning-rain-fill",
-
             classe: "tempo-trovoada"
-
         };
-
     }
 
- 
-
+    // ====================================
     // Caso não reconheça
-
+    // ====================================
     return {
-
         icone: isDia
-
             ? "bi-cloud-sun-fill"
-
             : "bi-cloud-moon-fill",
-
         classe: isDia
-
             ? "tempo-sol"
-
             : "tempo-noite"
-
     };
-
 }
 
- 
-
-// ===== Cor do ícone do clima =====
-
+// ====================================== 
+//          Cor do ícone do clima 
+//=======================================
 function obterCorTempo(codigo, isDia) {
-
- 
-
-    // Sol
-
+    // ====================================
+    //          Se estiver Sol
+    // ====================================
     if (codigo === 0) {
-
         return isDia
-
-            ? "tempo-sol"
-
+           ? "tempo-sol"
             : "tempo-noite";
-
     }
 
- 
-
-    // Poucas nuvens
-
+    // ====================================
+    //     Se estiver com poucas nuvens
+    // ====================================
     if (codigo === 1 || codigo === 2) {
-
         return isDia
-
             ? "tempo-sol"
-
             : "tempo-noite";
-
     }
 
- 
-
-    // Nublado
-
+    // ====================================
+    //        Se estiver Nublado
+    // ====================================
     if (codigo === 3) {
-
         return "tempo-nublado";
-
     }
-
- 
-
-    // Neblina
-
+    
+    // ====================================
+    //        Se estiver com Neblina
+    // ====================================
     if (codigo === 45 || codigo === 48) {
-
         return "tempo-neblina";
-
     }
 
- 
-
-    // Garoa
-
+    // ====================================
+    //          Se estiver com Garoa
+    // ====================================
     if ([51, 53, 55, 56, 57].includes(codigo)) {
-
         return "tempo-chuva";
-
     }
 
- 
-
-    // Chuva
-
+    // ====================================
+    //          Se estiver com Chuva
+    // ====================================
     if ([61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
-
         return "tempo-chuva";
-
     }
 
- 
-
-    // Neve
-
+    // ====================================
+    //       Se estiver nevando
+    // ====================================
     if ([71, 73, 75, 77, 85, 86].includes(codigo)) {
-
         return "tempo-neve";
-
     }
 
- 
-
-    // Trovoada
-
+    // ====================================
+    //         Se estiver com trovoada
+    // ====================================
     if ([95, 96, 99].includes(codigo)) {
-
         return "tempo-trovoada";
-
     }
-
- 
-
     return "tempo-nublado";
-
 }
 
- 
-
-// ===== Localização atual =====
-
+// ======================================================= 
+//          Função que obtém a localização atual 
+// =======================================================
 function obterLocalizacao() {
-
     if (!navigator.geolocation) {
-
         console.warn("Geolocalização não disponível.");
-
         atualizarPrevisao(
-
             LATITUDE_PADRAO,
-
             LONGITUDE_PADRAO
-
         );
-
         return;
-
     }
-
     navigator.geolocation.getCurrentPosition(
 
-        // Localização encontrada
-
+        // ===============================================
+        //   Função que obtém a localização encontrada
+        // ===============================================
         function (posicao) {
-
             const latitude = posicao.coords.latitude;
-
-            const longitude = posicao.coords.longitude;
-
+           const longitude = posicao.coords.longitude;
             console.log("Latitude:", latitude);
-
             console.log("Longitude:", longitude);
-
             atualizarPrevisao(latitude, longitude);
-
         },
 
-        // Localização recusada ou indisponível
-
+        // ===========================================================
+        // Função que lida com a localização recusada ou indisponível
+        // ===========================================================
         function (erro) {
-
             console.warn(
-
                 "Não foi possível obter a localização:",
-
                 erro.message
-
             );
-
             console.log("Usando São Paulo como localização padrão.");
-
             atualizarPrevisao(
-
                 LATITUDE_PADRAO,
-
                 LONGITUDE_PADRAO
-
             );
-
         },
-
         {
-
             enableHighAccuracy: true,
-
             timeout: 10000,
-
             maximumAge: 300000
-
         }
-
     );
-
 }
 
- 
-
-// ===== Inicialização =====
-
+// ===================== 
+//   Inicialização 
+// =====================
 obterLocalizacao();
 
- 
-
+// ============================================= 
 // Atualiza a previsão a cada 30 minutos
-
+// ============================================= 
 setInterval(obterLocalizacao, 30 * 60 * 1000);
 
- 
-
-//============= dia da semana ================
-
+//============================================================== 
+//                      Dia da semana 
+// =============================================================
 window.addEventListener("DOMContentLoaded", () => {
-
     const dataEntrada = document.getElementById("dataEntrada");
     const diaSemana = document.getElementById("diaSemana");
-
     if (!dataEntrada || !diaSemana) return;
-
     dataEntrada.addEventListener("change", () => {
-
         const valor = dataEntrada.value;
-
         if (!valor) return;
-
         const [ano, mes, dia] = valor.split("-");
-
         const data = new Date(ano, mes - 1, dia);
-
         const dias = [
-
             "Domingo",
-
             "Segunda-feira",
-
             "Terça-feira",
-
             "Quarta-feira",
-
             "Quinta-feira",
-
             "Sexta-feira",
-
             "Sábado"
-
         ];
-
         diaSemana.value = dias[data.getDay()];
-
     });
-
 });
 
- 
-
-//============= Movimentação do dia da semana ================
-
+//=========================================================== 
+// Função para renderizar movimentações do dia da semana 
+// ==========================================================
 function renderizarMovimentacoes() {
-
     const lista =
-
         document.getElementById("listaMovimentacoes");
-
     if (!lista) return;
-
     let registros = [...recargas];
-
     if (filtroMovimentacao !== "todos") {
-
     const torres = [
-
         "Torre Alfredo Egydio",
-
         "Torre Olavo Setubal",
-
         "Torre Jabaquara"
-
     ];
-
     registros = registros.filter(r => {
-
         // FILTRO POR TORRE
-
         if (torres.includes(filtroMovimentacao)) {
-
             return r.torre === filtroMovimentacao;
-
         }
-
- 
-
         // FILTRO COMBINADO
-
         if (filtroMovimentacao.includes("|")) {
-
- 
-
             const partes = filtroMovimentacao.split("|");
-
- 
-
             // TORRE + PISO
-
             if (partes.length === 2 && partes[1].startsWith("Piso:")) {
-
                 const [torre, piso] = partes;
-
- 
-
                 return r.torre === torre &&
-
                     r.piso === piso;
-
             }
-
- 
-
             // TORRE + STATUS
-
             if (partes.length === 2) {
-
                 const [torre, status] = partes;
-
- 
-
                 return r.torre === torre &&
-
                     r.status === status;
-
             }
-
- 
-
             // TORRE + PISO + STATUS
-
             if (partes.length === 3) {
-
                 const [torre, piso, status] = partes;
-
- 
-
                 return r.torre === torre &&
-
                     r.piso === piso &&
-
                     r.status === status;
-
             }
-
         }
-
- 
-
         // FILTRO POR STATUS
-
         return r.status === filtroMovimentacao;
-
     });
-
 }
-
     lista.innerHTML = registros
-
         .slice()
-
         //.reverse()
-
         .map(registro => `
-
             <div class="mov-item">
-
                 <h4>
-
                     <i class="bi bi-car-front-fill"></i>
-
                     ${registro.placa}
-
                 </h4>
-
- 
-
                 <p>
-
                     <i class="bi bi-person-vcard"></i>
-
                     ${registro.proprietario}
-
                 </p>
-
- 
-
                 <p>
-
                     <i class="bi bi-briefcase-fill"></i>
-
                     ${registro.cargo || "-"}
-
                 </p>
-
- 
-
                 <p>
-
                     <i class="bi bi-building"></i>
-
                     ${registro.torre}
-
                 </p>
-
                 <p>
-
                     <i class="bi bi-geo-alt"></i>
-
                     ${registro.piso}
-
                 </p>
-
- 
-
                 <p>
-
                     <i class="fa-solid fa-car-side"></i>
-
                     Prisma: ${registro.prisma}
-
                 </p>
-
-               
-
                 <p>
-
                     <i class="bi bi-plugin"></i>
-
                     ${registro.estacao}
-
                 </p>
-
-                <p>
-
+               <p>
                     <i class="bi bi-reception-4"></i>
-
                     ${registro.status}
-
                 </p>
-
                 <div class="mov-acoes">
-
                     <button
-
                         class="btn-mov-concluir"
-
                         onclick="confirmarConclusao(${registro.id})"
-
                         title="Concluir movimentação">
-
                         <i class="bi bi-check-circle"></i>
-
                     </button>
-
-                    <button class="btn-mov-agendar" 
+                    <button class="btn-mov-agendar"
                         onclick="confirmarNotificacao(${registro.id})"
-
                         title="Concluir movimentação">
-
                         <i class="fa-solid fa-envelope-circle-check"></i>
-
                     </button>
-
                     <button
-
                         class="btn-mov-notificar"
-
                         onclick="confirmarLembrete(${registro.id})"
-
                         title="Criar lembrete">
-
                         <i class="bi bi-bell-fill"></i>
-
                     </button>
-
                     <button
-
                         class="btn-mov-excluir"
-
                         onclick="confirmarExclusao(${registro.id})"
-
                         title="Excluir movimentação">
-
                         <i class="bi bi-trash"></i>
-
                     </button>
-
                 </div>
-
             </div>
-
         `)
-
         .join("");
-
 }
-
- 
 
 function filtrarMovimentacoes(status) {
-
     filtroMovimentacao = status;
-
     menuFiltroMov.classList.remove("ativo");
-
     renderizarMovimentacoes();
-
 }
 
- 
-
-document
-
-.querySelectorAll(".btn-expandir")
-
+document.querySelectorAll(".btn-expandir")
 .forEach(botao => {
-
     botao.addEventListener("click", () => {
-
         const submenu =
-
             botao.parentElement.nextElementSibling;
-
         submenu.classList.toggle("ativo");
-
- 
-
         botao.innerHTML =
-
             submenu.classList.contains("ativo")
-
- 
-
             ? "🔼"
-
- 
-
             : "🔽";
-
     });
-
 });
 
- 
-
 function confirmarNotificacao(id) {
-
     const registro = recargas.find(r => r.id === id);
-
     if (!registro) {
-
         console.log("Recarga não encontrada:", id);
-
         return;
-
     }
-
     const usuario = base.find(
-
         pessoa => pessoa[0] === registro.placa
-
     );
-
     if (!usuario) {
-
         console.log("Usuário não encontrado:", registro.placa);
-
         return;
-
     }
-
     const email = usuario[4];
-
     const nome = usuario[1].split(" - Func:")[0];
-
     console.log("BOTÃO CLICADO:", id);
-
     Swal.fire({
-
         title: "Notificar usuário?",
-
         html: `
-
             <div class="alerta-conteudo">
-
                 <p>
-
                     O veículo de <strong>${nome}</strong>
-
                     já foi carregado.
-
                 </p>
-
                 <p>
-
                     Deseja enviar uma mensagem pelo
-
                     <strong>Outlook</strong>?
-
                 </p>
-
             </div>
-
         `,
-
         icon: "question",
-
         showCancelButton: true,
-
         confirmButtonText:
-
             '<i class="fa-solid fa-paper-plane"></i> Sim, notificar',
-
         cancelButtonText:
-
             "Cancelar",
-
         reverseButtons: true,
-
         focusCancel: true,
-
         buttonsStyling: false,
-
         customClass: {
-
             popup: "alerta-notificacao",
-
             title: "alerta-titulo",
-
             confirmButton: "btn-alerta-confirmar",
-
             cancelButton: "btn-alerta-cancelar"
-
         }
-
     }).then((resultado) => {
-
         if (!resultado.isConfirmed) {
-
             return;
-
         }
-
         // const mensagem =
-
         //     "Olá, seu veículo já foi carregado, pode vir buscá-lo assim que puder. :)";
-
         // const urlTeams =
-
         //     `https://teams.microsoft.com/l/chat/0/0?users=${encodeURIComponent(email)}&text=${encodeURIComponent(mensagem)}`;
-
         // window.open(urlTeams, "_blank");
-
         const assunto =
-
             "Smart Charger - Recarga Concluída";
-
             const mensagem =
-
             `Olá ${nome},
-
             Seu veículo já foi carregado e está disponível para retirada.
-
             Atenciosamente,
-
             🔋 Smart Charger
-
             ━━━━━━━━━━━━━━━━━━━━
-
             ⚡ Gestão Inteligente de Recargas
-
             🚗 Estacionamento Corporativo
-
             ━━━━━━━━━━━━━━━━━━━━`;
-
             console.log(email);
-
             const urlEmail =
-
             `mailto:${email}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(mensagem)}`;
-
             window.open(urlEmail);
-
     });
-
 }
 
 function confirmarConclusao(id) {
-
     const registro = recargas.find(r => r.id === id);
-
     if (!registro) {
-
         console.log("Recarga não encontrada:", id);
-
         return;
-
     }
-
     if (registro.conclusaoConfirmada) {
-
         Swal.fire({
-
                 title: "Movimentação já concluída",
-
                 text: `O atendimento da placa ${registro.placa} já foi encerrado anteriormente.`,
-
                 icon: "info",
-
                 confirmButtonText: "OK",
-
                 confirmButtonColor: "#2563eb"
-
             });
-
             return;
-
         }
-
- 
-
     Swal.fire({
-
         title: "Concluir movimentação?",
-
         text: `Deseja concluir o atendimento da placa ${registro.placa}?`,
-
         icon: "question",
-
         showCancelButton: true,
-
         confirmButtonText: "Sim, concluir",
-
         cancelButtonText: "Cancelar",
-
         confirmButtonColor: "#16a34a",
-
         cancelButtonColor: "#64748b",
-
         reverseButtons: true
-
     })
-
- 
-
     .then((resultado) => {
-
- 
-
     if (!resultado.isConfirmed) return;
-
- 
-
     registro.status = "Concluído";
-
- 
-
     const pendentes = recargas.filter(r =>
-
         r.estacao === registro.estacao &&
-
         r.status !== "Concluído"
-
     );
-
- 
-
     console.log("ESTAÇÃO:", registro.estacao);
-
     console.log("PENDENTES:", pendentes.length);
-
- 
-
     if (pendentes.length === 0) {
-
- 
-
         console.log("LIBERANDO ESTAÇÃO");
-
- 
-
         const numeroEstacao = parseInt(
-
             registro.estacao.replace(/\D/g, "")
-
         );
-
- 
-
         const carregador = carregadores.find(
-
             c => c.id === numeroEstacao
-
         );
-
- 
-
         if (carregador) {
-
             carregador.status = "livre";
-
         }
-
- 
-
         const card = [...document.querySelectorAll(".station-card")]
-
             .find(c =>
-
                 c.querySelector("h3")
-
                     .textContent
-
                     .trim() === registro.estacao
-
             );
-
- 
-
         if (card) {
-
             card.dataset.status = "livre";
-
- 
-
         const selectEstacao =
-
             document.getElementById("estacao");
-
- 
-
         [...selectEstacao.options].forEach(opcao => {
-
- 
-
             if (opcao.value === registro.estacao) {
-
- 
-
                 if (opcao.dataset.textoOriginal) {
-
- 
-
                     opcao.textContent =
                     opcao.dataset.textoOriginal;
-
                 } else {
-
                     opcao.textContent =
                     opcao.textContent.replace(" ⚡", "");
                 }
@@ -1811,19 +1172,17 @@ function confirmarConclusao(id) {
             console.log("CARD LIBERADO");
         }
     }
-
     const prismaEmUso = recargas.some(r =>
         r.prisma === registro.prisma &&
         r.id !== registro.id &&
         r.status !== "Concluído"
     );
-
     console.log("PRISMA:", registro.prisma);
     console.log("AINDA EM USO?", prismaEmUso);
-
+ 
     if (!prismaEmUso) {
         const selectPrisma =
-        document.getElementById("prisma");           
+            document.getElementById("prisma");
         [...selectPrisma.options].forEach(opcao => {
             if (opcao.value === registro.prisma) {
                 console.log(
@@ -1831,7 +1190,8 @@ function confirmarConclusao(id) {
                     opcao.dataset.textoOriginal
                 );
                 opcao.textContent =
-                    opcao.dataset.textoOriginal;
+                    opcao.dataset.textoOriginal ||
+                    opcao.value;
                 console.log(
                     "PRISMA LIBERADO:",
                     registro.prisma
@@ -1839,7 +1199,6 @@ function confirmarConclusao(id) {
             }
         });
     }
-
     Swal.fire({
         title: "Movimentação concluída!",
         text: `O atendimento da placa ${registro.placa} foi encerrado.`,
@@ -1849,369 +1208,99 @@ function confirmarConclusao(id) {
         timer: 2500,
         timerProgressBar: true
     });
-
     registro.conclusaoConfirmada = true;
-
     atualizarContadores();
-
     // atualizarKPIs();
     renderizarMovimentacoes();
     });
 }
 
 function liberarEstacaoVisualmente(card) {
-
- 
+    debugger;
+    console.error("ESTAÇÃO VOLTOU PARA LIVRE");
 
     // Remove classe de estação em uso
-
     card.classList.remove("em-uso");
 
- 
-
     // ================= ÍCONE PRINCIPAL =================
-
     const icone =
-
         card.querySelector(".station-icon");
-
- 
-
     if (icone) {
-
- 
-
         icone.className = "station-icon";
-
- 
-
         // Modo Livre = apenas 1 ícone
-
         icone.innerHTML =
-
             '<i class="fa-solid fa-charging-station"></i>';
-
     }
-
- 
 
     // ================= BADGE LIVRE =================
-
     const status =
-
         card.querySelector(".status");
-
- 
-
     if (status) {
-
- 
-
         status.className = "status livre";
-
- 
-
         status.innerHTML =
-
             'Livre <i class="bi bi-plug-fill"></i>';
-
     }
-
- 
 
     // ================= TÍTULO AZUL =================
-
     const titulo =
-
         card.querySelector("h3");
-
- 
-
     if (titulo) {
-
- 
-
         titulo.style.color = "";
-
     }
-
- 
 
     // ================= BOTÃO AZUL =================
-
     const botao =
-
         card.querySelector("button");
-
- 
-
     if (botao) {
-
- 
-
         botao.className = "status livre";
-
- 
-
         botao.style.backgroundColor =
-
             "#dbeafe";
-
- 
-
         botao.style.color =
-
             "#1d4ed8";
-
- 
-
         botao.innerHTML =
-
             '<i class="bi bi-lightning-charge-fill"></i> Ver detalhes';
-
     }
-
- 
 
     // ================= ÍCONES DA LISTA =================
-
     const listaItens =
-
         card.querySelectorAll("ul li i");
-
- 
-
     listaItens.forEach(i => {
-
- 
-
         i.style.backgroundColor =
-
             "#dbeafe";
-
- 
-
         i.style.color =
-
             "#2563eb";
-
- 
-
-        i.style.borderRadius =
-
-            "50%";
-
- 
-
-        i.style.padding =
-
-            "10px";
-
- 
-
-        i.style.width =
-
-            "36px";
-
- 
-
-        i.style.height =
-
-            "36px";
-
- 
-
-        i.style.display =
-
-            "flex";
-
- 
-
-        i.style.justifyContent =
-
-            "center";
-
- 
-
-        i.style.alignItems =
-
-            "center";
-
     });
 
- 
-
     // ================= CARGA =================
-
     const infoCarga =
-
         card.querySelector(".info-carga");
-
- 
-
     if (infoCarga) {
-
- 
-
         infoCarga.innerHTML =
-
             "22 kW ░░░░░░░░ 0%";
-
     }
-
- 
 
     // ================= TEMPO =================
-
- 
-
     const infoTempo =
-
         card.querySelector(".info-tempo");
-
- 
-
     if (infoTempo) {
-
- 
-
         infoTempo.textContent =
-
             "Disponível";
-
     }
-
- 
-
     const iconeTempo =
-
         infoTempo?.previousElementSibling;
-
- 
-
     if (iconeTempo) {
-
- 
-
         iconeTempo.className =
-
             "bi bi-clock status livre";
-
     }
-
- 
-
     console.log("ESTAÇÃO VOLTOU PARA LIVRE");
-
 }
 
- 
-
-// function agendarLembrete(registro, dataLembrete, mensagem) {
-
-//     const agora = new Date();
-
-//     const tempoRestante =
-
-//         dataLembrete.getTime() - agora.getTime();
-
-//     if (tempoRestante <= 0) {
-
-//         Swal.fire({
-
-//             title: "Data inválida",
-
-//             text: "A data escolhida já passou.",
-
-//             icon: "error",
-
-//             confirmButtonText: "OK"
-
-//         });
-
-//         return;
-
-//     }
-
-//     // Evita dois lembretes para a mesma movimentação
-
-//     const jaExiste = lembretes.some(
-
-//         lembrete => lembrete.id === registro.id
-
-//     );
-
-//     if (jaExiste) {
-
-//         Swal.fire({
-
-//             title: "Lembrete já existe",
-
-//             text: `Já existe um lembrete para ${registro.placa}.`,
-
-//             icon: "info",
-
-//             confirmButtonText: "OK"
-
-//         });
-
-//         return;
-
-//     }
-
-//     lembretes.push({
-
-//         id: registro.id,
-
-//         placa: registro.placa,
-
-//         proprietario: registro.proprietario,
-
-//         estacao: registro.estacao,
-
-//         torre: registro.torre,
-
-//         data: dataLembrete,
-
-//         mensagem: mensagem
-
-//     });
-
-//     atualizarLembretes();
-
-//     Swal.fire({
-
-//         title: "Lembrete definido!",
-
-//         text: `Você será lembrado em ${dataLembrete.toLocaleString("pt-BR")}.`,
-
-//         icon: "success",
-
-//         confirmButtonText: "OK"
-
-//     });
-
-//     setTimeout(() => {
-
-//         mostrarNotificacaoLembrete(
-
-//             registro,
-
-//             mensagem
-
-//         );
-
-// }, tempoRestante);
-
-// }
 // =====================================================
 // AGENDAR NOTIFICAÇÃO
 // =====================================================
-
 function agendarLembrete(registro, dataLembrete, mensagem) {
     const agora = new Date();
     const tempoRestante = dataLembrete.getTime() - agora.getTime();
-
     if (isNaN(dataLembrete.getTime()) || tempoRestante <= 0) {
         Swal.fire({
             title: "Data inválida",
@@ -2221,11 +1310,9 @@ function agendarLembrete(registro, dataLembrete, mensagem) {
         });
         return;
     }
-
     const jaExiste = lembretes.some(
         lembrete => String(lembrete.id) === String(registro.id)
     );
-
     if (jaExiste) {
         Swal.fire({
             title: "Lembrete já existe",
@@ -2235,7 +1322,6 @@ function agendarLembrete(registro, dataLembrete, mensagem) {
         });
         return;
     }
-
     const novoLembrete = {
         id: registro.id,
         placa: registro.placa,
@@ -2246,13 +1332,10 @@ function agendarLembrete(registro, dataLembrete, mensagem) {
         mensagem: mensagem || "",
         lido: false
     };
-
     lembretes.push(novoLembrete);
-
     salvarLembretes();
     atualizarLembretes();
     agendarTimerLembrete(novoLembrete);
-
     Swal.fire({
         title: "Lembrete definido!",
         text: `Você será lembrado em ${dataLembrete.toLocaleString("pt-BR")}.`,
@@ -2264,7 +1347,6 @@ function agendarLembrete(registro, dataLembrete, mensagem) {
 // =====================================================
 // PROGRAMAR O TEMPORIZADOR
 // =====================================================
-
 function agendarTimerLembrete(lembrete) {
     const chave = String(lembrete.id);
 
@@ -2273,7 +1355,6 @@ function agendarTimerLembrete(lembrete) {
         clearTimeout(timeoutsLembretes.get(chave));
         timeoutsLembretes.delete(chave);
     }
-
     const tempoRestante =
         new Date(lembrete.data).getTime() - Date.now();
 
@@ -2281,7 +1362,6 @@ function agendarTimerLembrete(lembrete) {
     if (!Number.isFinite(tempoRestante) || tempoRestante <= 0) {
         return;
     }
-
     const timeout = setTimeout(() => {
         timeoutsLembretes.delete(chave);
 
@@ -2289,75 +1369,23 @@ function agendarTimerLembrete(lembrete) {
         const aindaExiste = lembretes.some(
             item => String(item.id) === chave
         );
-
         if (!aindaExiste) return;
-
         mostrarNotificacaoLembrete(
             lembrete,
             lembrete.mensagem
         );
-
     }, tempoRestante);
-
     timeoutsLembretes.set(chave, timeout);
 }
 
-
-
-// function mostrarNotificacaoLembrete(registro, mensagem) {
-
-//     const som = new Audio("audios/success-1-6297.mp3");
-
-//     som.play().catch(erro => {
-
-//         console.log("Não foi possível reproduzir o som:", erro);
-
-//     });
-
-//     if (Notification.permission === "granted") {
-
-//         new Notification("🔔 Lembrete Smart Charger", {
-
-//             body:
-
-//                 mensagem ||
-
-//                 `Veículo ${registro.placa} — ${registro.estacao}`
-
-//         });
-
-//     } else {
-
-//         Swal.fire({
-
-//             title: "🔔 Lembrete",
-
-//             text:
-
-//                 mensagem ||
-
-//                 `Veículo ${registro.placa} está relacionado à ${registro.estacao}.`,
-
-//             icon: "info",
-
-//             confirmButtonText: "OK"
-
-//         });
-
-//     }
-
-// }
 // =====================================================
 // MOSTRAR A NOTIFICAÇÃO
 // =====================================================
-
 function mostrarNotificacaoLembrete(registro, mensagem) {
     const som = new Audio("audios/success-1-6297.mp3");
-
     som.play().catch(erro => {
         console.log("Não foi possível reproduzir o som:", erro);
     });
-
     if (
         "Notification" in window &&
         Notification.permission === "granted"
@@ -2367,7 +1395,6 @@ function mostrarNotificacaoLembrete(registro, mensagem) {
                 mensagem ||
                 `Veículo ${registro.placa} — ${registro.estacao}`
         });
-
     } else {
         Swal.fire({
             title: "🔔 Lembrete",
@@ -2382,37 +1409,30 @@ function mostrarNotificacaoLembrete(registro, mensagem) {
 
 // CRIAR LEMBRETE
 // =====================================================
-
 function confirmarLembrete(id) {
     const registro = recargas.find(
         r => String(r.id) === String(id)
     );
-
     if (!registro) {
         console.log("Recarga não encontrada:", id);
         return;
     }
-
     Swal.fire({
         title: "🔔 Criar lembrete",
-
         html: `
             <div style="text-align: left;">
                 <p>
                     <strong>🚗 ${escaparHTML(registro.placa)}</strong>
                 </p>
-
                 <p>👤 ${escaparHTML(registro.proprietario)}</p>
                 <p>⚡ ${escaparHTML(registro.estacao)}</p>
                 <p>📍 ${escaparHTML(registro.torre)}</p>
-
                 <input
                     type="datetime-local"
                     id="lembreteData"
                     class="swal2-input"
                     required
                 >
-
                 <textarea
                     id="lembreteMensagem"
                     class="swal2-textarea"
@@ -2420,50 +1440,38 @@ function confirmarLembrete(id) {
                 ></textarea>
             </div>
         `,
-
         showCancelButton: true,
         confirmButtonText: "Salvar lembrete",
         cancelButtonText: "Cancelar",
         reverseButtons: true,
-
         didOpen: () => {
             const campoData = document.getElementById("lembreteData");
-
             // Impede selecionar horários anteriores ao momento atual.
             const agora = new Date();
             agora.setMinutes(agora.getMinutes() + 1);
-
             const ano = agora.getFullYear();
             const mes = String(agora.getMonth() + 1).padStart(2, "0");
             const dia = String(agora.getDate()).padStart(2, "0");
             const hora = String(agora.getHours()).padStart(2, "0");
             const minuto = String(agora.getMinutes()).padStart(2, "0");
-
             campoData.min = `${ano}-${mes}-${dia}T${hora}:${minuto}`;
         },
-
         preConfirm: () => {
             const data =
                 document.getElementById("lembreteData").value;
-
             const mensagem =
                 document.getElementById("lembreteMensagem").value.trim();
-
             if (!data) {
                 Swal.showValidationMessage(
                     "Escolha uma data e hora."
                 );
                 return false;
             }
-
             return { data, mensagem };
         }
-
     }).then(resultado => {
         if (!resultado.isConfirmed) return;
-
         const dataLembrete = new Date(resultado.value.data);
-
         agendarLembrete(
             registro,
             dataLembrete,
@@ -2478,29 +1486,21 @@ function mostrarLembretes() {
         html: montarListaLembretes(),
         confirmButtonText: "Fechar",
         width: 600,
-
         didOpen: () => {
             const popup = Swal.getPopup();
-
             if (!popup) return;
-
             popup.addEventListener("click", async evento => {
                 const botao = evento.target.closest(
                     ".btn-acao-lembrete"
                 );
-
                 if (!botao || botao.disabled) return;
-
                 evento.preventDefault();
                 evento.stopPropagation();
-
                 const id = botao.dataset.id;
                 const acao = botao.dataset.acao;
-
                 const lembrete = lembretes.find(
                     item => String(item.id) === String(id)
                 );
-
                 if (!lembrete) {
                     console.error(
                         "Lembrete não encontrado:",
@@ -2515,11 +1515,9 @@ function mostrarLembretes() {
                 // MARCAR COMO LIDO OU NÃO LIDO
                 if (acao === "alternar") {
                     lembrete.lido = !lembrete.lido;
-
                     try {
                         salvarLembretes();
                         atualizarLembretes();
-
                         Swal.update({
                             html: montarListaLembretes()
                         });
@@ -2528,14 +1526,12 @@ function mostrarLembretes() {
                             "Erro ao atualizar lembrete:",
                             erro
                         );
-
                         Swal.fire(
                             "Erro",
                             "Não foi possível salvar o lembrete.",
                             "error"
                         );
                     }
-
                     return;
                 }
 
@@ -2552,22 +1548,17 @@ function mostrarLembretes() {
                         cancelButtonColor: "#64748b",
                         reverseButtons: true
                     });
-
                     if (resultado.isConfirmed) {
                         const chave = String(lembrete.id);
-
                         if (timeoutsLembretes.has(chave)) {
                             clearTimeout(
                                 timeoutsLembretes.get(chave)
                             );
-
                             timeoutsLembretes.delete(chave);
                         }
-
                         lembretes = lembretes.filter(
                             item => String(item.id) !== chave
                         );
-
                         try {
                             salvarLembretes();
                             atualizarLembretes();
@@ -2576,13 +1567,11 @@ function mostrarLembretes() {
                                 "Erro ao excluir lembrete:",
                                 erro
                             );
-
                             Swal.fire(
                                 "Erro",
                                 "Não foi possível excluir o lembrete.",
                                 "error"
                             );
-
                             return;
                         }
                     }
@@ -2604,7 +1593,6 @@ function montarListaLembretes() {
             </p>
         `;
     }
-
     return `
         <div style="
             max-height: 400px;
@@ -2630,7 +1618,6 @@ function montarListaLembretes() {
                         <strong>
                             🚗 ${escaparHTML(lembrete.placa)}
                         </strong>
-
                         <span style="
                             font-size: 12px;
                             color: ${lembrete.lido ? "#64748b" : "#c2410c"};
@@ -2638,21 +1625,17 @@ function montarListaLembretes() {
                             ${lembrete.lido ? "Lido" : "Não lido"}
                         </span>
                     </div>
-
                     <p>👤 ${escaparHTML(lembrete.proprietario)}</p>
                     <p>⚡ ${escaparHTML(lembrete.estacao)}</p>
                     <p>📍 ${escaparHTML(lembrete.torre)}</p>
-
                     <p>
                         📝 ${escaparHTML(lembrete.mensagem || "Sem mensagem")}
                     </p>
-
                     <small>
                         🕐 ${escaparHTML(
                             new Date(lembrete.data).toLocaleString("pt-BR")
                         )}
                     </small>
-
                     <div style="
                         display: flex;
                         gap: 8px;
@@ -2675,7 +1658,6 @@ function montarListaLembretes() {
                         >
                             ${lembrete.lido ? "Marcar não lido" : "Marcar como lido"}
                         </button>
-
                         <button
                             type="button"
                             class="btn-acao-lembrete"
@@ -2698,108 +1680,48 @@ function montarListaLembretes() {
         </div>
     `;
 }
- 
 
 window.confirmarLembrete = confirmarLembrete;
 
- 
-
-// function atualizarLembretes() {
-
-//     const quantidade = lembretes.length;
-
-//     const badgeTopbar =
-
-//         document.getElementById("badgeNotificacoes");
-
-//     const badgeSidebar =
-
-//         document.getElementById("badgeAlertas");
-
-//     // ================= TOPBAR =================
-
-//     if (badgeTopbar) {
-
-//         badgeTopbar.textContent = quantidade;
-
-//         badgeTopbar.style.display =
-
-//             quantidade > 0 ? "flex" : "none";
-
-//     }
-
-//     // ================= SIDEBAR =================
-
-//     if (badgeSidebar) {
-
-//         badgeSidebar.textContent = quantidade;
-
-//         badgeSidebar.style.display =
-
-//             quantidade > 0 ? "flex" : "none";
-
-//     }
-
-// }
 // =====================================================
 // ATUALIZAR CONTADORES: SOMENTE NÃO LIDOS
 // =====================================================
-
 function atualizarLembretes() {
     const quantidade = lembretes.filter(
         lembrete => !lembrete.lido
     ).length;
-
     const badgeTopbar =
         document.getElementById("badgeNotificacoes");
-
     const badgeSidebar =
         document.getElementById("badgeAlertas");
-
     [badgeTopbar, badgeSidebar].forEach(badge => {
         if (!badge) return;
-
         badge.textContent = quantidade;
         badge.style.display = quantidade > 0 ? "flex" : "none";
     });
 }
- 
-
 window.addEventListener("DOMContentLoaded", () => {
-
     const linkAlertas =
-
         document.getElementById("linkAlertas");
-
     if (linkAlertas) {
-
         linkAlertas.addEventListener("click", (event) => {
-
             event.preventDefault();
-
             mostrarLembretes();
-
         });
-
     }
-
 });
 
 // =====================================================
 // INICIALIZAR LEMBRETES E LINK DA SIDEBAR
 // =====================================================
-
 function inicializarLembretes() {
     atualizarLembretes();
 
     // Restaura os agendamentos futuros após atualizar a página.
     lembretes.forEach(agendarTimerLembrete);
-
     const linkAlertas = document.getElementById("linkAlertas");
-
     if (linkAlertas && !linkAlertas.dataset.lembretesConfigurados) {
         linkAlertas.dataset.lembretesConfigurados = "true";
-
         linkAlertas.addEventListener("click", evento => {
             evento.preventDefault();
             mostrarLembretes();
@@ -2808,7 +1730,6 @@ function inicializarLembretes() {
 }
 
 window.confirmarLembrete = confirmarLembrete;
-
 if (document.readyState === "loading") {
     window.addEventListener("DOMContentLoaded", inicializarLembretes);
 } else {
@@ -2816,1264 +1737,495 @@ if (document.readyState === "loading") {
 }
 
 //============= Botão lixeira vermelha ================
-
 // function confirmarExclusao(id) {
-
 //     const registro = recargas.find(r => r.id === id);
-
 //     if (!registro) {
-
 //         console.log("Recarga não encontrada:", id);
-
 //         return;
-
 //     }
-
 //     Swal.fire({
-
 //         title: "Excluir movimentação?",
-
 //         html: `
-
 //             <p>
-
 //                 Você está prestes a excluir a movimentação da placa
-
 //                 <strong>${registro.placa}</strong>.
-
 //             </p>
-
 //             <p style="
-
 //                 margin-top:10px;
-
 //                 color:#dc2626;
-
 //                 font-size:13px;
-
 //             ">
-
 //                 Essa ação não poderá ser desfeita.
-
 //             </p>
-
 //         `,
-
 //         icon: "warning",
-
 //         showCancelButton: true,
-
 //         confirmButtonText: "Sim, excluir",
-
 //         cancelButtonText: "Cancelar",
-
 //         confirmButtonColor: "#dc2626",
-
 //         cancelButtonColor: "#64748b",
-
 //         reverseButtons: true
-
 //     }).then((resultado) => {
-
 //         if (!resultado.isConfirmed) return;
-
 //         const indice = recargas.findIndex(
-
 //             r => r.id === id
-
 //         );
-
 //         if (indice === -1) return;
-
 //         recargas.splice(indice, 1);
-
 //         atualizarPrismasOcupados();
-
-       
-
 //         Swal.fire({
-
 //             title: "Movimentação excluída!",
-
 //             text: `A movimentação ${registro.placa} foi removida.`,
-
 //             icon: "success",
-
 //             confirmButtonText: "OK",
-
 //             confirmButtonColor: "#dc2626",
-
 //             timer: 2500,
-
 //             timerProgressBar: true
-
 //         });
-
 //         atualizarContadores();
-
 //         renderizarMovimentacoes();
-
 //     });
-
 // }
-
- 
-
 //============= Botão lixeira vermelha ================
 
 function confirmarExclusao(id) {
-
- 
-
     const registro = recargas.find(r => r.id === id);
-
- 
-
     if (!registro) {
-
         console.log("Recarga não encontrada:", id);
-
         return;
-
     }
-
- 
-
     if (registro.status !== "Concluído") {
-
- 
-
         Swal.fire({
-
             icon: "warning",
-
             title: "Exclusão não permitida",
-
             text: "Somente movimentações concluídas podem ser excluídas."
-
         });
-
- 
-
         return;
-
     }
-
- 
-
     Swal.fire({
-
         title: "Excluir movimentação?",
-
         html: `
-
             <p>
-
                 Você está prestes a excluir a movimentação da placa
-
                 <strong>${registro.placa}</strong>.
-
             </p>
-
             <p style="
-
                 margin-top:10px;
-
                 color:#dc2626;
-
                 font-size:13px;
-
             ">
-
                 Essa ação não poderá ser desfeita.
-
             </p>
-
         `,
-
         icon: "warning",
-
         showCancelButton: true,
-
         confirmButtonText: "Sim, excluir",
-
         cancelButtonText: "Cancelar",
-
         confirmButtonColor: "#dc2626",
-
         cancelButtonColor: "#64748b",
-
         reverseButtons: true
-
     }).then((resultado) => {
-
- 
-
         if (!resultado.isConfirmed) return;
-
- 
-
         const indice = recargas.findIndex(
-
             r => r.id === id
-
         );
-
- 
-
         if (indice === -1) return;
-
- 
-
         recargas.splice(indice, 1);
-
-            salvarMovimentacoesRecentes();//apague se ramelar    
-
+            salvarMovimentacoesRecentes();//apague se ramelar   
         Swal.fire({
-
             title: "Movimentação excluída!",
-
             text: `A movimentação ${registro.placa} foi removida.`,
-
             icon: "success",
-
             confirmButtonText: "OK",
-
             confirmButtonColor: "#dc2626",
-
             timer: 2500,
-
             timerProgressBar: true
-
         });
-
- 
-
         atualizarContadores();
-
         atualizarComparativoOntem();
-
         renderizarMovimentacoes();
-
     });
-
 }
 
- 
 const btnFiltroMov =
-
     document.getElementById("btnFiltroMov");
-
- 
-
     const menuFiltroMov =
-
         document.getElementById("menuFiltroMov");
-
- 
-
     btnFiltroMov.addEventListener("click", () => {
-
         menuFiltroMov.classList.toggle("ativo");
-
     });
-
- 
-
     btnFiltroMov.addEventListener("click", () => {
-
         const somenteFila =
-
             recargas.filter(r => r.status === "Fila");
-
     });
-
- 
 
 //============= Botão expandir e guardar ================
-
 const btnToggle =
-
     document.getElementById("btnToggleMov");
-
 const historicoBox =
-
     document.getElementById("listaMovimentacoes");
 
- 
-
 //============= Botão expandir e guardar ================
-
 btnToggle.addEventListener("click", () => {
-
     const fechado = historicoBox.classList.toggle("fechado");
-
     btnToggle.innerHTML = fechado
-
         ? "🔼"
-
         : "🔽";
-
 });
 
- 
-
 // =========================================================
-
 // Registrar recarga
-
 // =========================================================
-
 function registrarRecarga() {
 
- 
-
     // =========================================================
-
     // Dados selecionados
-
     // =========================================================
-
     const estacaoSelecionada =
-
         document.getElementById("estacao").value;
-
- 
-
     const prismaSelecionado =
-
         document.getElementById("prisma").value;
 
- 
-
     // =========================================================
-
     // Validação de estação e prisma
-
     // =========================================================
-
     if (!estacaoSelecionada || !prismaSelecionado) {
-
- 
-
-        //Opção 1 muito boa  
-
-        // Swal.fire({
-
-        //     icon: "warning",
-
-        //     title: "Atenção!",
-
-        //     html: `
-
-        //         <div style="font-size: 15px; color: #555; margin-top: 8px;">
-
-        //             Selecione uma <strong>placa</strong> e preencha
-
-        //             <strong>todos os campos obrigatórios</strong> antes de continuar.
-
-        //         </div>
-
-        //     `,
-
-        //     confirmButtonText: '<i class="fa-solid fa-check"></i> Entendi',
-
-        //     confirmButtonColor: "#ff6b00",
-
-        //     background: "#ffffff",
-
-        //     color: "#1e293b",
-
-        //     showCloseButton: true,
-
-        //     customClass: {
-
-        //         popup: "swal-smart-charger",
-
-        //         title: "swal-titulo",
-
-        //         confirmButton: "swal-botao"
-
-        //     }
-
-        // });
-
- 
-
-        //Opção 2 muito boa tbm
-
         Swal.fire({
-
             icon: "warning",
-
             title: "Atenção!",
-
             html: `
-
                 <div class="smart-alert-content">
-
                     <div class="smart-alert-message">
-
                         <strong>Quase lá!</strong>
-
-                        <span>
-
+                       <span>
                             Para continuar, selecione uma <b>placa</b> e
-
                             preencha todos os <b>campos obrigatórios</b>.
-
                         </span>
-
                     </div>
-
- 
-
                     <div class="smart-alert-tip">
-
                         <i class="fa-solid fa-circle-info"></i>
-
                         <span>Confira os dados antes de continuar.</span>
-
                     </div>
-
                 </div>
-
             `,
-
             confirmButtonText: `
-
                 <i class="fa-solid fa-check"></i>
-
                 Entendi
-
             `,
-
             confirmButtonColor: "#ff6b00",
-
             showCloseButton: true,
-
             buttonsStyling: false,
-
- 
-
             customClass: {
-
                 popup: "smart-alert",
-
                 icon: "smart-alert-icon",
-
                 title: "smart-alert-title",
-
                 confirmButton: "smart-alert-button",
-
                 closeButton: "smart-alert-close"
-
             }
-
         });
-
- 
-
         return;
-
     }
 
- 
-
     // =========================================================
-
     // Dados do veículo
-
     // =========================================================
-
     const placa =
-
         document.getElementById("placa").value;
-
- 
-
     const proprietario =
-
             document.getElementById("nomeVeiculo")
-
                 .textContent
-
                 .trim();
-
- 
-
             const encontrado = base.find(
-
         item => item[0].toUpperCase() === placa.toUpperCase()
-
     );
-
- 
-
     const cargo = encontrado
-
         ? encontrado[3].replace(" - Itaú Unibanco", "")
-
         : "";
-
     const funcional = encontrado
     ? encontrado[2]
-    : "";    
+    : "";  
 
     // =========================================================
-
     // Verifica se já existe uma recarga para a placa
-
     // =========================================================
-
     const registroExistente = recargas.find(
-
         r =>
-
             r.placa.toUpperCase() === placa.toUpperCase() &&
-
             r.status !== "Concluído"
-
     );
 
- 
-
     // =========================================================
-
     // Verifica se a estação já está carregando
-
     // =========================================================
-
     const existeCarregando = recargas.find(
-
         r =>
-
             r.estacao === estacaoSelecionada &&
-
             r.status !== "Concluído"
-
     );
-
- 
-
     console.log(
-
         "EXISTE RECARGA NESSA ESTAÇÃO:",
-
         existeCarregando
-
     );
 
- 
-
     // =========================================================
-
     // Se já existe registro para a placa
-
     // =========================================================
-
     if (registroExistente) {
-
- 
-
         if (registroExistente.status === "Aberto") {
-
- 
-
             atualizarEtapa2(registroExistente);
-
- 
-
         } else if (registroExistente.status === "Carregando") {
-
- 
-
             atualizarEtapa3(registroExistente);
-
         }
-
- 
-
     } else {
-
- 
-
         // =====================================================
-
         // Localiza o card da estação
-
         // =====================================================
-
         const card = [...document.querySelectorAll(".station-card")]
-
             .find(c =>
-
                 c.querySelector("h3")
-
                     .textContent
-
                     .trim() === estacaoSelecionada
-
             );
 
- 
-
         // =====================================================
-
         // Proteção contra estação não encontrada
-
         // =====================================================
-
         if (!card) {
-
- 
-
             console.error(
-
                 "Estação não encontrada:",
-
                 estacaoSelecionada
-
             );
-
- 
-
             Swal.fire({
-
                 icon: "error",
-
                 title: "Estação não encontrada",
-
                 text: "Não foi possível localizar o card da estação selecionada.",
-
                 confirmButtonText: "OK"
-
             });
-
- 
-
             return;
-
         }
 
- 
-
         // =====================================================
-
         // Identifica a torre
-
         // =====================================================
-
         const nomesTorres = {
-
- 
-
             alfredo: "Torre Alfredo Egydio",
-
- 
-
             jabaquara: "Torre Jabaquara",
-
- 
-
             olavo: "Torre Olavo Setubal"
-
- 
-
         };
-
- 
-
         const torre =
-
             nomesTorres[card.dataset.torre];
 
- 
-
         // =====================================================
-
         // Identifica o piso da estação
-
         // =====================================================
-
         const opcaoEstacao =
-
             document.getElementById("estacao")
-
                 .selectedOptions[0];
-
- 
-
         const piso =
-
             opcaoEstacao.dataset.piso;
 
- 
-
         // =====================================================
-
         // Cria nova recarga
-
         // =====================================================
-
         const novaRecarga = criarRecarga({
-
- 
-
             status:
-
                 existeCarregando
-
                     ? "Fila"
-
                     : "Aberto",
-
- 
-
             placa:
-
                 placa,
-
- 
-
             proprietario:
-
                 proprietario,
-
-
             cargo:
-
              cargo,
-
-            funcional: 
-
+            funcional:
                 funcional,
-
-
             torre:
-
                 torre,
-
- 
-
             piso:
-
                 piso,
-
- 
-
             manobristaEntrada:
-
                 document.getElementById(
-
                     "manobristaEntrada"
-
                 ).value,
-
- 
-
             prisma:
-
                 prismaSelecionado,
-
- 
-
             estacao:
-
                 estacaoSelecionada,
-
- 
-
             dataEntrada:
-
                 document.getElementById(
-
                     "dataEntrada"
-
                 ).value,
-
- 
-
             diaSemana:
-
                 document.getElementById(
-
                     "diaSemana"
-
                 ).value,
-
- 
-
             horaChegada:
-
                 document.getElementById(
-
                     "horaChegada"
-
                 ).value
-
         });
-
- 
-
         console.table(novaRecarga);
-
     }
 
- 
-
     // =========================================================
-
     // Localiza o card da estação
-
     // =========================================================
-
     const card = [...document.querySelectorAll(".station-card")]
-
         .find(c =>
-
             c.querySelector("h3")
-
                 .textContent
-
                 .trim() === estacaoSelecionada
-
         );
-
- 
-
     if (!card) {
-
- 
-
         console.error(
-
             "Estação não encontrada:",
-
             estacaoSelecionada
-
         );
-
- 
-
         return;
-
     }
 
- 
-
     // =========================================================
-
     // Atualiza status do card
-
     // =========================================================
-
     card.dataset.status = "em uso";
-
- 
-
     card.classList.add("em-uso");
 
- 
-
     // =========================================================
-
     // Ícone principal verde
-
     // =========================================================
-
     const icone =
-
         card.querySelector(".station-icon");
-
- 
-
     icone.className =
-
         "station-icon verde";
-
- 
-
     icone.innerHTML =
-
         '<i class="fa-solid fa-charging-station"></i>' +
-
         '<i class="bi bi-ev-front-fill"></i>';
 
- 
-
     // =========================================================
-
     // Badge verde "Em uso ⚡"
-
     // =========================================================
-
     const status =
-
         card.querySelector(".status");
-
- 
-
     status.className =
-
         "status uso";
-
- 
-
     status.innerHTML =
-
         'Em uso <i class="bi bi-lightning-charge"></i>';
 
- 
-
     // =========================================================
-
     // Título verde
-
     // =========================================================
-
     const titulo =
-
         card.querySelector("h3");
-
- 
-
     titulo.style.color =
-
         "#0b5e29";
 
- 
-
     // =========================================================
-
     // Ícones da lista
-
     // =========================================================
-
     const listaItens =
-
         card.querySelectorAll("ul li i");
-
- 
-
     listaItens.forEach(i => {
-
- 
-
         i.classList.remove(
-
             "status",
-
             "livre",
-
             "uso"
-
         );
-
- 
-
         i.style.backgroundColor =
-
             "#dcfce7";
-
- 
-
         i.style.color =
-
             "#0b5e29";
-
- 
-
         i.style.borderRadius =
-
             "50%";
-
- 
-
         i.style.padding =
-
             "10px";
-
- 
-
         i.style.width =
-
             "36px";
-
- 
-
         i.style.height =
-
             "36px";
-
- 
-
         i.style.display =
-
             "flex";
-
- 
-
         i.style.justifyContent =
-
             "center";
-
- 
-
         i.style.alignItems =
-
             "center";
-
     });
 
- 
-
     // =========================================================
-
     // Botão verde claro
-
     // =========================================================
-
     const botao =
-
         card.querySelector("button");
-
- 
-
     botao.className =
-
         "status uso";
-
- 
-
     botao.style.backgroundColor =
-
         "#dcfce7";
-
- 
-
     botao.style.color =
-
         "#0b5e29";
-
- 
-
     botao.textContent =
-
         "Ver detalhes";
 
- 
-
     // =========================================================
-
     // Atualiza estação no select
-
     // =========================================================
-
     const selectEstacao =
-
         document.getElementById("estacao");
-
- 
-
-    // [...selectEstacao.options].forEach(opcao => {
-
- 
-
-    //     if (opcao.value === estacaoSelecionada) {
-
- 
-
-    //         opcao.disabled = false;
-
- 
-
-    //         opcao.textContent =
-
-    //             `${estacaoSelecionada} ⚡`;
-
-    //     }
-
-    // });
-
- 
-
     [...selectEstacao.options].forEach(opcao => {
-
- 
-
         if (!opcao.dataset.textoOriginal) {
-
             opcao.dataset.textoOriginal =
-
                 opcao.textContent;
-
         }
-
- 
-
         if (opcao.value === estacaoSelecionada) {
-
- 
-
             opcao.textContent =
-
                 `${opcao.dataset.textoOriginal} ⚡`;
-
         }
-
     });
 
- 
-
     // =========================================================
-
     // Atualiza prisma no select
-
     // =========================================================
-
     const selectPrisma =
-
         document.getElementById("prisma");
-
- 
-
     [...selectPrisma.options].forEach(opcao => {
-
- 
-
         if (!opcao.dataset.textoOriginal) {
-
- 
-
             opcao.dataset.textoOriginal =
-
                 opcao.textContent;
-
         }
-
- 
-
         if (opcao.value === prismaSelecionado) {
-
- 
-
             opcao.disabled = false;
-
- 
-
             opcao.textContent =
-
                 `${opcao.dataset.textoOriginal} ⚡`;
-
         }
-
     });
 
- 
-
     // =========================================================
-
     // Limpa os campos da operação
-
     // =========================================================
-
     document.getElementById("placa").value = "";
-
- 
-
-    document.getElementById("fotoVeiculo").src =
-
-        "img/charge1.jpg";
-
- 
-
+    document.getElementById("fotoVeiculo").src = "img/charge1.jpg";
     document.getElementById("manobristaEntrada").value = "";
-
- 
-
     document.getElementById("dataEntrada").value = "";
-
- 
-
     document.getElementById("diaSemana").value = "";
-
- 
-
     document.getElementById("horaChegada").value = "";
-
- 
-
     document.getElementById("horaCargaInicial").value = "";
-
- 
-
     document.getElementById("cargaInicial").value = "";
-
- 
-
     document.getElementById("manobristaSaida").value = "";
-
- 
-
     document.getElementById("cargaFinal").value = "";
-
- 
-
     document.getElementById("horaFinal").value = "";
-
- 
-
     document.getElementById("estacao").selectedIndex = 0;
-
- 
-
     document.getElementById("prisma").selectedIndex = 0;
-
- 
-
+    
     // =========================================================
-
     // Limpeza e atualização
-
     // =========================================================
-
     limparCard();
-
- 
-
     liberarFormulario();
-
- 
-
     console.log("1");
-
- 
-
     atualizarContadores();
-
- 
-
     console.log("2");
-
- 
-
     atualizarComparativoOntem();
-
- 
-
     console.log("3");
-
- 
-
     renderizarMovimentacoes();
-
- 
-
     renderizarTopUsuarios();
-
- 
-
     renderizarTopCargos();
-
 }
