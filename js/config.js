@@ -1,5 +1,5 @@
 /* =========================================
-   MINHA CONTA
+// MINHA CONTA
 ========================================= */
 document.addEventListener("DOMContentLoaded", carregarMinhaConta);
 
@@ -17,7 +17,15 @@ async function carregarMinhaConta() {
     const criada = document.getElementById("contaCriada");
 
     if (!usuario) {
-        nome.textContent = "Nenhum perfil selecionado";
+        nome.textContent = "";
+        tipo.textContent = "";
+        permissoes.textContent = "";
+        criada.textContent = "";
+
+        //foto.hidden = true;
+        //inicial.hidden = false;
+        //inicial.textContent = "";
+
         return;
     }
 
