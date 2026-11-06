@@ -68,7 +68,7 @@ const base = [
 
     ["JOY3101", "Ethel Joyce Batista Maia", "Func:123456124", "Dir. RH - Google", "Range Rover Evoque - Branco", "Ethel@correio.itau.com.br", " pictures/joy-ft.jpg"],
 
-    ["AMA2010", "Amarildo Portela", "Func:123456125", "Missionário - World Church", "Porsche Panamera - Branco", "Amarildo@correio.itau.com.br", " pictures/amaroc-ft.png"],
+    ["AMA2010", "Amarildo Portela", "Func:123456125", "Cood - World Church", "Porsche Panamera - Branco", "Amarildo@correio.itau.com.br", " pictures/amaroc-ft.png"],
 
     //Daqui para baixo somente dados temáticos para ilustrar e complementar o objeto dentro do vetor/array que seja
     // ↓

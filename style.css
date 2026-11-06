@@ -10435,3 +10435,89 @@ Seção dos KPIs (Cards com Dados de status dos carregadores)
  
 
 }
+
+
+/* ===== MODAL QR CODE ===== */
+
+.modal-qrcode {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-qrcode.active {
+    display: flex;
+}
+
+.qrcode-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 25px;
+    background: var(--card-bg, #fff);
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+}
+
+.qrcode-container h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.qrcode-container h3 i {
+    color: #EC7000;
+    margin-right: 7px;
+}
+
+.qrcode-container p {
+    font-size: 14px;
+    color: var(--text-secondary, #777);
+    margin-bottom: 25px;
+}
+
+.fechar-qrcode {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+#qrcode {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+#qrcode img,
+#qrcode canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+#baixarQrCode {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 9px;
+    background: #EC7000;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+#baixarQrCode:hover {
+    background: #d96300;
+}

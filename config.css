@@ -1,3 +1,31 @@
+
+
+/* ===================== Seção Rodapé - Footer ===================== */
+/* =====================================
+   LAYOUT DA PÁGINA DE CONFIGURAÇÕES
+===================================== */
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.app {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    min-height: 0;
+}
+
+
 :root {
 
  
@@ -556,6 +584,47 @@
     border-color: #d93636;
 }
 
+/* foto dos adms*/
+.conta-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.conta-perfil img {
+    width: 74px;
+    height: 74px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Avatar dos operadores */
+.conta-perfil {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contaInicial {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+#contaInicial[hidden],
+#contaFotoPerfil[hidden] {
+    display: none !important;
+}
+
 /* RESPONSIVIDADE */
 
 @media (max-width: 768px) {
@@ -602,32 +671,6 @@
         font-size: .82rem;
     }
 
-}
-
-
-/* ===================== Seção Rodapé - Footer ===================== */
-/* =====================================
-   LAYOUT DA PÁGINA DE CONFIGURAÇÕES
-===================================== */
-
-html,
-body {
-    min-height: 100%;
-}
-
-body {
-    min-height: 100vh;
-}
-
-.app {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.main {
-    flex: 1;
-    min-height: 0;
 }
 
 /* =====================================

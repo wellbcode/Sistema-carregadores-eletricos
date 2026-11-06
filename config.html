@@ -190,7 +190,6 @@
                 </div>
 
                 <div class="settings-grid">
-
                     <!-- Minha Conta -->
                     <section class="settings-card" aria-labelledby="contaTitle">
 
@@ -199,38 +198,35 @@
                             <h3 id="contaTitle">Minha Conta</h3>
                         </div>
 
-                        <div class="config-item">
-                            <span>Foto do Perfil</span>
-                            <button type="button" class="btn-action">
-                                <i class="bi bi-camera"></i>
-                                Alterar
-                            </button>
+                        <!-- Identificação do usuário -->
+                        <div class="conta-perfil">
+                            <span id="contaInicial" hidden></span>
+                            <img
+                                id="contaFotoPerfil"
+                                src="img/charge4.png"
+                                alt="Foto do perfil"
+                            >
+
                         </div>
 
                         <div class="config-item">
-                            <span>Nome de Exibição</span>
-                            <button type="button" class="btn-action">
-                                <i class="bi bi-pencil-square"></i>
-                                Editar
-                            </button>
-                        </div>
-
-                        <div class="config-item">
-                            <span>Assinatura</span>
-                            <button type="button" class="btn-action">
-                                <i class="bi bi-pencil-square"></i>
-                                Editar
-                            </button>
+                            <span>Nome</span>
+                            <strong id="contaNome">Wellington Bertoso Santos</strong>
                         </div>
 
                         <div class="config-item">
                             <span>Tipo de Perfil</span>
-                            <strong>Administrador</strong>
+                            <strong id="contaTipo">Administrador</strong>
                         </div>
 
                         <div class="config-item">
                             <span>Permissões</span>
-                            <strong>Acesso Total</strong>
+                            <strong id="contaPermissoes">Acesso total</strong>
+                        </div>
+
+                        <div class="config-item">
+                            <span>Conta criada em:</span>
+                            <strong id="contaCriada">01/01/2023</strong>
                         </div>
 
                     </section>
@@ -376,5 +372,6 @@
     <script src="js/recargas.js"></script>
     <script src="js/carregadores.js"></script>
     <script src="js/conexao.js"></script>
+    <script src="js/config.js"></script>
 </body>
 </html>

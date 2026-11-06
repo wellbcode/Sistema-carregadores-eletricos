@@ -12,12 +12,16 @@ window.PROTEGER_PERFIS_COM_PIN = false;
 const PINS_INICIAIS = {
     "admin-wellington": {
         usuario: "Wellington",
-        pin: "1234"
+        pin: "1234",
+        fotoPadrao: "img/charge4.png",
+        criadoEm: new Date().toISOString()
     },
 
     "admin-wheezie": {
         usuario: "Wheezie",
-        pin: "2580"
+        pin: "2580",
+        fotoPadrao: "img/charge4.png",
+        criadoEm: new Date().toISOString()
     },
 
     "admin-fiona": {

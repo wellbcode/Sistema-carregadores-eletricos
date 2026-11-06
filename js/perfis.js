@@ -1339,7 +1339,9 @@ botaoNovoPerfil.addEventListener('click', async () => {
 
         nome: nome.trim(),
 
-        fotoPadrao: 'img/charge4.png'
+        fotoPadrao: 'img/charge4.png',
+
+        criadoEm: new Date().toISOString()
 
     };
 
