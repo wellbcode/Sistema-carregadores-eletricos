@@ -226,9 +226,28 @@
 
                         <div class="config-item">
                             <span>Conta criada em:</span>
-                            <strong id="contaCriada">01/01/2023</strong>
+                            <strong id="contaCriada"></strong>
                         </div>
 
+                        <!-- Segurança da conta -->
+                        <div class="config-seguranca">
+
+                            <div class="config-item">
+                                <span>Segurança do PIN</span>
+                                <strong id="contaStatusPin">Verificando...</strong>
+                            </div>
+
+                            <div class="config-acoes-pin">
+                                <button type="button" id="btnGerenciarPin">
+                                    Cadastrar PIN
+                                </button>
+
+                                <button type="button" id="btnRemoverPin" hidden>
+                                    Remover PIN
+                                </button>
+                            </div>
+
+                        </div>
                     </section>
 
                     <!-- Aparência -->
@@ -367,6 +386,7 @@
 
     <!-- ====================== Scripts ======================== -->
     <script src="js/acessibilidade.js"></script>
+    <script src="js/pin.js"></script>
     <script src="js/fotos-perfis.js"></script>
     <script src="js/script.js"></script>
     <script src="js/recargas.js"></script>

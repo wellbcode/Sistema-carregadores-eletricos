@@ -1,3 +1,4 @@
+
 /* =========================================
 // MINHA CONTA
 ========================================= */
@@ -22,9 +23,11 @@ async function carregarMinhaConta() {
         permissoes.textContent = "";
         criada.textContent = "";
 
-        //foto.hidden = true;
-        //inicial.hidden = false;
-        //inicial.textContent = "";
+        document.getElementById("contaStatusPin").textContent =
+            "Nenhum perfil conectado";
+
+        document.getElementById("btnGerenciarPin").hidden = true;
+        document.getElementById("btnRemoverPin").hidden = true;
 
         return;
     }
@@ -66,7 +69,7 @@ async function carregarMinhaConta() {
     // Foto personalizada ou avatar padrão
     foto.src = usuario.fotoPadrao || "img/charge4.png";
 
-   // Foto ou avatar com inicial do nome
+    // Foto ou avatar com inicial do nome
     try {
 
         const fotoSalva = await buscarFotoOperador(usuario.id);
@@ -93,4 +96,200 @@ async function carregarMinhaConta() {
         inicial.textContent = (usuario.nome || "U").charAt(0).toUpperCase();
         inicial.hidden = false;
     }
+
+    // Gerenciamento do PIN
+    configurarGerenciamentoPin(usuario);
+}
+
+
+/* =========================================
+// GERENCIAMENTO DO PIN DA CONTA
+========================================= */
+
+function configurarGerenciamentoPin(usuario) {
+
+    const statusPin = document.getElementById("contaStatusPin");
+    const btnGerenciar = document.getElementById("btnGerenciarPin");
+    const btnRemover = document.getElementById("btnRemoverPin");
+
+    function atualizarStatusPin() {
+
+        const perfil = window.obterPinPerfil(usuario.id);
+        const possuiPin = Boolean(perfil?.pin);
+
+        statusPin.textContent = possuiPin
+            ? "PIN cadastrado"
+            : "Sem PIN cadastrado";
+
+        btnGerenciar.textContent = possuiPin
+            ? "Alterar PIN"
+            : "Cadastrar PIN";
+
+        btnRemover.hidden = !possuiPin;
+    }
+
+    // Solicitar PIN
+    async function solicitarPin(titulo, texto) {
+
+        const resultado = await Swal.fire({
+            title: titulo,
+            text: texto,
+            input: "password",
+            inputAttributes: {
+                maxlength: 4,
+                inputmode: "numeric",
+                pattern: "[0-9]{4}",
+                autocomplete: "off"
+            },
+            showCancelButton: true,
+            confirmButtonText: "Continuar",
+            cancelButtonText: "Cancelar",
+            inputValidator: (valor) => {
+                if (!/^\d{4}$/.test(valor)) {
+                    return "Digite um PIN com 4 números.";
+                }
+            }
+        });
+
+        return resultado.isConfirmed ? resultado.value : null;
+    }
+
+    // Confirmar novo PIN
+    async function cadastrarNovoPin() {
+
+        const novoPin = await solicitarPin(
+            "Novo PIN",
+            "Digite o novo PIN de 4 números."
+        );
+
+        if (!novoPin) return false;
+
+        const confirmarPin = await solicitarPin(
+            "Confirmar PIN",
+            "Digite novamente o novo PIN."
+        );
+
+        if (!confirmarPin) return false;
+
+        if (novoPin !== confirmarPin) {
+
+            await Swal.fire(
+                "PINs diferentes",
+                "Os PINs informados não coincidem.",
+                "error"
+            );
+
+            return false;
+        }
+
+        const salvo = window.definirPinPerfil(
+            usuario.id,
+            usuario.nome,
+            novoPin
+        );
+
+        if (!salvo) {
+
+            await Swal.fire(
+                "Erro",
+                "Não foi possível salvar o PIN.",
+                "error"
+            );
+
+            return false;
+        }
+
+        await Swal.fire(
+            "Sucesso!",
+            "Seu PIN foi cadastrado com sucesso.",
+            "success"
+        );
+
+        atualizarStatusPin();
+        return true;
+    }
+
+    // Cadastrar ou alterar PIN
+    btnGerenciar.addEventListener("click", async () => {
+
+        const perfil = window.obterPinPerfil(usuario.id);
+        const possuiPin = Boolean(perfil?.pin);
+
+        // Cadastro inicial
+        if (!possuiPin) {
+            await cadastrarNovoPin();
+            return;
+        }
+
+        // Validar PIN atual
+        const pinAtual = await solicitarPin(
+            "Confirmar identidade",
+            "Digite seu PIN atual para continuar."
+        );
+
+        if (!pinAtual) return;
+
+        if (!window.validarPinPerfil(usuario.id, pinAtual)) {
+
+            await Swal.fire(
+                "PIN incorreto",
+                "O PIN informado não está correto.",
+                "error"
+            );
+
+            return;
+        }
+
+        // Alterar PIN
+        await cadastrarNovoPin();
+    });
+
+    // Remover PIN
+    btnRemover.addEventListener("click", async () => {
+
+        const pinAtual = await solicitarPin(
+            "Remover PIN",
+            "Digite seu PIN atual para confirmar a remoção."
+        );
+
+        if (!pinAtual) return;
+
+        if (!window.validarPinPerfil(usuario.id, pinAtual)) {
+
+            await Swal.fire(
+                "PIN incorreto",
+                "O PIN informado não está correto.",
+                "error"
+            );
+
+            return;
+        }
+
+        const confirmacao = await Swal.fire({
+            title: "Remover PIN?",
+            text: "Seu perfil ficará sem PIN cadastrado.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Sim, remover",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#d33"
+        });
+
+        if (!confirmacao.isConfirmed) return;
+
+        // Limpa somente o PIN e preserva os dados do perfil
+        window.PINS_PERFIS[usuario.id].pin = "";
+
+        window.salvarPinsPerfis();
+
+        await Swal.fire(
+            "PIN removido",
+            "Seu PIN foi removido com sucesso.",
+            "success"
+        );
+
+        atualizarStatusPin();
+    });
+
+    atualizarStatusPin();
 }
