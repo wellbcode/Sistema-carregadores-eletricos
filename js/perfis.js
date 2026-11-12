@@ -1,7 +1,9 @@
 const cardOperadores = document.querySelector('.operadores');
 const modalOperadores = document.getElementById('modalOperadores');
 const fecharModal = document.getElementById('fecharModal');
+
 const modalSenha = document.getElementById('modalSenha');
+const fecharModalSenha = document.getElementById('fecharModalSenha');
 const nomeSelecionado = document.getElementById('nomeSelecionado');
 
 // Abrir modal dos operadores
@@ -10,19 +12,60 @@ cardOperadores.addEventListener('click', () => {
 });
 
 // Fechar modal dos operadores
-
 fecharModal.addEventListener('click', () => {
     modalOperadores.classList.remove('active');
 });
 
 
- // Clique em um operador
-
+// Clique em um operador
 const operadores = document.querySelectorAll('.operador-item');
 const buscarOperador = document.getElementById('buscarOperador');
+const senhaPerfil = document.getElementById('senhaPerfil');
+const btnEntrarPerfil = document.getElementById('btnEntrarPerfil');
+const cadeadoModal = modalSenha.querySelector('.cadeado');
+
+
+let operadorSelecionado = null;
+
+// Atualizar cadeados dos operadores
+function atualizarCadeadosOperadores() {
+
+    operadores.forEach(operador => {
+
+        const nome = operador.querySelector('h4').textContent.trim();
+
+        const id = 'operador-' + nome
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+
+        const possuiPin = Boolean(window.obterPinPerfil(id)?.pin);
+
+        const cadeado = operador.querySelector('.cadeado-operador');
+
+        cadeado.className = possuiPin
+            ? 'bi bi-lock-fill cadeado-operador'
+            : 'bi bi-unlock-fill cadeado-operador';
+    });
+}
+
+// Criar indicadores de PIN nos operadores
+operadores.forEach(operador => {
+
+    const cadeado = document.createElement('i');
+
+    cadeado.className = 'cadeado-operador';
+
+    operador.appendChild(cadeado);
+
+});
+
+atualizarCadeadosOperadores();
 
 // Proteção por PIN desativada por enquanto
-const PROTEGER_OPERADORES_COM_PIN = false;
+//const PROTEGER_OPERADORES_COM_PIN = false;
 
 // Buscar operadores
 buscarOperador.addEventListener('input', () => {
@@ -39,8 +82,10 @@ buscarOperador.addEventListener('input', () => {
     });
 });
 
+// Selecionar operador e gerenciar PIN
 operadores.forEach(operador => {
     operador.addEventListener('click', async () => {
+
         const nome = operador.querySelector('h4').textContent.trim();
 
         const id = 'operador-' + nome
@@ -50,154 +95,231 @@ operadores.forEach(operador => {
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-|-$/g, '');
 
-        // Recupera os PINs cadastrados, se houver
-        // const pinsOperadores = JSON.parse(
-        //     localStorage.getItem('smartChargerPinsOperadores') || '{}'
-        // );
+        operadorSelecionado = { id, nome };
 
-        // // Verifica o PIN somente quando a proteção estiver ativada
-        // if (PROTEGER_OPERADORES_COM_PIN && pinsOperadores[id]) {
-        //     const { value: pin, isConfirmed } = await Swal.fire({
-        //         title: 'Acesso do operador',
-        //         text: `Digite o PIN de ${nome}.`,
-        //         input: 'password',
-        //         inputAttributes: {
-        //             maxlength: 4,
-        //             inputmode: 'numeric',
-        //             autocomplete: 'off'
-        //         },
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Entrar',
-        //         cancelButtonText: 'Cancelar',
-        //         confirmButtonColor: '#ff6b00',
-        //         cancelButtonColor: '#64748b',
-        //         inputValidator: valor => {
-        //             if (!/^\d{4}$/.test(valor || '')) {
-        //                 return 'Digite um PIN de 4 números.';
-        //             }
-        //         }
-        //     });
+        const pinCadastrado = window.obterPinPerfil(id);
+        const possuiPin = Boolean(pinCadastrado?.pin);
 
-        //     if (!isConfirmed) return;
+        // Atualiza o cadeado do modal
+        cadeadoModal.textContent = possuiPin ? '🔒' : '🔓';
 
-        //     if (pin !== pinsOperadores[id]) {
-        //         await Swal.fire({
-        //             icon: 'error',
-        //             title: 'PIN incorreto',
-        //             confirmButtonColor: '#ff6b00'
-        //         });
-        //         return;
-        //     }
-        // }
+        nomeSelecionado.textContent = nome;
+        senhaPerfil.value = '';
 
-        
-        // Verifica o PIN centralizado no pin.js
-        const protecaoAtiva = window.PROTEGER_PERFIS_COM_PIN;
-        const pinCadastrado = window.PINS_PERFIS?.[id];
+        // Operador sem PIN
+        if (!possuiPin) {
 
-        if (protecaoAtiva && pinCadastrado) {
-            const { value: pin, isConfirmed } = await Swal.fire({
-                title: 'Acesso do operador',
-                text: `Digite o PIN de ${nome}.`,
-                input: 'password',
-                inputAttributes: {
-                    maxlength: 4,
-                    inputmode: 'numeric',
-                    autocomplete: 'off'
-                },
+            modalOperadores.classList.remove('active');
+
+            const resultado = await Swal.fire({
+                title: nome,
+                text: 'Este operador ainda não possui PIN cadastrado.',
+                icon: 'info',
                 showCancelButton: true,
-                confirmButtonText: 'Entrar',
-                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Cadastrar PIN',
+                cancelButtonText: 'Entrar sem PIN',
                 confirmButtonColor: '#ff6b00',
-                cancelButtonColor: '#64748b',
-                inputValidator: valor => {
-                    if (!/^\d{4}$/.test(valor || '')) {
-                        return 'Digite exatamente 4 números.';
-                    }
-                }
+                cancelButtonColor: '#64748b'
             });
 
-            if (!isConfirmed) return;
-
-            if (pin !== pinCadastrado.pin) {
-                await Swal.fire({
-                    icon: 'error',
-                    title: 'PIN incorreto',
-                    text: 'Verifique o PIN e tente novamente.',
-                    confirmButtonColor: '#ff6b00'
-                });
-                return;
+            if (resultado.isConfirmed) {
+                //cadastrarPinOperador();
+                await cadastrarPinOperador();
+            } else if (resultado.dismiss === Swal.DismissReason.cancel) {
+                entrarOperadorSemPIN();
             }
-        } else if (protecaoAtiva && !pinCadastrado) {
-            await Swal.fire({
-                icon: 'warning',
-                title: 'PIN não cadastrado',
-                text: `Não há PIN configurado para ${nome}.`,
-                confirmButtonColor: '#ff6b00'
-            });
+
             return;
         }
 
+        // Operador com PIN
+        if (window.PROTEGER_PERFIS_COM_PIN) {
+             senhaPerfil.style.display = '';
+            modalSenha.classList.add('active');
 
-        // Salva o operador selecionado
-        sessionStorage.setItem('usuarioLogado', JSON.stringify({
-            id: id,
-            nome: nome,
-            tipo: 'operador'
-        }));
+            document.body.appendChild(modalSenha);
+        } else {
+            entrarOperadorSemPIN();
+        }
 
-        // Fecha os modais
-        modalOperadores.classList.remove('active');
-        modalSenha.classList.remove('active');
-
-        // Entra no sistema
-        window.location.href = 'index.html';
     });
 });
 
-// Fecha o modal de senha
-const fecharModalSenha =
-    document.getElementById('fecharModalSenha');
-    fecharModalSenha.addEventListener('click', () => {
+async function cadastrarPinOperador() {
 
- 
+    if (!operadorSelecionado) return;
 
-        modalSenha.classList.remove('active');
+    const { id, nome } = operadorSelecionado;
 
- 
+    const respostaPin = await Swal.fire({
+        title: 'Proteger perfil',
+        text: `Digite um PIN de 4 dígitos para ${nome}.`,
+        input: 'password',
+        inputAttributes: {
+            maxlength: 4,
+            inputmode: 'numeric',
+            pattern: '[0-9]{4}',
+            autocomplete: 'new-password'
+        },
 
+        didOpen: () => {
+            const campo = Swal.getInput();
+
+            const cadeadoPin = document.createElement('i');
+            cadeadoPin.className = 'bi bi-lock-fill';
+            cadeadoPin.title = 'Mostrar PIN';
+
+            cadeadoPin.style.cssText = `
+                position: absolute;
+                right: 50px;
+                top: 58%;
+                transform: translateY(-50%);
+                cursor: pointer;
+                font-size: 20px;
+                color: #64748b;
+                z-index: 10;
+            `;
+
+            campo.parentElement.style.position = 'relative';
+            campo.style.paddingRight = '42px';
+            campo.parentElement.appendChild(cadeadoPin);
+
+            cadeadoPin.addEventListener('click', () => {
+                const mostrar = campo.type === 'password';
+
+                campo.type = mostrar ? 'text' : 'password';
+
+                cadeadoPin.className = mostrar
+                    ? 'bi bi-unlock-fill'
+                    : 'bi bi-lock-fill';
+
+                cadeadoPin.title = mostrar
+                    ? 'Ocultar PIN'
+                    : 'Mostrar PIN';
+            });
+        },
+
+        showCancelButton: true,
+        confirmButtonText: 'Salvar PIN',
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#ff6b00',
+        cancelButtonColor: '#64748b',
+        inputValidator: valor => {
+            if (!/^\d{4}$/.test(valor || '')) {
+                return 'Digite exatamente 4 números.';
+            }
+        }
     });
 
-    modalSenha.addEventListener('click', (e) => {
+    if (!respostaPin.isConfirmed) return;
 
+    const pinSalvo = window.definirPinPerfil(id, nome, respostaPin.value);
 
+    atualizarCadeadosOperadores();
 
-
-    if (e.target === modalSenha) {
-
- 
-
-        modalSenha.classList.remove('active');
-
- 
-
+    if (!pinSalvo) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'Erro ao salvar',
+            text: 'Não foi possível cadastrar o PIN.',
+            confirmButtonColor: '#ff6b00'
+        });
+        return;
     }
 
+    cadeadoModal.textContent = '🔒';
 
+    await Swal.fire({
+        icon: 'success',
+        title: 'PIN cadastrado!',
+        text: `O PIN de ${nome} foi salvo com sucesso.`,
+        confirmButtonColor: '#ff6b00'
+    });
+}
 
+// Função selecionar um perfil oper sem pin
+function entrarOperadorSemPIN() {
+
+    if (!operadorSelecionado) return;
+
+    const autenticado = window.autenticarPerfil({
+        id: operadorSelecionado.id,
+        nome: operadorSelecionado.nome,
+        tipo: 'operador'
+    });
+
+    if (!autenticado) return;
+
+    modalOperadores.classList.remove('active');
+    modalSenha.classList.remove('active');
+
+    window.location.href = 'index.html';
+}
+
+btnEntrarPerfil.addEventListener('click', async () => {
+
+    if (!operadorSelecionado) return;
+
+    const pin = senhaPerfil.value.trim();
+
+    if (!/^\d{4}$/.test(pin)) {
+        await Swal.fire({
+            icon: 'warning',
+            title: 'PIN inválido',
+            text: 'Digite exatamente 4 números.',
+            confirmButtonColor: '#ff6b00'
+        });
+
+        return;
+    }
+
+    const autenticado = window.autenticarPerfil({
+        id: operadorSelecionado.id,
+        nome: operadorSelecionado.nome,
+        tipo: 'operador',
+        pin
+    });
+
+    if (!autenticado) {
+        await Swal.fire({
+            icon: 'error',
+            title: 'PIN incorreto',
+            text: 'Verifique o PIN e tente novamente.',
+            confirmButtonColor: '#ff6b00'
+        });
+
+        senhaPerfil.value = '';
+        senhaPerfil.focus();
+
+        return;
+    }
+
+    modalOperadores.classList.remove('active');
+    modalSenha.classList.remove('active');
+
+    window.location.href = 'index.html';
 
 });
 
+function fecharModalAutenticacao() {
+    modalSenha.classList.remove('active');
+    senhaPerfil.value = '';
+    operadorSelecionado = null;
+}
+
+fecharModalSenha.addEventListener('click', fecharModalAutenticacao);
+
+modalSenha.addEventListener('click', (e) => {
+    if (e.target === modalSenha) {
+        fecharModalAutenticacao();
+    }
+});
 
 
 /* =========================================
-
    GERENCIAMENTO DOS PERFIS DE ADMINISTRADOR
-
    Perfis: localStorage
-
    Fotos: IndexedDB
-
    ========================================= */
 
  
@@ -428,7 +550,8 @@ function criarCardPerfil(perfil) {
        const cadeado = document.createElement('i');
 
         function atualizarCadeado() {
-            const possuiPin = Boolean(window.obterPinPerfil(perfil.id));
+            //const possuiPin = Boolean(window.obterPinPerfil(perfil.id));
+            const possuiPin = Boolean(window.obterPinPerfil(perfil.id)?.pin);
 
             cadeado.className = possuiPin
                 ? 'bi bi-lock-fill cadeado-perfil'
@@ -450,176 +573,24 @@ function criarCardPerfil(perfil) {
         cadeado.style.pointerEvents = 'auto';
         cadeado.style.cursor = 'default';
 
- 
-
-        //card.append(cadeado);
-
-        //cadeado.style.cursor = 'pointer';
-
- 
-
-        // cadeado.addEventListener('click', async (event) => {
-
-        //     event.stopPropagation();
-
- 
-
-        //     const resultado = await Swal.fire({
-
-        //         title: 'PIN do perfil',
-
-        //         text: `Defina um PIN de 4 dígitos para ${perfil.nome}.`,
-
-        //         input: 'password',
-
-        //         inputAttributes: {
-
-        //             maxlength: 4,
-
-        //             inputmode: 'numeric',
-
-        //             autocomplete: 'new-password'
-
-        //         },
-
-        //         showCancelButton: true,
-
-        //         confirmButtonText: 'Salvar PIN',
-
-        //         cancelButtonText: 'Cancelar',
-
-        //         confirmButtonColor: '#ff6b00',
-
-        //         inputValidator: (valor) => {
-
-        //             if (!/^\d{4}$/.test(valor)) {
-
-        //                 return 'Digite exatamente 4 números.';
-
-        //             }
-
-        //         }
-
-        //     });
-
- 
-
-        //     if (!resultado.isConfirmed) return;
-
- 
-
-        //     perfil.pin = resultado.value;
-
- 
-
-        //     const indice = perfisAdministradores.findIndex(
-
-        //         item => item.id === perfil.id
-
-        //     );
-
- 
-
-        //     if (indice !== -1) {
-
-        //         perfisAdministradores[indice].pin = resultado.value;
-
-        //         salvarPerfis(perfisAdministradores);
-
-        //     }
-
- 
-
-        //     cadeado.className = 'bi bi-lock-fill cadeado-perfil';
-
-        //     cadeado.title = 'Perfil protegido por PIN';
-
- 
-
-        //     await Swal.fire({
-
-        //         icon: 'success',
-
-        //         title: 'PIN cadastrado!',
-
-        //         text: 'O PIN foi salvo para este perfil.',
-
-        //         confirmButtonColor: '#ff6b00'
-
-        //     });
-
-        // });
-
- 
-
- 
-
     card.append(areaFoto, titulo, cargo, cadeado);
-
-    
+  
     // Selecionar perfil e entrar no sistema
     card.addEventListener('click', async () => {
-   
+
         // Impede a seleção durante o gerenciamento dos perfis
         if (modoEdicao) return;
 
-        // Se o perfil tiver PIN, solicitar autenticação
-        // if (perfil.pin) {
-        //     const { value: pin, isConfirmed } = await Swal.fire({
-        //         title: 'Acesso ao perfil',
-        //         text: `Digite o PIN de ${perfil.nome}.`,
-        //         input: 'password',
-        //         inputAttributes: {
-        //             maxlength: 4,
-        //             inputmode: 'numeric',
-        //             autocomplete: 'off'
-        //         },
-        //         showCancelButton: true,
-        //         confirmButtonText: 'Entrar',
-        //         cancelButtonText: 'Cancelar',
-        //         confirmButtonColor: '#ff6b00',
-        //         cancelButtonColor: '#64748b',
-        //         inputValidator: (valor) => {
-        //             if (!valor) {
-        //                 return 'Digite o PIN do perfil.';
-        //             }
-        //         }
-        //     });
-
-        //     if (!isConfirmed) return;
-
-        //     if (pin !== perfil.pin) {
-        //         await Swal.fire({
-        //             icon: 'error',
-        //             title: 'PIN incorreto',
-        //             text: 'Verifique o PIN e tente novamente.',
-        //             confirmButtonColor: '#ff6b00'
-        //         });
-
-        //         return;
-        //     }
-        // }
-        
-      
-        // Verifica o PIN centralizado no pin.js
-        const protecaoAtiva = window.PROTEGER_PERFIS_COM_PIN;
         const pinCadastrado = window.obterPinPerfil(perfil.id);
+        let pin = null;
 
-        if (protecaoAtiva) {
-            if (!pinCadastrado) {
-                await Swal.fire({
-                    icon: 'warning',
-                    title: 'PIN não cadastrado',
-                    text: `Não há PIN configurado para ${perfil.nome}.`,
-                    confirmButtonColor: '#ff6b00'
-                });
+        // Solicita PIN somente se a proteção estiver ativa
+        // e o perfil possuir um PIN cadastrado
+        if (window.PROTEGER_PERFIS_COM_PIN && pinCadastrado?.pin) {
 
-                return;
-            }
-
-            const { value: pin, isConfirmed } = await Swal.fire({
-                title: 'Acesso do operador',
-                text: `Digite o PIN de ${nome}.`,
+            const { value, isConfirmed } = await Swal.fire({
+                title: 'Acesso do administrador',
+                text: `Digite o PIN de ${perfil.nome}.`,
                 input: 'password',
                 inputAttributes: {
                     maxlength: 4,
@@ -640,31 +611,32 @@ function criarCardPerfil(perfil) {
 
             if (!isConfirmed) return;
 
-            if (!window.validarPinPerfil(perfil.id, pin)) {
-                await Swal.fire({
-                    icon: 'error',
-                    title: 'PIN incorreto',
-                    text: 'Verifique o PIN e tente novamente.',
-                    confirmButtonColor: '#ff6b00'
-                });
-
-                return;
-            }
+            pin = value;
         }
 
-
-
-        // Salva o perfil autenticado para o index.html
-        sessionStorage.setItem('usuarioLogado', JSON.stringify({
+        // Autentica e cria a sessão do administrador
+        const autenticado = window.autenticarPerfil({
             id: perfil.id,
             nome: perfil.nome,
+            tipo: 'administrador',
+            pin,
             fotoPadrao: perfil.fotoPadrao || 'img/charge4.png'
-        }));
+        });
+
+        if (!autenticado) {
+            await Swal.fire({
+                icon: 'error',
+                title: 'PIN incorreto',
+                text: 'Verifique o PIN e tente novamente.',
+                confirmButtonColor: '#ff6b00'
+            });
+
+            return;
+        }
 
         // Redireciona para a página inicial
         window.location.href = 'index.html';
     });
-  
 
     editar.addEventListener('click', async (event) => {
 
