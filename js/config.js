@@ -105,9 +105,7 @@ async function carregarMinhaConta() {
 /* =========================================
 // GERENCIAMENTO DO PIN DA CONTA
 ========================================= */
-
 function configurarGerenciamentoPin(usuario) {
-
     const statusPin = document.getElementById("contaStatusPin");
     const btnGerenciar = document.getElementById("btnGerenciarPin");
     const btnRemover = document.getElementById("btnRemoverPin");
@@ -144,10 +142,52 @@ function configurarGerenciamentoPin(usuario) {
             showCancelButton: true,
             confirmButtonText: "Continuar",
             cancelButtonText: "Cancelar",
+
             inputValidator: (valor) => {
                 if (!/^\d{4}$/.test(valor)) {
                     return "Digite um PIN com 4 números.";
                 }
+            },
+
+            // Cadeado para mostrar ou ocultar o PIN
+            didOpen: () => {
+
+                const campo = Swal.getInput();
+
+                const cadeadoPin = document.createElement('i');
+
+                cadeadoPin.className = 'bi bi-lock-fill';
+                cadeadoPin.title = 'Mostrar PIN';
+
+                cadeadoPin.style.cssText = `
+                    position: absolute;
+                    right: 50px;
+                    top: 55%;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    font-size: 20px;
+                    color: #64748b;
+                    z-index: 10;
+                `;
+
+                campo.parentElement.style.position = 'relative';
+                campo.style.paddingRight = '42px';
+                campo.parentElement.appendChild(cadeadoPin);
+
+                cadeadoPin.addEventListener('click', () => {
+
+                    const mostrar = campo.type === 'password';
+
+                    campo.type = mostrar ? 'text' : 'password';
+
+                    cadeadoPin.className = mostrar
+                        ? 'bi bi-unlock-fill'
+                        : 'bi bi-lock-fill';
+
+                    cadeadoPin.title = mostrar
+                        ? 'Ocultar PIN'
+                        : 'Mostrar PIN';
+                });
             }
         });
 

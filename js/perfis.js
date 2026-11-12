@@ -791,10 +791,7 @@ function criarCardPerfil(perfil) {
 
                 cancelButtonColor: '#64748b',
 
- 
-
                 // Cadeado para mostrar ou ocultar o PIN
-
                 didOpen: () => {
 
                     const campo = Swal.getInput();
@@ -867,18 +864,11 @@ function criarCardPerfil(perfil) {
 
                 },
 
- 
-
                 inputValidator: (valor) => {
-
                     if (!/^\d{4}$/.test(valor || '')) {
-
                         return 'Digite exatamente 4 números.';
-
                     }
-
                 }
-
             });
 
             
