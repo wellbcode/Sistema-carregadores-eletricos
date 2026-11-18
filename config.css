@@ -1,8 +1,6 @@
-
 /* =====================================
    LAYOUT DA PÁGINA DE CONFIGURAÇÕES
 ===================================== */
-
 html,
 body {
     min-height: 100%;
@@ -23,334 +21,91 @@ body {
     min-height: 0;
 }
 
-
 :root {
-
- 
-
     /* =========================
-
- 
-
        CORES PRINCIPAIS
-
- 
-
     =========================== */
-
- 
-
     --primary-blue: #4F8EF7;
-
- 
-
     --primary: #ff6b00;
-
- 
-
     --secondary: #38bdf8;
-
- 
-
     --sucess: #16a34a;
-
- 
-
     --danger: #ff0000;
-
- 
-
     --h1-dark: #ffffff;
-
- 
-
     --tema: #F25D27;
-
- 
-
     --cor-css: #1d78e7;
-
- 
-
     --cor-js: #F2B236;
-
- 
-
     --texto: #ec7b12;
-
- 
-
     --github: #b918ce;
-
- 
-
     --dark: #0f172a;
-
- 
-
     --fundo-sidebar: #0f172a;
-
- 
-
     --bar: #272626e5;
-
- 
-
     --background-section: #f9fbfcef;
-
     --marrom: #603b2a;
-
     --marrom-escuro: #3f291f;
-
     --dourado: #d89b45;
-
     --creme: #fffaf2;
-
     --fundo: #f7f4ee;
-
- 
-
     --texto-suave: #887d73;
-
     --branco: #ffffff;
-
     --borda: #d1d5db;
 
- 
-
- 
-
     /* =========================
-
- 
-
        CORES DO SISTEMA
-
- 
-
     ========================= */
-
- 
-
     --dark: #17202b;
-
- 
-
     --dark-soft: #3f4a59;
-
- 
-
- 
-
- 
-
     --text: #20242c;
-
- 
-
     --text-muted: #64748b;
-
- 
-
     --text-light: #9298a1;
 
- 
-
- 
-
- 
-
     /* =========================
-
- 
-
        CORES ESPECÍFICAS
-
- 
-
-       ========================= */
-
- 
-
+    ========================= */
     --tema: #f25d27;
-
- 
-
     --cor-css: #1d78e7;
-
- 
-
     --cor-js: #f2b236;
-
- 
-
     --github: #b918ce;
 
- 
-
- 
-
- 
-
     /* =========================
-
- 
-
        BACKGROUNDS
-
- 
-
-       ========================= */
-
- 
-
+    ========================= */
     --background: #f8fafc;
-
- 
-
     --background-section: #f9fbfc;
-
- 
-
     --background-card: #ffffff;
-
- 
-
     --background-muted: #f0f2f5;
-
- 
-
     --background-hover: #f3f5f8;
 
- 
-
- 
-
- 
-
     /* =========================
-
- 
-
        BORDAS
-
- 
-
-       ========================= */
-
- 
-
+    =========================== */
     --border: #e7ebf0;
-
- 
-
     --border-soft: #edf0f3;
 
- 
-
- 
-
- 
-
     /* =========================
-
- 
-
        SOMBRAS
-
- 
-
-       ========================= */
-
- 
-
- 
-
- 
-
+    =========================== */
     --shadow-xs: 0 2px 8px rgba(15, 23, 42, 0.04);
-
- 
-
     --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.06);
-
- 
-
     --shadow-md: 0 8px 20px rgba(15, 23, 42, 0.08);
-
- 
-
     --shadow-lg: 0 12px 30px rgba(10, 15, 20, 0.12);
 
- 
-
- 
-
- 
-
     /* =========================
-
- 
-
        RAIOS
-
- 
-
-       ========================= */
-
- 
-
- 
-
- 
-
+    =========================== */
     --radius-sm: 7px;
-
- 
-
     --radius-md: 10px;
-
- 
-
     --radius-lg: 15px;
 
- 
-
- 
-
- 
-
     /* =========================
-
- 
-
        TRANSIÇÕES
-
- 
-
-       ========================= */
-
- 
-
- 
-
- 
-
+    ========================= */
     --transition-fast: 0.2s ease;
-
- 
-
     --transition-normal: 0.3s ease;
-
- 
-
 }
-
 
 /* =====================================
    CONFIGURAÇÕES - SMART CHARGER
 ===================================== */
-
 .settings-container {
     padding: 30px;
     position: relative;
@@ -623,11 +378,9 @@ body {
     display: none !important;
 }
 
-
 /* =====================================
    SEGURANÇA DA CONTA - PIN
 ===================================== */
-
 .config-seguranca {
     margin-top: 18px;
     padding-top: 10px;
@@ -677,6 +430,26 @@ body {
     border-color: #d93636;
 }
 
+/* Alinhamento vertical dos conteúdos dos cards */
+.settings-card[aria-labelledby="aparenciaTitle"] .card-title + .config-item,
+.settings-card[aria-labelledby="backupTitle"] .card-title + .config-item,
+ .settings-card[aria-labelledby="sobreTitle"] .card-title + .config-item{
+    margin-top: 130px;
+}
+
+/* =====================================
+   Botões confirmar e cancelar pin
+===================================== */
+.sawl2-confirm,
+.swal2-cancel {
+    transition: transform 0.2s ease;
+}
+.sawl2-confirm:hover,
+.swal2-cancel:hover {
+    transform: translateX(-2px);
+}
+
+/* RESPONSIVIDADE */
 @media (max-width: 420px) {
 
     .config-acoes-pin {
@@ -688,16 +461,6 @@ body {
     }
 
 }
-
-
-/* Alinhamento vertical dos conteúdos dos cards */
-.settings-card[aria-labelledby="aparenciaTitle"] .card-title + .config-item,
-.settings-card[aria-labelledby="backupTitle"] .card-title + .config-item,
- .settings-card[aria-labelledby="sobreTitle"] .card-title + .config-item{
-    margin-top: 130px;
-}
-
-/* RESPONSIVIDADE */
 
 @media (max-width: 768px) {
 

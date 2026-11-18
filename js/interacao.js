@@ -321,85 +321,66 @@ function mostrarDetalhes(registro) {
     }
     dadosDetalhes.innerHTML = `
         <h3>🚗 Chegada</h3>
-
         <p>
             <strong>⚡ Placa:</strong>
             ${registro.placa || "-"}
         </p>
-
         <p>
             <strong>👤 Proprietário:</strong>
             ${registro.proprietario || "-"}
         </p>
-
         <p>
             <strong>🚘 Prisma:</strong>
             ${registro.prisma || "-"}
         </p>
-
         <p>
             <strong>🔌 Estação:</strong>
             ${registro.estacao || "-"}
         </p>
-
         <p>
             <strong>🙋 Manobrista Entrada:</strong>
             ${registro.manobristaEntrada || "-"}
         </p>
-
         <p>
             <strong>📅 Data Entrada:</strong>
             ${formatarDataExibicao(registro.dataEntrada)}
         </p>
-
         <p>
             <strong>📆 Dia da Semana:</strong>
             ${registro.diaSemana || "-"}
         </p>
-
         <p>
             <strong>🕒 Hora Chegada:</strong>
             ${registro.horaChegada || "-"}
         </p>
-
         <hr>
-
         <h3>🔋 Início da Carga</h3>
-
         <p>
             <strong>⚡ Hora Carga Inicial:</strong>
             ${registro.horaCargaInicial || "-"}
         </p>
-
         <p>
             <strong>🔋 Carga Inicial:</strong>
             ${registro.cargaInicial || "-"}%
         </p>
-
         <hr>
-
         <h3>✅ Finalização</h3>
-
         <p>
             <strong>🙋 Manobrista Saída:</strong>
             ${registro.manobristaSaida || "-"}
         </p>
-
         <p>
             <strong>🕒 Hora Final:</strong>
             ${registro.horaFinal || "-"}
         </p>
-
         <p>
             <strong>🔋 Carga Final:</strong>
             ${registro.cargaFinal || "-"}%
         </p>
-
         <p>
             <strong>⏱️ Tempo de Carga:</strong>
             ${registro.tempoCarga || "-"}
         </p>
-
         <p>
             <strong>📊 Status:</strong>
             ${registro.status || "-"}

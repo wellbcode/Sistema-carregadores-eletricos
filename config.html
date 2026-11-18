@@ -77,102 +77,50 @@
                     <h2>Smart <span>Charger</span></h2>
                 </div>
 
- 
-
                 <div class="topbar-left">
-
                     <button class="menu-btn" id="menuBtn" aria-label="Abrir menu">
-
                         <i class="bi bi-list"></i>
-
                     </button>
-
- 
 
                     <div class="welcome">
-
                         <h1 id="nomeUsuario">Olá,<span>!</span>👋</h1>
-
                         <p>“Tenha uma visão completa da operação em um só lugar.”</p>
-
                     </div>
-
                 </div>
-
- 
 
                 <div class="acessibilidade" role="group"
-
                     aria-label="Ajuste do tamanho do texto">
-
- 
-
                     <i class="bi bi-universal-access"
-
                     aria-hidden="true"></i>
-
                     <i class="bi bi-type" aria-hidden="true"></i>
-
- 
-
                     <span>Tamanho do texto:</span>
 
- 
-
                     <button type="button" id="diminuirFonte"
-
                         aria-label="Diminuir tamanho do texto">
-
                         A−
-
                     </button>
-
- 
 
                     <button type="button" id="aumentarFonte"
-
                         aria-label="Aumentar tamanho do texto">
-
                         A+
-
                     </button>
-
- 
 
                     <button type="button" id="restaurarFonte">Restaurar</button>
-
                 </div>
-
- 
 
                 <div class="topbar-right">
-
- 
-
                     <button class="notification" id="btnNotificacoes">
-
                         <i class="bi bi-bell"></i>
-
                         <span class="notification-badge" id="badgeNotificacoes">0</span>
-
                     </button>
 
- 
-
                     <div class="profile">
-
                         <div class="profile-avatar" id="avatarUsuario">
-
                             <span id="inicialUsuario" hidden></span>
-
                             <img id="fotoUsuario" src="img/charge4.png" alt="Foto do perfil">
-
                         </div>
-
                     </div>
-
                 </div>
-
             </header>
 
             <section class="settings-container" aria-labelledby="settingsTitle">
@@ -206,7 +154,6 @@
                                 src="img/charge4.png"
                                 alt="Foto do perfil"
                             >
-
                         </div>
 
                         <div class="config-item">
@@ -250,7 +197,7 @@
                         </div>
                     </section>
 
-                    <!-- Aparência -->
+                    <!-- Aparência Section comentada, não terá utilidade
                     <section class="settings-card" aria-labelledby="aparenciaTitle">
 
                         <div class="card-title">
@@ -278,49 +225,54 @@
                             <i class="bi bi-toggle-on config-indicator"></i>
                         </div>
 
-                    </section>
+                    </section>-->
 
                     <!-- Backup e Dados -->
                     <section class="settings-card" aria-labelledby="backupTitle">
-
                         <div class="card-title">
                             <i class="bi bi-database-fill"></i>
                             <h3 id="backupTitle">Backup e Dados</h3>
                         </div>
 
                         <div class="config-item config-button-item">
-                            <button type="button" class="btn-config">
+                            <button type="button" class="btn-config" id="btnExportarBackup">
                                 <i class="bi bi-download"></i>
                                 Exportar Backup
                             </button>
                         </div>
 
                         <div class="config-item config-button-item">
-                            <button type="button" class="btn-config">
+                            <button type="button" class="btn-config" id="btnImportarBackup">
                                 <i class="bi bi-upload"></i>
                                 Importar Backup
                             </button>
+
+                            <input
+                                type="file"
+                                id="arquivoBackup"
+                                accept=".json,application/json"
+                                hidden
+                            >
                         </div>
 
                         <div class="config-item config-button-item">
-                            <button type="button" class="btn-config">
-                                <i class="bi bi-arrow-counterclockwise"></i>
-                                Restaurar Configurações
+                            <button type="button" class="btn-config" id="btnVerificarIntegridade">
+                                <i class="bi bi-shield-check"></i>
+                                Verificar Integridade dos Dados
                             </button>
                         </div>
 
                         <div class="config-item config-button-item">
-                            <button type="button" class="btn-config btn-danger">
-                                <i class="bi bi-trash3"></i>
-                                Limpar Dados
+                            <button type="button" class="btn-config" id="btnInformacoesArmazenamento">
+                                <i class="bi bi-hdd-stack"></i>
+                                Informações de Armazenamento
                             </button>
                         </div>
-
                     </section>
+
 
                     <!-- Sobre o Sistema -->
                     <section class="settings-card" aria-labelledby="sobreTitle">
-
                         <div class="card-title">
                             <i class="bi bi-info-circle-fill"></i>
                             <h3 id="sobreTitle">Sobre o Sistema</h3>
@@ -346,13 +298,17 @@
                             <strong>Wellington Bertoso Santos</strong>
                         </div>
 
+                         <div class="config-item">
+                            <span>Criado em</span>
+                            <strong>10 de Julho de 2026</strong>
+                        </div>
+
                         <div class="config-item">
                             <span>Última Atualização</span>
                             <strong>Outubro 2026</strong>
                         </div>
 
                     </section>
-
                 </div>
 
             </section>

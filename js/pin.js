@@ -1,11 +1,11 @@
 /* =========================================
    GERENCIAMENTO DE PIN DOS PERFIS
    Administradores e operadores
-   ========================================= */
+========================================= */
 
 // false = acesso sem exigir PIN
 // true  = exigir PIN somente dos perfis protegidos
-window.PROTEGER_PERFIS_COM_PIN = false;
+window.PROTEGER_PERFIS_COM_PIN = true;
 
 
 // PINs iniciais dos perfis existentes
@@ -36,11 +36,9 @@ const PINS_INICIAIS = {
 
 const CHAVE_PINS_PERFIS = "smartChargerPins";
 
-
 // =========================================
 // CARREGAR PINs SALVOS
 // =========================================
-
 function carregarPinsPerfis() {
     let pinsSalvos = {};
 
@@ -58,10 +56,8 @@ function carregarPinsPerfis() {
     };
 }
 
-
 // Lista central de PINs em memória
 window.PINS_PERFIS = carregarPinsPerfis();
-
 
 // =========================================
 // SALVAR PINs
@@ -75,14 +71,12 @@ function salvarPinsPerfis() {
 
 window.salvarPinsPerfis = salvarPinsPerfis;
 
-
 // =========================================
 // CONSULTAR PIN
 // =========================================
 window.obterPinPerfil = function (id) {
     return window.PINS_PERFIS[id] || null;
 };
-
 
 // =========================================
 // CADASTRAR OU ALTERAR PIN
@@ -110,7 +104,20 @@ window.definirPinPerfil = function (id, usuario, pin) {
 // =========================================
 // REMOVER PIN
 // =========================================
+// window.removerPinPerfil = function (id) {
 
+//     const perfil = window.PINS_PERFIS[id];
+
+//     if (!perfil || !perfil.pin) {
+//         return false;
+//     }
+
+//     perfil.pin = "";
+
+//     window.salvarPinsPerfis();
+
+//     return true;
+// };
 // =========================================
 // REMOVER PIN
 // =========================================
@@ -122,14 +129,12 @@ window.removerPinPerfil = function (id) {
         return false;
     }
 
-    perfil.pin = "";
+    delete window.PINS_PERFIS[id];
 
     window.salvarPinsPerfis();
 
     return true;
 };
-
-
 
 // =========================================
 // VALIDAR PIN
@@ -144,7 +149,6 @@ window.validarPinPerfil = function (id, pin) {
         perfil.pin === String(pin)
     );
 };
-
 
 // =========================================
 // AUTENTICAR PERFIL E CRIAR SESSÃO

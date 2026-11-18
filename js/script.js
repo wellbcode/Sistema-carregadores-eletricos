@@ -45,133 +45,58 @@ if (btnLogin) {
     btnLogin.addEventListener('click', async () => {
         const { value: senha } =
         await Swal.fire({
-
             title: '🔒 Acesso ao Sistema',
-
             text: 'Digite a senha para continuar',
-
             input: 'password',
-
             inputPlaceholder: 'Senha do sistema',
-
             inputAttributes: {
-
                 maxlength: 8,
-
                 autocomplete: 'off'
-
             },
-
             confirmButtonText: 'Entrar',
-
             cancelButtonText: 'Cancelar',
-
             showCancelButton: true,
-
-    
-
             background: '#1e293b',
-
             color: '#ffffff',
-
-    
-
             confirmButtonColor: '#ff6b00',
-
             cancelButtonColor: '#475569',
-
-    
-
-            // customClass: {
-
-            //     popup: 'swal-smartcharger'
-
-            // }
-
-    
-
+ 
             didOpen: () => {
-
-    
-
                 const campo = Swal.getInput();
-
-    
 
                 const cadeado = document.createElement('i');
 
-    
-
                 cadeado.className = 'bi bi-lock-fill';
-
                 cadeado.title = 'Mostrar senha';
 
-    
-
                 cadeado.style.cssText = `
-
                     position:absolute;
-
                     right:55px;
-
                     top:56%;
-
                     transform:translateY(-50%);
-
                     cursor:pointer;
-
                     font-size:20px;
-
                     color:#94a3b8;
-
                     z-index:10;
-
                 `;
-
-    
-
                 campo.parentElement.style.position = 'relative';
-
                 campo.style.paddingRight = '45px';
-
-    
-
                 campo.parentElement.appendChild(cadeado);
 
-    
-
                 cadeado.addEventListener('click', () => {
-
-    
-
                     const mostrar = campo.type === 'password';
-
-    
 
                     campo.type = mostrar ? 'text' : 'password';
 
-    
-
                     cadeado.className = mostrar
-
                         ? 'bi bi-unlock-fill'
-
                         : 'bi bi-lock-fill';
 
-    
-
                     cadeado.title = mostrar
-
                         ? 'Ocultar senha'
-
                         : 'Mostrar senha';
-
-    
-
                 });
-
             }  
-
         });
 
         if (!senha) return;
@@ -180,39 +105,22 @@ if (btnLogin) {
             window.location.href = 'perfis.html';
         } else {
             Swal.fire({
-
                 icon: 'error',
-
                 title: 'Acesso Negado',
-
                 html: `
-
                     <div style="line-height:1.6">
-
                         A senha informada é inválida.<br>
-
                         Entre em contato com o administrador do sistema.
-
                     </div>
-
                 `,
-
                 confirmButtonText: 'Entendi',
-
                 confirmButtonColor: '#ff6b00',
-
                 background: '#1e293b',
-
                 color: '#fff',
-
                 customClass: {
-
                     popup: 'swal-smartcharger',
-
                     confirmButton: 'swal-btn-smart'
-
                 }
-
             });
         }
     });
@@ -247,7 +155,6 @@ if (btnLogout) {
         }
     });
 }
-
 
 document.addEventListener('DOMContentLoaded', async () => {
     const usuario = JSON.parse(

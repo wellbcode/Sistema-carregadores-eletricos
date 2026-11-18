@@ -236,7 +236,6 @@
         return clone;
     }
 
-
 function obterModal() {
     let modal = document.getElementById(MODAL_ID);
 
