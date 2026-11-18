@@ -108,23 +108,48 @@ async function excluirFotoOperador(id) {
     });
 }
 
-// window.transferirFotoPerfil = async (idAntigo, idNovo) => {
-//     console.log('Função de transferência executada.');
 
-//     const arquivo = await window.buscarFotoOperador(idAntigo);
+async function migrarFotosPerfisAdministradores() {
 
-//     if (!arquivo) {
-//         console.log('Nenhuma foto encontrada para transferir.');
-//         return false;
-//     }
+    const migracoes = {
+        'admin-wheezie': 'admin-ingrid',
+        'admin-fiona': 'admin-weber',
+        'admin-sofia': 'admin-joy'
+    };
 
-//     await window.salvarFotoOperador(idNovo, arquivo);
-//     await window.excluirFotoOperador(idAntigo);
+    for (const [idAntigo, idNovo] of Object.entries(migracoes)) {
 
-//     console.log('Foto transferida com sucesso:', idNovo);
+        try {
+            const fotoAntiga = await buscarFotoOperador(idAntigo);
 
-//     return true;
-// };
+            if (!fotoAntiga) {
+                console.log(`Nenhuma foto antiga encontrada: ${idAntigo}`);
+                continue;
+            }
 
-// console.log('TESTE FOTOS:', typeof window.buscarFotoOperador);
-// console.log('TESTE TRANSFERÊNCIA:', typeof window.transferirFotoPerfil);
+            // Não sobrescrever uma foto que já exista no novo ID.
+            const fotoNova = await buscarFotoOperador(idNovo);
+
+            if (fotoNova) {
+                console.log(`O novo perfil já possui foto: ${idNovo}`);
+                continue;
+            }
+
+            // Copiar a foto para o novo identificador.
+            await salvarFotoOperador(idNovo, fotoAntiga);
+
+            // Confirmar que a cópia foi gravada.
+            const fotoVerificada = await buscarFotoOperador(idNovo);
+
+            if (fotoVerificada) {
+                await excluirFotoOperador(idAntigo);
+                console.log(`Foto migrada com sucesso: ${idAntigo} → ${idNovo}`);
+            } else {
+                console.error(`Falha ao verificar a cópia: ${idNovo}`);
+            }
+
+        } catch (erro) {
+            console.error(`Erro ao migrar foto de ${idAntigo}:`, erro);
+        }
+    }
+}

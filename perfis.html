@@ -143,8 +143,6 @@
 
         </div>
 
- 
-
         <section class="profiles-grid">
 
             <div class="profile-item">
@@ -179,7 +177,7 @@
 
                 </div>
 
-                <h3>Wheezie</h3>
+                <h3>Ingrid</h3>
 
                 <span>Administrador</span>
 
@@ -199,7 +197,7 @@
 
                 </div>
 
-                <h3>Fiona</h3>
+                <h3>Weber</h3>
 
                 <span>Administrador</span>
 
@@ -219,7 +217,7 @@
 
                 </div>
 
-                <h3>Sofia</h3>
+                <h3>Joy</h3>
 
                 <span>Administrador</span>
 
@@ -259,43 +257,31 @@
 
     <!-- ================ Modal que abre e exibe o perfil dos operadores ====================== -->
     <div class="modal-operadores" id="modalOperadores">
-
         <div class="modal-box">
-
             <div class="modal-header">
-
                 <h2>Selecionar Operador</h2>
-
                 <button id="fecharModal">
-
                     <i class="bi bi-x-lg"></i>
-
                 </button>
-
             </div>
-
- 
 
             <input type="text" id="buscarOperador" placeholder="Pesquisar operador...">
 
- 
-
             <div class="lista-operadores">
-
                 <div class="operador-item">
-
-                    <div class="operador-avatar">A</div>
-
-                    <div class="operador-info">
-
-                        <h4>Andrelino Clarence da Silva</h4>
-
-                        <small>TEV - Piso -7</small>
-
+                    <div class="operador-avatar-container">
+                        <div class="operador-avatar">A</div>
+                        <button type="button" class="btn-editar-foto-operador" title="Alterar foto">
+                            <i class="bi bi-camera-fill"></i>
+                        </button>
+                        <input type="file" class="input-foto-operador" accept="image/*" hidden>
                     </div>
 
+                    <div class="operador-info">
+                        <h4>Andrelino Clarence da Silva</h4>
+                        <small>TEV - Piso -7</small>
+                    </div>
                     <i class="bi bi-chevron-right"></i>
-
                 </div>
 
  
@@ -875,80 +861,57 @@
                 </div>
 
             </div>
-
         </div>
-
     </div>
 
     <div class="modal-senha" id="modalSenha">
-
         <div class="modal-senha-box">
-
             <button type="button" id="fecharModalSenha" class="btn-fechar-modal">
-
                 <i class="bi bi-x-lg"></i>
-
             </button>
 
             <div class="cadeado">🔒</div>
 
             <h2>Perfil Protegido</h2>
-
             <p id="nomeSelecionado"></p>
 
-            <input type="password" id="senhaPerfil" placeholder="Digite sua senha">
+            <!-- <input type="password" id="senhaPerfil" placeholder="Digite sua senha"> -->
+            <div class="campo-senha-container">
+                <input type="password" id="senhaPerfil" placeholder="Digite sua senha">
+
+                <i class="bi bi-lock-fill" id="alternarVisibilidadePin"
+                title="Mostrar PIN"></i>
+            </div>
 
             <button id="btnEntrarPerfil">
-
                 Entrar
-
             </button>
-
         </div>
-
     </div>
 
     <!-- ================================= Seção Rodapé ============================= -->
     <footer class="footerPerfis">
-
         <div class="container text-center">
-
             <p class="copyright">© 2026 By 🔶 WBS - Soluções - Wellington Bertoso.Todos os direitos reservados</p>
-
             <!-- <a href="#inicio" class="top" title="Botão de voltar ao topo"><i class="bi bi-arrow-up"></i></a> -->
-
         </div>
-
     </footer>
 
     <!-- ================================== Bibliotecas ============================= -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- ========================= Script de rodar offline ============================ -->
-
     <script>
-
         if ('serviceWorker' in navigator) {
-
             window.addEventListener('load', () => {
-
             navigator.serviceWorker.register('js/service-worker.js')
-
             .then(reg => console.log('✅ Service Worker registrado:', reg.scope))
-
             .catch(err => console.error('❌ Erro ao registrar Service Worker:', err));
-
             });
-
         }
-
     </script>
 
     <!-- ====================== Scripts ======================== -->

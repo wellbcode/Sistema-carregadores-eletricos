@@ -736,7 +736,51 @@ body {
 
 }
 
- 
+.operador-avatar-container {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+}
+
+.btn-editar-foto-operador {
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    width: 23px;
+    height: 23px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    cursor: pointer;
+} 
+
+/* Botão para remover foto do operador */
+.btn-remover-foto-operador {
+    position: absolute;
+    right: -25px;
+    bottom: -10px;
+    width: 23px;
+    height: 23px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #dc3545;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.btn-remover-foto-operador[hidden] {
+    display: none;
+}
 
 .operador-avatar img {
 
@@ -860,7 +904,23 @@ body {
 
 }
 
- 
+ .campo-senha-container {
+    position: relative;
+}
+
+.campo-senha-container input {
+    padding-right: 42px;
+}
+
+.campo-senha-container i {
+    position: absolute;
+    right: 15px;
+    top: 40%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 20px;
+    color: #64748b;
+}
 
 .btn-fechar-modal {
 

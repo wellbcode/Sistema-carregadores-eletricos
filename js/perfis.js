@@ -21,9 +21,30 @@ fecharModal.addEventListener('click', () => {
 const operadores = document.querySelectorAll('.operador-item');
 const buscarOperador = document.getElementById('buscarOperador');
 const senhaPerfil = document.getElementById('senhaPerfil');
+const alternarVisibilidadePin = document.getElementById('alternarVisibilidadePin');
+
+alternarVisibilidadePin.addEventListener('click', () => {
+
+    const mostrar = senhaPerfil.type === 'password';
+
+    senhaPerfil.type = mostrar ? 'text' : 'password';
+
+    alternarVisibilidadePin.className = mostrar
+        ? 'bi bi-unlock-fill'
+        : 'bi bi-lock-fill';
+
+    alternarVisibilidadePin.title = mostrar
+        ? 'Ocultar PIN'
+        : 'Mostrar PIN';
+});
+
 const btnEntrarPerfil = document.getElementById('btnEntrarPerfil');
 const cadeadoModal = modalSenha.querySelector('.cadeado');
 
+// Disponibilizar a quantidade de operadores para outras páginas
+window.contarOperadoresCadastrados = function() {
+    return operadores.length;
+};
 
 let operadorSelecionado = null;
 
@@ -64,7 +85,258 @@ operadores.forEach(operador => {
 
 atualizarCadeadosOperadores();
 
+// Abrir seletor de foto sem acionar a autenticação
+
+/* =========================================
+   FOTOS DOS OPERADORES
+========================================= */
+
+function gerarIdOperador(nome) {
+    return 'operador-' + nome
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+}
+
+// Exibir foto no avatar
+function exibirFotoOperador(avatar, arquivo) {
+
+    const urlAnterior = avatar.dataset.fotoUrl;
+
+    if (urlAnterior) {
+        URL.revokeObjectURL(urlAnterior);
+    }
+
+    const url = URL.createObjectURL(arquivo);
+
+    avatar.dataset.fotoUrl = url;
+    avatar.innerHTML = '';
+
+    const imagem = document.createElement('img');
+
+    imagem.src = url;
+    imagem.alt = 'Foto do operador';
+
+    imagem.style.width = '100%';
+    imagem.style.height = '100%';
+    imagem.style.objectFit = 'cover';
+    imagem.style.borderRadius = '50%';
+
+    avatar.appendChild(imagem);
+
+    const btnRemover = avatar.parentElement
+        .querySelector('.btn-remover-foto-operador');
+
+    if (btnRemover) {
+        btnRemover.hidden = false;
+    }
+}
+
+// Preparar os avatares dos operadores
+operadores.forEach(operador => {
+
+    const avatar = operador.querySelector('.operador-avatar');
+
+    if (!avatar) return;
+
+    const letraInicial = avatar.textContent.trim();
+
+    let container = operador.querySelector('.operador-avatar-container');
+
+    // Criar o container caso ainda não exista
+    if (!container) {
+
+        container = document.createElement('div');
+        container.className = 'operador-avatar-container';
+
+        avatar.parentNode.insertBefore(container, avatar);
+        container.appendChild(avatar);
+    }
+
+    // Criar botão da câmera
+    let btnFoto = container.querySelector('.btn-editar-foto-operador');
+
+    if (!btnFoto) {
+
+        btnFoto = document.createElement('button');
+        btnFoto.type = 'button';
+        btnFoto.className = 'btn-editar-foto-operador';
+        btnFoto.title = 'Alterar foto';
+        btnFoto.innerHTML = '<i class="bi bi-camera-fill"></i>';
+
+        container.appendChild(btnFoto);
+    }
+
+        // Criar botão para remover foto
+    let btnRemoverFoto = container.querySelector('.btn-remover-foto-operador');
+
+    if (!btnRemoverFoto) {
+
+        btnRemoverFoto = document.createElement('button');
+        btnRemoverFoto.type = 'button';
+        btnRemoverFoto.className = 'btn-remover-foto-operador';
+        btnRemoverFoto.title = 'Remover foto';
+        btnRemoverFoto.innerHTML = '<i class="bi bi-trash-fill"></i>';
+        btnRemoverFoto.hidden = true;
+
+        container.appendChild(btnRemoverFoto);
+    }
+
+    // Criar campo de seleção
+    let inputFoto = container.querySelector('.input-foto-operador');
+
+    if (!inputFoto) {
+
+        inputFoto = document.createElement('input');
+        inputFoto.type = 'file';
+        inputFoto.className = 'input-foto-operador';
+        inputFoto.accept = 'image/*';
+        inputFoto.hidden = true;
+
+        container.appendChild(inputFoto);
+    }
+
+    const nome = operador.querySelector('h4').textContent.trim();
+    const id = gerarIdOperador(nome);
+
+    // Remover foto do operador
+    btnRemoverFoto.addEventListener('click', async (e) => {
+
+        e.stopPropagation();
+
+        const confirmar = await Swal.fire({
+            icon: 'warning',
+            title: 'Remover foto?',
+            text: `Deseja remover a foto de ${nome}?`,
+            showCancelButton: true,
+            confirmButtonText: 'Sim, remover',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#ff6b00',
+            target: document.body,
+            heightAuto: false,
+            didOpen: () => {
+                Swal.getContainer().style.zIndex = '99999';
+            }
+        });
+
+        if (!confirmar.isConfirmed) return;
+
+        try {
+
+            await excluirFotoOperador(id);
+
+            const urlAnterior = avatar.dataset.fotoUrl;
+
+            if (urlAnterior) {
+                URL.revokeObjectURL(urlAnterior);
+                delete avatar.dataset.fotoUrl;
+            }
+
+            avatar.innerHTML = '';
+            avatar.textContent = letraInicial;
+
+            btnRemoverFoto.hidden = true;
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'Foto removida!',
+                text: `A foto de ${nome} foi removida com sucesso.`,
+                confirmButtonColor: '#ff6b00'
+            });
+
+        } catch (erro) {
+
+            console.error('Erro ao remover foto:', erro);
+
+            Swal.fire({
+                icon: 'error',
+                title: 'Erro ao remover',
+                text: 'Não foi possível remover a foto.',
+                confirmButtonColor: '#ff6b00'
+            });
+        }
+    });
+
+    // Clique na câmera
+    btnFoto.addEventListener('click', (e) => {
+        e.stopPropagation();
+        inputFoto.click();
+    });
+
+    inputFoto.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+
+    // Selecionar e salvar foto
+    inputFoto.addEventListener('change', async (e) => {
+
+        e.stopPropagation();
+
+        const arquivo = inputFoto.files[0];
+
+        if (!arquivo) return;
+
+        if (!arquivo.type.startsWith('image/')) {
+
+            await Swal.fire({
+                icon: 'warning',
+                title: 'Arquivo inválido',
+                text: 'Selecione uma imagem.',
+                confirmButtonColor: '#ff6b00'
+            });
+
+            inputFoto.value = '';
+            return;
+        }
+
+        try {
+
+            await salvarFotoOperador(id, arquivo);
+
+            exibirFotoOperador(avatar, arquivo);
+
+            await Swal.fire({
+                icon: 'success',
+                title: 'Foto atualizada!',
+                text: `A foto de ${nome} foi salva com sucesso.`,
+                confirmButtonColor: '#ff6b00'
+            });
+
+        } catch (erro) {
+
+            console.error('Erro ao salvar foto:', erro);
+
+            await Swal.fire({
+                icon: 'error',
+                title: 'Erro ao salvar',
+                text: 'Não foi possível salvar a foto do operador.',
+                confirmButtonColor: '#ff6b00'
+            });
+        }
+
+        inputFoto.value = '';
+    });
+
+    // Recuperar foto salva no IndexedDB
+    buscarFotoOperador(id)
+        .then(arquivo => {
+
+            if (arquivo) {
+                exibirFotoOperador(avatar, arquivo);
+            }
+
+        })
+        .catch(erro => {
+            console.error('Erro ao carregar foto:', erro);
+        });
+
+});
+
+
 // Proteção por PIN desativada por enquanto
+//const PROTEGER_OPERADORES_COM_PIN = false;// Proteção por PIN desativada por enquanto
 //const PROTEGER_OPERADORES_COM_PIN = false;
 
 // Buscar operadores
@@ -329,15 +601,6 @@ const gradePerfis = document.querySelector('.profiles-grid');
 
 const botaoNovoPerfil = document.querySelector('.add-profile');
 
-// Identificador estável para os perfis já existentes
-// function gerarIdPerfil(nome) {
-//     return 'admin-' + nome
-//         .normalize('NFD')
-//         .replace(/[\u0300-\u036f]/g, '')
-//         .toLowerCase()
-//         .replace(/[^a-z0-9]+/g, '-')
-//         .replace(/^-|-$/g, '')
-// }
 // Identificadores fixos dos quatro administradores originais
 function gerarIdPerfil(nome) {
 
@@ -349,9 +612,9 @@ function gerarIdPerfil(nome) {
 
     const idsFixos = {
         'wellington': 'admin-wellington',
-        'wheezie': 'admin-wheezie',
-        'fiona': 'admin-fiona',
-        'sofia': 'admin-sofia'
+        'ingrid': 'admin-ingrid',
+        'weber': 'admin-weber',
+        'joy': 'admin-joy'
     };
 
     if (idsFixos[nomeNormalizado]) {
@@ -364,44 +627,127 @@ function gerarIdPerfil(nome) {
 }
 
 // Recupera os perfis ou importa os que já estão no HTML
+// function carregarPerfis() {
+//     const dadosSalvos = localStorage.getItem(CHAVE_PERFIS);
+
+//     if (dadosSalvos !== null) {
+//         try {
+//             const perfis = JSON.parse(dadosSalvos);
+
+//             if (Array.isArray(perfis)) {
+//                 return perfis;
+//             }
+//         } catch (erro) {
+//             console.error('Erro ao ler os perfis:', erro);
+//         }
+//     }
+
+//     const perfisIniciais = [
+//         ...gradePerfis.querySelectorAll(
+//             '.profile-item:not(.operadores)'
+//         )
+//     ].map(perfil => {
+//         const nome = perfil.querySelector('h3').textContent.trim();
+//         const imagem = perfil.querySelector('img');
+
+//         return {
+//             id: gerarIdPerfil(nome),
+//             nome,
+//             fotoPadrao: imagem.getAttribute('src')
+//         };
+//     });
+
+//     salvarPerfis(perfisIniciais);
+//     return perfisIniciais;
+// }
+
 function carregarPerfis() {
+
+    let perfisSalvos = [];
+
     const dadosSalvos = localStorage.getItem(CHAVE_PERFIS);
 
     if (dadosSalvos !== null) {
         try {
-            const perfis = JSON.parse(dadosSalvos);
+            const dados = JSON.parse(dadosSalvos);
 
-            if (Array.isArray(perfis)) {
-                return perfis;
+            if (Array.isArray(dados)) {
+                perfisSalvos = dados;
             }
+
         } catch (erro) {
             console.error('Erro ao ler os perfis:', erro);
         }
     }
 
-    const perfisIniciais = [
-        ...gradePerfis.querySelectorAll(
-            '.profile-item:not(.operadores)'
-        )
-    ].map(perfil => {
-        const nome = perfil.querySelector('h3').textContent.trim();
-        const imagem = perfil.querySelector('img');
+    // Identificadores antigos que precisam ser atualizados
+    const idsAntigos = {
+        'admin-ingrid': 'admin-wheezie',
+        'admin-weber': 'admin-fiona',
+        'admin-joy': 'admin-sofia'
+    };
+
+    // Ler os quatro administradores definidos no HTML
+    const perfisHTML = [
+        ...gradePerfis.querySelectorAll('.profile-item:not(.operadores)')
+    ];
+
+    const idsUtilizados = new Set();
+
+    const perfisAtualizados = perfisHTML.map(perfilHTML => {
+
+        const nome = perfilHTML.querySelector('h3').textContent.trim();
+        const imagem = perfilHTML.querySelector('img');
+        const id = gerarIdPerfil(nome);
+
+        const idAntigo = idsAntigos[id];
+
+        // Procurar primeiro pelo identificador atual
+        let perfilSalvo = perfisSalvos.find(perfil => perfil.id === id);
+
+        // Se não encontrar, procurar pelo identificador antigo
+        if (!perfilSalvo && idAntigo) {
+            perfilSalvo = perfisSalvos.find(
+                perfil => perfil.id === idAntigo
+            );
+        }
+
+        if (perfilSalvo) {
+            idsUtilizados.add(perfilSalvo.id);
+        }
+
+        if (idAntigo) {
+            idsUtilizados.add(idAntigo);
+        }
 
         return {
-            id: gerarIdPerfil(nome),
+            ...(perfilSalvo || {}),
+            id,
             nome,
-            fotoPadrao: imagem.getAttribute('src')
+            fotoPadrao: perfilSalvo?.fotoPadrao ||
+                imagem.getAttribute('src')
         };
     });
 
-    salvarPerfis(perfisIniciais);
-    return perfisIniciais;
+    // Preservar perfis adicionais que não estão no HTML
+    const perfisExtras = perfisSalvos.filter(
+        perfil => !idsUtilizados.has(perfil.id)
+    );
+
+    const resultado = [
+        ...perfisAtualizados,
+        ...perfisExtras
+    ];
+
+    salvarPerfis(resultado);
+
+    return resultado;
 }
+
 
 function salvarPerfis(perfis) {
     localStorage.setItem(CHAVE_PERFIS, JSON.stringify(perfis));
 }
-
 
 let perfisAdministradores = carregarPerfis();
 
@@ -1066,4 +1412,13 @@ async function excluirFotoOperador(id) {
 }
 
 // Exibir os perfis salvos
-renderizarPerfis();
+//renderizarPerfis();
+// Migrar fotos antigas antes de exibir os perfis
+async function inicializarPerfis() {
+
+    await migrarFotosPerfisAdministradores();
+
+    renderizarPerfis();
+}
+
+inicializarPerfis();

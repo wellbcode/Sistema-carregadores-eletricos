@@ -17,19 +17,19 @@ const PINS_INICIAIS = {
         fotoPadrao: "img/charge4.png"
     },
 
-    "admin-wheezie": {
-        usuario: "Wheezie",
+    "admin-ingrid": {
+        usuario: "Ingrid",
         pin: "",
         fotoPadrao: "img/charge4.png"
     },
 
-    "admin-fiona": {
-        usuario: "Fiona",
+    "admin-weber": {
+        usuario: "Weber",
         pin: ""
     },
 
-    "admin-sofia": {
-        usuario: "Sofia",
+    "admin-joy": {
+        usuario: "Joy",
         pin: ""
     }
 };
@@ -39,8 +39,26 @@ const CHAVE_PINS_PERFIS = "smartChargerPins";
 // =========================================
 // CARREGAR PINs SALVOS
 // =========================================
+// function carregarPinsPerfis() {
+//     let pinsSalvos = {};
+
+//     try {
+//         pinsSalvos = JSON.parse(
+//             localStorage.getItem(CHAVE_PINS_PERFIS) || '{}'
+//         );
+//     } catch (erro) {
+//         console.error("Erro ao carregar PINs:", erro);
+//     }
+
+//     return {
+//         ...PINS_INICIAIS,
+//         ...pinsSalvos
+//     };
+// }
+
 function carregarPinsPerfis() {
     let pinsSalvos = {};
+    let houveMigracao = false;
 
     try {
         pinsSalvos = JSON.parse(
@@ -50,11 +68,69 @@ function carregarPinsPerfis() {
         console.error("Erro ao carregar PINs:", erro);
     }
 
+    // Transferir registros dos identificadores antigos
+    const migracoes = {
+        "admin-wheezie": {
+            id: "admin-ingrid",
+            usuario: "Ingrid"
+        },
+        "admin-fiona": {
+            id: "admin-weber",
+            usuario: "Weber"
+        },
+        "admin-sofia": {
+            id: "admin-joy",
+            usuario: "Joy"
+        }
+    };
+
+    for (const [idAntigo, destino] of Object.entries(migracoes)) {
+
+        const registroAntigo = pinsSalvos[idAntigo];
+
+        if (!registroAntigo) continue;
+
+        const registroNovo = pinsSalvos[destino.id];
+
+        if (!registroNovo || (!registroNovo.pin && registroAntigo.pin)) {
+
+            pinsSalvos[destino.id] = {
+                ...registroAntigo,
+                usuario: destino.usuario
+            };
+
+        } else {
+
+            pinsSalvos[destino.id] = {
+                ...registroNovo,
+                usuario: destino.usuario
+            };
+        }
+
+        delete pinsSalvos[idAntigo];
+
+        houveMigracao = true;
+    }
+
+    // Atualizar o nome de Wellington, que mantém o mesmo ID
+    if (pinsSalvos["admin-wellington"]) {
+        pinsSalvos["admin-wellington"].usuario = "Wellington";
+    }
+
+    // Salvar os registros migrados
+    if (houveMigracao) {
+        localStorage.setItem(
+            CHAVE_PINS_PERFIS,
+            JSON.stringify(pinsSalvos)
+        );
+    }
+
     return {
         ...PINS_INICIAIS,
         ...pinsSalvos
     };
 }
+
 
 // Lista central de PINs em memória
 window.PINS_PERFIS = carregarPinsPerfis();

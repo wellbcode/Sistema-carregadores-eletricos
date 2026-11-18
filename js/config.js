@@ -868,11 +868,11 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =========================================
    VERIFICAÇÃO DE INTEGRIDADE DOS DADOS
 ========================================= */
-
 async function verificarIntegridadeDados() {
 
     const problemas = [];
     let totalPerfis = 0;
+    let totalOperadores = 0;
     let totalPins = 0;
     let totalFotos = 0;
 
@@ -902,6 +902,21 @@ async function verificarIntegridadeDados() {
         }
 
         totalPerfis = perfis.length;
+
+        // Contar operadores cadastrados em perfis.html
+        const resposta = await fetch('perfis.html');
+        const htmlPerfis = await resposta.text();
+
+        const documentoPerfis = new DOMParser().parseFromString(
+            htmlPerfis,
+            'text/html'
+        );
+
+        totalOperadores = documentoPerfis.querySelectorAll(
+            '.operador-item'
+        ).length;
+
+        console.log("Total de operadores:", totalOperadores);
 
         const idsPerfis = perfis.map(perfil => perfil?.id);
 
@@ -992,7 +1007,7 @@ async function verificarIntegridadeDados() {
                     border-radius: 12px;
                     text-align: center;
                 ">
-                    <i class="bi bi-people-fill" style="
+                    <i class="bi bi-person-badge-fill" style="
                         font-size: 24px;
                         color: #EC7000;
                     "></i>
@@ -1007,7 +1022,33 @@ async function verificarIntegridadeDados() {
                     <div style="
                         font-size: 12px;
                         color: #64748b;
-                    ">Perfis</div>
+                    ">Administradores</div>
+                </div>
+
+                <div style="
+                    flex: 1;
+                    min-width: 90px;
+                    padding: 16px 8px;
+                    background: #fff7ed;
+                    border-radius: 12px;
+                    text-align: center;
+                ">
+                    <i class="bi bi-people-fill" style="
+                        font-size: 24px;
+                        color: #EC7000;
+                    "></i>
+
+                    <div style="
+                        font-size: 25px;
+                        font-weight: 700;
+                        color: #334155;
+                        margin-top: 6px;
+                    ">${totalOperadores}</div>
+
+                    <div style="
+                        font-size: 12px;
+                        color: #64748b;
+                    ">Operadores</div>
                 </div>
 
                 <div style="
