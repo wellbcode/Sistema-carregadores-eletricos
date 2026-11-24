@@ -97,20 +97,6 @@
                 </a>
             </nav>
 
-            <!-- Rodapé Não será necessário-->
-            <!-- <div class="sidebar-footer">
-                <div class="user-card">
-                    <div class="avatar">
-                        W
-                    </div>
-                    <div class="user-info">
-                        <h4>Wellington</h4>
-                        <small>Administrador</small>
-                    </div>
-                    <i class="bi bi-chevron-down"></i>
-                </div>
-            </div> -->
-
             <!-- Botão sair -->
             <button class="btn-logout enviar">
                 <i class="bi bi-box-arrow-right"></i>
@@ -164,15 +150,11 @@
                     <button type="button" id="restaurarFonte">Restaurar</button>
                 </div>
 
- 
-
                 <div class="topbar-right">
                     <button class="notification" id="btnNotificacoes">
                         <i class="bi bi-bell"></i>
                         <span class="notification-badge" id="badgeNotificacoes">0</span>
                     </button>
-
- 
 
                     <div class="profile">
                         <div class="profile-avatar" id="avatarUsuario">
@@ -237,22 +219,18 @@
 
                     <hr class="operacao-divider">
 
-                    <h4 class="subtitulo-recarga">Abertura de Recarga
+                    <!-- ======== Abertura de Recarga ============= -->
+                    <h4 class="subtitulo-recarga">        
                         <i class="bi bi-battery low"></i>
                         <i class="bi bi-battery-charging charging"></i>
                         <i class="bi bi-battery-half half"></i>
                         <i class="bi bi-battery-full full"></i>
                     </h4>
 
-                    <!-- ========================= 
-                    //      Manobristas 
-                    ============================ -->
+                    <!-- ======== Manobristas ============= -->
                     <div class="abert-recarga">
                         <div class="sessao-grid">
-
-                            <!-- ================================================================================ 
-                            //                                      Etapa 1 Aberto
-                            ==================================================================================== -->
+                            <!-- ====== Etapa 1 Aberto ======== -->
                             <div class="campo">
                                 <label>Manobrista entrada</label>
                                 <select name="manobrista" id="manobristaEntrada">
@@ -292,9 +270,7 @@
                                 </select>
                             </div>
 
-                            <!-- =====================================
-                            //          Prismas de indentificação 
-                            ======================================= -->
+                            <!-- ==== Prismas de indentificação ==== -->
                             <div class="campo">
                                 <label>Prisma</label>
                                 <select id="prisma" name="prisma">
@@ -354,9 +330,7 @@
                                 </select>
                             </div>
 
-                            <!-- ======================================== 
-                            //               Torres 
-                            ========================================== -->
+                            <!-- =========== Torres ============ -->
                             <div class="campo">
                                 <label>Estação</label>
                                 <select id="estacao">
@@ -440,9 +414,7 @@
                                 <input type="time" id="horaChegada">
                             </div>
 
-                            <!-- ========================================= 
-                            //Etapa 2 carregando 
-                            =========================================== -->
+                            <!-- ========= Etapa 2 carregando ========= -->
                             <div class="campo">
                                 <label>Hora Carga inicial</label>
                                 <input type="time" id="horaCargaInicial">
@@ -454,9 +426,7 @@
                                     maxlength="3">
                             </div>
 
-                            <!-- ========================================= 
-                            //          Etapa 3 concluida 
-                            =========================================== -->
+                            <!-- ======= Etapa 3 concluida ====== -->
                             <div class="campo">
                                 <label>Manobrista Saída</label>
                                 <select id="manobristaSaida">
@@ -934,6 +904,7 @@
                     </div>
                 </div>
 
+                <!-- ================ Cards das estações ========================== -->
                 <div class="station-grid">
                     <!-- ================== Alfredo-PG 4 estações ===================== -->
                     <!-- Estação 001 -->
@@ -2010,7 +1981,6 @@
             link.download = "smart-charger-qrcode.png";
             link.click();
         });
-
     </script>
 </body>
 </html>

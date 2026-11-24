@@ -562,7 +562,6 @@ html {
     }
 }
 
-
 /* =========================================
    COMPARATIVO MENSAL
 ========================================= */
@@ -596,8 +595,6 @@ html {
     background: linear-gradient(90deg, var(--primary), var(--tema));
     z-index: 2;
 }
-
-
 
 .comparativo-card > * {
     position: relative;
@@ -1188,8 +1185,6 @@ html {
     border-collapse: collapse;
 }
 
-
-
 /* =========================================================
    FILTROS DE REFERÊNCIA
 ========================================================= */
@@ -1201,7 +1196,6 @@ html {
     width: 100%;
     margin-bottom: 28px;
 }
-
 
 /* =========================================================
    FILTRO DE DATAS
@@ -1216,7 +1210,6 @@ html {
     box-shadow: var(--shadow-sm);
 }
 
-
 .filtro-data-header {
     min-height: 43px;
     display: flex;
@@ -1230,11 +1223,9 @@ html {
     letter-spacing: 0.4px;
 }
 
-
 .filtro-data-header i {
     font-size: 1.5rem;
 }
-
 
 .filtro-data-conteudo {
     padding: 16px;
@@ -2115,10 +2106,10 @@ html {
 
 #tabelaHistorico {
     width: 100%;
-    max-height: 500px;
-    overflow-x: auto;
-    overflow-y: auto;
+    height: 500px;
+    overflow: auto;;
     scrollbar-width: thin;
+    border-radius: 10px;
 }
 
 #tabelaHistorico::-webkit-scrollbar {
@@ -2152,28 +2143,371 @@ html {
 
 .tabela-res {
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     font-size: 13px;
+    background: #fff;
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.05),
+        0 12px 32px rgba(0,0,0,.04);
 }
 
 .tabela-res th,
 .tabela-res td {
-    padding: 10px 12px;
-    border-bottom: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e2e8f0;
     text-align: left;
     white-space: nowrap;
 }
 
 .tabela-res th {
-    background: #f8fafc;
-    font-weight: 700;
-    color: #374151;
     position: sticky;
+    background: linear-gradient(
+        90deg,
+        #f57c00,
+        #ff9800
+    );
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
     top: 0;
+    z-index: 10;
+}
+
+.tabela-res tbody tr {
+    background: #fff;
+    transition: background-color .2s ease;
+}
+
+.tabela-res tbody td {
+    position: relative;
+    color: #475569;
 }
 
 .tabela-res tbody tr:hover {
+    background: #fff7ed;
+    transform: scale(1.002);
+}
+
+.tabela-res tbody tr:hover td {
+    color: #1e293b;
+}
+
+.tabela-res tbody tr:nth-child(even) {
     background: #f8fafc;
+}
+
+.tabela-res tbody tr:hover td:first-child::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: #f57c00;
+}
+
+.tabela-res tbody td:first-child {
+    font-weight: 600;
+    color: #334155;
+}
+
+.tabela-res tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Barra de rolagem moderna */
+.tabela-res::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+.tabela-res::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+
+.tabela-res::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 20px;
+}
+
+.tabela-res::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.placa-cell{
+    padding: 6px !important;
+}
+
+.placa{
+    position: relative;
+    width: 115px;
+    height: 38px;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 6px;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow:
+        0 1px 2px rgba(0,0,0,.15),
+        0 2px 6px rgba(0,0,0,.08);
+}
+
+.placa::after{
+    content: "BR";
+    position: absolute;
+    left: 1px;
+    bottom: 1px;
+    color: #000;
+    font-size: 4px;
+    font-weight: 700;
+    transform: scaleY(1.3);
+}
+
+.placa-topo{
+    height: 10px;
+    background-image: url("img/top.png");
+    position: relative;
+}
+
+.placa-topo::before{
+    content: "BRASIL";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: 6px;
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.placa-numero{
+    height: calc(100% - 10px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-family: "Arial Black", Arial, sans-serif;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: #111;
+    text-transform: uppercase;
+
+    transform: scaleY(1.10);
+}
+
+.tabela-res tbody tr:hover .placa {
+    transform: scale(1.03);
+    transition: .2s ease;
+}
+
+/* Proprietário */
+.tabela-res td:nth-child(2)::before {
+    font-family: "bootstrap-icons";
+    content: "\F4D7"; /* People circle */
+    font-size: 15px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Cargo */
+.tabela-res td:nth-child(3)::before {
+    font-family: "bootstrap-icons";
+    content: "\F4D2"; /* Person badge */
+    font-size: 15px;
+    color: var(--primary);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Funcional */
+.tabela-res td:nth-child(4)::before {
+    font-family: "bootstrap-icons";
+    content: "\F8C8"; /* Person vcard fill */
+    font-size: 15px;
+    color: var(--tema);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* manobrista */
+.tabela-res td:nth-child(5)::before{
+    font-family: "bootstrap-icons";
+    content: "\F881"; /*Ev front */
+    font-size: 15px;
+    color: var(--danger);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+ .tabela-res td:nth-child(6)::before{
+    font-family: "bootstrap-icons";
+    content: "\F880"; /* Ev front fill */
+    font-size: 15px;
+    color: var(--success);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+
+/* PRISMA */
+.tabela-res td:nth-child(7)::before {
+    font-family: "bootstrap-icons";
+    content: "\F44E"; /* Key fill */
+    font-size: 15px;
+    color: var(--cor-css);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* ESTAÇÃO */
+.tabela-res td:nth-child(8)::before {
+    font-family: "bootstrap-icons";
+    content: "\F83A"; /* EV station */
+    font-size: 14px;
+    color: #003B5C;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* TORRE */
+.tabela-res td:nth-child(9)::before {
+    font-family: "bootstrap-icons";
+    content: "\F87D"; /* building */
+    font-size: 14px;
+    color: #003B5C;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* PISO */
+.tabela-res td:nth-child(10)::before {
+    font-family: "bootstrap-icons";
+    content: "\f3e8"; /* geo-fill */
+    font-size: 14px;
+    color: var(--tema);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* DATA */
+.tabela-res td:nth-child(11)::before {
+    font-family: "bootstrap-icons";
+    content: "\F214"; /* Calendar3 */
+    font-size: 14px;
+    color: #003B5C;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* DIA */
+.tabela-res td:nth-child(12)::before {
+    font-family: "bootstrap-icons";
+    content: "\F214"; /* Calendar3 */
+    font-size: 14px;
+    color: #003B5C;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Hora chegada */
+.tabela-res td:nth-child(13)::before {
+    font-family: "bootstrap-icons";
+    content: "\F293"; /* Clock */
+    font-size: 14px;
+    color: #64748b;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Hora carga */
+.tabela-res td:nth-child(15)::before {
+    font-family: "bootstrap-icons";
+    content: "\F292"; /* Clock history */
+    font-size: 14px;
+    color: #64748b;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Hora final */
+.tabela-res td:nth-child(17)::before {
+    font-family: "bootstrap-icons";
+    content: "\F291"; /* Clock fill */
+    font-size: 14px;
+    color: #64748b;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* .tabela-res td:nth-child(7),
+.tabela-res td:nth-child(8),
+.tabela-res td:nth-child(9),
+.tabela-res td:nth-child(10),
+.tabela-res td:nth-child(14),
+.tabela-res td:nth-child(13),
+.tabela-res td:nth-child(15),
+.tabela-res td:nth-child(17),
+.tabela-res td:nth-child(16),
+.tabela-res td:nth-child(18),
+.tabela-res td:nth-child(19),
+.tabela-res td:nth-child(20) {
+    font-weight: 600;
+    color: #334155;
+} */
+
+/* Tempo espera */
+.tabela-res td:nth-child(14)::before {
+    font-family: "bootstrap-icons";
+    content: "\F41F"; /* Calendar3 */
+    font-size: 14px;
+    color: var(--primary);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* Carga inicial */
+.tabela-res td:nth-child(16)::before {
+    font-family: "bootstrap-icons";
+    content: "\F185"; /* Battery charging */
+    font-size: 20px;
+    color: var(--danger);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* CARGA FINAL */
+.tabela-res td:nth-child(18)::before {
+    font-family: "bootstrap-icons";
+    content: "\F186"; /* Battery full */
+    font-size: 20px;
+    color: var(--success);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* TEMPO DE CARGA */
+.tabela-res td:nth-child(19)::before {
+    font-family: "bootstrap-icons";
+    content: "\F420"; /* Battery full */
+    font-size: 14px;
+    color: var(--tema);
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/* STATUS */
+.tabela-res td:nth-child(20)::before {
+    font-family: "bootstrap-icons";
+    content: "\F26A"; /* Battery full */
+    font-size: 14px;
+    color: #008000;
+    margin-right: 6px;
+    vertical-align: middle;
 }
 
 /* ================= Pesquisa do Histórico ================= */

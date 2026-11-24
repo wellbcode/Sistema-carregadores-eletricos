@@ -16,7 +16,6 @@ fecharModal.addEventListener('click', () => {
     modalOperadores.classList.remove('active');
 });
 
-
 // Clique em um operador
 const operadores = document.querySelectorAll('.operador-item');
 const buscarOperador = document.getElementById('buscarOperador');
@@ -626,41 +625,6 @@ function gerarIdPerfil(nome) {
         .replace(/^-|-$/g, '');
 }
 
-// Recupera os perfis ou importa os que já estão no HTML
-// function carregarPerfis() {
-//     const dadosSalvos = localStorage.getItem(CHAVE_PERFIS);
-
-//     if (dadosSalvos !== null) {
-//         try {
-//             const perfis = JSON.parse(dadosSalvos);
-
-//             if (Array.isArray(perfis)) {
-//                 return perfis;
-//             }
-//         } catch (erro) {
-//             console.error('Erro ao ler os perfis:', erro);
-//         }
-//     }
-
-//     const perfisIniciais = [
-//         ...gradePerfis.querySelectorAll(
-//             '.profile-item:not(.operadores)'
-//         )
-//     ].map(perfil => {
-//         const nome = perfil.querySelector('h3').textContent.trim();
-//         const imagem = perfil.querySelector('img');
-
-//         return {
-//             id: gerarIdPerfil(nome),
-//             nome,
-//             fotoPadrao: imagem.getAttribute('src')
-//         };
-//     });
-
-//     salvarPerfis(perfisIniciais);
-//     return perfisIniciais;
-// }
-
 function carregarPerfis() {
 
     let perfisSalvos = [];
@@ -1049,7 +1013,6 @@ function criarCardPerfil(perfil) {
                 }
             });
 
-            
             if (!respostaPin.isConfirmed) return;
 
             const indice = perfisAdministradores.findIndex(

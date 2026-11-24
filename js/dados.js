@@ -89,7 +89,14 @@ function renderizarHistorico() {
                     .reverse()
                     .map(r => `
                     <tr>
-                        <td>${r.placa}</td>
+                        <td class="placa-cell">
+                            <div class="placa">
+                                <div class="placa-topo"></div>
+                                <div class="placa-numero">
+                                    ${r.placa}
+                                </div>
+                            </div>
+                        </td>
                         <td>${r.proprietario}</td>
                         <td>${r.cargo || "-"}</td>
                         <td>${r.funcional ? String(r.funcional).replace(/^Func:\s*/i, "") : "-"}</td>

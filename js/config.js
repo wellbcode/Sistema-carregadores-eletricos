@@ -101,7 +101,6 @@ async function carregarMinhaConta() {
     configurarGerenciamentoPin(usuario);
 }
 
-
 /* =========================================
 // GERENCIAMENTO DO PIN DA CONTA
 ========================================= */

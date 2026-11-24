@@ -1,7 +1,6 @@
 // =====================================================
 // PREMISSAS DOS INDICADORES
 // =====================================================
-
 const CAPACIDADE_BATERIA_KWH = 60;
 const PRECO_KWH = 0.85;
 const PRECO_COMBUSTIVEL = 6.00;

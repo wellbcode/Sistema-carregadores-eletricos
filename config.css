@@ -112,7 +112,6 @@ body {
 }
 
 /* CABEÇALHO */
-
 .settings-header {
     margin-bottom: 35px;
     text-align: center;
@@ -150,7 +149,6 @@ body {
 }
 
 /* GRID */
-
 .settings-grid {
     display: grid;
     grid-template-columns: repeat(
@@ -162,17 +160,13 @@ body {
 }
 
 /* CARDS */
-
 .settings-card {
     background: rgba(255,255,255,.08);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-
     border: 1px solid rgba(255,255,255,.12);
     border-radius: 20px;
-
     padding: 24px;
-
     transition: border-color .3s ease,
                 background .3s ease,
                 transform .3s ease;
@@ -184,7 +178,6 @@ body {
 }
 
 /* TÍTULOS DOS CARDS */
-
 .card-title {
     display: flex;
     align-items: center;
@@ -205,15 +198,12 @@ body {
 }
 
 /* ITENS */
-
 .config-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 12px;
-
     padding: 14px 0;
-
     border-bottom: 1px solid rgba(255,255,255,.08);
     color: rgba(255,255,255,.85);
 }
@@ -229,22 +219,16 @@ body {
 }
 
 /* BOTÕES DE AÇÃO */
-
 .config-item button {
     background: rgba(255,255,255,.12);
     color: #fff;
-
     border: 1px solid rgba(255,255,255,.15);
     border-radius: 8px;
-
     padding: 7px 14px;
-
     font-size: .85rem;
     font-weight: 600;
-
     cursor: pointer;
     transition: .25s ease;
-
     backdrop-filter: blur(8px);
 }
 
@@ -256,19 +240,15 @@ body {
 }
 
 /* BOTÕES DE EDIÇÃO */
-
 .btn-action {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 7px;
-
     background: rgba(255,140,0,.12) !important;
     color: #ff9d3f !important;
-
     border: 1px solid rgba(255,140,0,.30) !important;
     border-radius: 10px !important;
-
     padding: 8px 14px !important;
 }
 
@@ -279,7 +259,6 @@ body {
 }
 
 /* INDICADORES VISUAIS */
-
 .config-indicator {
     color: #ff9d3f;
     font-size: 1.2rem;
@@ -287,7 +266,6 @@ body {
 }
 
 /* BACKUP E DADOS */
-
 .config-button-item {
     border-bottom: none;
     padding: 7px 0;
@@ -296,23 +274,17 @@ body {
 .btn-config {
     width: 100%;
     min-height: 43px;
-
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 9px;
-
     padding: 11px 14px;
-
     background: rgba(255,255,255,.10);
     color: #fff;
-
     border: 1px solid rgba(255,255,255,.13);
     border-radius: 10px;
-
     font-size: .88rem;
     font-weight: 600;
-
     cursor: pointer;
     transition: .25s ease;
 }
@@ -324,7 +296,6 @@ body {
 }
 
 /* BOTÃO DE PERIGO */
-
 .btn-config.btn-danger {
     background: rgba(217,54,54,.15);
     color: #ff7777;
@@ -397,16 +368,12 @@ body {
     flex: 1;
     min-height: 40px;
     padding: 9px 14px;
-
     background: rgba(255,140,0,.12);
     color: #ff9d3f;
-
     border: 1px solid rgba(255,140,0,.30);
     border-radius: 10px;
-
     font-size: .85rem;
     font-weight: 600;
-
     cursor: pointer;
     transition: .25s ease;
 }
@@ -444,6 +411,7 @@ body {
 .swal2-cancel {
     transition: transform 0.2s ease;
 }
+
 .sawl2-confirm:hover,
 .swal2-cancel:hover {
     transform: translateX(-2px);
@@ -451,82 +419,62 @@ body {
 
 /* RESPONSIVIDADE */
 @media (max-width: 420px) {
-
     .config-acoes-pin {
         flex-direction: column;
     }
-
     .config-acoes-pin button {
         width: 100%;
     }
-
 }
 
 @media (max-width: 768px) {
-
     .settings-container {
         padding: 20px 15px;
     }
-
     .settings-header h2 {
         font-size: 1.8rem;
     }
-
     .settings-header p {
         font-size: .9rem;
     }
-
     .settings-grid {
         margin-top: 30px;
         gap: 18px;
     }
-
     .settings-card {
         padding: 20px;
     }
-
 }
 
 @media (max-width: 420px) {
-
     .settings-header h2 {
         font-size: 1.5rem;
     }
-
     .card-title h3 {
         font-size: 1.05rem;
     }
-
     .config-item {
         gap: 8px;
         font-size: .88rem;
     }
-
     .config-item strong {
         font-size: .82rem;
     }
-
 }
 
 /* =====================================
    FOOTER
 ===================================== */
-
 .footerConfig {
     width: 100%;
      padding: 40px 30px;
     flex-shrink: 0;
-
     background: rgba(15, 23, 42, .75);
-
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-
     border-top: 1px solid rgba(255,255,255,.08);
-
     text-align: center;
 }
-
 .footerConfig .copyright {
     margin: 0;
     color: rgba(255,255,255,.75);
